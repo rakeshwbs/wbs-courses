@@ -1,0 +1,191 @@
+---
+id: evaluation-structured-questions
+title: Exam-type Questions
+hide_title: true
+sidebar_position: 4
+sidebar_label: Exam-type Questions
+sidebar_class_name: icon-exam
+---
+import ModuleBanner from '@site/src/components/dsa/dsa-banner';
+
+<ModuleBanner />
+
+### **Sample Examination Questions & Answers - Week 6 Concepts**
+
+**QUESTION 1 \[25 MARKS]**
+
+(a) Compare a **linked stack** to an **array-based stack**. Explain the primary advantage of the linked implementation and describe how the `push` operation is fundamentally different in each.
+\[10]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    **Primary Advantage:** The primary advantage of a linked stack is that it is **dynamic**. It can grow and shrink in size as needed at runtime, limited only by system memory. This eliminates the "Stack Overflow" error caused by the fixed capacity of an array-based stack.
+
+    **Difference in `push` implementation:**
+
+    * **Array-based Stack:** The `push` operation involves incrementing an integer index (`top`) and placing the new element at `arr[top]`. It must first check if the stack is full.
+    * **Linked Stack:** The `push` operation involves creating a new `Node` and adding it to the **head** of the linked list. This involves re-wiring pointers (`newNode->next = head;` and `head = newNode;`). It does not need to check for overflow.
+
+    **Marking Scheme:**
+
+    * \[4 Marks] - For correctly identifying the dynamic size/no overflow limit as the key advantage.
+    * \[3 Marks] - For correctly describing the array-based push (incrementing `top` index).
+    * \[3 Marks] - For correctly describing the linked push (prepending a new node at the head).
+
+</details>
+
+(b) Using a stack, trace the evaluation of the following postfix expression: `6 2 * 9 5 - /`. Show the state of the stack after each token is processed. What is the final result?
+\[10]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    **Trace:**
+
+    1. `6`: Push 6. → Stack: `[6]`
+    2. `2`: Push 2. → Stack: `[6, 2]`
+    3. `*`: Pop 2, Pop 6. Calculate 6 × 2 = 12. Push 12. → Stack: `[12]`
+    4. `9`: Push 9. → Stack: `[12, 9]`
+    5. `5`: Push 5. → Stack: `[12, 9, 5]`
+    6. `-`: Pop 5, Pop 9. Calculate 9 - 5 = 4. Push 4. → Stack: `[12, 4]`
+    7. `/`: Pop 4, Pop 12. Calculate 12 / 4 = 3. Push 3. → Stack: `[3]`
+
+    **Final Result:** The final result is **3**.
+
+    **Marking Scheme:**
+
+    * \[7 Marks] - For a correct trace showing the state of the stack after each of the 7 steps (1 mark per step).
+    * \[3 Marks] - For correctly identifying the final result.
+
+</details>
+
+(c) Briefly define **postfix notation** and state why it is useful for computers.
+\[5]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    **DefinitionBox:** Postfix notation (or Reverse Polish Notation) is a mathematical notation in which every operator follows all of its operands. For example, `3 + 4` is written as `3 4 +`.
+
+    **Usefulness:** It is useful for computers because it is **unambiguous** and does not require parentheses or rules of operator precedence. Expressions can be parsed and evaluated straightforwardly from left to right using a stack, simplifying the design of compilers and calculators.
+
+    **Marking Scheme:**
+
+    * \[2 Marks] - For a correct definition of postfix notation.
+    * \[3 Marks] - For explaining its usefulness (unambiguous, no need for precedence rules).
+
+</details>
+
+---
+
+**QUESTION 2 \[25 MARKS]**
+
+(a) Write the complete C++ code for the `pop()` method for a **linked stack**. The implementation must correctly handle the Stack Underflow condition and return the popped value. Assume the `Node` and `Stack` classes are already defined.
+\[9]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+```cpp
+    #include <iostream> // For error message
+
+    // Assuming 'Node' class is defined elsewhere
+    // Assuming 'Stack' class has 'private: Node* head;'
+
+    int Stack::pop() {
+        // 1. Check for Stack Underflow
+        if (isEmpty()) { // or if (head == nullptr)
+        std::cout << "Error: Stack Underflow!" << std::endl;
+        return -1; // Return an error code
+    }
+
+        // 2. Store the head node's data to return later
+        int valueToReturn = head->data;
+
+        // 3. Create a temporary pointer to the current head
+        Node* temp = head;
+
+        // 4. Advance the head pointer to the next node
+        head = head->next;
+
+        // 5. Delete the old head node to prevent a memory leak
+        delete temp;
+
+        // 6. Return the stored value
+        return valueToReturn;
+    }
+```
+
+    **Marking Scheme:**
+
+    * [3 Marks] - For correctly checking for underflow and handling the error case.
+    * [2 Marks] - For correctly advancing the `head` pointer (`head = head->next`).
+    * [2 Marks] - For using a temporary pointer to correctly `delete` the old head node.
+    * [2 Marks] - For correctly storing and returning the value from the original head node.
+
+</details>
+
+(b) In the algorithm for checking balanced parentheses, explain the two checks you must perform when your
+algorithm encounters a **closing bracket** (e.g., `)`).
+\[8]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    When a closing bracket is encountered, you must perform these two checks in order:
+
+    1. **Check if the stack is empty:** Before attempting to pop, you must check `stack.isEmpty()`.
+    If the stack is empty, it means you've found a closing bracket that has no corresponding opening bracket. The expression is unbalanced, and you should immediately return `false`.
+    2. **Check for a matching bracket:** If the stack is not empty, you `pop()` the top element.
+    You must then check if this popped element is the correct opening partner for the closing bracket you've just encountered.
+    For example, if you encountered a `)`, the popped element must be a `(`. If they do not match (e.g., you encounter `)` but pop `{),
+    the expression is unbalanced, and you should return `false`.
+
+    **Marking Scheme:**
+
+    * \[4 Marks] - For explaining the check for an empty stack and its implication (unmatched closer).
+    * \[4 Marks] - For explaining the check for a matching bracket pair after popping.
+
+</details>
+
+    (c) When checking an expression for balanced parentheses, t
+    here are two distinct scenarios where the function should determine that the expression is unbalanced
+    and return `false`. Describe these two failure conditions.
+\[8]
+    <details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    The two failure conditions are:
+
+    1. **A closing bracket is found that does not match the last-seen opening bracket.** This can happen in two ways:
+
+    * A closing bracket is found when the stack is empty (e.g., `())`).
+    * A closing bracket is found, but the item on top of the stack is the wrong type (e.g., `([)]`).
+    This condition is checked **during** the loop through the expression.
+    2. **The end of the expression is reached, but the stack is not empty.**
+    This means there are one or more opening brackets
+    that were never closed by a corresponding closing bracket  e.g., `(a + b * \{c))`
+
+    This condition is checked **after** the loop has finished.
+
+    **Marking Scheme:**
+
+    * \[4 Marks] - For describing the first failure condition (mismatch during the loop).
+    * \[4 Marks] - For describing the second failure condition (non-empty stack after the loop).
+
+    </details>
+
+

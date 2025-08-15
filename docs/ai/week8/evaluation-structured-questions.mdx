@@ -1,0 +1,118 @@
+---
+id: evaluation-structured-questions
+title: Exam-type Questions
+hide_title: true
+sidebar_position: 4
+sidebar_label: Exam-type Questions
+sidebar_class_name: icon-exam
+---
+import ModuleBanner from '@site/src/components/ai/ai-banner';
+
+<ModuleBanner />
+
+### 📘 **Sample Examination Questions & Answers - Week 8 Concepts**
+
+---
+
+### **QUESTION 1 \[25 MARKS]**
+
+---
+
+#### (a) Explain the primary limitation of using a standard Multi-Layer Perceptron (MLP) for image classification tasks, and describe how a Convolutional Neural Network (CNN) specifically overcomes this limitation.
+
+**\[7 Marks]**
+
+<details>
+<summary>Click to see the answer and marking scheme</summary>
+
+**Answer:**
+
+The primary limitation of an MLP for image tasks is that it requires the input image to be **Flattened** into a 1D vector. This process **destroys all spatial information** in the image, meaning the model loses the crucial context of which pixels are next to each other. As a result, it cannot effectively learn features like edges, shapes, and textures.
+
+A CNN overcomes this by using **convolutional layers** with learnable filters (kernels). These filters are small matrices that slide over the 2D input image, preserving the spatial relationships between pixels. This allows the network to learn localized patterns (like a vertical edge) and build a hierarchical representation of visual features, making it far more effective and efficient for image-based tasks.
+
+**Marking Scheme:**
+
+* \[3 Marks] - For clearly identifying the limitation of MLPs (flattening destroys spatial information).
+* \[4 Marks] - For explaining how CNNs solve this using convolutional layers and filters to preserve spatial structure.
+
+</details>
+
+---
+
+#### (b) A CNN is typically composed of two main parts: a **Convolutional Base** and a **Classifier Head**. Describe the primary function of each part.
+
+**\[6 Marks]**
+
+<details>
+<summary>Click to see the answer and marking scheme</summary>
+
+**Answer:**
+
+1. **Convolutional Base:**
+   This part's primary function is **feature extraction**. It is composed of a stack of convolutional and pooling layers. It takes the raw input image and automatically learns a hierarchy of features, starting with simple patterns like edges and colors, and building up to more complex shapes and textures in the deeper layers.
+
+2. **Classifier Head:**
+   This part's primary function is **classification**. It is typically a standard Multi-Layer Perceptron (with Dense layers). It takes the high-level, abstract features extracted by the convolutional base as its input and makes the final prediction, classifying the image into one of the target categories.
+
+**Marking Scheme:**
+
+* \[3 Marks] - For a correct description of the Convolutional Base (feature extraction).
+* \[3 Marks] - For a correct description of the Classifier Head (classification).
+
+</details>
+
+---
+
+#### (c) Describe the operation of a **Max Pooling** layer and state its two main benefits.
+
+**\[6 Marks]**
+
+<details>
+<summary>Click to see the answer and marking scheme</summary>
+
+**Answer:**
+
+**Operation:**
+A Max Pooling layer works by sliding a small window (e.g., 2x2) over its input feature map. For each region covered by the window, it outputs only the single maximum value, effectively discarding the other values.
+
+**Benefits:**
+
+1. **Computational Efficiency:**
+   It progressively reduces the spatial dimensions (width and height) of the feature maps, which significantly decreases the number of parameters and computations in subsequent layers.
+
+2. **Translation Invariance:**
+   By summarizing a local region with its most prominent feature, it makes the model more robust to small shifts, distortions, or translations in the input image.
+
+**Marking Scheme:**
+
+* \[2 Marks] - For a correct description of the max pooling operation.
+* \[2 Marks] - For identifying computational efficiency as a benefit.
+* \[2 Marks] - For identifying translation invariance/robustness as a benefit.
+
+</details>
+
+---
+
+#### (d) What is meant by **parameter sharing** in a convolutional layer, and why is it a significant advantage?
+
+**\[6 Marks]**
+
+<details>
+<summary>Click to see the answer and marking scheme</summary>
+
+**Answer:**
+
+**Parameter Sharing** refers to the fact that the same filter (a small matrix of learnable weights or parameters) is used across all spatial locations of the input image. A feature detector (like a vertical edge detector) that is useful in one part of the image is likely to be useful in another part.
+
+This is a significant advantage because it **dramatically reduces the number of parameters** the model needs to learn. Instead of learning a unique weight for every single pixel position (as an MLP would), the CNN only needs to learn the small set of weights for each filter. This makes the network far more efficient to train and less prone to overfitting.
+
+**Marking Scheme:**
+
+* \[3 Marks] - For a clear explanation of parameter sharing (re-using the same filter across the image).
+* \[3 Marks] - For explaining the advantage (dramatically reduces the number of parameters, making it more efficient).
+
+</details>
+
+---
+

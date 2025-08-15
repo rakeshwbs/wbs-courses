@@ -1,0 +1,61 @@
+---
+id: lab-sheet2
+title: Lab sheet 2
+hide_title: true
+sidebar_position: 2
+sidebar_label: Data Dictionary
+sidebar_class_name: icon-lab
+---
+import ModuleBanner from '@site/src/components/brm/brm-banner';
+
+<ModuleBanner />
+
+
+## Lab 2: Defining the Data Dictionary
+
+### Objective
+To learn how to properly define the properties of each variable in a dataset using the **Variable View** in SPSS. This is a critical step for ensuring data integrity and clear analysis.
+
+### Prerequisite
+You will need the `Week1_Lab.sav` file that you created and saved in Lab 1.
+
+### Instructions
+
+1.  **Open Your File:** Launch SPSS and open the `Week1_Lab.sav` file.
+2.  **Go to Variable View:** At the bottom-left of the Data Editor window, click on the **`Variable View`** tab. You'll see the four variables you created last week listed in rows. We are now going to properly define their properties in the columns.
+3.  **Understanding the Properties:** Here are the most important columns and what they mean:
+* **Name:** The short name for the variable (e.g., `Participant_ID`). No spaces allowed.
+* **Type:** The type of data. The most common are `Numeric` and `String` (text).
+* **Label:** A longer, more descriptive name for the variable that will appear in your charts and tables (e.g., "Overall Satisfaction Score"). Spaces are allowed here.
+* **Values:** Used to assign text labels to numeric codes. This is essential for categorical data (e.g., telling SPSS that `1` means "Male" and `2` means "Female").
+* **Missing:** Used to specify values that represent missing data (e.g., if a respondent didn't answer a question, you might code it as `99`).
+* **Measure:** The level of measurement for the variable. This is **very important** for analysis.
+4.  **Levels of Measurement (`Measure`):** There are three options in SPSS:
+* **Nominal:** For categorical data where the order does not matter. Think of unordered categories like types of fruit.
+  * *Example:* Gender (Male, Female), Eye Color (Blue, Brown, Green).
+* **Ordinal:** For categorical data where there is a meaningful order or rank, but the distance between categories is not equal. Think of small, medium, and large sizes.
+  * *Example:* Satisfaction ratings (Dissatisfied, Neutral, Satisfied), Education Level (High School, Bachelor's, Master's).
+* **Scale:** For continuous numeric data where the intervals between values are equal and meaningful. Think of a ruler with exact markings.
+  * *Example:* Age, Temperature, Income, Height.
+5.  **Define Your Variables:** Now, update each of your four variables by clicking on the appropriate cells and entering the following properties:
+
+* For the **`Participant_ID`** variable:
+  * **Label:** `Participant Identification Number`
+  * **Values:** Leave as `None`
+  * **Measure:** `Nominal`
+* For the **`Age`** variable:
+  * **Label:** `Age of Participant`
+  * **Values:** Leave as `None`
+  * **Measure:** `Scale`
+* For the **`Gender`** variable:
+  * **Label:** `Gender of Participant`
+  * **Values:** Check that `1` = "Male", `2` = "Female"
+  * **Measure:** `Nominal`
+* For the **`Satisfaction`** variable:
+  * **Label:** `Overall Satisfaction Score`
+  * **Values:** Set `1` = "Very Dissatisfied", `2` = "Dissatisfied", `3` = "Neutral", `4` = "Satisfied", `5` = "Very Satisfied"
+  * **Measure:** `Ordinal`
+6.  **Save Your Work:** Once you have updated all the properties, go to **File -> Save**. Your SPSS data file now has a proper "data dictionary," making it much easier to understand and analyze.
+
+---
+

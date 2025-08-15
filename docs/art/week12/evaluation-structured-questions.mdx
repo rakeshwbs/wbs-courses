@@ -1,0 +1,108 @@
+---
+id: evaluation-structured-questions
+title: Exam-type Questions
+hide_title: true
+sidebar_position: 4
+sidebar_label: ✍️ Exam-type Questions
+---
+import ModuleBanner from '@site/src/components/art/art-banner';
+
+<ModuleBanner />
+
+**QUESTION 1 \[25 MARKS]**
+
+(a) You are hired as a network consultant for a large, growing university in Mauritius. The university uses networking equipment from multiple vendors (including Cisco and Juniper) and needs a robust, scalable, and non-proprietary routing protocol for its large internal network. Which Interior Gateway Protocol (RIPv2, EIGRP, or OSPF) would you recommend? You must provide **two strong technical justifications** for your choice.
+\[6]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    The best recommendation is **OSPF**.
+
+    1. **Justification 1 (Open Standard):** OSPF is an open IETF standard. This is the most critical factor in a multi-vendor environment, as it ensures compatibility and interoperability between the Cisco and Juniper equipment. EIGRP, while now more open, was historically Cisco-proprietary and is not as universally supported.
+
+    2. **Justification 2 (Scalability & Hierarchy):** OSPF is designed for large, complex networks. Its ability to be broken down into a hierarchical design using multiple **areas** connected to a central backbone (Area 0) allows it to scale exceptionally well. This reduces the LSDB size and SPF calculation overhead on routers, which is perfect for a growing university campus.
+
+    **Marking Scheme:**
+
+    * \[2 Marks] - For correctly recommending OSPF.
+    * \[2 Marks] - For justifying the choice based on it being an open standard for multi-vendor support.
+    * \[2 Marks] - For justifying the choice based on its scalability via a hierarchical area design.
+
+</details>
+
+---
+
+(b) Compare and contrast the following three path control mechanisms. For each, describe its primary function and typical use case.
+i. A `distribute-list` applied to a routing protocol. \[3]
+ii. A `route-map` used during redistribution. \[3]
+iii. Policy-Based Routing (PBR). \[3]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    i. **Distribute-List:** Its primary function is **simple route filtering**. It uses an ACL to permit or deny specific routes from being advertised or learned by a routing protocol. Its use case is straightforward, "all-or-nothing" filtering of prefixes.
+
+    ii. **Route-Map (for redistribution):** Its primary function is **advanced path control**. It goes beyond simple filtering by allowing you to **modify the attributes** of routes as they are redistributed. Its use case is to not only filter routes but also to set their metric, metric-type, or tags to influence how the receiving protocol perceives them.
+
+    iii. **Policy-Based Routing (PBR):** Its primary function is to **override the routing table** for specific traffic. While the other two tools manipulate the routing table itself, PBR intercepts packets as they arrive and forwards them based on policy criteria (like source IP), ignoring the best path in the routing table. Its use case is forcing specific traffic down a non-default path.
+
+    **Marking Scheme:**
+
+    * \[3 Marks] - For a clear description of a distribute-list (simple filtering).
+    * \[3 Marks] - For a clear description of a route-map (advanced control, modifying attributes).
+    * \[3 Marks] - For a clear description of PBR (overriding the routing table based on policy).
+
+</details>
+
+---
+
+(c) A router in an OSPF domain is also performing redistribution from an EIGRP domain. You see the following entry in its routing table. Break down and explain each of the marked components.
+`O E2  10.200.0.0/16 [ 110 / 20 ] via 172.16.1.1, 00:55:19, Serial0/0/0`
+`[ A ]` `[ B ]` `[ C ]` `[ D ]`
+
+\[6]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    * **\[A] `O E2`:** This is the route source. It indicates the route was learned via **OSPF** (`O`) and is an **External Type 2** (`E2`) route, meaning it was redistributed into OSPF from another routing domain.
+    * **\[B] `110`:** This is the **Administrative Distance** of the OSPF protocol.
+    * **\[C] `20`:** This is the **metric** (or cost) of the route. For an E2 route, this is the fixed seed metric assigned at the point of redistribution and does not change as it propagates through the OSPF domain.
+    * **\[D] `172.16.1.1`:** This is the **next-hop IP address**. It is the address of the next router to which packets destined for `10.200.0.0/16` should be forwarded.
+
+    **Marking Scheme:**
+
+    * \[1.5 Marks] - For each correctly identified and explained component.
+
+</details>
+
+---
+
+(d) Explain the fundamental reason why BGP is the standard for routing on the global internet, while a powerful IGP like OSPF is not. Your answer should focus on the core design purpose of each protocol.
+\[7]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    The fundamental reason is the difference in their core design purpose and the environment in which they operate.
+
+    * **OSPF (IGP):** Is designed for routing **within a single administrative domain** (an Autonomous System). Its primary goal is to find the **fastest path** quickly using a simple metric (cost). It assumes all routers are under a common administration and have a common goal. It lacks the tools to enforce complex policies between different organizations.
+
+    * **BGP (EGP):** Is designed for routing **between different, untrusting Autonomous Systems** (e.g., between ISPs). Its primary goal is not speed, but **policy and control**. It uses a complex set of Path Attributes (like AS\_PATH and Local Preference) to enforce business rules about which paths are preferred or allowed. Its scalability and policy-based nature are essential for managing the complexity and trust boundaries of the global internet, whereas OSPF's focus on a simple metric is insufficient for this task.
+
+    **Marking Scheme:**
+
+    * \[3 Marks] - For explaining OSPF's purpose (IGP, speed-focused, common administration).
+    * \[4 Marks] - For explaining BGP's purpose (EGP, policy-focused, between different/untrusting domains) and why that makes it suitable for the internet.
+
+</details>
+

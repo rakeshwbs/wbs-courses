@@ -1,0 +1,459 @@
+---
+id: specimen2
+title: Specimen Paper 2
+hide_title: true
+sidebar_position: 2
+sidebar_label: Specimen 2
+---
+## **Final Examination - Specimen 2**
+
+**Module:** DSA-251: Data Structure & Algorithm
+- **Time Allowed:** 3 Hours
+- **Total Marks:** 100
+
+### **Instructions:**
+* Answer all four questions.
+* Each question is worth 25 marks.
+* Read each question carefully before answering.
+
+---
+
+### **QUESTION 1: Core Concepts & Complexity \[25 MARKS]**
+
+**(a)** Define **Big O Notation** and explain its primary purpose in the context of algorithm analysis.
+\[5]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+    Big O Notation is a mathematical notation used to describe the limiting behavior of a function when the argument tends towards a particular value or infinity.
+
+    **Purpose:** In algorithm analysis, its purpose is to classify algorithms according to how their run time or space requirements grow as the input size `n` grows. It describes the worst-case performance, allowing us to compare the scalability of different algorithms and understand how their performance will degrade with larger datasets.
+
+    **Marking Scheme:**
+
+    * \[2 Marks] - Correct definition of Big O notation.
+    * \[3 Marks] - Explaining its purpose (analyzing scalability, comparing algorithms, worst-case).
+
+</details>
+
+---
+
+**(b)** Explain the difference between solving a problem **iteratively** versus solving it **recursively**.
+\[5]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    * **Iteration:** Uses loops (`for`, `while`) to repeat instructions. Manages state with loop variables updated each repetition.
+    * **Recursion:** Function calls itself with a smaller version of the same problem. Uses the call stack to manage state. Must have a base case to stop.
+
+    **Marking Scheme:**
+
+    * \[2.5 Marks] - Correct description of iteration.
+    * \[2.5 Marks] - Correct description of recursion.
+
+</details>
+
+---
+
+**(c)** In the context of C++ data structures using dynamic memory, explain what a **memory leak** is and how it typically occurs.
+\[5]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+    A memory leak occurs when memory is allocated on the heap but never deallocated.
+    It usually happens when memory is allocated using `new` but the pointer is lost before calling `delete`.
+
+    **Marking Scheme:**
+
+    * \[3 Marks] - Clear definition of memory leak.
+    * \[2 Marks] - Explanation of how it occurs.
+
+</details>
+
+---
+
+**(d)** Differentiate between an **Abstract Data Type (ADT)** and a concrete **Data Structure**.
+\[5]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    * **ADT:** Theoretical model describing what operations are possible (e.g., stack supports push and pop).
+    * **Data Structure:** Concrete implementation of an ADT (e.g., stack implemented with array or linked list).
+
+    **Marking Scheme:**
+
+    * \[2.5 Marks] - DefinitionBox of ADT.
+    * \[2.5 Marks] - DefinitionBox of Data Structure.
+
+</details>
+
+---
+
+**(e)** **\[Programming]** Draw a flowchart for the following code:
+
+```cpp
+int sum = 0;
+for (int i = 0; i < 5; i++) {
+    sum = sum + arr[i];
+}
+```
+
+\[5]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+    Flowchart must include:
+
+    1. Start
+    2. Initialize `sum = 0`, `i = 0`
+    3. Decision: `i < 5?`
+    4. If yes: add `arr[i]` to `sum`, increment `i`, repeat
+    5. If no: End
+
+    **Marking Scheme:**
+
+    * \[1 Mark] - Start/End symbols and initialization.
+    * \[2 Marks] - Loop decision.
+    * \[2 Marks] - Inside loop processes.
+
+</details>
+
+---
+
+### **QUESTION 2: Linear Structures in Practice \[25 MARKS]**
+
+**(a)** Describe the steps to insert a `newNode` after `targetNode` in a singly linked list.
+\[5]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    1. `newNode->next = targetNode->next;`
+    2. `targetNode->next = newNode;`
+    Order is important to prevent losing the rest of the list.
+
+    **Marking Scheme:**
+
+    * \[2.5 Marks] - Step 1.
+    * \[2.5 Marks] - Step 2.
+
+</details>
+
+---
+
+**(b)** State the add/remove operations for a **Stack** and a **Queue**.
+\[5]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    * **Stack:** Add → `push()`, Remove → `pop()`
+    * **Queue:** Add → `enqueue()`, Remove → `dequeue()`
+
+    **Marking Scheme:**
+
+    * \[2.5 Marks] - Stack.
+    * \[2.5 Marks] - Queue.
+
+</details>
+
+---
+
+**(c)** What problem does a circular array-based queue solve compared to a normal array-based queue?
+\[5]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+    It solves wasted space. A circular queue wraps around and reuses empty slots after `front` moves forward.
+
+    **Marking Scheme:**
+
+    * \[2 Marks] - Identifying wasted space problem.
+    * \[3 Marks] - Explaining wrap-around reuse.
+
+</details>
+
+---
+
+**(d)** Explain the role of the stack in checking **balanced parentheses** (example: `{[()]}`).
+\[5]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    * Push opening brackets onto the stack.
+    * On closing bracket, pop from stack and check match.
+    * LIFO ensures proper nesting.
+
+    **Marking Scheme:**
+
+    * \[2.5 Marks] - Opening bracket push.
+    * \[2.5 Marks] - Closing bracket pop and match.
+
+</details>
+
+---
+
+**(e)** Explain each of these lines in `pop()`:
+
+```cpp
+int value = head->data;     // 1
+Node* temp = head;          // 2
+head = head->next;          // 3
+```
+
+\[5]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    1. Store top element’s value.
+    2. Keep pointer to current head for deletion.
+    3. Move head to next node.
+
+    **Marking Scheme:**
+
+    * \[1 Mark] - Line 1.
+    * \[2 Marks] - Line 2.
+    * \[2 Marks] - Line 3.
+
+</details>
+
+---
+
+### **QUESTION 3: Non-Linear Structures I - Trees & Hashing \[25 MARKS]**
+
+**(a)** Describe the recursive BST search algorithm.
+\[5]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    * If node is null → not found.
+    * If value matches node → found.
+    * If value < node → search left subtree.
+    * If value > node → search right subtree.
+
+    **Marking Scheme:**
+
+    * \[2 Marks] - Base cases.
+    * \[3 Marks] - Recursive steps.
+
+</details>
+
+---
+
+**(b)** List two good properties of a hash function.
+\[5]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    1. Deterministic.
+    2. Uniform distribution.
+
+    **Marking Scheme:**
+
+    * \[2.5 Marks] - First property.
+    * \[2.5 Marks] - Second property.
+
+</details>
+
+---
+
+**(c)** Define a collision in hashing and name two resolution methods.
+\[5]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+    Collision → two keys get same index.
+    Resolution: Separate Chaining, Open Addressing.
+
+    **Marking Scheme:**
+
+    * \[2 Marks] - DefinitionBox.
+    * \[1.5 Marks] - Separate Chaining.
+    * \[1.5 Marks] - Open Addressing.
+
+</details>
+
+---
+
+**(d)** Compare BST and Hash Table for dictionary use (average search complexities).
+\[5]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    * Hash Table: O(1) avg, direct index access.
+    * BST: O(log n) avg, keeps data sorted.
+
+    **Marking Scheme:**
+
+    * \[2 Marks] - Hash Table.
+    * \[2 Marks] - BST.
+    * \[1 Mark] - Comparative note.
+
+</details>
+
+---
+
+**(e)** Fill in missing lines in BST `insert`:
+
+```cpp
+if (value < node->value) {
+    node->left = insert(node->left, value);   // Line 1
+} else if (value > node->value) {
+    node->right = insert(node->right, value); // Line 2
+}
+```
+
+\[5]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    * Line 1: Recursive insert in left.
+    * Line 2: Recursive insert in right.
+
+    **Marking Scheme:**
+
+    * \[2.5 Marks] - Left insert.
+    * \[2.5 Marks] - Right insert.
+
+</details>
+
+---
+
+### **QUESTION 4: Non-Linear Structures II - Graphs & Sorting \[25 MARKS]**
+
+**(a)** Name the two main graph representations and say which is better for sparse graphs.
+\[5]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+    Adjacency Matrix, Adjacency List.
+    Adjacency List better for sparse graphs.
+
+    **Marking Scheme:**
+
+    * \[2 Marks] - Both methods.
+    * \[3 Marks] - Correct choice for sparse graphs.
+
+</details>
+
+---
+
+**(b)** Describe DFS strategy.
+\[5]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+    Goes deep along one branch, backtracks when no unvisited neighbor, uses stack/recursion.
+
+    **Marking Scheme:**
+
+    * \[5 Marks] - Full description.
+
+</details>
+
+---
+
+**(c)** Describe BFS strategy.
+\[5]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+    Explores level by level, uses a queue.
+
+    **Marking Scheme:**
+
+    * \[5 Marks] - Full description.
+
+</details>
+
+---
+
+**(d)** Difference between O(n²) and O(n log n) sorting with examples.
+\[5]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    * O(n²) → slower, example: Bubble Sort.
+    * O(n log n) → faster, example: Merge Sort.
+
+    **Marking Scheme:**
+
+    * \[2 Marks] - Difference.
+    * \[1.5 Marks] - O(n²) example.
+    * \[1.5 Marks] - O(n log n) example.
+
+</details>
+
+---
+
+**(e)** C++ function to add directed edge to adjacency list.
+\[5]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    ```cpp
+    void Graph::addEdge(int u, int v) {
+    adj[u].push_back(v);
+}
+    ```
+
+    **Marking Scheme:**
+
+    * \[5 Marks] - Correct one-direction insert.
+
+</details>
+
+---
+<a class="download-link" href="/files/dsa/specimen-papers/dsa-specimen-paper2.pdf" download>Download Specimen Paper</a>
+
+---

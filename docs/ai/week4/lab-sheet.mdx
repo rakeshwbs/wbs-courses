@@ -1,0 +1,142 @@
+---
+id: lab-sheet
+title: Labsheet
+sidebar_position: 2
+hide_title: true
+sidebar_label: Using Random Forest
+sidebar_class_name: icon-lab
+
+---
+import ModuleBanner from '@site/src/components/ai/ai-banner';
+
+<ModuleBanner />
+### **Lab Guide**
+
+**Lab 04: From a Single Tree to a Forest of Predictors**
+
+**Objective:** By the end of this lab, you will have built and visualized a Decision Tree, demonstrated the concept of overfitting, and used a Random Forest to create a more robust and accurate model.
+
+**Scenario:** You are a health data analyst at a clinic in Mauritius. You have been given a dataset containing patient metrics and your task is to build a model that can predict the presence of heart disease.
+
+#### **Part A: Data Preparation**
+
+**1. Import Libraries**
+
+```python
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier, plot_tree
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score
+import matplotlib.pyplot as plt
+```
+
+**2. Load the Dataset**
+We will use a well-known "Heart Disease" dataset. For simplicity, we'll load it from a public URL.
+
+```python
+# Load the dataset from a URL
+url = 'https://archive.ics.uci.edu/ml/machine-learning-databases/heart-disease/processed.cleveland.data'
+column_names = ['age', 'sex', 'cp', 'trestbps', 'chol', 'fbs', 'restecg', 'thalach', 'exang', 'oldpeak', 'slope', 'ca', 'thal', 'target']
+df = pd.read_csv(url, header=None, names=column_names, na_values='?')
+
+# The 'target' column is 0 for no disease, and 1,2,3,4 for presence of disease. Let's simplify it to a binary problem.
+df['target'] = df['target'].apply(lambda x: 1 if x > 0 else 0)
+
+# Drop rows with missing values for simplicity
+df = df.dropna()
+
+print("Dataset loaded and preprocessed. Here are the first 5 rows:")
+print(df.head())
+```
+
+**3. Define Features (X) and Target (y)**
+
+```python
+X = df.drop('target', axis=1)
+y = df['target']
+```
+
+**4. Split the Data**
+
+```python
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+```
+
+#### **Part B: Building and Visualizing a Single Decision Tree**
+
+Let's build a simple, "pruned" tree with a maximum depth of 3 to keep it interpretable.
+
+```python
+# 1. Instantiate a Decision Tree Classifier with a max_depth of 3
+dt_pruned = DecisionTreeClassifier(max_depth=3, random_state=42)
+
+# 2. Fit the model
+dt_pruned.fit(X_train, y_train)
+
+# 3. Make predictions and evaluate
+y_pred_pruned = dt_pruned.predict(X_test)
+accuracy_pruned = accuracy_score(y_test, y_pred_pruned)
+print(f"Accuracy of pruned Decision Tree (max_depth=3): {accuracy_pruned:.4f}")
+
+# 4. Visualize the tree
+plt.figure(figsize=(20,10))
+plot_tree(dt_pruned, feature_names=X.columns, class_names=['No Disease', 'Disease'], filled=True, rounded=True)
+plt.title("Pruned Decision Tree (max_depth=3)")
+plt.show()
+```
+
+#### **Part C: Demonstrating Overfitting**
+
+Now, let's build a tree with no depth limit and see how it overfits.
+
+```python
+# 1. Instantiate a Decision Tree with no depth limit
+dt_overfit = DecisionTreeClassifier(random_state=42)
+
+# 2. Fit the model
+dt_overfit.fit(X_train, y_train)
+
+# 3. Evaluate on BOTH training and testing data
+# Training accuracy
+y_pred_train = dt_overfit.predict(X_train)
+accuracy_train = accuracy_score(y_train, y_pred_train)
+
+# Testing accuracy
+y_pred_overfit = dt_overfit.predict(X_test)
+accuracy_test_overfit = accuracy_score(y_test, y_pred_overfit)
+
+print(f"\n--- Demonstrating Overfitting ---")
+print(f"Accuracy on Training Set (memorized): {accuracy_train:.4f}")
+print(f"Accuracy on Testing Set (unseen): {accuracy_test_overfit:.4f}")
+print("\nNotice the huge drop in accuracy? This is overfitting in action!")
+```
+
+#### **Part D: Building a Random Forest**
+
+Let's see if the "wisdom of the crowd" can give us a better, more stable result.
+
+```python
+# 1. Instantiate a Random Forest Classifier with 100 trees
+rf = RandomForestClassifier(n_estimators=100, random_state=42)
+
+# 2. Fit the model
+rf.fit(X_train, y_train)
+
+# 3. Make predictions and evaluate
+y_pred_rf = rf.predict(X_test)
+accuracy_rf = accuracy_score(y_test, y_pred_rf)
+```
+
+#### **Part E: Conclusion and Comparison**
+
+Let's compare the test accuracy of all our models.
+
+```python
+print("\n--- Final Model Comparison ---")
+print(f"Pruned Decision Tree Test Accuracy: {accuracy_pruned:.4f}")
+print(f"Overfit Decision Tree Test Accuracy: {accuracy_test_overfit:.4f}")
+print(f"Random Forest Test Accuracy: {accuracy_rf:.4f}")
+```
+
+**Conclusion:** You should observe that the Random Forest's accuracy is generally higher and more reliable than either of the single Decision Tree models. It successfully mitigates the overfitting problem by averaging the "opinions" of many diverse trees, leading to better generalization on unseen data.

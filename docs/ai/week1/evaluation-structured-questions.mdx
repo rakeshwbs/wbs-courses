@@ -1,0 +1,128 @@
+---
+id: evaluation-structured-questions
+title: Exam-type Questions
+hide_title: true
+sidebar_position: 4
+sidebar_label: Exam-type Questions
+sidebar_class_name: icon-exam
+---
+import ModuleBanner from '@site/src/components/ai/ai-banner';
+
+<ModuleBanner />
+
+
+<div className="exam-card">
+    <header className="exam-header">
+        <h2>QUESTION 1: AI Fundamentals and Modern Landscape</h2>
+        <span className="marks-badge">25 MARKS</span>
+    </header>
+
+    <section className="q-part">
+        <h3>(a) Based on the lecture notes, provide the academically accepted definition of Artificial Intelligence (AI) and list any <strong>two</strong> of its core characteristics. <span className="marks">[5]</span></h3>
+
+        <details className="ans">
+            <summary>Show answer & marking scheme</summary>
+            <div className="ans-body">
+                <h4>Answer</h4>
+                <p><strong>Definition:</strong> Artificial Intelligence (AI) is the field of computer science concerned with creating systems that can perform tasks that normally require human intelligence, such as learning, reasoning, problem-solving, perception, and language understanding.</p>
+                <p><strong>Core Characteristics (any two):</strong></p>
+                <ul className="bullets">
+                    <li>Learning</li>
+                    <li>Reasoning</li>
+                    <li>Perception</li>
+                    <li>Interaction</li>
+                    <li>Adaptation</li>
+                </ul>
+
+                <div className="scheme">
+                    <div className="scheme-row"><span className="points">3</span><span>Correct definition</span></div>
+                    <div className="scheme-row"><span className="points">1</span><span>First characteristic</span></div>
+                    <div className="scheme-row"><span className="points">1</span><span>Second characteristic</span></div>
+                </div>
+            </div>
+        </details>
+    </section>
+
+    <section className="q-part">
+        <h3>(b) Compare and contrast <strong>Artificial Narrow Intelligence (ANI)</strong> and <strong>Artificial General Intelligence (AGI)</strong>. Provide one real-world example of an ANI system mentioned in the notes. <span className="marks">[5]</span></h3>
+
+        <details className="ans">
+            <summary>Show answer & marking scheme</summary>
+            <div className="ans-body">
+                <h4>Answer</h4>
+                <ul className="bullets">
+                    <li><strong>ANI</strong> specializes in performing only a single task or a narrow range of tasks (e.g., playing chess).</li>
+                    <li><strong>AGI</strong> is theoretical and would be capable of performing any intellectual task that a human can do, demonstrating broad and adaptable intelligence.</li>
+                </ul>
+                <p><strong>Example of ANI (any one):</strong> Chatbots, recommendation engines (Netflix/Spotify), or facial recognition.</p>
+
+                <div className="scheme">
+                    <div className="scheme-row"><span className="points">2</span><span>Clear description of ANI</span></div>
+                    <div className="scheme-row"><span className="points">2</span><span>Clear description of AGI</span></div>
+                    <div className="scheme-row"><span className="points">1</span><span>Valid example of ANI</span></div>
+                </div>
+            </div>
+        </details>
+    </section>
+
+    <section className="q-part">
+        <h3>(c) Explain the key difference between <strong>Machine Learning</strong> and <strong>Reinforcement Learning</strong>. <span className="marks">[5]</span></h3>
+
+        <details className="ans">
+            <summary>Show answer & marking scheme</summary>
+            <div className="ans-body">
+                <h4>Answer</h4>
+                <ul className="bullets">
+                    <li><strong>Machine Learning</strong> typically involves algorithms learning patterns and making predictions from a pre-existing dataset. It learns from static examples.</li>
+                    <li><strong>Reinforcement Learning</strong> involves an agent learning by interacting with an environment. It learns by doing, receiving rewards/penalties to optimise behaviour over time.</li>
+                </ul>
+
+                <div className="scheme">
+                    <div className="scheme-row"><span className="points">2</span><span>ML learns from existing data</span></div>
+                    <div className="scheme-row"><span className="points">3</span><span>RL learns via interaction, rewards/penalties</span></div>
+                </div>
+            </div>
+        </details>
+    </section>
+
+    <section className="q-part">
+        <h3>(d) A Mauritian tech company wants to create an app that can instantly translate spoken Mauritian Creole into written English. Which <strong>two</strong> AI disciplines from the “Human-Computer Interaction” section are essential for this app? Briefly explain the role of each. <span className="marks">[5]</span></h3>
+
+        <details className="ans">
+            <summary>Show answer & marking scheme</summary>
+            <div className="ans-body">
+                <h4>Answer</h4>
+                <p>The two essential disciplines are <strong>Speech Recognition</strong> and <strong>Natural Language Processing (NLP)</strong>.</p>
+                <ul className="bullets">
+                    <li><strong>Speech Recognition:</strong> Converts spoken Creole audio into written Creole text.</li>
+                    <li><strong>Natural Language Processing (NLP):</strong> Understands the written Creole text and translates it into coherent written English.</li>
+                </ul>
+
+                <div className="scheme">
+                    <div className="scheme-row"><span className="points">1</span><span>Identify Speech Recognition</span></div>
+                    <div className="scheme-row"><span className="points">1.5</span><span>Explain its role</span></div>
+                    <div className="scheme-row"><span className="points">1</span><span>Identify NLP</span></div>
+                    <div className="scheme-row"><span className="points">1.5</span><span>Explain its role</span></div>
+                </div>
+            </div>
+        </details>
+    </section>
+
+    <section className="q-part">
+        <h3>(e) Self-driving cars must react to the current positions of other vehicles but also use short-term memory of their recent speed and direction to predict their movements. Which AI functionality category does this capability belong to, and why? <span className="marks">[5]</span></h3>
+
+        <details className="ans">
+            <summary>Show answer & marking scheme</summary>
+            <div className="ans-body">
+                <h4>Answer</h4>
+                <p><strong>Category:</strong> <em>Limited Memory</em>.</p>
+                <p><strong>Justification:</strong> The system goes beyond purely reactive behaviour by using recent observations (speed and direction) to inform immediate decisions. The memory is short-lived and not stored permanently, which defines Limited Memory AI.</p>
+
+                <div className="scheme">
+                    <div className="scheme-row"><span className="points">2</span><span>Correctly identify Limited Memory</span></div>
+                    <div className="scheme-row"><span className="points">3</span><span>Justify using recent past data</span></div>
+                </div>
+            </div>
+        </details>
+    </section>
+</div>

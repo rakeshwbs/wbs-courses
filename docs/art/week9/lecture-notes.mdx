@@ -1,0 +1,132 @@
+---
+id: lecture-notes 
+title: Lecture Notes
+hide_title: true
+sidebar_position: 1
+sidebar_label: Path Control
+sidebar_class_name: icon-lecture
+---
+import ModuleBanner from '@site/src/components/art/art-banner';
+
+<ModuleBanner />
+
+# Week 9: Path Control & Route Redistribution
+
+Up to this point, our networks have existed in a "single-protocol" world. But what happens when networks running different routing protocols need to communicate? This situation arises during company mergers, migrations from old to new protocols, or connections between different organizations. The solution is **Route Redistribution**.
+
+**Reminder:** Assignment 2, covering advanced OSPF and path control topics, will be released this week.
+
+---
+
+## 1. What is Route Redistribution?
+
+**Route Redistribution** is the process of taking the routes learned by one routing protocol (e.g., EIGRP) and advertising them into another routing protocol (e.g., OSPF). The router performing this translation is acting as an **Autonomous System Boundary Router (ASBR)**.
+
+This process allows for seamless communication across protocol boundaries, but it is one of the most complex and potentially dangerous tasks in networking. Misconfiguration can easily lead to routing loops and network black holes.
+
+## 2. The Challenges of Redistribution
+
+You cannot simply "mix" routing protocols. Several fundamental incompatibilities make redistribution a complex task that requires careful planning.
+
+### Challenge 1: Mismatched Metrics
+This is the core problem. The metrics used by different protocols are mutually incomprehensible.
+- **RIP** uses hop count.
+- **OSPF** uses cost (based on bandwidth).
+- **EIGRP** uses a composite metric (bandwidth, delay, reliability, load).
+
+How do you translate a "cost" of 20 into a meaningful "hop count"? You can't. The metrics are like different languages.
+
+### Solution: The Seed Metric
+Because the metrics can't be translated, you must define a **seed metric** when you inject routes from Protocol A into Protocol B. This gives the redistributed routes a starting value in the new protocol's "language."
+
+- If you redistribute into RIP, you must define a starting hop count.
+- If you redistribute into OSPF, you can define a cost and a metric-type (E1 or E2).
+- If you redistribute into EIGRP, you **must** define the five components of its metric (bandwidth, delay, reliability, load, MTU).
+
+**If you do not define a seed metric, most protocols will assign an infinite metric to the redistributed routes, and they will be discarded.**
+
+### Challenge 2: Administrative Distance and Routing Loops
+If a router learns about the same network from two different sources (e.g., an internal OSPF route with AD 110 and a redistributed EIGRP route with AD 170), it will choose the one with the lower AD. This is usually the desired behavior.
+
+However, if two or more routers are performing redistribution, you can create a **feedback loop**. A route from OSPF can be injected into EIGRP on one router, travel through the EIGRP domain, and then be injected back into OSPF on another router. Without careful control, this can create catastrophic, persistent routing loops.
+
+---
+
+## 3. The `redistribute` Command
+
+Redistribution is configured under the routing process you are injecting routes **into**.
+
+**Example 1: Redistributing EIGRP into OSPF**
+On the ASBR, to make OSPF learn EIGRP routes:
+```bash
+router ospf 1
+ redistribute eigrp 100 subnets
+```
+- The `subnets` keyword is crucial. Without it, OSPF would only redistribute classful networks, which is almost never what you want.
+- OSPF has a default seed metric (cost of 20 for all protocols except BGP), so you don't strictly have to define one, but it is good practice.
+
+**Example 2: Redistributing OSPF into EIGRP**
+On the ASBR, to make EIGRP learn OSPF routes:
+```bash
+router eigrp 100
+ redistribute ospf 1 metric 10000 100 255 1 1500
+```
+- For EIGRP, you **must** define a seed metric. The numbers correspond to Bandwidth (in Kbps), Delay (in 10s of microseconds), Reliability (1-255), Load (1-255), and MTU.
+
+---
+
+## 4. Simple Filtering: Distribute Lists
+
+Often, you don't want to redistribute *all* routes. A **distribute-list** is a simple method to filter routes using a standard or extended ACL.
+
+**How it works:**
+1. You create an ACL that **permits** the networks you want to allow.
+2. You apply the distribute-list to the routing process, referencing the ACL.
+
+**Example: Only redistribute the `10.5.0.0/16` network from RIP into OSPF.**
+```bash
+access-list 10 permit 10.5.0.0 0.0.255.255
+!
+router ospf 1
+ redistribute rip subnets
+ distribute-list 10 in
+```
+The `distribute-list 10 in` command filters incoming routing updates *before* they are placed in the OSPF routing process.
+
+---
+
+## 5. Advanced Control: Route Maps
+
+**Route maps** are the most powerful and flexible tool for path control. Think of them as complex `if-then` scripts for routes.
+
+**Structure:**
+- A route map consists of one or more numbered sequences.
+- Each sequence has `match` conditions (the "if" part).
+- Each sequence has `set` actions (the "then" part).
+
+**Example: Redistribute certain routes from RIP into OSPF with a specific metric, and all others with a different metric.**
+```bash
+! First, define ACLs to identify the routes
+access-list 20 permit 172.16.0.0 0.0.255.255
+access-list 30 permit 172.17.0.0 0.0.255.255
+
+! Now, create the route-map
+route-map RIP-TO-OSPF permit 10
+ match ip address 20
+ set metric 50
+ set metric-type e1
+
+route-map RIP-TO-OSPF permit 20
+ match ip address 30
+ set metric 100
+ set metric-type e2
+
+! Finally, apply the route-map to the redistribution
+router ospf 1
+ redistribute rip subnets route-map RIP-TO-OSPF
+```
+**How this works:**
+1. When redistributing, the router checks the route map.
+2. If a route matches ACL 20, it is permitted, its metric is set to 50, its type is set to E1, and processing stops.
+3. If not, it checks the next sequence. If a route matches ACL 30, it is permitted, its metric is set to 100, and its type is set to E2.
+4. Any route that doesn't match a `match` clause in the route map is not redistributed.

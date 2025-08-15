@@ -1,0 +1,122 @@
+---
+id: lab-sheet9
+title: Lab sheet 9
+hide_title: true
+sidebar_position: 2
+sidebar_label: t-tests
+sidebar_class_name: icon-lab
+---
+import ModuleBanner from '@site/src/components/brm/brm-banner';
+
+<ModuleBanner />
+
+
+## Lab 9: Hypothesis Testing in SPSS
+
+### Objective
+To learn how to perform and interpret the Independent-Samples t-Test, Paired-Samples t-Test, and Chi-Square Test of Independence in SPSS.
+
+---
+### **Part A: Independent-Samples t-Test**
+
+**Scenario:** We want to test if there is a significant difference in quiz scores between the "Classical Music" group and the "No Music" control group from our Lab 4 data.
+
+**Hypotheses:**
+* **$H_0$:** There is no significant difference in the mean quiz scores between the two groups.
+* **$H_1$:** There is a significant difference in the mean quiz scores between the two groups.
+
+**Instructions:**
+
+1.  Open your `Week4_Lab.sav` file. This file should have `Study_Group` (our IV) and `Quiz_Score` (our DV).
+2.  From the menu, go to: **Analyze -> Compare Means -> Independent-Samples T Test...**
+3.  Move `Quiz_Score` into the **'Test Variable(s):'** box.
+4.  Move `Study_Group` into the **'Grouping Variable:'** box.
+5.  Click the **'Define Groups...'** button.
+6.  For Group 1, type `1`. For Group 2, type `2`. (These are the codes we used for our groups). Click **Continue**.
+7.  Click **OK**.
+
+**Interpreting the Output:**
+Look at the **"Independent Samples Test"** table. Find the column labeled **"Sig. (2-tailed)"**. This is your **p-value**.
+* **Decision:** If p ≤ .05, the difference is significant. If p > .05, it is not.
+* **Conclusion:** Based on the p-value, you would state: "There [is/is not] a statistically significant difference in quiz scores between the classical music group (M=[mean of group 1]) and the no music group (M=[mean of group 2]), p = [your p-value]."
+
+---
+### **Part B: Paired-Samples t-Test**
+
+**Scenario:** A company measures the typing speed (words per minute) of 8 employees **before** and **after** they attend a workshop. We want to see if the workshop was effective.
+
+**Hypotheses:**
+* **$H_0$:** There is no significant difference in mean typing speed before and after the workshop.
+* **$H_1$:** There is a significant difference in mean typing speed before and after the workshop.
+
+**Instructions:**
+
+1.  Create a **new data file** and enter the following data:
+
+| ID | WPM_Before | WPM_After |
+|:---:|:---:|:---:|
+| 1 | 55 | 65 |
+| 2 | 48 | 52 |
+| 3 | 61 | 70 |
+| 4 | 52 | 60 |
+| 5 | 70 | 78 |
+| 6 | 63 | 75 |
+| 7 | 58 | 65 |
+| 8 | 55 | 68 |
+
+2.  From the menu, go to: **Analyze -> Compare Means -> Paired-Samples T Test...**
+3.  Click on `WPM_Before`, then click on `WPM_After`. They will move together into the **'Paired Variables:'** box.
+4.  Click **OK**.
+
+**Interpreting the Output:**
+Look at the **"Paired Samples Test"** table. Find the last column labeled **"Sig. (2-tailed)"**. This is your **p-value**.
+* **Conclusion:** Based on the p-value, you would state: "There [was/was not] a statistically significant change in typing speed from before the workshop (M=[mean before]) to after the workshop (M=[mean after]), p = [your p-value]."
+
+---
+### **Part C: Chi-Square ($\chi^2$) Test of Independence**
+
+**Scenario:** We want to know if there is a statistically significant association between an employee's `Department` and their `Job_Satisfaction` (coded as 1=Satisfied, 2=Not Satisfied).
+
+**Hypotheses:**
+* **$H_0$:** There is no association between Department and Job Satisfaction (they are independent).
+* **$H_1$:** There is an association between Department and Job Satisfaction (they are not independent).
+
+**Instructions:**
+
+1.  Create a **new data file** and enter the data for 20 employees. Remember to set up value labels for both variables!
+
+| Department | Job_Satisfaction |
+|:---:|:---:|
+| 1 | 1 |
+| 1 | 1 |
+| 1 | 1 |
+| 1 | 2 |
+| 1 | 2 |
+| 2 | 1 |
+| 2 | 1 |
+| 2 | 1 |
+| 2 | 1 |
+| 2 | 1 |
+| 3 | 1 |
+| 3 | 2 |
+| 3 | 2 |
+| 3 | 2 |
+| 3 | 2 |
+| 3 | 2 |
+| 3 | 2 |
+| 3 | 1 |
+| 3 | 1 |
+| 3 | 1 |
+*(Codes: Department 1=Sales, 2=Marketing, 3=IT. Job_Satisfaction 1=Satisfied, 2=Not Satisfied)*
+
+2.  From the menu, go to: **Analyze -> Descriptive Statistics -> Crosstabs...**
+3.  Move `Department` into the **'Row(s):'** box.
+4.  Move `Job_Satisfaction` into the **'Column(s):'** box.
+5.  Click the **Statistics...** button and check the box for **Chi-square**. Click **Continue**.
+6.  Click **OK**.
+
+**Interpreting the Output:**
+Look at the **"Chi-Square Tests"** table. Find the row for **"Pearson Chi-Square"** and look at the value in the **"Asymptotic Significance (2-sided)"** column. This is your **p-value**.
+* **Conclusion:** Based on the p-value, you would state: "There [was/was not] a statistically significant association between an employee's department and their job satisfaction, $\chi^2$([df]), p = [your p-value]."
+
+---

@@ -1,0 +1,113 @@
+---
+id: lecture-notes 
+title: Lecture Notes
+hide_title: true
+sidebar_position: 1
+sidebar_label: Static Routing
+sidebar_class_name: icon-lecture
+---
+import ModuleBanner from '@site/src/components/art/art-banner';
+
+<ModuleBanner />
+
+
+# Week 2: Initial Router Configuration & Static Routing
+
+In Week 1, we built a topology with two separate networks and discovered that they couldn't communicate. Router-A knew about its local LAN and the direct link to Router-B, but it had no idea how to reach Router-B's LAN. This week, we solve that problem using the simplest and most direct method: **static routing**.
+
+---
+
+## 1. Connecting Routers: Wide Area Networks (WAN)
+
+To connect our office in Ebène to our office in Port Louis, we can't just run a long ethernet cable. We need to use a **Wide Area Network (WAN)** service, typically provided by a telecommunications company like Mauritius Telecom.
+
+### Leased Lines
+A common way to do this is with a **leased line**, which is a private, dedicated connection between two locations. It provides a permanent, secure path for your data.
+
+### CSU/DSU (Channel Service Unit/Data Service Unit)
+Your router doesn't speak the same language as the telecom's network. The **CSU/DSU** acts as a translator.
+- It's a small box that sits between your router's serial interface and the wall jack provided by the telecom company.
+- The **CSU** side connects to the telco network.
+- The **DSU** side connects to your router (your Data Terminal Equipment, or DTE) and converts the telco's signal into a format the router understands.
+- In modern routers, this functionality is often integrated directly into the WAN interface cards.
+
+### WAN Encapsulation
+Just like you put a letter in a specific type of envelope for air mail vs. local mail, routers must wrap their IP packets in a specific type of Layer 2 frame to cross the WAN link. This is called **encapsulation**.
+
+- **HDLC (High-Level Data Link Control):** A simple, low-overhead encapsulation method. It was the default on Cisco serial links for a long time.
+- **PPP (Point-to-Point Protocol):** A more robust protocol that is now the industry standard. PPP is more flexible and supports features like authentication (with protocols like PAP and CHAP), which we will discuss later.
+
+---
+
+## 2. The Solution: Static Routing
+
+The problem from our lab was that Router-A's routing table was missing an entry for the `192.168.2.0/24` network. Static routing is the process of **manually adding this missing information** to the routing table.
+
+A static route tells the router: "To reach *this specific destination network*, send all packets to *this specific next location*."
+
+### The `ip route` Command
+We configure static routes in global configuration mode using the `ip route` command. The syntax is:
+
+`router(config)# ip route [destination_network] [subnet_mask] [next_hop_address | exit_interface]`
+
+- **`destination_network`**: The remote network you are trying to reach.
+- **`subnet_mask`**: The subnet mask of the remote network.
+- **`next_hop_address`**: The IP address of the *next router's interface* in the path. This is the most common and recommended method.
+- **`exit_interface`** (Optional): The local router interface that the packet should be sent out of. This is typically used only on point-to-point serial links.
+
+**Example from our Lab:**
+To teach Router-A how to reach Router-B's LAN, we would configure the following:
+
+- **Destination Network:** `192.168.2.0`
+- **Subnet Mask:** `255.255.255.0`
+- **Next Hop Address:** The IP of Router-B's serial interface, which is `10.0.0.2`.
+
+The command on Router-A would be:
+```
+R-A(config)# ip route 192.168.2.0 255.255.255.0 10.0.0.2
+```
+**Crucially, routing is a two-way street.** We must also teach Router-B how to get back to Router-A's network:
+```
+R-B(config)# ip route 192.168.1.0 255.255.255.0 10.0.0.1
+```
+
+---
+
+## 3. The Router's Decision Process
+
+### Packet Forwarding Logic
+When a packet arrives at a router interface, the router performs the following steps:
+1.  It examines the **destination IP address** in the packet's header.
+2.  It searches its **routing table** for an entry that matches this destination address.
+3.  The router uses the **longest prefix match rule**. If `192.168.1.10` is the destination, and the table has routes for `192.168.1.0/24` and `192.168.1.0/26`, the router will choose the `/26` route because it is more specific (a longer match).
+4.  Once a matching route is found, the router forwards the packet out of the interface specified in that route entry.
+5.  If no match is found, the packet is **dropped**.
+
+### Administrative Distance (AD)
+What happens if a router learns about the *same* destination network from two different sources (e.g., from a static route AND a dynamic routing protocol)? The router uses **Administrative Distance (AD)** to decide which route to trust more.
+
+**AD is a measure of the trustworthiness of a routing source. The lower the AD, the more trustworthy the source.**
+
+| Route Source | Administrative Distance |
+| :--- | :--- |
+| Directly Connected | 0 |
+| **Static Route** | **1** |
+| EIGRP | 90 |
+| OSPF | 110 |
+| RIP | 120 |
+
+A directly connected network (AD=0) is always preferred. A static route (AD=1) will be trusted over any dynamic routing protocol. This makes static routes very powerful for overriding dynamic behavior.
+
+---
+
+## 4. Pros and Cons of Static Routing
+
+### Advantages
+- **Secure:** No routing updates are advertised, making it impossible for another router to learn your network topology.
+- **Efficient:** Uses no router CPU cycles to calculate paths and consumes no bandwidth with update messages.
+- **Predictable:** The path is always the same, making it very easy to troubleshoot.
+
+### Disadvantages
+- **Not Scalable:** Manually configuring routes for hundreds of networks is extremely time-consuming and prone to human error.
+- **No Fault Tolerance:** If the next-hop link goes down, the static route remains in the table, and the router will continue sending traffic to a dead end until an administrator manually removes or changes the route. This is the biggest drawback.
+

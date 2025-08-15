@@ -1,0 +1,75 @@
+---
+id: lecture-notes 
+title: Lecture Notes
+hide_title: true
+sidebar_position: 1
+sidebar_label: CNN
+sidebar_class_name: icon-lecture
+---
+import ModuleBanner from '@site/src/components/ai/ai-banner';
+
+<ModuleBanner />
+### **AFI-3T3: The AI Architect's Journey - Lecture & Lab Notes**
+
+**Week 8: Deep Learning for Vision: Convolutional Neural Networks (CNNs)**
+**Date:** Saturday, 15 November 2025
+
+-----
+
+### **Lecture Notes**
+
+#### **1.0 Recap and The Problem with MLPs for Images**
+
+Good morning. Last week, we took a monumental step and built our first Artificial Neural Network, a Multi-Layer Perceptron (MLP). We successfully trained it to classify images of clothing from the Fashion MNIST dataset.
+
+But, to make it work, what was the very first thing we had to do to the 28x28 pixel images? We had to **Flatten** them into a long, one-dimensional vector of 784 pixels. Think about what we lose when we do this:
+
+1.  **Spatial Information:** We destroy the spatial relationship between pixels. The model no longer knows which pixels were originally next to each other. It doesn't understand the structure of the image, only the raw pixel values.
+2.  **Inefficiency:** A simple 100x100 pixel image would require an input layer with 10,000 neurons. The first hidden layer would then have an enormous number of weights, making the model slow, inefficient, and prone to overfitting.
+
+MLPs are not designed to "see" images in a structured way. For that, we need a specialized architecture: the **Convolutional Neural Network (CNN)**.
+
+#### **2.0 The CNN Solution: Learning Hierarchical Features Spatially**
+
+A CNN is a type of neural network designed specifically to process grid-like data, such as images. It was inspired by the human visual cortex.
+
+* **The Core Idea:** Instead of looking at one pixel at a time, a CNN uses learnable **filters** to look at small, local patches of an image. This preserves the spatial relationships between pixels.
+* **Hierarchical Learning:** A CNN learns features in a hierarchical manner. The first layers might learn to detect simple features like edges, corners, and color gradients. The next layers combine these simple features to detect more complex shapes like eyes, noses, or wheels. The final layers combine these shapes to recognize whole objects like faces, cars, or, in our context, Mauritian wildlife.
+
+#### **3.0 The Core Building Blocks of a CNN**
+
+A CNN is built using two new types of layers: Convolutional Layers and Pooling Layers.
+
+**3.1 The Convolutional Layer: The Feature Detector**
+This is the main workhorse of the CNN.
+
+* **Analogy:** Imagine you're in a dark room and you're trying to figure out what's inside using only a small, square flashlight beam. You would scan this beam across every part of the room. The flashlight beam is the **filter** (also called a **kernel**).
+* **Filter (Kernel):** A small matrix of weights (e.g., 3x3 or 5x5). The network *learns* the values of these weights during training.
+* **The Convolution Operation:** The filter slides (or **convolves**) over every possible position of the input image. At each position, it performs an element-wise multiplication with the patch of the image it's currently on, and the results are summed up to produce a single pixel in an output image called a **feature map**. .
+* **What it Learns:** Each filter specializes in detecting a specific, simple feature. One filter might learn to activate when it sees a vertical edge. Another might learn to detect a diagonal line, a specific texture, or a shade of green. A single convolutional layer will typically learn many filters (e.g., 32 or 64), producing a stack of feature maps as its output.
+
+**3.2 The Pooling Layer: The Subsampler**
+The purpose of a pooling layer is to progressively reduce the spatial size (width and height) of the feature maps.
+
+* **Benefits:**
+    1.  It reduces the number of parameters and the amount of computation in the network, making it more efficient.
+    2.  It helps to make the learned features more robust to small shifts and distortions in the input image (a concept called translation invariance).
+* **Max Pooling:** This is the most common type of pooling. It works by sliding a small window (e.g., 2x2) over the feature map and, from each patch, outputting only the **maximum** value. This effectively keeps the strongest "signal" or the most activated feature from that local region and discards the rest. .
+
+#### **4.0 A Typical CNN Architecture**
+
+These building blocks are stacked together to form a full CNN. The typical architecture has two main parts:
+
+1.  **The Convolutional Base (Feature Extractor):**
+
+    * This part consists of a series of stacked Convolutional and Pooling layers. Its job is to take the raw input image and automatically learn the hierarchy of features, from simple edges to complex shapes.
+    * A common pattern is: `CONV -> RELU -> CONV -> RELU -> POOL`. This might be repeated several times.
+
+2.  **The Classifier Head:**
+
+    * After the convolutional base has extracted the high-level features, the final feature maps are **Flattened** into a 1D vector.
+    * This vector is then fed into a standard **MLP (Dense Layers)**, just like the one we built last week. This part acts as the classifier, taking the learned features as input to make the final prediction.
+
+The full architecture looks like this:
+`INPUT IMAGE -> [CONV BASE] -> FLATTEN -> [DENSE CLASSIFIER HEAD] -> OUTPUT`
+

@@ -1,0 +1,229 @@
+---
+id: lab-sheet
+title: Labsheet
+sidebar_position: 2
+hide_title: true
+sidebar_label: House Price Prediction
+sidebar_class_name: icon-lab
+
+---
+import ModuleBanner from '@site/src/components/ai/ai-banner';
+
+<ModuleBanner />
+## **Introduction to the Lab**
+
+In today's lab session, you will step into the role of a data analyst at a real estate agency. You will apply this exact 4-step workflow to a dataset of property information from Mauritius. You will load the data, split it, train a Linear Regression model, and evaluate its ability to predict property prices. Let's get building.
+
+-----
+
+### **Lab Guide**
+
+**Lab 02: The Property Guru - Your First Predictive Model**
+
+**Objective:** By the end of this lab, you will have successfully built, trained, and evaluated your first end-to-end machine learning model using Python and scikit-learn.
+
+**Scenario:** You are a data analyst at a real estate agency in Mauritius. Your manager has given you a dataset of recent property sales and wants you to build a simple model to predict house prices based on their size.
+
+#### **Part A: Data Exploration & Preparation**
+
+**1. Import Libraries**
+In a new Jupyter Notebook, the first step is always to import the necessary tools.
+
+```python
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error
+import matplotlib.pyplot as plt
+```
+
+**2. Load the Dataset**
+We will use a simple CSV file named `mauritius_housing.csv` for this lab. (Note: You will need to have this file in the same folder as your notebook).
+
+```python
+# Load the dataset into a Pandas DataFrame
+df = pd.read_csv('mauritius_housing.csv')
+```
+
+**3. Explore the Data**
+Get a feel for the data you are working with.
+
+```python
+# View the first 5 rows
+print("First 5 rows of data:")
+print(df.head())
+
+# Get information about the columns and data types
+print("\nData Info:")
+df.info()
+
+# Get descriptive statistics
+print("\nDescriptive Statistics:")
+print(df.describe())
+```
+
+**4. Define Features (X) and Target (y)**
+For our simple model, we will use the `Area_sq_ft` to predict the `Price_MUR`.
+
+```python
+# Our input feature is the 'Area_sq_ft' column
+# Note: X needs to be a 2D array, so we use double brackets [[]]
+X = df[['Area_sq_ft']]
+
+# Our target variable is the 'Price_MUR' column
+y = df['Price_MUR']
+```
+
+**5. Split the Data**
+We will follow the golden rule and split our data into training and testing sets. We'll use 80% for training and 20% for testing.
+
+```python
+# Split the data
+# test_size=0.2 means 20% of the data is for testing
+# random_state=42 ensures we get the same split every time we run the code
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+print(f"\nTraining set size: {len(X_train)} samples")
+print(f"Testing set size: {len(X_test)} samples")
+```
+
+#### **Part B: Model Training**
+
+**1. Choose and Instantiate the Model**
+We are predicting a continuous value (price), so this is a regression problem. We'll use Linear Regression.
+
+```python
+# Create an instance of the Linear Regression model
+model = LinearRegression()
+```
+
+**2. Train the Model**
+This is the "learning" step. We show the model our training data using the `.fit()` method.
+
+```python
+# Train the model on the training data
+model.fit(X_train, y_train)
+
+print("\nModel training complete!")
+```
+
+#### **Part C: Model Evaluation**
+
+**1. Make Predictions**
+Now we use our trained model to make predictions on the `X_test` data, which it has never seen before.
+
+```python
+# Use the trained model to make predictions on the test set
+predictions = model.predict(X_test)
+```
+
+**2. Calculate Performance Metric**
+Let's see how well our model did by comparing its `predictions` to the actual correct answers (`y_test`).
+
+```python
+# Calculate the Mean Squared Error
+mse = mean_squared_error(y_test, predictions)
+
+print(f"\nThe Mean Squared Error (MSE) of our model is: {mse:.2f}")
+print("This represents the average squared difference between the predicted price and the actual price.")
+```
+
+#### **Part D: Visualize the Results**
+
+A picture is worth a thousand words. Let's visualize our model's performance.
+
+```python
+# Create a scatter plot of the actual test data
+plt.figure(figsize=(10, 6))
+plt.scatter(X_test, y_test, color='blue', label='Actual Prices')
+
+# Plot the regression line (our model's predictions)
+plt.plot(X_test, predictions, color='red', linewidth=2, label='Predicted Prices (Model)')
+
+plt.title('Actual vs. Predicted Property Prices')
+plt.xlabel('Area (Square Feet)')
+plt.ylabel('Price (Mauritian Rupees)')
+plt.legend()
+plt.grid(True)
+plt.show()
+```
+
+**Congratulations\!** You have successfully built your first predictive model. You can see how the red line represents the relationship your model learned from the data. In the coming weeks, we will learn how to build more complex models and improve their accuracy.
+
+#### Part E: Reflective Question (For Your Deeper Understanding)
+An AI Architect doesn't just build models; they understand their capabilities and, more importantly, their limitations. The final part of this lab is a thought exercise. There is no code to write, but this is one of the most important parts of your journey.
+
+##### Scenario:
+
+Imagine your manager at the Mauritian real estate agency is so impressed with the regression line you plotted in Part D that they say, "This is great! Let's deploy this model on our company website immediately to give live price estimates to our customers."
+
+As a responsible AI practitioner, you know this is a bad idea.
+
+Your Task:
+
+Write a brief, professional response to your manager. In your response, you must address the following two points:
+
+1. Critically evaluate the "real-world" reliability of the model you built today. Specifically discuss the major risks and limitations of using a model trained on only 30 data points for making real financial predictions. (Hint: Think about generalization, statistical significance, and potential for errors).
+   Of course. Here is a model answer for the first part of the reflective question, formatted as requested.
+
+<details>
+<summary> Model Answer</summary>  
+
+**Subject: Analysis of the Property Price Model for Live Deployment**
+
+Hi [Manager's Name],
+
+Thank you for the confidence in the model! It's very encouraging to see that our initial prototype shows a clear, positive relationship between property size and price.
+
+However, before we consider deploying this model on the company website for live customer estimates, it's critical to address some major limitations regarding its **real-world reliability**. Based on the data used, I would strongly advise against using it in a live production environment at this stage.
+
+Here are the primary risks and limitations:
+
+1.  **Poor Generalization:** The model was trained on only 30 data points. This is a tiny fraction of the properties in Mauritius. As a result, the model has a very narrow "worldview" and is unlikely to **generalize** well to new, unseen data. It might be completely wrong when pricing properties in regions or of types not included in our small sample.
+
+2.  **Statistical Insignificance and Susceptibility to Outliers:** With such a small dataset, a few unusual properties (e.g., a single, very expensive beachfront property) could have a disproportionately large effect on the model's calculations. This means the patterns it learned might be due to random chance or **outliers** in our specific sample, rather than true market trends.
+
+3.  **Over-Simplification:** Our current model uses only one feature: `Area_sq_ft`. In reality, property prices are influenced by many other critical factors like location (e.g., Grand Baie vs. Curepipe), number of bedrooms, property age, and proximity to amenities. By ignoring these factors, the model is inherently too simple to be accurate.
+
+Therefore, while the model is an excellent internal proof-of-concept, it is not yet reliable enough for a live production environment. Deploying it now could lead to significantly inaccurate price estimates, which could mislead our customers and damage our company's reputation.
+
+I am confident, however, that this exercise has proven the value of the approach, and I look forward to building on it.
+
+Best regards,
+
+[Your Name]
+
+</details>
+2. Justify the value of today's exercise. Explain to your manager why, despite its real-world limitations, building this simple model was a crucial and valuable first step. What was the true pedagogical purpose of this lab? (Hint: Think about the workflow, core concepts, and visualization).
+
+
+<details>
+<summary>Model Answer</summary>
+
+**Subject: The Strategic Value of Our Initial Model**
+
+Hi again [Manager's Name],
+
+Following on from the limitations, it's equally important to recognize the immense value of this exercise as a foundational first step for our AI initiatives. While the model itself is not ready for production, the process of building it was a critical success.
+
+Here is why today's exercise was so valuable and what its true purpose was:
+
+1.  **Establishing a Baseline Workflow:** The primary goal was to create and validate a complete, end-to-end machine learning pipeline. We have now successfully proven that we can:
+
+    * Load and process property data.
+    * Split the data for valid training and testing.
+    * Train a predictive model.
+    * Evaluate its performance with a clear metric (Mean Squared Error).
+      This workflow is now our repeatable template. Every more complex model we build in the future will follow these fundamental steps.
+
+2.  **Achieving Conceptual Clarity:** By starting with a very simple model (one feature, one target), we were able to clearly visualize the relationship between a property's size and its price. That red line on the graph is a tangible representation of what our AI "learned." Understanding this simple case provides the intuition needed to trust and troubleshoot more complex, "black box" models later on.
+
+3.  **Creating a Foundational Benchmark:** This simple model is now our **baseline**. As we begin to add more features (like location, number of bedrooms, etc.) and use more sophisticated algorithms, we will compare their performance directly against this first model. This allows us to concretely measure every improvement we make. We can't know if a complex model is "good" unless we have a simple one to compare it against.
+
+In summary, while our first model is the equivalent of a "learning-to-walk" step, it was an essential one. We have successfully validated our technical process, understood the core concepts visually, and built the foundation from which we can now develop a truly powerful and reliable prediction engine for the company.
+
+Best regards,
+
+[Your Name]
+
+</details>

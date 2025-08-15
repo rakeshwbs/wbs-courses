@@ -1,0 +1,113 @@
+---
+id: evaluation-structured-questions
+title: Exam-type Questions
+hide_title: true
+sidebar_position: 4
+sidebar_label: Exam-type Questions
+sidebar_class_name: icon-exam
+---
+import ModuleBanner from '@site/src/components/brm/brm-banner';
+
+<ModuleBanner />
+
+### **Sample Examination Questions & Answers - Week 10 Concepts**
+
+**QUESTION 1 [25 MARKS]**
+
+(a) Explain the primary purpose of a **One-Way ANOVA**. In your answer, explain why it is statistically preferable to running multiple t-tests when comparing three or more groups.
+[10]
+
+<details>
+<summary>Click to see the answer and marking scheme</summary>
+
+**Answer:**
+
+The primary purpose of a **One-Way ANOVA** is to test for a statistically significant difference between the **means** of **three or more independent groups**.
+
+It is preferable to multiple t-tests because running multiple t-tests increases the risk of **Type I error** (false positives). Each t-test has about a 5% chance of producing a false positive; doing many tests compounds this error rate. ANOVA uses a single test to assess overall differences, keeping the error rate at the chosen alpha level (e.g., 5%).
+
+**Marking Scheme:**
+* [4 Marks] - For a clear definition of ANOVA’s purpose (comparing means of 3+ groups).
+* [3 Marks] - For identifying the Type I error inflation with multiple t-tests.
+* [3 Marks] - For explaining that ANOVA controls the error rate with a single test.
+
+</details>
+
+(b) A researcher conducts a One-Way ANOVA to test if there is a difference in 'Customer Satisfaction' scores across three 'Store Layouts' (A, B, C). They get the following SPSS output:
+
+* **ANOVA Table:** F = 7.95, **Sig. = .001**
+* **Post-Hoc Tests (Tukey HSD):**
+  * Layout A vs B: **p = .850**
+  * Layout A vs C: **p = .002**
+  * Layout B vs C: **p = .004**
+
+Based on this output:
+
+1. Is there a significant difference among the groups? Explain how you know.
+2. Which specific groups are significantly different?
+[15]
+
+<details>
+<summary>Click to see the answer and marking scheme</summary>
+
+**Answer:**
+
+**1. Overall Difference:**
+Yes. The main ANOVA p-value (**.001**) is less than 0.05, so we reject the null hypothesis.
+
+**2. Specific Group Differences:**
+* Layout A vs B (p = .850) → **Not significant**.
+* Layout A vs C (p = .002) → **Significant**.
+* Layout B vs C (p = .004) → **Significant**.
+
+Thus, Layout C differs significantly from both Layout A and Layout B; Layouts A and B do not differ significantly.
+
+**Marking Scheme:**
+* [3 Marks] - Correctly states overall significance.
+* [4 Marks] - Justifies decision using main ANOVA p-value.
+* [4 Marks] - Identifies A vs C and B vs C as significant.
+* [4 Marks] - Identifies A vs B as not significant.
+
+</details>
+
+---
+
+**QUESTION 2 [25 MARKS]**
+
+A researcher examines whether 'Years of Experience' predicts 'Annual Salary' (in thousands). They run a simple linear regression with these results:
+
+* **Model Summary:** R² = **.810**
+* **ANOVA Table:** Sig. = **.001**
+* **Coefficients:**
+  * Constant = **45.0**
+  * Years of Experience B = **3.5**, Sig. = **.001**
+
+(a) Interpret the R² value. Is the model significant? How do you know?
+[10]
+(b) Write the regression equation. Predict salary for a manager with 10 years’ experience.
+[10]
+(c) Is 'Years of Experience' a significant predictor? Justify.
+[5]
+
+<details>
+<summary>Click to see the answer and marking scheme</summary>
+
+**Answer:**
+
+**(a) R² and Model Significance:**
+* R² = .810 → 81% of salary variance is explained by years of experience.
+* Model is significant because ANOVA p-value = .001 < .05.
+
+**(b) Regression Equation and Prediction:**
+* Equation: Salary = 45.0 + (3.5 × Years of Experience)
+* For 10 years: 45.0 + (3.5 × 10) = 80.0 → **$80,000** predicted.
+
+**(c) Predictor Significance:**
+Yes. The coefficient p-value = .001 < .05, so it is significant.
+
+**Marking Scheme:**
+* (a) [10 Marks] - 5 for R² interpretation, 5 for model significance.
+* (b) [10 Marks] - 5 for correct equation, 5 for correct prediction.
+* (c) [5 Marks] - 2 for “Yes”, 3 for p-value justification.
+
+</details>

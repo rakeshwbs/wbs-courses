@@ -1,0 +1,77 @@
+---
+id: lab-sheet
+title: Lab sheet 1
+hide_title: true
+sidebar_position: 2
+sidebar_label: Build Linked Queue
+sidebar_class_name: icon-lab
+---
+import ModuleBanner from '@site/src/components/dsa/dsa-banner';
+
+<ModuleBanner />
+
+
+
+## **Lab 7: Implementing a Linked Queue & Simulation**
+
+**Objective:** To implement the Queue ADT using a linked list, creating a dynamic and efficient queue. You will then apply your queue to simulate a real-world, first-in, first-out scenario.
+
+### **Task 1: The `Queue` Class Structure**
+
+1.  Create a new C++ project. You will need a `Node` class (the same one from our linked list labs with `data` and a `next` pointer).
+2.  Define the `Queue` class. To make `enqueue` an O(1) operation, it will need two private members: `Node* front;` and `Node* rear;`.
+3.  The `public` constructor `Queue()` should initialize both `front` and `rear` to `nullptr`.
+
+-----
+
+### **Task 2: Implement `enqueue`**
+
+This method adds an element to the back (rear) of the queue.
+
+1.  **Declaration**: Add `void enqueue(int value);` to your class.
+2.  **Implementation**:
+  * Create a `newNode` with the given value.
+  * **If the queue is empty** (`front == nullptr`): Set both `front` and `rear` to point to the `newNode`.
+  * **If the queue is not empty**: Set the current `rear->next = newNode;` and then update the `rear` pointer to be the `newNode`.
+
+-----
+
+### **Task 3: Implement `dequeue`**
+
+This method removes and returns the element from the front of the queue.
+
+1.  **Declaration**: Add `int dequeue();` to your class.
+2.  **Implementation**:
+  * First, check for **Queue Underflow** (`isEmpty()`). If so, print an error and return an error code (like `-1`).
+  * Store the data from the `front` node to return later.
+  * Create a temporary pointer `temp` to the current `front` node.
+  * Move the `front` pointer to the next node (`front = front->next;`).
+  * **Crucial Special Case**: If moving `front` made it `nullptr` (meaning you just removed the last item), you must also set `rear` to `nullptr`.
+  * `delete temp;` to free the memory of the old front node.
+  * Return the stored data.
+
+-----
+
+### **Task 4: Implement Helper Methods**
+
+1.  **`int frontValue()`**: This method should return the data at the `front` of the queue without removing it. Remember to handle the underflow case.
+2.  **`bool isEmpty()`**: This method should return `true` if `front` is `nullptr`, and `false` otherwise.
+
+-----
+
+### **Task 5: Application - Printer Queue Simulation**
+
+In your `main()` function, use your `Queue` class to simulate a simple printer queue.
+
+1.  Create an instance of your `Queue`.
+2.  Simulate new print jobs arriving by calling `enqueue` with several different document IDs (e.g., `101`, `256`, `312`). Print a confirmation for each.
+```cpp
+std::cout << "Adding document 101 to queue." << std::endl;
+printerQueue.enqueue(101);
+```
+3.  Simulate the printer processing jobs. Use a `while` loop that continues as long as the queue is not empty (`!printerQueue.isEmpty()`).
+4.  Inside the loop, `dequeue` a job and print a message confirming it has been printed. This will naturally show the FIFO order.
+```cpp
+int docId = printerQueue.dequeue();
+std::cout << "Printing document: " << docId << std::endl;
+```

@@ -1,0 +1,62 @@
+---
+id: lecture-notes
+title: Lecture Notes
+hide_title: true
+sidebar_position: 1
+sidebar_label: Algorithms and ADT
+sidebar_class_name: icon-lecture
+---
+import ModuleBanner from '@site/src/components/dsa/dsa-banner';
+
+<ModuleBanner />
+
+## Week 1: Foundations of Algorithms & C++
+
+Welcome to your first week of Data Structures & Algorithms!
+This week, we'll build the essential foundation upon which everything else will rest.
+We'll cover the "what" and "why" of algorithms and refresh the core C++ tools we'll need.
+
+---
+### **Algorithm**
+:::info DEFINITION
+An **algorithm** is a well-defined, step-by-step procedure for solving a specific problem or accomplishing a specific task.
+:::
+Think of it as a recipe. It has a list of ingredients (inputs), a clear set of instructions to follow in order,
+and it results in a finished dish (output).
+
+Key characteristics of a good algorithm:
+
+| **Property**      | **Description**                                                                                                     |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------- |
+| **Input**         | It has zero or more well-defined inputs.                                                                            |
+| **Output**        | It produces at least one well-defined output.                                                                       |
+| **Finiteness**    | It must terminate after a finite number of steps.                                                                   |
+| **Unambiguity**   | Each step must be clear, precise, and have only one interpretation.                                                 |
+| **Effectiveness** | Each step must be basic enough that it can be carried out, in principle, by a person using only a pencil and paper. |
+
+We often use **pseudocode** to sketch out algorithms. It's a simplified, language-agnostic way to describe the steps without worrying about the strict syntax of C++.
+
+---
+### **Abstract Data Types (ADT)**
+:::info DEFINITION
+An **Abstract Data Type (ADT)** is a theoretical model that defines a set of data values and a set of operations on that data. It answers **what** a data type can do, but not **how** it does it.
+:::
+
+* **Analogy:**
+Think of the dashboard of a car.  You have a steering wheel, an accelerator, and a brake pedal (the operations). You know *what* they do (turn the car, speed up, slow down), but you don't need to know the underlying mechanical or electronic systems (*how* they are implemented) to drive the car. The dashboard is the interface; the engine is the implementation.
+* In this course, `List`, `Stack`, and `Queue` are ADTs. We'll define their operations first and then implement them using C++.
+---
+### **Essential C++ Review ⚙️**
+To build our data structures, we need a firm grasp on a few C++ features:
+
+* **Pointers:** A pointer is a variable that stores the memory address of another variable. They are the backbone of dynamic data structures like linked lists. We use the `&` (address-of) operator to get a variable's address and the `*` (dereference) operator to access the value at that address.
+
+* **Dynamic Memory Allocation:** Often, we don't know how much data we need to store when we write the program. C++ allows us to request memory from the operating system at runtime from a memory pool called the **heap**.
+  * `new`: The `new` keyword allocates memory on the heap and returns a pointer to it.
+  * `delete`: The `delete` keyword frees the memory allocated with `new`, returning it to the system. Forgetting to `delete` memory causes a **memory leak**.
+
+* **Classes vs. Structs:**
+  * Both are user-defined types that can bundle data and functions together.
+  * The key difference in C++: In a `class`, members are **private** by default. In a `struct`, members are **public** by default.
+  * **Our Convention:** We will use `class` for our ADT implementations to enforce **encapsulation**—bundling data and the methods that operate on that data, while hiding the internal details.
+---

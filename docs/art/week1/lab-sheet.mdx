@@ -1,0 +1,140 @@
+---
+id: lab-sheet
+title: Labsheet
+sidebar_position: 2
+hide_title: true
+sidebar_label: Topology
+sidebar_class_name: icon-lab
+---
+import ModuleBanner from '@site/src/components/art/art-banner';
+
+<ModuleBanner />
+
+# Week 1 Lab: Basic Topology & Connectivity
+
+## Objective
+
+This lab is designed to refamiliarize you with the network simulation environment (Cisco Packet Tracer)
+and reinforce your understanding of fundamental networking concepts.
+
+You will build a simple two-network topology, configure IP addresses on end devices and routers, and use common verification commands to test connectivity.
+
+The primary goal is to observe the boundary between a switched LAN and a routed WAN.
+
+## Required Software
+
+-   **Cisco Packet Tracer** (or GNS3/EVE-NG if you are familiar with them).
+
+## Network Topology
+
+You will build the following network.
+This topology consists of two separate Local Area Networks (LANs), one for "Ebène" and one for "Port Louis," connected by two routers.
+
+```text
+       (LAN 1: Ebène)                               (LAN 2: Port Louis)
+                                  Serial DTE/DCE
+      192.168.1.0/24                   Link                    192.168.2.0/24
+                                 10.0.0.0/30
++------------+     +-----------+ S0/0/0      S0/0/0 +-----------+     +------------+
+|    PC-A    |-----|  Switch-A |------------------| Router-B  |-----|  Switch-B  |-----|    PC-B    |
++------------+     +-----------+       R-A        +-----------+     +------------+     +------------+
+   .10   g: .1       G0/0 .1                         G0/0 .1                           .10  g: .1
+```
+
+### IP Addressing Scheme
+
+| Device | Interface | IP Address | Subnet Mask | Default Gateway |
+| :--- | :--- | :--- | :--- | :--- |
+| **PC-A** | NIC | `192.168.1.10` | `255.255.255.0` | `192.168.1.1` |
+| **PC-B** | NIC | `192.168.2.10` | `255.255.255.0` | `192.168.2.1` |
+| **Router-A** | G0/0 | `192.168.1.1` | `255.255.255.0` | N/A |
+| | S0/0/0 | `10.0.0.1` | `255.255.255.252`| N/A |
+| **Router-B** | G0/0 | `192.168.2.1` | `255.255.255.0` | N/A |
+| | S0/0/0 | `10.0.0.2` | `255.255.255.252`| N/A |
+
+---
+
+## Lab Tasks
+
+### Task 1: Build the Topology
+
+1.  Open Cisco Packet Tracer.
+2.  Place the required devices onto the workspace: 2 PCs, 2 Switches (e.g., 2960 model), and 2 Routers (e.g., 4321 model).
+3.  **Important:** Routers do not have serial interfaces by default. Click on a router, turn it off using the physical power switch, drag a `NIM-2T` module into an empty slot, and turn it back on. Do this for both routers.
+4.  Connect the devices using the appropriate cables:
+    -   **Copper Straight-Through:** PC to Switch, Switch to Router's GigabitEthernet port.
+    -   **Serial DTE/DCE:** Router-A's Serial 0/0/0 to Router-B's Serial 0/0/0. **Note:** The first router you connect will be the DTE side. The second will be the DCE side, which is responsible for providing the clock signal.
+
+### Task 2: Configure End Devices (PCs)
+
+1.  Click on **PC-A**. Go to the **Desktop** tab -> **IP Configuration**.
+2.  Set the IP address, Subnet Mask, and Default Gateway according to the table above.
+3.  Repeat the process for **PC-B**.
+
+### Task 3: Basic Router Configuration
+
+You will use the Command Line Interface (CLI) for router configuration.
+
+1.  Click on **Router-A**, go to the **CLI** tab.
+2.  Enter privileged EXEC mode:
+    ```bash
+    enable
+    ```
+3.  Enter global configuration mode:
+    ```bash
+    configure terminal
+    ```
+4.  Configure the GigabitEthernet0/0 interface (the LAN connection):
+    ```bash
+    interface GigabitEthernet0/0
+    ip address 192.168.1.1 255.255.255.0
+    no shutdown
+    exit
+    ```
+5.  Configure the Serial0/0/0 interface (the WAN connection):
+    ```bash
+    interface Serial0/0/0
+    ip address 10.0.0.1 255.255.255.252
+    clock rate 64000  // This command is ONLY needed on the DCE side.
+    no shutdown
+    exit
+    ```
+6.  Repeat the process for **Router-B**, using its corresponding IP addresses from the table. **Do not** set the `clock rate` on Router-B if you set it on Router-A.
+
+### Task 4: Verification and Analysis
+
+Use the following commands to verify your configuration and test connectivity.
+
+1.  **On PC-A**, open the **Command Prompt** and type:
+    ```bash
+    ping 192.168.1.1
+    ```
+    This tests connectivity to its default gateway (Router-A). It should be **successful**.
+
+2.  **On PC-A**, try to ping the other PC:
+    ```bash
+    ping 192.168.2.10
+    ```
+    This ping should **fail**.
+
+3.  **On Router-A**, use the following `show` commands in privileged EXEC mode:
+    ```bash
+    show ip interface brief
+    ```
+    This command verifies that your interfaces are up and have the correct IP addresses. The "Status" and "Protocol" columns should both say "up".
+
+    ```bash
+    show ip route
+    ```
+    Examine the output. You will see two networks listed as "C" (Connected).
+    These are the networks that Router-A is physically attached to. Notice that the `192.168.2.0` network is **not** in this table.
+
+---
+
+## Exploration Questions
+
+1.  Why did the ping from `PC-A` to its gateway `192.168.1.1` succeed?
+2.  Why did the ping from `PC-A` to `PC-B` at `192.168.2.10` fail?
+3.  Based on the output of `show ip route` on Router-A, explain in your own words why it cannot forward the packet to `PC-B`.
+4.  What piece of information is missing from the routers that would allow them to communicate between the `192.168.1.0` and `192.168.2.0` networks? (This is what we will begin to solve next week!)
+

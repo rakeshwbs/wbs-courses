@@ -1,0 +1,80 @@
+---
+id: lab-sheet5
+title: Lab sheet 5
+hide_title: true
+sidebar_position: 2
+sidebar_label: Questionnaire
+sidebar_class_name: icon-lab
+---
+import ModuleBanner from '@site/src/components/brm/brm-banner';
+
+<ModuleBanner />
+
+## Lab 5: From Questionnaire to SPSS Data
+
+### Objective
+To practice coding questionnaire responses and entering them into SPSS, creating a complete data file from scratch.
+
+### Part A: The Sample Questionnaire
+
+Imagine you've handed out the following short survey to employees and received six completed copies back.
+
+
+
+* **Respondent ID:** \_\_\_\_\_
+* **Q1: What is your current age?** \_\_\_\_\_ (years)
+* **Q2: What is your primary department?**
+  * `O` Marketing
+  * `O` Sales
+  * `O` Human Resources
+  * `O` IT
+* **Q3: Please rate your agreement with the statement: "I am satisfied with our new company software."**
+  * `O` Strongly Disagree `O` Disagree `O` Neutral `O` Agree `O` Strongly Agree
+
+### Part B: Creating a "Codebook"
+
+Before touching SPSS, a good researcher creates a **codebook**. This is a guide that translates the text/check-box answers into numbers that SPSS can work with.
+
+Here is the codebook for our survey:
+
+* **Respondent ID:**
+  * Variable Name: `ID`
+  * Measure: `Scale`
+* **Q1 (Age):**
+  * Variable Name: `Age`
+  * Measure: `Scale`
+* **Q2 (Department):**
+  * Variable Name: `Department`
+  * Coding: `1` = Marketing, `2` = Sales, `3` = Human Resources, `4` = IT
+  * Measure: `Nominal`
+* **Q3 (Satisfaction):**
+  * Variable Name: `Satisfaction`
+  * Coding: `1` = Strongly Disagree, `2` = Disagree, `3` = Neutral, `4` = Agree, `5` = Strongly Agree
+  * Measure: `Ordinal`
+
+### Part C: Data Entry in SPSS
+
+Here are the six completed surveys you need to enter:
+
+| ID | Age | Department      | Satisfaction      |
+|:--:|:---:|:----------------|:------------------|
+| 1  | 34  | Sales           | Agree             |
+| 2  | 28  | Marketing       | Strongly Agree    |
+| 3  | 45  | IT              | Disagree          |
+| 4  | 52  | Human Resources | Agree             |
+| 5  | 29  | Sales           | Neutral           |
+| 6  | 41  | IT              | Strongly Disagree |
+
+**Instructions:**
+
+1.  **Open SPSS** and create a new, blank dataset.
+2.  Go to the **Variable View** tab.
+3.  Using your codebook from Part B, create and define the four variables (`ID`, `Age`, `Department`, `Satisfaction`).
+* Set the correct **Name** and **Measure** for all variables.
+* For `Department` and `Satisfaction`, you must enter the numeric codes and their corresponding text labels in the **Values** column.
+4.  Once all variables are defined, click on the **Data View** tab.
+5.  Enter the data from the "Completed Surveys" table above. Remember to use the **numeric codes** from your codebook (e.g., for Respondent 1, you will enter `2` for 'Sales' and `4` for 'Agree').
+6.  **Check Your Work:** After entering all the data, go to the top menu and click **View -> Value Labels**. This will toggle the display in your data sheet between the numeric codes and the text labels. This is a great way to confirm you've set everything up correctly!
+7.  **Save Your File:** Go to **File -> Save As...** and save the file as `Week5_Lab.sav`.
+
+---

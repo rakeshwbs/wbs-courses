@@ -1,0 +1,1451 @@
+/**
+ * Any CSS included here will be global. The classic template
+ * bundles Infima by default. Infima is a CSS framework designed to
+ * work well for content-centric websites.
+ */
+/**
+ * Any CSS you write here will be available globally.
+ */
+/*@import '~bootstrap/dist/css/bootstrap.min.css';*/
+/* You can override the default Infima variables here. */
+/* src/css/custom.css */
+@import './exam-question.css';
+
+:root {
+  --ifm-font-family-base: 'Source Sans 3', sans-serif;
+  /*font-family: Google Sans Flex,Google Sans,Helvetica Neue,sans-serif;*/
+
+  /*--ifm-font-family-base: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;*/
+  --ifm-color-primary: #2e8555;
+  --ifm-color-primary-dark: #29784c;
+  --ifm-color-primary-darker: #277148;
+  --ifm-color-primary-darkest: #205d3b;
+  --ifm-color-primary-light: #33925d;
+  --ifm-color-primary-lighter: #359962;
+  --ifm-color-primary-lightest: #3cad6e;
+  --ifm-code-font-size: 95%;
+  --ifm-line-height-base: 2;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+  --rs-def-accent: #2E7D32;
+}
+
+
+/* For readability concerns, you should choose a lighter palette in dark mode. */
+[data-theme='dark'] {
+  --ifm-color-primary: #25c2a0;
+  --ifm-color-primary-dark: #21af90;
+  --ifm-color-primary-darker: #1fa588;
+  --ifm-color-primary-darkest: #1a8870;
+  --ifm-color-primary-light: #29d5b0;
+  --ifm-color-primary-lighter: #32d8b4;
+  --ifm-color-primary-lightest: #4fddbf;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+  --rs-def-accent-dark: #4BBF8B;
+}
+
+/* Reduce space after H4 headings */
+.markdown h4 {
+  margin-bottom: 0.3rem;  /* Adjust to your preference */
+}
+
+/* Optionally, adjust space before headings */
+.markdown h4 {
+  margin-top: 1rem; /* Or smaller if you want less gap from the previous paragraph */
+}
+/* Reduce gap between separate paragraphs (Enter key effect) */
+.theme-doc-markdown p {
+  margin-top: 0;
+  margin-bottom: 0.5rem; /* Adjust this value to tighten spacing */
+}
+
+
+.hover-img {
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 150px;
+  height: auto;
+}
+
+.hover-img:hover {
+  transform: scale(1.1) rotate(1deg);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+}
+.center-table {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 2rem auto;
+}
+.center-table table {
+  border-collapse: collapse;
+  text-align: center;
+}
+
+/*To prevent duplication of the formula */
+.katex-html {
+  position: absolute;
+  top: 0;
+  left: 0;
+  clip: rect(1px, 1px, 1px, 1px);
+  padding: 0;
+  border: 0;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+}
+hr {
+  border: none;
+  border-top: 2px solid lightsteelblue;
+  margin: 2rem 0;
+}
+
+/* Style all markdown tables */
+.markdown table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+/* Table headers */
+.markdown th {
+  background-color: lightslategray;
+  color: Snow;
+  padding: 12px;
+  font-weight: 600;
+  border: 2px solid #ccc;
+  text-align: left;
+}
+
+/* Table body cells */
+.markdown td {
+  border: 1px solid #ddd;
+  padding: 12px;
+}
+
+/* Zebra-striping rows */
+.markdown tbody tr:nth-child(even) {
+  background-color: Cornsilk;
+}
+/*--------------------YouTube Video Made Responsive ------------------------*/
+
+/* src/css/custom.css */
+
+.video-container {
+  overflow: hidden;
+  position: relative;
+  /* Larger size for a higher quality feel. Adjust as needed. */
+  max-width: 960px;
+  margin: 2rem auto; /* More vertical space and centered */
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Optional: A subtle shadow */
+}
+
+.video-container::after {
+  padding-top: 56.25%; /* 16:9 aspect ratio */
+  display: block;
+  content: '';
+}
+
+.video-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+/*--------------------------------------------------------------------------*/
+
+a.download-link {
+  display: inline-block;
+  font-size: 16px;
+  padding: 8px 12px;
+  background-color: #0078d4;
+  color: #fff;
+  border-radius: 5px;
+  text-decoration: none;
+}
+a.download-link:hover {
+  background-color: #005ea2;
+}
+
+/* src/css/custom.css */
+
+/*
+  Make Swiper slides adapt their height correctly in grid mode
+  and ensure cards fill the space.
+*/
+.swiper-slide {
+  height: auto;
+  display: flex;
+}
+
+.card--full-height {
+  height: 100%;
+  width: 100%;
+}
+
+/* Style the Swiper navigation arrows to match Docusaurus theme.
+  This is an optional but recommended improvement.
+*/
+.swiper-button-prev,
+.swiper-button-next {
+  color: var(--ifm-color-primary);
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.swiper-pagination-bullet-active {
+  background: var(--ifm-color-primary) !important;
+}
+
+/* src/css/custom.css */
+
+/* --- Main Card Setup & Hover --- */
+/* Add a smooth transition to the card element */
+.card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden; /* Hide anything that goes outside the card's rounded corners */
+}
+
+/* On hover, lift the card up and add a stronger shadow */
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+
+/* --- Image Zoom Effect --- */
+/* Prepare the image container */
+.card__image {
+  overflow: hidden; /* This is crucial to contain the zoomed image */
+  position: relative; /* Needed for positioning the overlay */
+}
+
+/* Add a transition to the image itself */
+.card__image img {
+  transition: transform 0.4s ease-out;
+}
+
+/* On card hover, scale up the image */
+.card:hover .card__image img {
+  transform: scale(1.1);
+}
+
+
+/* --- Overlay and Text Effect --- */
+/* Create the overlay using a pseudo-element */
+.card__image::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0));
+  opacity: 0; /* Hidden by default */
+  transition: opacity 0.3s ease;
+}
+
+/* The text that will appear on the overlay */
+.card__overlay-text {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  color: white;
+  font-weight: 600;
+  font-size: 1.1rem;
+  opacity: 0; /* Hidden by default */
+  transform: translateY(10px); /* Start slightly lower */
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  transition-delay: 0.1s; /* Appear just after the overlay */
+}
+
+/* On card hover, fade in the overlay and text */
+.card:hover .card__image::before,
+.card:hover .card__overlay-text {
+  opacity: 1;
+}
+
+.card:hover .card__overlay-text {
+  transform: translateY(0); /* Move text to its final position */
+}
+/* src/css/custom.css */
+
+/* For the light theme */
+[data-theme='light'] {
+  --ifm-menu-color-background-hover: tomato; /* Your desired light mode hover color */
+
+}
+
+/* For the dark theme */
+[data-theme='dark'] {
+  --ifm-menu-color-background-hover: #3a414d; /* Your desired dark mode hover color */
+}
+/* Example CSS */
+.menu__list-item-collapsible {
+  font-weight: 600; /* Bolder top-level items */
+  background-color: #f5f5f5; /* Subtle hover effect */
+  transition: max-height 0.3s ease-in-out;
+}
+
+/* Icon on the sidebar, class defined in frontmatter*/
+.icon-lecture .menu__link::before {
+  content: '📖️';
+  display: inline-block;
+  margin-right: 0.6em;
+}
+.icon-lab .menu__link::before {
+  content: '💻';
+display: inline-block;
+  margin-right: 0.6em;
+}
+ .icon-quiz .menu__link::before {
+   content: '❓';
+   display: inline-block;
+   margin-right: 0.6em;
+ }
+.icon-exam .menu__link::before {
+  content: '✍️';
+  display: inline-block;
+  margin-right: 0.6em;
+}
+/*************************************************************/
+/* In custom.css */
+blockquote {
+  border-left: 4px solid var(--ifm-color-primary);
+  background-color: var(--ifm-background-color-secondary);
+  padding: 1rem 1.5rem;
+  position: relative;
+  font-size: 1.1rem;
+}
+
+blockquote::before {
+  content: '“';
+  font-size: 4rem;
+  position: absolute;
+  left: -10px;
+  top: -10px;
+  color: var(--ifm-color-primary-light);
+  opacity: 0.3;
+}
+/****************************************************************/
+/* Base 3-column grid */
+.cap-grid-3x2 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+/* Style for each card */
+.cap-card {
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 1rem;
+  padding: 1rem 1.1rem;
+  background: var(--ifm-background-surface-color);
+  transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
+}
+
+.cap-card h4 {
+  margin: 0 0 0.35rem;
+  font-weight: 700;
+}
+
+.cap-card p {
+  margin: 0;
+  line-height: 1.55;
+}
+
+.cap-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--ifm-color-primary);
+  box-shadow: var(--ifm-global-shadow-md);
+}
+
+/* Center 2 cards in the last row */
+.cap-grid-3x2:has(> :nth-child(5)) {
+  grid-template-columns: 1fr repeat(2, minmax(220px, 1fr)) 1fr;
+}
+
+.cap-grid-3x2:has(> :nth-child(5)) > :nth-child(4) {
+  grid-column: 2;
+}
+
+.cap-grid-3x2:has(> :nth-child(5)) > :nth-child(5) {
+  grid-column: 3;
+}
+
+/* Mobile: stack vertically */
+@media (max-width: 700px) {
+  .cap-grid-3x2 {
+    grid-template-columns: 1fr;
+  }
+  .cap-grid-3x2 > * {
+    grid-column: auto;
+  }
+}
+
+
+/*********************************/
+/* Concept Card Styling */
+.concept-card {
+  background: var(--ifm-background-surface-color);
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 0.8rem;
+  padding: 1.25rem 1.5rem;
+  box-shadow: var(--ifm-global-shadow-lw);
+  margin-bottom: 1.5rem;
+}
+
+.concept-card h3 {
+  margin-top: 0;
+  color: var(--ifm-color-primary);
+}
+
+.concept-card p {
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+/* Example Box Styling */
+.example-box {
+  background: color-mix(in srgb, var(--ifm-color-primary-lightest) 40%, white);
+  border-left: 4px solid var(--ifm-color-primary);
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  box-shadow: var(--ifm-global-shadow-sm);
+  font-size: 0.95rem;
+}
+.example-box strong::before {
+  content: "📌 ";
+}
+/****************************************************************/
+/* Carded quotation */
+.q-card {
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-top: 4px solid var(--ifm-color-primary);
+  border-radius: .75rem;
+  padding: 1rem 1.25rem;
+  background: var(--ifm-background-surface-color);
+  box-shadow: var(--ifm-global-shadow-lw);
+}
+.q-card p {
+  margin: 0;
+  font-style: italic;
+  font-size: 1.02rem;
+  line-height: 1.55;
+}
+
+/****************************************************************/
+/* Tabs header refinement */
+.usecase-tabs .tabs__item {
+  font-weight: 600;
+  letter-spacing: .15px;
+}
+.usecase-tabs .tabs__item--active {
+  border-color: var(--ifm-color-primary);
+  color: var(--ifm-color-primary);
+}
+
+/* Two-column responsive list */
+.usecase-list {
+  list-style: none;
+  padding: 0;
+  margin: .5rem 0 0;
+  display: grid;
+  gap: .75rem 1rem;
+}
+.usecase-list.two-col { grid-template-columns: repeat(2, minmax(260px, 1fr)); }
+@media (max-width: 900px) { .usecase-list.two-col { grid-template-columns: 1fr; } }
+
+/* Key term + bullet icon */
+.usecase-list li {
+  position: relative;
+  padding: .65rem .8rem .65rem 2rem;
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: .75rem;
+  background: var(--ifm-background-surface-color);
+  box-shadow: var(--ifm-global-shadow-lw);
+  line-height: 1.55;
+  transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+}
+.usecase-list li::before {
+  content: "•";
+  position: absolute;
+  left: .9rem; top: .85rem;
+  font-size: 1.25rem;
+  color: var(--ifm-color-primary);
+  line-height: 1;
+}
+.usecase-list li:hover {
+  transform: translateY(-2px);
+  border-color: var(--ifm-color-primary);
+  box-shadow: var(--ifm-global-shadow-md);
+}
+.usecase-list .k {
+  font-weight: 700;
+  color: var(--ifm-color-primary);
+}
+.heading-with-icon {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;           /* space between icon and text */
+  color: var(--ifm-color-success);  /* icon inherits via currentColor */
+  margin: 0;             /* keep heading tight if needed */
+}
+
+.heading-with-icon .heading-icon {
+  width: 1.25em;         /* scales with font size */
+  height: 1.25em;
+  fill: none;
+  stroke: currentColor;  /* inherits the heading color */
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  flex: 0 0 auto;
+}
+/*%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%*/
+/* Card wrapper */
+.image-card {
+  margin: var(--ifm-spacing-vertical) auto;
+  max-width: min(960px, 90%);
+  text-align: center;
+}
+
+/* Image styling */
+.image-card__img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  border: 1px solid var(--ifm-color-emphasis-200);
+  box-shadow: var(--ifm-global-shadow-lw);
+  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+}
+
+/* Hover emphasis */
+.image-card:hover .image-card__img {
+  transform: translateY(-2px);
+  box-shadow: var(--ifm-global-shadow-md);
+  border-color: var(--ifm-color-primary);
+}
+
+/* Caption */
+.image-card__caption {
+  font-size: 0.9rem;
+  color: var(--ifm-color-emphasis-700);
+  margin-top: 0.5rem;
+}
+
+/* Dark theme fine-tuning */
+html[data-theme='dark'] .image-card__img {
+  border-color: var(--ifm-color-emphasis-300);
+}
+html[data-theme='dark'] .image-card__caption {
+  color: var(--ifm-color-emphasis-600);
+}
+.image-card__img { aspect-ratio: 16 / 9; object-fit: contain; }
+.image-card--wide { max-width: 100%; }
+
+/*%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%*/
+   /* ---------- Theme-aware tokens (works with Docusaurus) ---------- */
+ .mlp {
+   --mlp-accent: var(--ifm-color-primary, #4f46e5);
+   --mlp-card: var(--ifm-background-surface-color, #ffffff);
+   --mlp-text: var(--ifm-font-color-base, #1f2937);
+   --mlp-muted: var(--ifm-color-emphasis-600, #6b7280);
+   --mlp-ring: rgba(79, 70, 229, 0.15);
+   --mlp-border: var(--ifm-color-emphasis-200, #e5e7eb);
+   --mlp-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+   margin: 0 auto;
+   max-width: 1100px;
+   padding: 0.5rem 0;
+ }
+
+/* ---------- Title ---------- */
+.mlp-title {
+  margin: 0 0 1.25rem 0;
+  font-size: clamp(1.25rem, 1.5vw + 1rem, 1.75rem);
+  line-height: 1.2;
+  text-align: center;
+}
+
+/* ---------- Steps container ---------- */
+.mlp-steps {
+  counter-reset: mlp-step;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  position: relative;
+}
+
+/* Center rail for desktop */
+@media (min-width: 980px) {
+  .mlp-steps {
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem 3.5rem;
+  }
+  .mlp-steps::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 6px;
+    transform: translateX(-50%);
+    border-radius: 999px;
+    background:
+            linear-gradient(180deg, var(--mlp-accent), var(--mlp-accent)) padding-box,
+            linear-gradient(180deg, transparent, transparent) border-box;
+    box-shadow:
+            0 0 0 6px var(--ifm-background-color, #fff) inset,
+            0 0 0 0 transparent;
+    opacity: 0.25;
+  }
+}
+
+/* ---------- Cards ---------- */
+.mlp-card {
+  counter-increment: mlp-step;
+  position: relative;
+  background: var(--mlp-card);
+  color: var(--mlp-text);
+  border: 1px solid var(--mlp-border);
+  border-radius: 18px;
+  padding: 1.1rem 1.25rem 1.1rem 4.0rem;
+  box-shadow: var(--mlp-shadow);
+  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+}
+
+.mlp-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 40px rgba(0,0,0,.12);
+  border-color: var(--mlp-accent);
+}
+
+/* Number badge */
+.mlp-card::before {
+  content: counter(mlp-step);
+  position: absolute;
+  left: 1.0rem;
+  top: 1rem;
+  width: 2.25rem;
+  height: 2.25rem;
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  border-radius: 999px;
+  color: #fff;
+  background: radial-gradient(85% 85% at 30% 30%, #ffffff33 0%, #00000000 60%),
+  var(--mlp-accent);
+  box-shadow: 0 0 0 6px var(--mlp-ring);
+}
+
+/* Connector dots to the center rail (desktop) */
+@media (min-width: 980px) {
+  .mlp-card {
+    padding-left: 3.5rem;
+  }
+  .mlp-card:nth-child(odd) { grid-column: 1; }
+  .mlp-card:nth-child(even) { grid-column: 2; }
+
+  .mlp-card:nth-child(odd)::after,
+  .mlp-card:nth-child(even)::after {
+    content: "";
+    position: absolute;
+    top: 1.9rem;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--mlp-accent);
+    box-shadow: 0 0 0 5px var(--ifm-background-color, #fff);
+  }
+  .mlp-card:nth-child(odd)::after  { right: -1.95rem; }
+  .mlp-card:nth-child(even)::after { left:  -1.95rem; }
+}
+
+/* Headings + text */
+.mlp-card h3 {
+  margin: 0 0 .35rem 0;
+  font-size: 1.05rem;
+  line-height: 1.25;
+}
+
+.mlp-card p {
+  margin: 0;
+  font-size: .98rem;
+  line-height: 1.45;
+  color: var(--mlp-muted);
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .mlp-card { transition: none; }
+}
+/*#####################################################################*/
+/* ---------- Theme-aware tokens (works with Docusaurus variables) ---------- */
+.ai-modes{
+  --bg: var(--ifm-background-color, #0b0f19);
+  --surface: var(--ifm-background-surface-color, #101826);
+  --text: var(--ifm-font-color-base, #e5e7eb);
+  --muted: var(--ifm-color-emphasis-700, #9aa3b2);
+  --primary: var(--ifm-color-primary, #6d6ff0);
+  --ring: color-mix(in oklab, var(--primary) 25%, transparent);
+  --border: var(--ifm-color-emphasis-200, #2a3342);
+  --shadow: 0 12px 35px rgba(0,0,0,.25);
+  --radius: 20px;
+  --gap: 1.25rem;
+  margin: 0 auto; max-width: 1100px;
+}
+
+/* ---------- Tabs (pure CSS radio) ---------- */
+.ai-tabs{
+  position: relative;
+  display:flex; flex-wrap:wrap; gap:.5rem;
+  align-items:center; justify-content:center;
+  padding: .5rem; border-radius: 999px;
+  background:
+          linear-gradient(180deg, color-mix(in oklab, var(--primary) 18%, transparent), transparent) padding-box,
+          linear-gradient(90deg, color-mix(in oklab, var(--primary) 25%, transparent), transparent) border-box;
+  border: 1px solid var(--border);
+}
+.ai-tabs input{ display:none; }
+
+.ai-tabs label{
+  --pad: .55rem .95rem;
+  position: relative;
+  display:inline-flex; gap:.5rem; align-items:center;
+  padding: var(--pad);
+  font-size:.95rem; font-weight:600; cursor:pointer;
+  color: var(--muted); user-select:none;
+  border-radius: 999px; transition: color .2s ease;
+}
+.ai-tabs label svg{ width:18px; height:18px; fill: currentColor; opacity:.9; }
+.ai-tabs label:focus-visible{ outline: none; box-shadow: 0 0 0 4px var(--ring); }
+
+.ai-tabs .ai-indicator{
+  position:absolute; inset:0 auto 0 0; height: calc(100% - .4rem);
+  margin:.2rem; width: 0; border-radius: 999px; z-index:0;
+  background: linear-gradient(135deg, color-mix(in oklab, var(--primary) 70%, #ffffff 0%), var(--primary));
+  filter: saturate(115%);
+  box-shadow: inset 0 0 0 1px color-mix(in oklab, #fff 28%, transparent), 0 10px 20px color-mix(in oklab, var(--primary) 25%, transparent);
+  transition: transform .25s ease, width .25s ease;
+}
+
+/* Map indicator to the selected tab */
+#tab-supervised:checked ~ label[for="tab-supervised"],
+#tab-unsup:checked ~ label[for="tab-unsup"],
+#tab-semi:checked ~ label[for="tab-semi"],
+#tab-rl:checked ~ label[for="tab-rl"]{
+  color: var(--ifm-color-emphasis-100, #fff);
+}
+#tab-supervised:checked ~ .ai-indicator{ transform: translateX(0%); width: calc(25% - .4rem); left: .2rem;}
+#tab-unsup:checked ~ .ai-indicator{ transform: translateX(100%); width: calc(25% - .4rem); left: calc(25% + .2rem);}
+#tab-semi:checked ~ .ai-indicator{ transform: translateX(200%); width: calc(25% - .4rem); left: calc(50% + .2rem);}
+#tab-rl:checked   ~ .ai-indicator{ transform: translateX(300%); width: calc(25% - .4rem); left: calc(75% + .2rem);}
+
+/* Ensure four equal tab widths */
+@media (min-width: 680px){
+  .ai-tabs label{ flex: 1 1 25%; justify-content:center; }
+  .ai-tabs{ padding:.4rem; }
+}
+
+/* ---------- Panels grid ---------- */
+.ai-panels{
+  display:grid;
+  /*grid-template-columns: repeat(2, minmax(0,1fr));*/
+  grid-template-columns: 1fr;
+  gap: var(--gap);
+  margin-top: 1rem;
+}
+@media (max-width: 880px){ .ai-panels{ grid-template-columns: 1fr; } }
+
+/* ---------- Card with glass border & gradient ring ---------- */
+.ai-card{
+  position:relative; border-radius: var(--radius); overflow:hidden;
+  background: linear-gradient(180deg, color-mix(in oklab, var(--surface) 85%, transparent), var(--surface));
+  border: 1px solid var(--border); box-shadow: var(--shadow);
+  padding: 1rem; isolation:isolate;
+}
+.ai-card::before{
+  content:""; position:absolute; inset:-1px; z-index:-1; border-radius:inherit;
+  background: linear-gradient(135deg,
+  color-mix(in oklab, var(--primary) 55%, transparent),
+  color-mix(in oklab, var(--primary) 15%, transparent) 35%,
+  transparent 60%);
+  mask: linear-gradient(#000, #000) content-box, linear-gradient(#000, #000);
+  -webkit-mask: linear-gradient(#000, #000) content-box, linear-gradient(#000, #000);
+  padding:1px;
+}
+
+/* Header */
+.ai-card header{
+  display:flex; flex-direction:column; gap:.35rem; margin-bottom:.75rem;
+}
+.ai-card h3{ margin:0; font-size:1.15rem; line-height:1.2; }
+.ai-card .chip{
+  width:fit-content; font-size:.8rem; color: var(--muted);
+  border:1px dashed var(--border); padding:.25rem .5rem; border-radius:999px;
+}
+
+/* ---------- Flip module (no JS) ---------- */
+.ai-flip{
+  position:relative; perspective: 1200px; min-height: 170px;
+}
+.ai-flip .front, .ai-flip .back{
+  position:absolute; inset:0; padding: .25rem .25rem .6rem .25rem;
+  border-radius: calc(var(--radius) - 6px);
+  backface-visibility:hidden; transform-style: preserve-3d;
+  transition: transform .5s ease;
+}
+.ai-flip .front{
+  background: linear-gradient(180deg, color-mix(in oklab, var(--surface) 92%, transparent), transparent);
+}
+.ai-flip .back{
+  transform: rotateY(180deg);
+  background: linear-gradient(180deg, color-mix(in oklab, var(--primary) 12%, transparent), transparent);
+  border: 1px solid color-mix(in oklab, var(--primary) 25%, var(--border));
+}
+
+/* Hover/focus triggers flip */
+.ai-card:hover .front, .ai-card:focus-within .front{ transform: rotateY(180deg); }
+.ai-card:hover .back,  .ai-card:focus-within .back{  transform: rotateY(360deg); }
+
+.bullets{ margin:.25rem 0 0 1rem; color: var(--muted); }
+.bullets li{ margin:.2rem 0; }
+.hint{ display:block; margin-top:.5rem; font-size:.8rem; color: var(--muted); }
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce){
+  .ai-flip .front, .ai-flip .back{ transition: none; transform: none !important; }
+  .hint{ display:none; }
+}
+/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+/* Hide radios but keep them in the tab order when focusing via label */
+.ml-tabs > input{ position:absolute; opacity:0; pointer-events:none; }
+
+/* Tab bar */
+.segmented{
+  display:flex; flex-wrap:wrap; gap:.5rem;
+  padding:.6rem; margin-bottom:1rem;
+  border:1px solid var(--ifm-color-emphasis-200, #e5e7eb);
+  border-radius:999px;
+  background:linear-gradient(180deg, rgba(79,70,229,.06), transparent);
+}
+.segmented label{
+  display:flex; align-items:center; justify-content:center;
+  padding:.85rem 1rem; min-height:48px;
+  border-radius:999px; border:1px solid var(--ifm-color-emphasis-200, #e5e7eb);
+  background:var(--ifm-background-surface-color, #fff);
+  font-weight:700; font-size:.95rem; color:var(--ifm-color-emphasis-700, #6b7280);
+  white-space:normal; overflow-wrap:anywhere; text-align:center;
+  transition:background .2s, color .2s, border-color .2s, box-shadow .2s;
+}
+/* Active label (radio checked styles the matching label) */
+#t-nn:checked     ~ .segmented label[for="t-nn"],
+#t-tree:checked   ~ .segmented label[for="t-tree"],
+#t-linear:checked ~ .segmented label[for="t-linear"],
+#t-kernel:checked ~ .segmented label[for="t-kernel"],
+#t-inst:checked   ~ .segmented label[for="t-inst"]{
+  color:var(--ifm-color-emphasis-100, #fff);
+  background:linear-gradient(135deg, color-mix(in srgb, var(--ifm-color-primary, #4f46e5) 85%, #ffffff 0%), var(--ifm-color-primary, #4f46e5));
+  border-color: color-mix(in srgb, var(--ifm-color-primary, #4f46e5) 50%, var(--ifm-color-emphasis-200, #e5e7eb));
+  box-shadow:0 10px 24px color-mix(in srgb, var(--ifm-color-primary, #4f46e5) 25%, transparent);
+}
+/* Two columns on narrow screens */
+@media (max-width:640px){ .segmented label{ flex:1 1 calc(50% - .5rem);} }
+
+/* Panels */
+.panels{}
+.panel{
+  display:none;
+  background:var(--ifm-background-surface-color, #fff);
+  border:1px solid var(--ifm-color-emphasis-200, #e5e7eb);
+  border-radius:18px; padding:1rem 1.1rem;
+  box-shadow:0 14px 36px rgba(0,0,0,.10);
+}
+.panel h3{ margin:.25rem 0 .5rem; }
+.panel p{ margin:.4rem 0; }
+.panel ul{ margin:.35rem 0 .9rem 1.25rem; }
+.panel li{ margin:.25rem 0; }
+
+/* Show the selected panel (inputs and .panels are siblings) */
+#t-nn:checked     ~ .panels #p-nn{ display:block; }
+#t-tree:checked   ~ .panels #p-tree{ display:block; }
+#t-linear:checked ~ .panels #p-linear{ display:block; }
+#t-kernel:checked ~ .panels #p-kernel{ display:block; }
+#t-inst:checked   ~ .panels #p-inst{ display:block; }
+/*^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^*/
+
+   /* Theme-aware tokens (Docusaurus) */
+ .ai-card{
+   --surface: var(--ifm-background-surface-color, #ffffff);
+   --border:  var(--ifm-color-emphasis-200, #e5e7eb);
+   --shadow:  0 14px 36px rgba(0,0,0,.10);
+
+   background: var(--surface);
+   border: 1px solid var(--border);
+   border-radius: 18px;
+   padding: 1rem 1.25rem;
+   box-shadow: var(--shadow);
+ }
+.ai-card h3{ margin: 0 0 .6rem; }
+.ai-card p{ margin: .55rem 0; }
+
+.intro-card{ max-width: 900px; margin-inline: auto; }
+.stage-card { max-width: 900px; margin-inline: auto; margin-top: 2rem;  }
+
+/***********************************************************************************/
+/* -------- Theme-aware tokens (Docusaurus) -------- */
+.dq-card{
+  --bg: var(--ifm-background-surface-color, #ffffff);
+  --text: var(--ifm-font-color-base, #1f2937);
+  --muted: var(--ifm-color-emphasis-700, #6b7280);
+  --border: var(--ifm-color-emphasis-200, #e5e7eb);
+  --primary: var(--ifm-color-primary, #4f46e5);
+  --shadow: 0 18px 50px rgba(0,0,0,.12);
+  --glow: color-mix(in srgb, var(--primary) 30%, transparent);
+
+  position: relative;
+  max-width: 900px;
+  margin: 0 auto 1.25rem;
+  padding: 1.1rem 1.2rem;
+  border-radius: 20px;
+  color: var(--text);
+
+  /* Gradient border + subtle background tint */
+  background:
+          linear-gradient(180deg, color-mix(in oklab, var(--primary) 6%, transparent), transparent) padding-box,
+          linear-gradient(135deg, color-mix(in oklab, var(--primary) 40%, transparent), color-mix(in oklab, #fff 10%, transparent)) border-box;
+  border: 1px solid transparent;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  isolation: isolate;
+
+  animation: dq-enter .5s ease both;
+}
+
+/* Soft moving sheen */
+.dq-card::before{
+  content:"";
+  position:absolute; inset:-40% -60% auto -60%;
+  height: 60%;
+  background: radial-gradient(60% 60% at 50% 50%, rgba(255,255,255,.4), transparent 70%);
+  filter: blur(14px);
+  animation: dq-sheen 7s linear infinite;
+  pointer-events:none;
+}
+
+/* Headings & paragraphs */
+.dq-card h3{ margin: 0 0 .4rem; font-size: 1.15rem; }
+.dq-card p{ margin: .5rem 0; color: var(--muted); }
+
+/* -------- Lists styled as animated “issue cards” -------- */
+.dq-list{ list-style: none; padding: 0; margin: .6rem 0 .2rem; counter-reset: issue; }
+.dq-list > li{
+  position: relative;
+  margin: .6rem 0;
+  padding: .75rem .75rem .75rem 3.1rem;
+  border-radius: 16px;
+  border: 1px dashed var(--border);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--primary) 6%, transparent), transparent);
+  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease, background .25s ease;
+  animation: dq-stagger .6s ease both;
+}
+.dq-list > li:nth-child(1){ animation-delay: .05s; }
+.dq-list > li:nth-child(2){ animation-delay: .12s; }
+.dq-list > li:nth-child(3){ animation-delay: .19s; }
+
+/* Numbered glowing badge */
+.dq-list > li::before{
+  counter-increment: issue;
+  content: counter(issue);
+  position:absolute; left: .8rem; top: .8rem;
+  width: 2.1rem; height: 2.1rem; border-radius: 12px;
+  display:grid; place-items:center;
+  font-weight: 800; color:#fff;
+  background: linear-gradient(135deg, color-mix(in srgb, var(--primary) 75%, #ffffff 0%), var(--primary));
+  box-shadow: 0 8px 22px var(--glow);
+}
+
+/* Hover elevation */
+.dq-list > li:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 16px 32px var(--glow);
+  border-color: color-mix(in srgb, var(--primary) 40%, var(--border));
+}
+
+/* Sub-bullets */
+.dq-sub{ list-style: none; margin: .45rem 0 0; padding: 0; }
+.dq-sub > li{
+  position: relative; padding: .35rem .25rem .35rem 1.4rem;
+  color: var(--muted);
+}
+.dq-sub > li::before{
+  content:"";
+  position:absolute; left:.2rem; top: .75rem;
+  width: .5rem; height: .5rem; border-radius: 50%;
+  background: color-mix(in srgb, var(--primary) 70%, #ffffff 0%);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--primary) 18%, transparent);
+}
+
+/* Inline code chips */
+.dq-card code{
+  background: color-mix(in srgb, var(--primary) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--primary) 25%, var(--border));
+  border-radius: 8px; padding: .05rem .35rem;
+  font-size: .92em;
+  transition: transform .15s ease;
+}
+.dq-card code:hover{ transform: translateY(-1px); }
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce){
+  .dq-card, .dq-list > li{ animation: none !important; }
+  .dq-card::before{ display:none; }
+}
+
+/* Keyframes */
+@keyframes dq-enter{ from{ opacity:0; transform: translateY(6px);} to{ opacity:1; transform:none; } }
+@keyframes dq-stagger{ from{ opacity:0; transform: translateY(8px);} to{ opacity:1; transform:none; } }
+@keyframes dq-sheen{
+  0%   { transform: translateX(-10%); opacity:.55; }
+  50%  { transform: translateX(10%);  opacity:.25; }
+  100% { transform: translateX(-10%); opacity:.55; }
+}
+/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+/* ===================== Theme Tokens ===================== */
+.eda-hero{
+  --surface: var(--ifm-background-surface-color, #ffffff);
+  --bg: var(--ifm-background-color, #f8fafc);
+  --text: var(--ifm-font-color-base, #111827);
+  --muted: var(--ifm-color-emphasis-700, #6b7280);
+  --border: var(--ifm-color-emphasis-200, #e5e7eb);
+  --primary: var(--ifm-color-primary, #4f46e5);
+  --shadow: 0 18px 50px rgba(0,0,0,.12);
+  --glow: color-mix(in srgb, var(--primary) 30%, transparent);
+}
+
+/* ===================== Card Container ===================== */
+.eda-hero{
+  position: relative;
+  max-width: 980px;
+  margin: 0 auto 1.25rem;
+  padding: 1.1rem 1.25rem;
+  color: var(--text);
+  border-radius: 22px;
+  border: 1px solid transparent;
+  background:
+          linear-gradient(180deg, color-mix(in oklab, var(--primary) 6%, transparent), transparent) padding-box,
+          linear-gradient(135deg, color-mix(in oklab, var(--primary) 42%, transparent), color-mix(in oklab, #fff 8%, transparent)) border-box;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  isolation: isolate;
+  animation: eda-fade-in .5s ease both;
+}
+
+/* Subtle animated background sheen */
+.eda-hero::before{
+  content:"";
+  position:absolute; inset:-40% -50% auto -50%;
+  height:60%;
+  background: radial-gradient(60% 60% at 50% 50%, rgba(255,255,255,.35), transparent 70%);
+  filter: blur(16px);
+  animation: eda-sheen 8s linear infinite;
+  pointer-events:none;
+}
+
+/* ===================== Header ===================== */
+.eda-head{ margin-bottom: .4rem; }
+.eda-title{
+  margin: 0;
+  font-size: clamp(1.15rem, 1vw + 1rem, 1.35rem);
+  line-height: 1.2;
+  position: relative;
+  display: inline-block;
+}
+.eda-title::after{
+  content:"";
+  position:absolute; left:0; bottom:-.3rem;
+  height: .25rem; width: 0%;
+  border-radius: 4px;
+  background: linear-gradient(90deg, var(--primary), color-mix(in srgb, var(--primary) 60%, #ffffff 0%));
+  box-shadow: 0 6px 14px var(--glow);
+  animation: eda-underline .9s .25s cubic-bezier(.3,.7,.2,1) forwards;
+}
+.eda-sub{
+  margin: .15rem 0 0;
+  color: var(--muted);
+  font-size: .95rem;
+}
+
+/* ===================== Paragraphs ===================== */
+.eda-hero p{ margin: .55rem 0; color: var(--muted); }
+.eda-lead{ color: var(--text); font-weight: 700; margin-top: .75rem; }
+
+/* ===================== Lists ===================== */
+.eda-bullets{ list-style: none; padding: 0; margin: .5rem 0 .2rem; }
+.eda-bullets > li{
+  position: relative;
+  padding: .55rem .5rem .55rem 2.4rem;
+  color: var(--text);
+  border-radius: 14px;
+  transition: transform .25s ease, box-shadow .25s ease, background .25s ease, border-color .25s ease;
+}
+
+/* Scene list: numbered chips with staggered reveal */
+.eda-bullets--scene{ counter-reset: step; }
+.eda-bullets--scene > li{
+  margin: .35rem 0;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--primary) 5%, transparent), transparent);
+  border: 1px dashed var(--border);
+  animation: eda-stagger .55s ease both;
+}
+.eda-bullets--scene > li:nth-child(1){ animation-delay: .05s; }
+.eda-bullets--scene > li:nth-child(2){ animation-delay: .12s; }
+.eda-bullets--scene > li:nth-child(3){ animation-delay: .19s; }
+.eda-bullets--scene > li:nth-child(4){ animation-delay: .26s; }
+
+.eda-bullets--scene > li::before{
+  counter-increment: step;
+  content: counter(step);
+  position: absolute; left: .7rem; top: .55rem;
+  width: 1.8rem; height: 1.8rem;
+  display: grid; place-items: center;
+  font-weight: 800; color: #fff;
+  border-radius: 10px;
+  background: linear-gradient(135deg, color-mix(in srgb, var(--primary) 80%, #ffffff 0%), var(--primary));
+  box-shadow: 0 8px 20px var(--glow);
+}
+
+/* Goals list: animated accent bar */
+.eda-bullets--goals > li{
+  margin: .35rem 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: 0 10px 24px rgba(0,0,0,.06);
+}
+.eda-bullets--goals > li::before{
+  content:"";
+  position:absolute; left:.7rem; top: 50%;
+  width: .5rem; height: .5rem; transform: translateY(-50%);
+  border-radius: 999px;
+  background: var(--primary);
+  box-shadow: 0 0 0 6px color-mix(in srgb, var(--primary) 18%, transparent);
+  transition: width .25s ease, background .25s ease, box-shadow .25s ease;
+}
+.eda-bullets--goals > li:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 16px 32px var(--glow);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--primary) 5%, transparent), var(--surface));
+}
+.eda-bullets--goals > li:hover::before{
+  width: 28px; border-radius: 6px;
+  background: linear-gradient(90deg, var(--primary), color-mix(in srgb, var(--primary) 60%, #ffffff 0%));
+  box-shadow: 0 0 0 6px color-mix(in srgb, var(--primary) 14%, transparent);
+}
+
+/* Inline emphasis inside list items */
+.eda-bullets--goals strong{ color: var(--text); }
+
+/* ===================== Reduced Motion ===================== */
+@media (prefers-reduced-motion: reduce){
+  .eda-hero::before,
+  .eda-title::after,
+  .eda-bullets--scene > li{ animation: none !important; }
+}
+
+/* ===================== Keyframes ===================== */
+@keyframes eda-fade-in{ from{ opacity:0; transform: translateY(6px);} to{ opacity:1; transform:none; } }
+@keyframes eda-stagger{ from{ opacity:0; transform: translateY(8px);} to{ opacity:1; transform:none; } }
+@keyframes eda-underline{ to{ width: 100%; } }
+@keyframes eda-sheen{
+  0%   { transform: translateX(-10%); opacity:.55; }
+  50%  { transform: translateX(10%);  opacity:.28; }
+  100% { transform: translateX(-10%); opacity:.55; }
+}
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+/* ================= Theme tokens (Docusaurus-aware) ================= */
+.uni-card{
+  --surface: var(--ifm-background-surface-color, #ffffff);
+  --bg: var(--ifm-background-color, #f8fafc);
+  --text: var(--ifm-font-color-base, #111827);
+  --muted: var(--ifm-color-emphasis-700, #6b7280);
+  --border: var(--ifm-color-emphasis-200, #e5e7eb);
+  --primary: var(--ifm-color-primary, #4f46e5);
+  --shadow: 0 18px 50px rgba(0,0,0,.12);
+  --glow: color-mix(in srgb, var(--primary) 28%, transparent);
+}
+
+/* ================= Card container ================= */
+.uni-card{
+  position: relative; max-width: 980px; margin: 0 auto 1.25rem;
+  padding: 1.1rem 1.25rem; color: var(--text);
+  border-radius: 22px; border: 1px solid transparent;
+  background:
+          linear-gradient(180deg, color-mix(in oklab, var(--primary) 6%, transparent), transparent) padding-box,
+          linear-gradient(135deg, color-mix(in oklab, var(--primary) 42%, transparent),
+          color-mix(in oklab, #fff 8%, transparent)) border-box;
+  box-shadow: var(--shadow); overflow: hidden; isolation: isolate;
+  animation: uni-fade .55s ease both;
+}
+/* soft animated sheen */
+.uni-card::before{
+  content:""; position:absolute; inset:-40% -55% auto -55%; height:60%;
+  background: radial-gradient(60% 60% at 50% 50%, rgba(255,255,255,.35), transparent 70%);
+  filter: blur(16px); animation: uni-sheen 8s linear infinite; pointer-events:none;
+}
+
+/* ================= Head ================= */
+.uni-head{ margin-bottom:.35rem; }
+.uni-head h3{ margin:0; font-size:clamp(1.2rem, 1vw + 1rem, 1.45rem); line-height:1.2; display:inline-block; position:relative; }
+.uni-head h3::after{
+  content:""; position:absolute; left:0; bottom:-.3rem; height:.25rem; width:0%;
+  border-radius:4px; background: linear-gradient(90deg, var(--primary), color-mix(in srgb, var(--primary) 60%, #ffffff 0%));
+  box-shadow: 0 6px 14px var(--glow); animation: uni-underline .9s .25s cubic-bezier(.3,.7,.2,1) forwards;
+}
+.uni-kicker{ margin:.15rem 0 0; color:var(--muted); font-size:.95rem; }
+
+/* ================= Paragraphs ================= */
+.uni-card p{ margin:.55rem 0; color: var(--muted); }
+
+/* ================= Demo: CSS-only bar chart ================= */
+.uni-demo{ margin:.8rem 0 0; }
+.uni-demo figcaption{
+  font-weight:700; margin-bottom:.35rem; color: var(--text);
+}
+.bars{
+  position:relative; height: 200px; border-radius:16px;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--primary) 5%, transparent), transparent);
+  border: 1px dashed var(--border); padding: .75rem 1rem 1rem; display:grid;
+  grid-template-columns: repeat(4, 1fr); gap:1rem; align-items:end;
+}
+.bar{
+  --h: 60;                                      /* default height in % if not set inline */
+  position:relative; height: calc(var(--h) * 1%); border-radius:12px 12px 8px 8px;
+  background: linear-gradient(180deg, rgba(255,255,255,.25), transparent 30%) padding-box,
+  linear-gradient(135deg, color-mix(in srgb, var(--primary) 80%, #ffffff 0%), var(--primary)) border-box;
+  border: 1px solid color-mix(in srgb, var(--primary) 35%, var(--border));
+  box-shadow: 0 12px 24px var(--glow);
+  animation: uni-grow .9s ease-out both;
+  transition: transform .25s ease, box-shadow .25s ease, filter .25s ease;
+}
+.bar:nth-child(1){ animation-delay:.05s; }
+.bar:nth-child(2){ animation-delay:.15s; }
+.bar:nth-child(3){ animation-delay:.25s; }
+.bar:nth-child(4){ animation-delay:.35s; }
+
+/* color accents */
+.bar.blue { --bar-color:#3b82f6; background: linear-gradient(180deg, rgba(255,255,255,.25), transparent 30%),
+linear-gradient(135deg, #93c5fd, #3b82f6); }
+.bar.red  { --bar-color:#ef4444; background: linear-gradient(180deg, rgba(255,255,255,.25), transparent 30%),
+linear-gradient(135deg, #fca5a5, #ef4444); }
+.bar.black{ --bar-color:#111827; background: linear-gradient(180deg, rgba(255,255,255,.25), transparent 30%),
+linear-gradient(135deg, #6b7280, #111827); }
+.bar.green{ --bar-color:#10b981; background: linear-gradient(180deg, rgba(255,255,255,.25), transparent 30%),
+linear-gradient(135deg, #6ee7b7, #10b981); }
+
+/* labels + values using data- attributes */
+.bar::after{
+  content: attr(data-label);
+  position:absolute; left:50%; bottom: calc(100% + .35rem); transform: translateX(-50%);
+  font-weight:700; color: var(--text); background: var(--surface);
+  border:1px solid var(--border); border-radius:999px; padding:.15rem .5rem; white-space:nowrap;
+}
+.bar::before{
+  content: attr(data-value);
+  position:absolute; left:50%; top:.35rem; transform: translateX(-50%);
+  font-weight:800; color:#fff; text-shadow: 0 1px 2px rgba(0,0,0,.25);
+}
+
+/* hover lift */
+.bar:hover{
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 18px 36px color-mix(in srgb, var(--bar-color, var(--primary)) 35%, transparent);
+  filter: saturate(1.05);
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce){
+  .uni-card::before, .bar{ animation:none !important; }
+}
+
+/* ================= Keyframes ================= */
+@keyframes uni-fade{ from{ opacity:0; transform: translateY(6px);} to{ opacity:1; transform:none; } }
+@keyframes uni-underline{ to{ width:100%; } }
+@keyframes uni-sheen{ 0%{ transform:translateX(-10%); opacity:.55;} 50%{ transform:translateX(10%); opacity:.28;} 100%{ transform:translateX(-10%); opacity:.55;} }
+@keyframes uni-grow{ from{ height:0; } to{ height: calc(var(--h) * 1%); } }
+
+/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+/* =================== Theme tokens =================== */
+.numviz-card{
+  --surface: var(--ifm-background-surface-color, #fff);
+  --bg: var(--ifm-background-color, #f8fafc);
+  --text: var(--ifm-font-color-base, #111827);
+  --muted: var(--ifm-color-emphasis-700, #6b7280);
+  --border: var(--ifm-color-emphasis-200, #e5e7eb);
+  --primary: var(--ifm-color-primary, #4f46e5);
+  --shadow: 0 18px 50px rgba(0,0,0,.12);
+  --glow: color-mix(in srgb, var(--primary) 30%, transparent);
+}
+
+/* =================== Shell =================== */
+.numviz-card{
+  max-width: 1100px; margin: 0 auto 1.25rem; color: var(--text);
+  border-radius: 22px; padding: 1.1rem 1.25rem;
+  border: 1px solid transparent;
+  background:
+          linear-gradient(180deg, color-mix(in oklab, var(--primary) 6%, transparent), transparent) padding-box,
+          linear-gradient(135deg, color-mix(in oklab, var(--primary) 40%, transparent), color-mix(in oklab, #fff 8%, transparent)) border-box;
+  box-shadow: var(--shadow); position: relative; overflow: hidden; isolation: isolate;
+  animation: nv-fade .5s ease both;
+}
+.numviz-card::before{
+  content:""; position:absolute; inset:-40% -55% auto -55%; height:60%;
+  background: radial-gradient(60% 60% at 50% 50%, rgba(255,255,255,.35), transparent 70%);
+  filter: blur(16px); animation: nv-sheen 8s linear infinite; pointer-events:none;
+}
+.nv-head h3{ margin:0; font-size: clamp(1.15rem, 1vw + 1rem, 1.45rem); line-height:1.2; display:inline-block; position:relative; }
+.nv-head h3::after{
+  content:""; position:absolute; left:0; bottom:-.3rem; height:.25rem; width:0%;
+  border-radius:4px; background: linear-gradient(90deg, var(--primary), color-mix(in srgb, var(--primary) 60%, #fff 0%));
+  box-shadow: 0 6px 14px var(--glow); animation: nv-underline .9s .25s cubic-bezier(.3,.7,.2,1) forwards;
+}
+.nv-kicker{ margin:.15rem 0 0; color: var(--muted); }
+.numviz-card p{ color: var(--muted); margin:.55rem 0; }
+
+/* grid */
+.nv-grid{ display:grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 1rem; margin-top:.5rem; }
+@media (max-width: 900px){ .nv-grid{ grid-template-columns: 1fr; } }
+
+/* cards inside */
+.nv-card{
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 18px; padding: .9rem 1.05rem;
+  box-shadow: var(--shadow);
+  animation: nv-fade .6s ease both;
+}
+.nv-card h4{ margin:.1rem 0 .35rem; }
+
+/* ============ Histogram ============ */
+.nv-hist figcaption{ font-weight:700; margin-bottom:.3rem; }
+.nv-bars{
+  position:relative; height: 210px; border-radius: 16px; padding: .8rem 1rem 1rem;
+  border: 1px dashed var(--border);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--primary) 6%, transparent), transparent);
+  display:grid; grid-template-columns: repeat(6, 1fr); gap:.8rem; align-items:end;
+}
+.bar{
+  --h: 60;
+  position:relative; height: calc(var(--h) * 1%); border-radius: 12px 12px 8px 8px;
+  background: linear-gradient(180deg, rgba(255,255,255,.25), transparent 30%) padding-box,
+  linear-gradient(135deg, color-mix(in srgb, var(--primary) 78%, #ffffff 0%), var(--primary)) border-box;
+  border: 1px solid color-mix(in srgb, var(--primary) 35%, var(--border));
+  box-shadow: 0 12px 24px var(--glow);
+  animation: nv-grow .9s ease-out both;
+  transition: transform .25s ease, box-shadow .25s ease, filter .25s ease;
+}
+.bar:nth-child(1){ animation-delay:.05s; }
+.bar:nth-child(2){ animation-delay:.15s; }
+.bar:nth-child(3){ animation-delay:.25s; }
+.bar:nth-child(4){ animation-delay:.35s; }
+.bar:nth-child(5){ animation-delay:.45s; }
+.bar:nth-child(6){ animation-delay:.55s; }
+.bar:hover{ transform: translateY(-4px) scale(1.02); filter: saturate(1.06);
+  box-shadow: 0 18px 36px color-mix(in srgb, var(--primary) 35%, transparent);}
+
+/* labels */
+.bar::after{
+  content: attr(data-label);
+  position:absolute; left:50%; bottom: calc(100% + .35rem); transform: translateX(-50%);
+  background: var(--surface); border:1px solid var(--border); border-radius:999px;
+  padding:.15rem .5rem; font-weight:700; white-space:nowrap; color: var(--text);
+}
+.bar::before{
+  content: attr(data-value);
+  position:absolute; inset: .35rem auto auto 50%; transform: translateX(-50%);
+  font-weight:800; color:#fff; text-shadow: 0 1px 2px rgba(0,0,0,.25);
+}
+
+/* ============ Box plot ============ */
+.nv-boxplot figcaption{ font-weight:700; margin-bottom:.3rem; }
+.bx-axis{
+  position:relative; height: 110px; border-radius: 16px;
+  border: 1px dashed var(--border);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--primary) 6%, transparent), transparent);
+  padding: .8rem .9rem;
+}
+.bx-track{
+  position:absolute; left: .9rem; right: .9rem; top: 50%; height: 2px; transform: translateY(-50%);
+  background: color-mix(in srgb, var(--primary) 30%, var(--border));
+  opacity:.6;
+}
+/* rods between min↔Q1 and Q3↔max */
+.bx-rod{
+  position:absolute; top:50%; height:2px; transform: translateY(-50%) scaleX(0);
+  background: var(--primary); transform-origin: left; border-radius: 2px;
+  animation: nv-rod .7s .25s ease-out both;
+}
+.bx-rod.left{
+  left: calc(var(--start) * 1%); width: calc((var(--end) - var(--start)) * 1%); }
+.bx-rod.right{
+  left: calc(var(--start) * 1%); width: calc((var(--end) - var(--start)) * 1%); }
+
+/* end caps */
+.bx-cap{
+  position:absolute; top:50%; transform: translate(-50%, -50%) scaleY(0);
+  width: 10px; height: 28px; background: var(--surface); border: 2px solid var(--primary);
+  border-radius: 6px; box-shadow: 0 6px 14px var(--glow);
+  left: calc(var(--pos) * 1%); animation: nv-cap .6s .35s ease-out both;
+}
+
+/* interquartile box + median line */
+.bx-box{
+  position:absolute; top:50%; transform: translateY(-50%) scaleX(0);
+  left: calc(var(--q1) * 1%); width: calc((var(--q3) - var(--q1)) * 1%);
+  height: 36px; border-radius: 10px; border: 2px solid var(--primary);
+  background: linear-gradient(135deg, color-mix(in srgb, var(--primary) 22%, transparent),
+  color-mix(in srgb, var(--primary) 9%, transparent));
+  animation: nv-box .7s .3s ease-out both; transform-origin: left;
+}
+.bx-med{
+  position:absolute; top:50%; left: calc(var(--med) * 1%);
+  width: 2px; height: 0; background: var(--primary);
+  box-shadow: 0 0 0 6px color-mix(in srgb, var(--primary) 16%, transparent);
+  transform: translate(-50%, -50%); animation: nv-med .6s .55s ease-out both;
+}
+
+/* value chips (labels) */
+.bx-chip{
+  position:absolute; top: calc(50% + 30px); transform: translateX(-50%) translateY(.2rem);
+  left: calc(var(--pos) * 1%); font-size: .75rem; font-weight:700; color: var(--text);
+  background: var(--surface); border:1px solid var(--border); border-radius:999px; padding:.15rem .5rem;
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+.bx-chip:hover{ transform: translateX(-50%) translateY(.1rem) scale(1.03);
+  box-shadow: 0 10px 20px var(--glow); }
+
+/* legend list */
+.nv-legend{ margin:.45rem 0 0 1rem; color: var(--muted); }
+.nv-legend li{ margin:.2rem 0; }
+
+/* ============ Animations & Reduced Motion ============ */
+@keyframes nv-fade{ from{ opacity:0; transform: translateY(6px);} to{ opacity:1; transform:none; } }
+@keyframes nv-underline{ to{ width:100%; } }
+@keyframes nv-sheen{ 0%{ transform:translateX(-10%); opacity:.55;} 50%{ transform:translateX(10%); opacity:.28;} 100%{ transform:translateX(-10%); opacity:.55;} }
+@keyframes nv-grow{ from{ height:0; } to{ height: calc(var(--h) * 1%); } }
+@keyframes nv-rod{ from{ transform: translateY(-50%) scaleX(0);} to{ transform: translateY(-50%) scaleX(1);} }
+@keyframes nv-cap{ from{ transform: translate(-50%,-50%) scaleY(0);} to{ transform: translate(-50%,-50%) scaleY(1);} }
+@keyframes nv-box{ from{ transform: translateY(-50%) scaleX(0);} to{ transform: translateY(-50%) scaleX(1);} }
+@keyframes nv-med{ from{ height:0;} to{ height: 36px;} }
+
+@media (prefers-reduced-motion: reduce){
+  .numviz-card::before, .bar, .bx-rod, .bx-cap, .bx-box, .bx-med { animation: none !important; }}
+
+/*****************************************************************************************************************************************/
+/*/########################################################################################################*!*/

@@ -1,0 +1,119 @@
+---
+id: evaluation-structured-questions
+title: Exam-type Questions
+hide_title: true
+sidebar_position: 4
+sidebar_label: Exam-type Questions
+sidebar_class_name: icon-exam
+---
+import ModuleBanner from '@site/src/components/ai/ai-banner';
+
+<ModuleBanner />
+### 📘 **Sample Examination Questions & Answers - Week 7 Concepts**
+
+---
+
+### **QUESTION 1 \[25 MARKS]**
+
+---
+
+#### (a) With the aid of a simple, clearly-labeled diagram, explain the components of a single **Perceptron** (an artificial neuron).
+
+**\[8 Marks]**
+
+<details>
+<summary>Click to see the answer and marking scheme</summary>
+
+**Answer:**
+
+A Perceptron is the simplest form of an artificial neuron and serves as the fundamental building block of a neural network.
+
+**Diagram:**
+*A correct diagram would show multiple inputs (x1, x2, x3) pointing to a central node. Each input arrow should be labeled with a weight (w1, w2, w3). The central node should be labeled "Sum & Activation". An arrow should point out of the node to the final output (y).*
+
+**Components:**
+
+1. **Inputs (x1, x2, ...):** These are the feature values from a single data sample.
+2. **Weights (w1, w2, ...):** Each input has an associated weight, which represents its importance. The network learns these weights during training.
+3. **Summation Function:** The neuron calculates the weighted sum of all inputs (i.e., `x1*w1 + x2*w2 + ...`). A bias term is also typically added to this sum.
+4. **Activation Function:** The result of the sum is passed through an activation function, which determines the final output of the neuron (e.g., whether it "fires" or not).
+
+**Marking Scheme:**
+
+* \[2 Marks] - For a clear and correctly labeled diagram.
+* \[1.5 Marks each] - For each of the four components correctly identified and described. *(Total: 6 Marks)*
+
+</details>
+
+---
+
+#### (b) What is the primary limitation of a single Perceptron, and how does a **Multi-Layer Perceptron (MLP)** overcome this limitation?
+
+**\[5 Marks]**
+
+<details>
+<summary>Click to see the answer and marking scheme</summary>
+
+**Answer:**
+
+The primary limitation of a single Perceptron is that it can only solve **linearly separable** problems. It can only learn to separate data with a single straight line or hyperplane.
+
+A **Multi-Layer Perceptron (MLP)** overcomes this by stacking neurons together in multiple layers (an input layer, one or more hidden layers, and an output layer). By combining layers of neurons with non-linear activation functions, an MLP can learn complex, non-linear decision boundaries and represent far more intricate patterns in the data. The hidden layers allow the network to learn hierarchical features from the input.
+
+**Marking Scheme:**
+
+* \[2 Marks] - For correctly identifying the limitation (can only solve linearly separable problems).
+* \[3 Marks] - For explaining how MLPs overcome this (using multiple layers and non-linear activations to learn complex patterns).
+
+</details>
+
+---
+
+#### (c) Explain the role of the **Softmax** activation function and in which layer of a neural network it is typically used.
+
+**\[4 Marks]**
+
+<details>
+<summary>Click to see the answer and marking scheme</summary>
+
+**Answer:**
+
+The **Softmax** activation function takes a vector of raw numerical scores (logits) and transforms them into a **probability distribution**. The resulting values are all between 0 and 1, and their sum is equal to 1.
+
+It is typically used in the **Output Layer** of a **multi-class classification** neural network. Each neuron in the output layer corresponds to a class, and the Softmax function gives the probability that the input belongs to each of those classes.
+
+**Marking Scheme:**
+
+* \[2 Marks] - For explaining that Softmax converts scores into a probability distribution.
+* \[2 Marks] - For identifying its use in the output layer of a multi-class classification network.
+
+</details>
+
+---
+
+#### (d) Briefly describe the two main phases of the training loop for a neural network.
+
+**\[8 Marks]**
+
+<details>
+<summary>Click to see the answer and marking scheme</summary>
+
+**Answer:**
+
+1. **Forward Propagation:**
+   In this phase, an input from the training set is fed into the input layer. The data then travels forward through the hidden layers, with computations happening at each neuron, until the output layer produces a prediction. The model's error (or loss) is then calculated by comparing this prediction to the true label.
+
+2. **Backward Propagation (Backpropagation):**
+   In this phase, the algorithm works backward from the calculated loss. It computes the gradient of the loss with respect to every weight and bias in the network. This gradient essentially measures the contribution of each parameter to the total error. This information is then used by an optimizer (like Gradient Descent) to update all the parameters in a way that will minimize the loss on the next forward pass.
+
+**Marking Scheme:**
+
+* \[4 Marks] - For a clear description of Forward Propagation (data moves forward, prediction is made, loss is calculated).
+* \[4 Marks] - For a clear description of Backpropagation (works backward from loss, calculates gradients for weight updates).
+
+</details>
+
+---
+
+
+

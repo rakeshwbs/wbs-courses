@@ -1,0 +1,94 @@
+---
+id: lab-sheet
+title: Lab sheet 1
+hide_title: true
+sidebar_position: 2
+sidebar_label: Graph Implementation
+sidebar_class_name: icon-lab
+---
+import ModuleBanner from '@site/src/components/dsa/dsa-banner';
+
+<ModuleBanner />
+
+
+## **Lab 11: Graph Implementation and Traversal**
+
+**Objective:** To implement a graph data structure using an **adjacency list** representation. You will then implement the two fundamental graph traversal algorithms: Breadth-First Search (BFS) and Depth-First Search (DFS).
+
+### **Task 1: The `Graph` Class Structure**
+
+To simplify managing the linked lists, we will use C++'s built-in `std::list`. Make sure to include `<iostream>`, `<list>`, and `<queue>`.
+
+1.  **Define the `Graph` Class**:
+
+  * **private**:
+  * An integer `V` to store the number of vertices.
+  * A pointer to an array of integer lists: `std::list<int>* adj;`. This will be our adjacency list.
+  * **public**:
+  * A constructor `Graph(int V);` that allocates the adjacency list array.
+  * A destructor `~Graph();` to free the allocated memory.
+  * A method `void addEdge(int v, int w);` to add an edge to the graph.
+  * The traversal methods `void BFS(int startVertex);` and `void DFS(int startVertex);`.
+
+2.  **Implement the Constructor**: The constructor should initialize `V` and dynamically allocate the array of lists: `adj = new std::list<int>[V];`.
+
+-----
+
+### **Task 2: Implement `addEdge`**
+
+This method adds a connection between two vertices in an **undirected** graph.
+
+1.  **Implementation**: To add an edge between `v` and `w`, you must add `w` to `v`'s list and `v` to `w`'s list.
+  * `adj[v].push_back(w);`
+  * `adj[w].push_back(v);`
+
+-----
+
+### **Task 3: Implement Breadth-First Search (BFS)**
+
+This method will explore the graph level by level using a queue.
+
+1.  **Declaration**: `void BFS(int startVertex);`
+2.  **Implementation**:
+  * Create a boolean array `visited` of size `V` and initialize all its elements to `false`.
+  * Create a queue of integers (`std::queue<int>`).
+  * Mark the `startVertex` as visited (`visited[startVertex] = true;`) and push it onto the queue.
+  * Start a `while` loop that runs as long as the queue is not empty.
+  * Inside the loop:
+  * Dequeue a vertex and print it.
+  * Get all adjacent vertices of the dequeued vertex by iterating through its adjacency list (`adj[dequeuedVertex]`).
+  * For each adjacent vertex, if it has not been visited, mark it as visited and enqueue it.
+
+-----
+
+### **Task 4: Implement Depth-First Search (DFS)**
+
+This method will explore the graph by going as deep as possible down each branch. It's best implemented with a recursive helper function.
+
+1.  **Public Method**: `void DFS(int startVertex);`
+  * This method will create the `visited` array (all `false`).
+  * It will then make the initial call to a private recursive helper function: `DFSHelper(startVertex, visited);`.
+2.  **Private Helper Method**: `void DFSHelper(int v, bool visited[]);`
+  * Mark the current vertex `v` as visited and print it.
+  * Iterate through the adjacency list of `v`.
+  * For each adjacent vertex in the list, if it has not been visited, make a recursive call: `DFSHelper(adjacentVertex, visited);`.
+
+-----
+
+### **Task 5: Comprehensive Testing**
+
+In your `main()` function, create a graph and test your traversals.
+
+1.  Create a graph: `Graph g(6);`
+2.  Add edges to form a sample graph, for example:
+```cpp
+g.addEdge(0, 1);
+g.addEdge(0, 2);
+g.addEdge(1, 3);
+g.addEdge(2, 4);
+g.addEdge(2, 5);
+```
+3.  Call `g.BFS(0);` and observe the level-by-level output (e.g., 0 1 2 3 4 5).
+4.  Call `g.DFS(0);` and observe the depth-first output (e.g., 0 1 3 2 4 5).
+
+-----

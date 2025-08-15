@@ -1,0 +1,94 @@
+---
+id: lab-sheet
+title: Lab sheet 1
+hide_title: true
+sidebar_position: 2
+sidebar_label: Implement Operations
+sidebar_class_name: icon-lab
+---
+import ModuleBanner from '@site/src/components/dsa/dsa-banner';
+
+<ModuleBanner />
+
+## **Lab 3: Implementing Core Linked List Operations**
+
+**Objective:** To bring your `LinkedList` class to life by implementing the essential methods for displaying, inserting, and deleting nodes. By the end of this lab, you'll have a fully functional basic linked list.
+
+**Prerequisite:** You should start with your completed `LinkedList` class from Lab 2.
+
+### **Task 1: Implement the `displayList` Method**
+
+This method is crucial for testing and debugging all other functions.
+
+1.  **Declaration:** Add `void displayList();` to the `public` section of your `LinkedList` class.
+2.  **Implementation:** Write the code to traverse the list from the `head`. Use a `while` loop that continues as long as your temporary pointer is not `nullptr`. Inside the loop, print the node's data and an arrow (`->`). After the loop, print "nullptr" to signify the end.
+3.  **Test:** In `main()`, after appending a few nodes, call `myList.displayList();` to see if it prints the list correctly.
+
+-----
+
+### **Task 2: Implement the `prependNode` Method**
+
+This method will add a new node to the very beginning of the list.
+
+1.  **Declaration:** Add `void prependNode(int value);` to your class.
+2.  **Implementation:** This is an $O(1)$ operation.
+  * Create a `newNode`.
+  * Point `newNode->next` to the current `head`.
+  * Update `head` to point to `newNode`.
+3.  **Test:** Create a list, append a few nodes, then call `prependNode()`. Use `displayList()` to verify the new node is at the front.
+
+-----
+
+### **Task 3: Implement the `deleteNode` Method**
+
+This is the most complex method for this week. It should find a node with a specific value and remove it from the list.
+
+1.  **Declaration:** Add `void deleteNode(int valueToDelete);` to your class.
+2.  **Implementation:**
+  * **Handle an empty list:** If `head` is `nullptr`, there's nothing to do, so just return.
+  * **Handle deleting the head:** If `head->data` matches `valueToDelete`, create a temporary pointer to `head`, update `head` to `head->next`, and then `delete` the temporary pointer.
+  * **Handle deleting from the middle or end:**
+  * You'll need two pointers: `current` and `previous`.
+  * Start `current` at `head` and traverse the list. `previous` will trail one step behind `current`.
+  * Loop until you find the value or reach the end of the list.
+  * If the value is found, "bypass" the `current` node by setting `previous->next = current->next;`.
+  * Finally, `delete current;` to free its memory.
+  * Remember to handle the case where the value is not found in the list.
+
+-----
+
+### **Task 4: Comprehensive Testing**
+
+In your `main()` function, write a test script to ensure all methods work together correctly.
+
+```cpp
+int main() {
+    LinkedList list;
+    std::cout << "Appending 10, 20, 30..." << std::endl;
+    list.appendNode(10);
+    list.appendNode(20);
+    list.appendNode(30);
+    list.displayList(); // Expected: 10 -> 20 -> 30 -> nullptr
+
+    std::cout << "\nPrepending 5..." << std::endl;
+    list.prependNode(5);
+    list.displayList(); // Expected: 5 -> 10 -> 20 -> 30 -> nullptr
+
+    std::cout << "\nDeleting 20..." << std::endl;
+    list.deleteNode(20);
+    list.displayList(); // Expected: 5 -> 10 -> 30 -> nullptr
+
+    std::cout << "\nDeleting head node (5)..." << std::endl;
+    list.deleteNode(5);
+    list.displayList(); // Expected: 10 -> 30 -> nullptr
+
+    std::cout << "\nDeleting tail node (30)..." << std::endl;
+    list.deleteNode(30);
+    list.displayList(); // Expected: 10 -> nullptr
+
+    return 0;
+}
+```
+
+
+

@@ -1,0 +1,10 @@
+.bannerContainer {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 2rem; /* Add some space below the banner */
+}
+
+.bannerImage {
+    max-width: 100%;
+    height: auto;
+}

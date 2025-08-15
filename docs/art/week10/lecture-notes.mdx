@@ -1,0 +1,108 @@
+---
+id: lecture-notes 
+title: Lecture Notes
+hide_title: true
+sidebar_position: 1
+sidebar_label: BGP
+sidebar_class_name: icon-lecture
+---
+import ModuleBanner from '@site/src/components/art/art-banner';
+
+<ModuleBanner />
+
+
+# Week 10: Path Control with PBR & Introduction to BGP
+
+This week, we explore two powerful but very different methods of path control. First, we'll look at Policy-Based Routing (PBR), a tool to manually override a router's normal destination-based forwarding decisions. Then, we will introduce the most important routing protocol of all: Border Gateway Protocol (BGP), the protocol that runs the global internet.
+
+---
+
+## 1. Policy-Based Routing (PBR)
+
+### The Problem with Standard Routing
+
+Standard routing is simple and effective: a router looks at the **destination IP address** of a packet, finds the best match in its routing table, and forwards it. It doesn't care about the source of the packet or what kind of traffic it is.
+
+But what if you need more control? What if you want traffic from the CEO's office to use a high-speed, expensive link, while all other traffic uses a slower, cheaper link? Standard routing can't do this.
+
+### The PBR Solution
+
+**Policy-Based Routing (PBR)** is a feature that allows you to create policies to override the routing table. It lets you make forwarding decisions based on criteria other than just the destination address, such as:
+
+* Source IP address
+* Packet size
+* Protocol type (e.g., TCP, UDP)
+* Source or destination port number
+
+**Analogy: VIP Postal Service**
+
+* **Standard Routing:** A mail clerk looks only at the destination city and puts all mail for Port Louis in the same bag.
+* **PBR:** The mail clerk is told "If a letter is from the CEO's office (source address), put it in the special helicopter bag (a different next-hop), not the regular mail truck."
+
+### How PBR Works
+
+PBR is typically configured in three steps:
+
+1. **Identify Traffic:** An **Access Control List (ACL)** is used to classify the "interesting" traffic you want to influence.
+2. **Define Policy:** A **route-map** is used to match the traffic identified by the ACL and then set a new forwarding path (e.g., `set ip next-hop [ip_address]`).
+3. **Apply Policy:** The route-map is applied to the **incoming interface** where the traffic will be received, using the `ip policy route-map [map-name]` command.
+
+---
+
+## 2. BGP: The Protocol of the Internet
+
+All the protocols we've studied so far (RIP, EIGRP, OSPF) are **Interior Gateway Protocols (IGPs)**. Their job is to manage routing *within* a single organization or Autonomous System (AS).
+
+**Border Gateway Protocol (BGP)** is the standard **Exterior Gateway Protocol (EGP)**. Its job is to manage routing *between* different Autonomous Systems. BGP is the glue that holds the internet together, allowing different ISPs (like Emtel and Mauritius Telecom) and large organizations to exchange routing information about which networks they control.
+
+### BGP is a Path-Vector Protocol
+
+BGP is not focused on speed or finding the "best" path in terms of bandwidth. It is a **Path Vector** protocol focused on **policy and control**. It makes decisions based on a list of attributes associated with a path, not just a simple metric. Its primary goal is to provide loop-free routing between tens of thousands of independent networks.
+
+### When to Use BGP
+
+* **Single-Homed:** A company with one connection to one ISP. **BGP is not needed.** A simple default static route to the ISP is enough.
+* **Multi-Homed:** A company with connections to two or more different ISPs. **This is the primary use case for BGP.** It allows the company to intelligently route traffic, provide redundancy, and advertise its own block of public IP addresses to the world.
+
+---
+
+## 3. Types of BGP: eBGP vs. iBGP
+
+BGP has two "flavors" depending on where it's used.
+
+### External BGP (eBGP)
+
+* **Purpose:** Used for peering **between different** Autonomous Systems.
+* **Example:** Your company (AS 65001) forms an eBGP session with its ISP (AS 30722).
+* **Rule:** eBGP neighbors are almost always directly connected.
+* **Administrative Distance:** 20. This is very low, making it highly trusted.
+
+### Internal BGP (iBGP)
+
+* **Purpose:** Used to exchange BGP routing information **within a single** Autonomous System.
+* **Example:** Your company has two border routers, one connected to Emtel and one to MyT. When the first router learns internet routes from Emtel via eBGP, it must use iBGP to share those routes with the second border router.
+* **Rule:** iBGP neighbors do not need to be directly connected. They often peer using their stable loopback interfaces.
+* **AD:** 200. This is very high, ensuring that for traffic destined to an internal company network, the router will always prefer its IGP route (like OSPF with AD 110) over an iBGP route.
+* **iBGP Split-Horizon Rule:** To prevent loops, a route learned from one iBGP neighbor **will not** be advertised to another iBGP neighbor. This means all iBGP routers within an AS must be fully meshed (all connected to each other).
+
+---
+
+## 4. Basic BGP Configuration
+
+Configuring BGP involves two main steps: starting the BGP process and defining its neighbors.
+
+```bash
+! Start the BGP process, specifying your own AS number
+router bgp 65001
+
+! Define an eBGP neighbor (in a different AS)
+neighbor 203.0.113.2 remote-as 30722
+
+! Define an iBGP neighbor (in the same AS)
+neighbor 10.1.1.1 remote-as 65001
+
+! Advertise a network that your AS owns
+network 198.51.100.0 mask 255.255.255.0
+```
+
+The key is the `remote-as` number. If it's different from your own BGP AS number, it's an eBGP peering. If it's the same, it's an iBGP peering.

@@ -1,0 +1,106 @@
+---
+id: lab-sheet
+title: Lab sheet 1
+hide_title: true
+sidebar_position: 2
+sidebar_label: NumPy & Pandas
+sidebar_class_name: icon-lab
+---
+import ModuleBanner from '@site/src/components/ai/ai-banner';
+
+<ModuleBanner />
+
+### **Lab Guide**
+
+**Lab 01: Setting Up Your AI Development Environment & Tooling**
+:::tip OBJECTIVE
+- By the end of this lab, you will have a fully functional Python environment for AI development and will have performed basic operations using the core libraries: NumPy and Pandas.
+:::
+#### **Part A: Installation of Anaconda**
+
+Anaconda is a distribution of Python that includes many of the most popular packages for data science and AI. It also manages virtual environments, which is crucial for avoiding package conflicts.
+
+1.  **Download:** Navigate to the Anaconda Distribution website: [https://www.anaconda.com/products/distribution](https://www.anaconda.com/products/distribution)
+2.  **Select:** Download the installer for your operating system (Windows, macOS, or Linux). Ensure you select the version for **Python 3.9+**.
+3.  **Install:** Run the installer. **It is highly recommended that you accept the default settings**, especially the option that adds Anaconda to your system's PATH (this may be the default on macOS/Linux but an option on Windows).
+4.  **Verify:**
+* **Windows:** Open the "Anaconda Prompt" from your Start Menu.
+* **macOS/Linux:** Open your regular Terminal.
+* In the prompt/terminal, type `python --version` and press Enter. You should see "Python 3.x.x :: Anaconda, Inc.".
+ <div class="video-container">
+<iframe src="https://www.youtube.com/embed/WOK9HeB-OmY" title="How to Install Anaconda and Jupyter Notebook on Windows 11 (2023)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</div>
+#### **Part B: Introduction to Jupyter Notebook**
+
+Jupyter is an interactive, web-based tool that allows you to write and execute code, add text and images, and see your results all in one document. It's the standard for data science exploration.
+
+1.  **Launch:** In your Anaconda Prompt or Terminal, navigate to the folder where you want to store your course work (e.g., `cd Desktop/AFI-373`).
+2.  Type `jupyter notebook` and press Enter.
+3.  This will open a new tab in your web browser showing the Jupyter file browser.
+4.  **Create a Notebook:** Click the "New" button in the top right and select "Python 3 (ipykernel)".
+5.  **Tour:** You are now in a notebook. Notice the "cell." You can write Python code in it. Press **Shift + Enter** to run the code in a cell. Try it now with `print("Hello, AI Architect!")`.
+6.  You can change a cell's type from "Code" to "Markdown" in the toolbar to write text, like these instructions.
+
+#### **Part C: NumPy Crash Course**
+
+NumPy is the fundamental package for numerical computing in Python. It provides a high-performance multidimensional array object.
+
+*In a new cell in your Jupyter Notebook, type the following code and run it.*
+
+```python
+import numpy as np # np is the standard alias
+
+# Create a 1D array (a vector)
+a = np.array([10, 20, 30, 40, 50])
+print(f"Vector a: {a}")
+
+# Create a 2D array (a matrix)
+b = np.array([[1, 2, 3], [4, 5, 6]])
+print(f"Matrix b:\n{b}")
+
+# Perform mathematical operations
+c = a * 2
+print(f"Vector a * 2: {c}")
+
+# Check the shape of an array
+print(f"Shape of matrix b: {b.shape}")
+```
+
+#### **Part D: Pandas Crash Course**
+
+Pandas is built on top of NumPy and is the primary tool for data manipulation and analysis. It introduces the "DataFrame," which is like a powerful spreadsheet you can control with code.
+
+*In a new cell, type the following code.*
+
+```python
+import pandas as pd # pd is the standard alias
+
+# Create a DataFrame from a dictionary
+data = {
+    'Fruit': ['Apple', 'Orange', 'Banana', 'Mango'],
+    'Price_MUR': [15, 12, 8, 25],
+    'In_Stock': [True, True, False, True]
+}
+df = pd.DataFrame(data)
+
+# Display the DataFrame
+print("My Fruit Store DataFrame:")
+print(df)
+
+# Get the first few rows
+print("\nFirst 2 rows:")
+print(df.head(2))
+
+# Get basic descriptive statistics
+print("\nBasic stats for Price:")
+print(df['Price_MUR'].describe())
+
+# Select a single column
+print("\nJust the fruits:")
+print(df['Fruit'])
+```
+
+**Congratulations\!** Your development environment is now ready. You have installed the necessary tools and have hands-on experience with the two most important libraries in our AI journey. 
+In Week 2, we will use these tools to build our first predictive model.
+
+Download the dataset [mauritius_housing.csv](/data/mauritius_housing.csv)

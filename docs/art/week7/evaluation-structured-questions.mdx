@@ -1,0 +1,115 @@
+---
+id: evaluation-structured-questions
+title: Exam-type Questions
+hide_title: true
+sidebar_position: 4
+sidebar_label: ✍️ Exam-type Questions
+---
+import ModuleBanner from '@site/src/components/art/art-banner';
+
+<ModuleBanner />
+**QUESTION 1 [25 MARKS]**
+
+(a) In your own words, explain the fundamental difference in the operational logic between a link-state protocol like OSPF and a distance-vector protocol like RIP.
+[6]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    The fundamental difference lies in the amount of information each router has.
+
+    -   A **distance-vector** protocol like RIP operates on "routing by rumor." Each router only knows the information passed to it by its immediate neighbors. It does not have a view of the entire network; it simply trusts the distance and direction provided by its neighbors to reach a destination.
+    -   A **link-state** protocol like OSPF provides every router with a complete topological map of the network area. Each router generates information about its own links (LSAs), floods this information to all other routers, and assembles an identical Link-State Database (LSDB). It then independently calculates the best path using this full map.
+
+    **Marking Scheme:**
+
+    * [3 Marks] - For a clear explanation of the distance-vector "routing by rumor" approach.
+    * [3 Marks] - For a clear explanation of the link-state "full map" or LSDB approach.
+
+</details>
+
+(b) Three routers are connected to the same multi-access Ethernet segment in OSPF Area 0. Their OSPF interface priorities and Router IDs are configured as follows:
+-   **Router-A:** Priority = 50, Router-ID = 1.1.1.1
+-   **Router-B:** Priority = 100, Router-ID = 2.2.2.2
+-   **Router-C:** Priority = 1, Router-ID = 3.3.3.3
+
+Determine which router will be elected the **Designated Router (DR)**, which will be the **Backup Designated Router (BDR)**, and which will be the **DROTHER**. You must justify your answer by explaining the two-step election process.
+[7]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    * **DR:** Router-B
+    * **BDR:** Router-A
+    * **DROTHER:** Router-C
+
+    **Justification:**
+    The OSPF DR/BDR election process follows two rules in order:
+    1.  **Highest OSPF Priority Wins:** The router with the highest priority on the segment is elected DR, and the second-highest is elected BDR. In this case, Router-B has the highest priority (100), so it becomes the DR. Router-A has the second-highest priority (50), so it becomes the BDR. Router-C has the lowest priority (1), so it becomes a DROTHER.
+    2.  **Highest Router-ID as Tie-Breaker:** The Router ID is only used if there is a tie in priority. Since there was no tie for the DR or BDR positions, the router IDs of Router-A and Router-B were not needed for the election decision between them.
+
+    **Marking Scheme:**
+
+    * [1 Mark] - For correctly identifying Router-B as DR.
+    * [1 Mark] - For correctly identifying Router-A as BDR.
+    * [1 Mark] - For correctly identifying Router-C as DROTHER.
+    * [2 Marks] - For explaining that the highest priority wins first.
+    * [2 Marks] - For explaining that the router ID is the tie-breaker but was not needed in this case for the DR/BDR selection.
+
+</details>
+
+(c) You are tasked with configuring OSPF on a new router. Write the full and exact set of commands to achieve the following:
+-   Start the OSPF routing process with a process ID of 25.
+-   Manually assign it a router-ID of `10.255.255.1`.
+-   Enable OSPF on an interface with the IP `192.168.88.1/24` and add it to the backbone area.
+[6]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    The configuration requires entering OSPF mode, setting the router-id, and using a network command with the correct wildcard mask and area ID.
+
+    ```bash
+    configure terminal
+    router ospf 25
+    router-id 10.255.255.1
+    network 192.168.88.0 0.0.0.255 area 0
+    ```
+
+    **Marking Scheme:**
+
+    * [1 Mark] - For `router ospf 25`.
+    * [2 Marks] - For the correct `router-id` command.
+    * [3 Marks] - For the correct `network` command with the right wildcard mask and area ID.
+
+</details>
+
+(d) For two OSPF routers to successfully form a neighbor relationship, several parameters advertised in their Hello packets must be identical. List **four** such parameters.
+[6]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    *(Student must list any four of the following)*
+
+    1.  Area ID
+    2.  Hello Timer interval
+    3.  Dead Timer interval
+    4.  Subnet Mask on the shared link
+    5.  Authentication Type (if configured)
+    6.  Authentication Password/Key (if configured)
+    7.  Stub Area Flag
+
+    **Marking Scheme:**
+
+    * [1.5 Marks] - For each correctly identified parameter, up to a total of 6 marks.
+
+</details>

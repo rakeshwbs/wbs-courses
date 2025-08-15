@@ -1,0 +1,172 @@
+---
+id: evaluation-structured-questions
+title: Exam-type Questions
+hide_title: true
+sidebar_position: 4
+sidebar_label: Exam-type Questions
+sidebar_class_name: icon-exam
+---
+import ModuleBanner from '@site/src/components/ai/ai-banner';
+
+<ModuleBanner />
+
+## **Sample Examination Questions & Answers – Week 5 Concepts**
+
+
+
+**QUESTION 1 \[25 MARKS]**
+
+**(a)** With the aid of a simple, clearly-labeled diagram, explain the principle of the **Maximum Margin Classifier** used by Support Vector Machines (SVMs). In your explanation, identify the **hyperplane**, the **margin**, and the **support vectors**.
+\[6]
+
+<details>  
+<summary>Click to see the answer and marking scheme</summary>  
+
+**Answer:**
+The principle of the Maximum Margin Classifier is to find the optimal decision boundary that best separates two classes. Instead of just any line that separates the data, an SVM seeks the specific line (or hyperplane) that has the largest possible distance, or **margin**, to the nearest data points of any class. This wide margin makes the classifier more robust and confident in its predictions.
+
+**Diagram:**
+*(A correct diagram would show two classes of data points (e.g., circles and squares).)*
+
+* **Hyperplane:** A solid line drawn perfectly between the two classes.
+* **Margin:** Two dashed lines drawn parallel to the hyperplane, each touching the closest data point(s) of one class. The space between these dashed lines is the margin.
+* **Support Vectors:** The specific data points that are on the dashed lines of the margin must be clearly identified (e.g., circled).
+
+**Marking Scheme:**
+
+* \[2 Marks] – For the explanation that SVMs aim to maximize the margin between classes.
+* \[1 Mark] – For correctly drawing and labeling the hyperplane.
+* \[1 Mark] – For correctly drawing and labeling the margin.
+* \[2 Marks] – For correctly identifying the support vectors as the points on the margin.
+
+</details>
+
+---
+
+**(b)** Briefly explain the purpose of the **Kernel Trick** in SVMs and describe a situation where it would be necessary.
+\[4]
+
+<details>  
+<summary>Click to see the answer and marking scheme</summary>  
+
+**Answer:**
+The purpose of the Kernel Trick is to enable SVMs to solve **non-linearly separable** problems. It is a mathematical function that efficiently projects the data into a higher dimension where a linear hyperplane *can* be used to separate the classes.
+
+A situation where it would be necessary is if the data points of one class were in a circle at the center of a plot, and the data points of the other class surrounded them. No single straight line in 2D could separate them, but after applying a kernel (like the RBF kernel), they could be separated in a higher dimension.
+
+**Marking Scheme:**
+
+* \[2 Marks] – For explaining its purpose is to handle non-linearly separable data.
+* \[2 Marks] – For providing a suitable example or describing the concept of projecting data to a higher dimension.
+
+</details>
+
+---
+
+**(c)** A model is developed to screen for a rare medical condition. After testing on 10,000 people, it produces the following Confusion Matrix:
+
+|                 | Predicted: No | Predicted: Yes |
+| --------------- | ------------- | -------------- |
+| **Actual: No**  | TN = 9801     | FP = 99        |
+| **Actual: Yes** | FN = 20       | TP = 80        |
+
+**i.** Calculate the model’s **accuracy**.
+\[2]
+
+<details>  
+<summary>Click to see the answer and marking scheme</summary>  
+
+**Answer:**
+Accuracy = (TP + TN) / (Total Population)
+Accuracy = (80 + 9801) / 10000 = 9881 / 10000 = **98.81%**
+
+**Marking Scheme:**
+
+* \[1 Mark] – For the correct formula or substitution.
+* \[1 Mark] – For the correct final answer.
+
+</details>
+
+---
+
+**ii.** Calculate the model’s **precision** for the positive class ('Yes').
+\[2]
+
+<details>  
+<summary>Click to see the answer and marking scheme</summary>  
+
+**Answer:**
+Precision = TP / (TP + FP)
+Precision = 80 / (80 + 99) = 80 / 179 = **44.69%**
+
+**Marking Scheme:**
+
+* \[1 Mark] – For the correct formula or substitution.
+* \[1 Mark] – For the correct final answer.
+
+</details>
+
+---
+
+**iii.** Calculate the model’s **recall** for the positive class ('Yes').
+\[2]
+
+<details>  
+<summary>Click to see the answer and marking scheme</summary>  
+
+**Answer:**
+Recall = TP / (TP + FN)
+Recall = 80 / (80 + 20) = 80 / 100 = **80%**
+
+**Marking Scheme:**
+
+* \[1 Mark] – For the correct formula or substitution.
+* \[1 Mark] – For the correct final answer.
+
+</details>
+
+---
+
+**iv.** Explain why **accuracy** is a misleading metric in this specific scenario.
+\[2]
+
+<details>  
+<summary>Click to see the answer and marking scheme</summary>  
+
+**Answer:**
+Accuracy is misleading here because the dataset is highly **imbalanced**. The overwhelmingly large number of True Negatives (9801 healthy people correctly identified) inflates the accuracy score to 98.81%, making the model seem excellent. However, this high score masks the model's poor performance in other areas, such as its low precision and the fact that it failed to identify 20 sick people (the False Negatives).
+
+**Marking Scheme:**
+
+* \[2 Marks] – For explaining that the imbalanced class distribution and the large number of True Negatives hides the model’s more significant failures.
+
+</details>
+
+---
+
+**(d)** For the medical screening model in part (c), a **False Negative** (failing to detect the condition in a sick person) is far more dangerous than a **False Positive** (a false alarm for a healthy person). Given this information, which metric, **Precision or Recall**, should the medical team prioritize improving? Justify your answer by explaining the real-world consequence of a low score in that metric.
+\[7]
+
+<details>  
+<summary>Click to see the answer and marking scheme</summary>  
+
+**Answer:**
+The medical team should prioritize improving **Recall**.
+
+**Justification:**
+Recall measures the model’s ability to find all of the actual positive cases. The formula is TP / (TP + FN). To improve Recall, you must minimize the number of False Negatives (FN).
+
+In this medical scenario, a False Negative is the most dangerous outcome. It means a person who actually has the condition is told they are healthy. The real-world consequence is that this person will not receive treatment, their condition may worsen, and they could potentially spread it to others.
+
+A low Precision score, on the other hand, corresponds to a higher number of False Positives. While sending a healthy person for more tests (a False Positive) is inconvenient and costly, it is far less harmful than failing to identify a genuinely sick individual. Therefore, minimizing missed cases (improving Recall) is the critical priority.
+
+**Marking Scheme:**
+
+* \[2 Marks] – For correctly identifying Recall as the priority metric.
+* \[3 Marks] – For clearly explaining the severe real-world consequence of a False Negative in this context.
+* \[2 Marks] – For contrasting this with the less severe consequence of a False Positive, showing a full understanding of the trade-off.
+
+</details>
+
+
+

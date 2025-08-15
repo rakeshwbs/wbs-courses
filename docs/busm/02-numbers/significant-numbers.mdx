@@ -1,0 +1,417 @@
+---
+id: significant-numbers
+title: Significant Numbers
+hide_title: true
+sidebar_position: 3
+sidebar_label: Significant Numbers
+---
+import ModuleBanner from '@site/src/components/busm/busm-banner';
+
+<ModuleBanner />
+
+## Significant figures
+
+### **Rules for Identifying Significant Figures**
+
+1.  **Non-Zero Digits Are Always Significant.**
+
+      Any digit that is not zero is significant.
+
+          * **Example:** The number `345` has **three** significant figures (3, 4, and 5).
+          * **Example:** `1.892` has **four** significant figures.
+
+2.  **Zeros Between Non-Zero Digits Are Significant.**
+
+      These are often called "captive zeros."
+
+          * **Example:** `101` has **three** significant figures.
+          * **Example:** `50.08` has **four** significant figures.
+
+3.  **Leading Zeros Are Never Significant.**
+
+      Zeros that come before all non-zero digits are placeholders and are not significant.
+
+          * **Example:** `0.05` has only **one** significant figure (the 5).
+          * **Example:** `0.00023` has **two** significant figures (the 2 and 3).
+
+4.  **Trailing Zeros (Zeros at the End) Are Sometimes Significant.**
+
+      This rule depends on the presence of a decimal point.
+
+      * Trailing Zeros in a Number with a Decimal Point:
+
+          These are **always significant** as they indicate a specific level of precision.
+
+              * **Example:** `25.00` has **four** significant figures.
+              * **Example:** `3.0` has **two** significant figures.
+
+      - Trailing Zeros in a Whole Number without a Decimal Point:
+
+        - These are generally considered **not significant** (ambiguous). They are assumed to be placeholders. To avoid ambiguity, scientific notation is preferred.
+
+              * **Example:** `500` has **one** significant figure (the 5).
+
+                  If it needed to be shown with three significant figures, it would be written as `5.00 x 10²` or `500.` with a decimal point.
+
+---
+
+### Past Exam Questions
+---
+:::danger 19th November 2024, Section A, Question 3
+Round 3702.501 to ONE (1) significant figure.
+:::
+:::success Answer
+4000 ✔️
+
+:::note Explanation
+The first significant figure is 3. The next digit (7) is 5 or greater, so round up. Replace the remaining digits before the decimal with zeros to hold the correct place value.
+:::
+
+---
+
+:::danger 10 September 2024, Section A, Question 5
+Round 0.01058 to TWO (2) significant figures.
+:::
+:::success Answer
+0.011 ✔️
+
+:::note Explanation
+The first significant figure is 1, and the second is 0. The next digit (5) is 5 or greater, so round the last significant digit (0) up to 1.
+:::
+
+
+---
+
+:::danger 4 June 2024, Section A, Question 2
+Round 7810 to ONE (1) significant figure.
+:::
+:::success Answer
+8000 ✔️
+
+:::note Explanation
+The first significant figure is 7. The next digit (8) is 5 or greater, so round up. Replace the remaining digits with zeros to hold the correct place value.
+:::
+
+
+---
+
+:::danger 7 March 2024, Section A, Question 1
+Round 0.020408 to TWO (2) significant figures.
+:::
+:::success Answer
+0.020 ✔️
+
+:::note Explanation
+The first significant figure is 2, and the second is 0. The next digit (4) is less than 5, so the last significant digit (0) is left unchanged.
+:::
+
+
+---
+
+:::danger 21 November 2023, Section A, Question 1
+Round 0.0801 to TWO (2) significant figures.
+:::
+:::success Answer
+0.080 ✔️
+
+:::note Explanation
+The first significant figure is 8, and the second is 0. The next digit (1) is less than 5, so the last significant digit (0) is left unchanged.
+:::
+
+
+---
+
+:::danger 12 September 2023, Section A, Question 2
+Round 10403.5 to THREE (3) significant figures.
+:::
+:::success Answer
+10400 ✔️
+
+:::note Explanation
+The first three significant figures are 1, 0, and 4. The next digit (0) is less than 5, so the last significant digit (4) is left unchanged.
+:::
+
+
+---
+
+:::danger 13 June 2023, Section A, Question 3
+Round 0.01408 to ONE (1) significant figure.
+:::
+:::success Answer
+0.01 ✔️
+
+:::note Explanation
+The first significant figure is 1. The next digit (4) is less than 5, so the 1 is left unchanged.
+:::
+
+
+---
+
+:::danger 14 March 2023, Section A, Question 4
+Round 3159 to ONE (1) significant figure.
+:::
+:::success Answer
+3000 ✔️
+
+:::note Explanation
+The first significant figure is 3. The next digit (1) is less than 5, so the 3 is left unchanged. Replace the remaining digits with zeros.
+:::
+
+
+---
+
+:::danger 08 March 2022, Section A, Question 2
+Round 36402 to TWO (2) significant figures.
+:::
+:::success Answer
+36000 ✔️
+
+:::note Explanation
+The first two significant figures are 3 and 6. The next digit (4) is less than 5, so the 6 is left unchanged.
+:::
+
+---
+
+:::danger 07 September 2021, Section A, Question 2
+Round 735 to TWO (2) significant figures.
+:::
+:::success Answer
+740 ✔️
+
+:::note Explanation
+The first two significant figures are 7 and 3. The next digit is 5, so you round the last significant digit (3) up to 4.
+:::
+
+
+---
+
+:::danger 9 March 2021, Section A, Question 3
+Round 4025 to ONE (1) significant figure.
+:::
+:::success Answer
+4000 ✔️
+
+:::note Explanation
+The first significant figure is 4. The next digit (0) is less than 5, so the 4 is left unchanged.
+:::
+
+
+---
+
+:::danger 03 March 2020, Section A, Question 3
+Round 2305 to one significant figure.
+:::
+:::success Answer
+2000 ✔️
+
+:::note Explanation
+The first significant figure is 2. The next digit (3) is less than 5, so the 2 is left unchanged.
+:::
+
+
+---
+
+:::danger 26 November 2019, Section A, Question 1
+Round 34721.50 to two significant figures.
+:::
+:::success Answer
+35000 ✔️
+
+:::note Explanation
+The first two significant figures are 3 and 4. The next digit (7) is 5 or greater, so you round the 4 up to 5.
+:::
+
+
+---
+
+:::danger 3 September 2019, Section A, Question 3
+Round 53.732 to one significant figure.
+:::
+:::success Answer
+50 ✔️
+
+:::note Explanation
+The first significant figure is 5. The next digit (3) is less than 5, so the 5 is left unchanged.
+:::
+
+
+---
+
+:::danger 28 May 2019, Section A, Question 2
+Round 8.218 to two significant figures.
+:::
+:::success Answer
+8.2 ✔️
+
+:::note Explanation
+The first two significant figures are 8 and 2. The next digit (1) is less than 5, so the 2 is left unchanged.
+:::
+
+
+---
+
+:::danger 05 March 2019, Section A, Question 1
+Round 944 to one significant figure.
+:::
+:::success Answer
+900 ✔️
+
+:::note Explanation
+The first significant figure is 9. The next digit (4) is less than 5, so the 9 is left unchanged.
+:::
+
+
+---
+
+:::danger 27 November 2018, Section A, Question 3
+Round 5150 to two significant figures.
+:::
+:::success Answer
+5200 ✔️
+
+:::note Explanation
+The first two significant figures are 5 and 1. The next digit is 5, so you round the 1 up to 2.
+:::
+
+
+---
+
+:::danger 6 March 2018, Section A, Question 1
+Round 325 to two significant figures.
+:::
+:::success Answer
+330 ✔️
+
+:::note Explanation
+The first two significant figures are 3 and 2. The next digit is 5, so you round the 2 up to 3.
+:::
+
+
+---
+
+:::danger 28 November 2017, Section A, Question 4
+Round 7059 to one significant figure.
+:::
+:::success Answer
+7000 ✔️
+
+:::note Explanation
+The first significant figure is 7. The next digit (0) is less than 5, so the 7 is left unchanged.
+:::
+
+
+---
+
+:::danger 5 September 2017, Section A, Question 10
+Round 3165 to 1 significant figure.
+:::
+:::success Answer
+3000 ✔️
+
+:::note Explanation
+The first significant figure is 3. The next digit (1) is less than 5, so the 3 is left unchanged.
+:::
+
+
+---
+
+:::danger 07 March 2017, Section A, Question 6
+Round 819 to one significant figure.
+:::
+:::success Answer
+800 ✔️
+
+:::note Explanation
+The first significant figure is 8. The next digit (1) is less than 5, so the 8 is left unchanged.
+:::
+
+
+---
+
+:::danger 22 November 2016, Section A, Question 1
+Round 345 to TWO (2) significant figures.
+:::
+:::success Answer
+350 ✔️
+
+:::note Explanation
+The first two significant figures are 3 and 4. The next digit is 5, so you round the 4 up to 5.
+:::
+
+
+---
+
+:::danger 30 August 2016, Section A, Question 3
+Round 21.357 to one significant figure.
+:::
+:::success Answer
+20 ✔️
+
+:::note Explanation
+The first significant figure is 2. The next digit (1) is less than 5, so the 2 is left unchanged.
+:::
+
+
+---
+
+:::danger 31 May 2016, Section A, Question 3
+Round 93452 to three significant figures.
+:::
+:::success Answer
+93500 ✔️
+
+:::note Explanation
+The first three significant figures are 9, 3, and 4. The next digit (5) means you round the last significant digit (4) up to 5.
+:::
+
+
+---
+
+:::danger 1 March 2016, Section A, Question 2
+Round 543.1 to two significant figures.
+:::
+:::success Answer
+540 ✔️
+
+:::note Explanation
+The first two significant figures are 5 and 4. The next digit (3) is less than 5, so the 4 is left unchanged.
+:::
+
+
+---
+
+:::danger 3 March 2015, Section A, Question 8
+Round 783,276,108 to 3 significant figures.
+:::
+:::success Answer
+783,000,000 ✔️
+
+:::note Explanation
+The first three significant figures are 7, 8, and 3. The next digit (2) is less than 5, so the 3 is left unchanged.
+:::
+
+
+---
+
+:::danger 25 November 2014, Section A, Question 1
+Round 3.2523 to TWO (2) significant figures.
+:::
+:::success Answer
+3.3 ✔️
+
+:::note Explanation
+The first two significant figures are 3 and 2. The next digit is 5, so you round the 2 up to 3.
+:::
+
+
+---
+
+:::danger 3 June 2014, Section A, Question 2
+Round 0.00581 to 1 significant figure.
+:::
+:::success Answer
+0.006 ✔️
+
+:::note Explanation
+The first significant figure is 5. The next digit (8) is 5 or greater, so you round the 5 up to 6.
+:::

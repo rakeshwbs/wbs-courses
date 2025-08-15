@@ -1,0 +1,125 @@
+---
+id: lab-sheet
+title: Labsheet
+sidebar_position: 2
+hide_title: true
+sidebar_label: 💻 BGP Peering
+---
+import ModuleBanner from '@site/src/components/art/art-banner';
+
+<ModuleBanner />
+
+# Week 10 Lab: PBR and BGP Peering
+
+## Objective
+
+This lab is split into two distinct parts. In Part 1, you will implement Policy-Based Routing (PBR) to force traffic from a specific source to take a different path than the one chosen by the routing protocol. In Part 2, you will configure the internet's routing protocol, BGP, establishing both an external (eBGP) peering between different Autonomous Systems and an internal (iBGP) peering within the same AS.
+
+## Required Software
+
+- Cisco Packet Tracer
+
+---
+
+## Part 1: Policy-Based Routing (PBR)
+
+### Topology for Part 1
+
+We'll use a triangle topology where the direct path is made undesirable by a low bandwidth setting, forcing the IGP to choose the longer path.
+
+```text
+                 +----------+
+       S0/0/0----| Router-B |----S0/0/1
+(Good Path) |         +----------+         | (Good Path)
++----------+                      +----------+
+| Router-A |------S0/1/0-----------| Router-C |----(Lo0: 3.3.3.3/24)
++----------+    (Suboptimal Path)    +----------+
+    |
+(PC-A: 192.168.1.10/24)
+```
+- **IGP:** Configure `EIGRP AS 100` on all three routers.
+- **Path Manipulation:** On the direct link between Router-A and Router-C (S0/1/0), set the bandwidth to a very low value (e.g., `bandwidth 8`). This will cause EIGRP to see the path through Router-B as the best path.
+
+### Tasks for Part 1
+
+1. Build the topology, configure IPs, and enable EIGRP 100 on all routers. Set the low bandwidth on the R-A to R-C link as described.
+2. **Verify Default Path:** From PC-A, do a `tracert 3.3.3.3`. The path should go from Router-A -> Router-B -> Router-C. This confirms EIGRP chose the "good" path.
+3. **Configure PBR on Router-A:**
+- Create an ACL to identify traffic from PC-A:
+```bash
+access-list 10 permit host 192.168.1.10
+     ```
+- Create a route-map to match this ACL and set a new next-hop.
+```bash
+route-map PBR_POLICY permit 10
+ match ip address 10
+ set ip next-hop [IP of Router-C's S0/1/0 interface]
+     ```
+- Apply the policy to the incoming interface on Router-A.
+```bash
+interface GigabitEthernet0/0  // Interface connected to PC-A
+ ip policy route-map PBR_POLICY
+     ```
+4. **Verify PBR Path:** From PC-A, run `tracert 3.3.3.3` again. The path should now go directly from Router-A -> Router-C, proving that your policy overrode the EIGRP routing table.
+
+---
+
+## Part 2: Basic eBGP and iBGP Peering
+
+### Topology for Part 2
+
+A simple three-router line. R-A is in one AS, while R-B and R-C are in another.
+
+```text
+  (AS 65001)          (AS 65002)
+(Lo0: 1.1.1.1/24)   (Lo0: 2.2.2.2/24)   (Lo0: 3.3.3.3/24)
+      |                   |                   |
++----------+   10.1.12.0/30   +----------+   10.1.23.0/30   +----------+
+| Router-A |------------------| Router-B |------------------| Router-C |
++----------+      eBGP        +----------+       iBGP       +----------+
+```
+
+### Tasks for Part 2
+
+1. Build the new topology and configure all physical and loopback IPs. No IGP is needed for this exercise.
+2. **Configure eBGP Peering (between R-A and R-B):**
+- On **Router-A**:
+```bash
+router bgp 65001
+ neighbor 10.1.12.2 remote-as 65002
+     ```
+- On **Router-B**:
+```bash
+router bgp 65002
+ neighbor 10.1.12.1 remote-as 65001
+     ```
+3. **Configure iBGP Peering (between R-B and R-C):**
+- On **Router-B**:
+```bash
+router bgp 65002
+ neighbor 10.1.23.2 remote-as 65002
+     ```
+- On **Router-C**:
+```bash
+router bgp 65002
+ neighbor 10.1.23.1 remote-as 65002
+     ```
+4. **Verify Peering Sessions:** On all routers, use the command `show ip bgp summary`. Wait a minute for the sessions to establish.
+- **Analysis:** The output shows all configured neighbors. The last column `State/PfxRcd` is key. If it shows a number (like `0`), the session is established. If it says `Active` or `Idle`, there is a configuration problem.
+5. **Advertise a Network:** On **Router-A**, advertise its loopback network into BGP.
+```bash
+router bgp 65001
+ network 1.1.1.0 mask 255.255.255.0
+   ```
+6. **Verify Route Propagation:**
+- On **Router-B**, run `show ip bgp`. You should see the `1.1.1.0` network in the BGP table.
+- On **Router-C**, run `show ip bgp`. You should also see the `1.1.1.0` network, proving that R-B passed the eBGP route to its iBGP peer.
+
+---
+
+## Exploration Questions
+
+1. In Part 1, PBR works by overriding the routing table for specific traffic. Does the original "good" path through Router-B still exist in Router-A's routing table? How could you prove it?
+2. What is the Administrative Distance of an eBGP route versus an iBGP route? Why is the iBGP administrative distance so high?
+3. In the `show ip bgp summary` command, if a neighbor state is stuck in "Active," what is a likely cause of the problem?
+4. Imagine you added a fourth router, Router-D, to AS 65002, connected only to Router-C. Would Router-D learn the `1.1.1.0` route from Router-C? Why or why not? (Hint: Consider the iBGP Split-Horizon rule).

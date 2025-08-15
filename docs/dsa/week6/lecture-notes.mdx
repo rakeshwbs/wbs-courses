@@ -1,0 +1,68 @@
+---
+id: lecture-notes
+title: Lecture Notes
+hide_title: true
+sidebar_position: 1
+sidebar_label: Linked Stacks
+sidebar_class_name: icon-lecture
+---
+import ModuleBanner from '@site/src/components/dsa/dsa-banner';
+
+<ModuleBanner />
+
+## **Week 6: Stack Applications & Linked Implementation**
+
+Last week, we built a functional stack using an array. However, its major drawback is its fixed size. Today, we'll solve that problem by using a linked list and then explore powerful real-world problems that stacks can solve elegantly.
+
+### **The Linked Stack: A Dynamic Solution**
+
+The primary issue with our array-based stack is the risk of **Stack Overflow**. We have to define a `MAX_SIZE` beforehand, which might be too small or wastefully large. By using a linked list as the underlying data structure, we can create a **dynamic stack** that grows and shrinks as needed.
+
+The idea is simple: instead of a private array and a `top` index, our `Stack` class will have a private `head` pointer to a singly linked list.
+
+#### **Mapping Stack Operations to List Operations**
+We can cleverly use the efficient head operations of a linked list to implement our stack:
+* **`push(value)`**: This simply becomes a **prepend** operation on the linked list (adding a new node at the head). This is always **$O(1)$**.
+* **`pop()`**: This involves **deleting the head node** of the linked list. This is also always **$O(1)$**.
+* **`peek()`**: This just returns the `data` from the `head` node without deleting it. **$O(1)$**.
+* **`isEmpty()`**: This checks if `head == nullptr`.
+
+The key advantage is that there is no more `isFull()` method. The stack is only "full" when your computer runs out of memory!
+
+***
+
+### **Practical Stack Applications**
+
+Stacks are not just a theoretical exercise; they are used to solve fundamental computing problems.
+
+#### **1. Reversing Data**
+The LIFO nature of a stack makes it perfect for reversing any sequence of data. To reverse a string like "hello":
+1.  `push('h')`, `push('e')`, `push('l')`, `push('l')`, `push('o')`. The stack top is now 'o'.
+2.  Now, `pop` each character and append it to a new string. You'll pop 'o', then 'l', then 'l', then 'e', then 'h'.
+3.  The resulting string is "olleh".
+
+#### **2. Postfix Expression Evaluation**
+Humans write expressions in **infix notation**, like `3 + 4 * 2`. Computers find this difficult because they need complex rules for operator precedence. It's much easier for a computer to evaluate **postfix notation** (also known as Reverse Polish Notation or RPN), where the operator comes *after* the operands, like `3 4 2 * +`.
+
+A stack is the perfect tool to evaluate a postfix expression.
+
+**The Algorithm:**
+1.  Read the expression from left to right.
+2.  If you see an **operand** (a number), **`push`** it onto the stack.
+3.  If you see an **operator** (`+`, `-`, `*`, `/`), **`pop`** two operands from the stack, perform the operation, and **`push`** the result back onto the stack.
+4.  When you've read the entire expression, the single value remaining on the stack is the final answer.
+
+**Example Trace: `5 2 + 8 3 - *`**
+* `5`: `push(5)` -> Stack: `[5]`
+* `2`: `push(2)` -> Stack: `[5, 2]`
+* `+`: `pop()` -> 2, `pop()` -> 5. Calculate 5 + 2 = 7. `push(7)` -> Stack: `[7]`
+* `8`: `push(8)` -> Stack: `[7, 8]`
+* `3`: `push(3)` -> Stack: `[7, 8, 3]`
+* `-`: `pop()` -> 3, `pop()` -> 8. Calculate 8 - 3 = 5. `push(5)` -> Stack: `[7, 5]`
+* `*`: `pop()` -> 5, `pop()` -> 7. Calculate 7 * 5 = 35. `push(35)` -> Stack: `[35]`
+* End of expression. The final result is **35**.
+
+***
+
+**Note on Assessment:**
+Just a reminder that the **Mid-Term Test** (20%), covering topics from Weeks 1-5, would typically be scheduled around this point in the semester.

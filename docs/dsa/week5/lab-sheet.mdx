@@ -1,0 +1,89 @@
+---
+id: lab-sheet
+title: Lab sheet 1
+hide_title: true
+sidebar_position: 2
+sidebar_label: Implement Stacks
+sidebar_class_name: icon-lab
+---
+import ModuleBanner from '@site/src/components/dsa/dsa-banner';
+
+<ModuleBanner />
+
+## **Lab 5: Implementing an Array-Based Stack**
+
+**Objective:** To implement the Stack ADT using a fixed-size array in C++. This lab focuses on creating a `Stack` class, implementing its core LIFO operations, and correctly handling critical error conditions like overflow and underflow.
+
+### **Task 1: The `Stack` Class Structure**
+
+1.  Create a new C++ file for this lab.
+2.  At the top of your file, define a constant for the stack's capacity. A small number is good for testing.
+```cpp
+#define MAX_SIZE 5
+```
+3.  Define the `Stack` class with the following members:
+  * **private**: an integer array `arr[MAX_SIZE]` and an integer `top`.
+  * **public**: a constructor `Stack()` that initializes `top` to `-1`.
+
+-----
+
+### **Task 2: Implement Helper Methods**
+
+These boolean methods will make the logic in your other functions much cleaner.
+
+1.  **`bool isEmpty()`**: This method should return `true` if `top` is equal to `-1`, and `false` otherwise.
+2.  **`bool isFull()`**: This method should return `true` if `top` is equal to `MAX_SIZE - 1`, and `false` otherwise.
+
+-----
+
+### **Task 3: Implement the `push` Method**
+
+This method adds an element to the top of the stack.
+
+1.  **Declaration**: Add `void push(int value);` to your class.
+2.  **Implementation**:
+  * First, check if the stack is full by calling `isFull()`.
+  * If it is full, print an error message like "Stack Overflow\! Cannot push value." and then `return`.
+  * If it's not full, increment `top`, then place the new value in the array at the new `top` index: `arr[top] = value;`.
+
+-----
+
+### **Task 4: Implement the `pop` Method**
+
+This method removes and returns the top element of the stack.
+
+1.  **Declaration**: Add `int pop();` to your class.
+2.  **Implementation**:
+  * First, check if the stack is empty by calling `isEmpty()`.
+  * If it is empty, print an error message like "Stack Underflow\! Cannot pop." and `return -1` (as an error indicator).
+  * If it's not empty, retrieve the value from `arr[top]`, decrement `top`, and then `return` the retrieved value.
+
+-----
+
+### **Task 5: Implement the `peek` Method**
+
+This method returns the top element without removing it.
+
+1.  **Declaration**: Add `int peek();` to your class.
+2.  **Implementation**:
+  * Check if the stack is empty. If so, print an "Stack Underflow\!" error and `return -1`.
+  * If it's not empty, simply `return arr[top];`. Do **not** change the value of `top`.
+
+-----
+
+### **Task 6: Comprehensive Testing**
+
+In your `main()` function, write a test script to verify all functionality.
+
+1.  **Normal Flow**:
+  * Create a `Stack`.
+  * Push a few values (e.g., 10, 20, 30).
+  * Use `peek()` to check the top value (should be 30).
+  * Pop all values, printing each one. Verify they come out in LIFO order (30, 20, 10).
+  * Check if the stack `isEmpty()`.
+2.  **Overflow Test**:
+  * Use a `for` loop to push `MAX_SIZE + 1` items onto the stack. Verify that the "Stack Overflow" message appears on the last attempt.
+3.  **Underflow Test**:
+  * Create a new stack, push two items, then pop two items.
+  * Try to `pop()` one more time and call `peek()`. Verify that the "Stack Underflow" message appears for both attempts.
+

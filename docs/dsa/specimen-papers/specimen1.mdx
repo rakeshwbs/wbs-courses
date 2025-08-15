@@ -1,0 +1,479 @@
+---
+id: specimen1
+title: Specimen Paper 1
+hide_title: true
+sidebar_position: 1
+sidebar_label: Specimen 1
+---
+## **Final Examination**
+
+**Module:** DSA-251: Data Structure & Algorithm
+**Time Allowed:** 3 Hours
+**Total Marks:** 100
+
+### **Instructions:**
+
+* Answer all four questions.
+* Each question is worth 25 marks.
+* Read each question carefully before answering.
+
+---
+
+### **QUESTION 1 \[25 MARKS]**
+
+(a) Define what an **Abstract Data Type (ADT)** is and provide one example.
+\[5]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    An **Abstract Data Type (ADT)** is a high-level, theoretical model for a data type that is defined by its behavior—a set of values it can hold and a set of operations that can be performed on it. It specifies *what* a data type does, not *how* it does it.
+
+    **Example:** A **Stack** is an ADT. Its behavior is defined by operations like `push`, `pop`, and `peek`, and its principle is LIFO (Last-In, First-Out).
+
+    **Marking Scheme:**
+
+    * \[3 Marks] - For a clear definition, emphasizing the separation of interface ("what") from implementation ("how").
+    * \[2 Marks] - For providing a correct example (e.g., Stack, Queue, List).
+
+</details>
+
+(b) Differentiate between **static** memory allocation and **dynamic** memory allocation in C++.
+\[5]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    * **Static Memory Allocation:** Memory is allocated on the **stack** at **compile-time**. The size is fixed and known beforehand. The memory is managed automatically and freed when the variable goes out of scope.
+    * **Dynamic Memory Allocation:** Memory is allocated on the **heap** at **runtime** using the `new` keyword. The size can be determined while the program is running. The programmer is responsible for manually freeing this memory using the `delete` keyword.
+
+    **Marking Scheme:**
+
+    * \[2.5 Marks] - For correctly describing static allocation (stack, compile-time, automatic).
+    * \[2.5 Marks] - For correctly describing dynamic allocation (heap, runtime, manual via `new`/`delete`).
+
+</details>
+
+(c) Describe the key structural difference between a **singly linked list node** and a **doubly linked list node**.
+\[5]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    The key structural difference is the number of pointers in the node.
+
+    * A **singly linked list node** contains a data field and a **single pointer**, typically called `next`, which points to the subsequent node in the list.
+    * A **doubly linked list node** contains a data field and **two pointers**: a `next` pointer (pointing to the subsequent node) and a `prev` pointer (pointing to the preceding node).
+
+    **Marking Scheme:**
+
+    * \[2 Marks] - For describing the singly linked list node structure (one pointer).
+    * \[3 Marks] - For describing the doubly linked list node structure (two pointers, `next` and `prev`).
+
+</details>
+
+(d) State one primary advantage and one primary disadvantage of using a **doubly linked list** compared to a singly linked list.
+\[5]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    * **Advantage:** The primary advantage is the ability to perform **bidirectional traversal**. From any node, one can efficiently move both forwards and backwards, which simplifies certain operations like finding a node's predecessor.
+    * **Disadvantage:** The main disadvantage is **increased memory usage**. Each node requires extra space to store the `prev` pointer, which can be significant for lists with a large number of elements.
+
+    **Marking Scheme:**
+
+    * \[2.5 Marks] - For a clear explanation of the advantage (bidirectional traversal).
+    * \[2.5 Marks] - For a clear explanation of the disadvantage (increased memory usage).
+
+</details>
+
+(e) **\[Programming]** The C++ code below creates a simple linked list node. Draw a simple diagram that illustrates what this code creates in memory, showing the pointer and the node's contents.
+\[5]
+
+```cpp
+// Assume Node class is defined
+Node* head = new Node(10);
+```
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    The diagram should show:
+
+    1. A box labeled `head` in the stack memory area.
+    2. An arrow originating from `head`.
+    3. This arrow points to another, larger box in the heap memory area. This box represents the `Node` object.
+    4. Inside the `Node` box, there should be two sections:
+
+    * One section labeled `data` containing the value `10`.
+    * Another section labeled `next` containing `nullptr` (or a ground symbol).
+
+    **Marking Scheme:**
+
+    * \[2 Marks] - For correctly showing the `head` pointer in the stack pointing to an object on the heap.
+    * \[2 Marks] - For correctly showing the `data` and `next` fields inside the Node object.
+    * \[1 Mark] - For correctly showing the `next` pointer as `nullptr`.
+
+</details>
+
+---
+
+### **QUESTION 2 \[25 MARKS]**
+
+(a) Define the **Stack** data structure, including its operating principle (LIFO/FIFO) and a suitable real-world application.
+\[5]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    A **Stack** is a linear data structure that operates on the **LIFO (Last-In, First-Out)** principle. This means the last item added to the stack is the first item to be removed.
+
+    * **Application:** An "Undo" feature in a text editor. Each action is pushed onto a stack, and pressing "Undo" pops the most recent action off the stack to be reversed.
+
+    **Marking Scheme:**
+
+    * \[3 Marks] - For correctly defining a Stack and identifying it as LIFO.
+    * \[2 Marks] - For providing a suitable application.
+
+</details>
+
+(b) Define the **Queue** data structure, including its operating principle (LIFO/FIFO) and a suitable real-world application.
+\[5]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    A **Queue** is a linear data structure that operates on the **FIFO (First-In, First-Out)** principle. This means the first item added to the queue is the first item to be removed.
+
+    * **Application:** A printer queue. Print jobs are added to the rear of the queue and are processed in the order they were received from the front of the queue, ensuring fairness.
+
+    **Marking Scheme:**
+
+    * \[3 Marks] - For correctly defining a Queue and identifying it as FIFO.
+    * \[2 Marks] - For providing a suitable application.
+
+</details>
+
+(c) Explain the algorithm for evaluating a **postfix (RPN)** expression using a stack. Your explanation should cover how to handle both operands (numbers) and operators.
+\[5]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    The algorithm scans the expression from left to right:
+
+    1. If the token is an **operand** (a number), it is **pushed** onto the stack.
+    2. If the token is an **operator** (`+`, `-`, `*`, `/`), two operands are **popped** from the stack. The operation is performed on these two operands (with the first popped being the right-hand side), and the single result is **pushed** back onto the stack.
+    After processing all tokens, the final result is the single number remaining on the stack.
+
+    **Marking Scheme:**
+
+    * \[2 Marks] - For correctly explaining how to handle operands (push).
+    * \[3 Marks] - For correctly explaining how to handle operators (pop two, operate, push one).
+
+</details>
+
+(d) Given a stack whose current state is `[10, 50, 20]` (with 20 at the top), what is the state of the stack after the following two operations are performed in sequence: `pop()` then `push(40)`?
+\[5]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    1. **Initial State:** `[10, 50, 20]`
+    2. **`pop()`:** The top element, `20`, is removed.
+
+    * State after pop: `[10, 50]`
+    3. **`push(40)`:** The value `40` is added to the top.
+
+    * Final State: `[10, 50, 40]`
+
+    **Marking Scheme:**
+
+    * \[2 Marks] - For correctly showing the state after the `pop()` operation.
+    * \[3 Marks] - For correctly showing the final state after the `push(40)` operation.
+
+</details>
+
+(e) **\[Programming]** The C++ code for an array-based `push()` method is given below with one line missing. Complete the code by writing the missing line.
+\[5]
+
+```cpp
+void Stack::push(int value) {
+    if (isFull()) {
+        return; // Error
+    }
+    // ----- MISSING LINE -----
+    arr[top] = value;
+}
+```
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+```cpp
+    void Stack::push(int value) {
+    if (isFull()) {
+    return; // Error
+}
+    top++;  // ----- MISSING LINE -----
+    arr[top] = value;
+}
+```
+
+    **Marking Scheme:**
+
+    * \[5 Marks] - For the correct missing line `top++;` or `++top;`.
+
+</details>
+
+---
+
+### **QUESTION 3  \[25 MARKS]**
+
+(a) Define the two essential components of any valid recursive function: the **Base Case** and the **Recursive Step**.
+\[5]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    1. **Base Case:** This is the stopping condition of the recursion. It is the simplest version of the problem that can be solved directly without needing further recursive calls.
+    2. **Recursive Step:** This is the part of the function that breaks the current problem into a smaller, self-similar subproblem. It then calls itself to solve that smaller subproblem and must make progress toward reaching the base case.
+
+    **Marking Scheme:**
+
+    * \[2.5 Marks] - For a correct definition of the Base Case.
+    * \[2.5 Marks] - For a correct definition of the Recursive Step.
+
+</details>
+
+(b) Explain the role of the **Call Stack** in managing recursive function calls.
+\[5]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    The Call Stack manages recursion by creating a new **stack frame** for every function call. This frame stores the function's local state, including its parameters and local variables, for that specific instance. When a function calls itself, a new frame is pushed on top. When a function returns, its frame is popped off, and control resumes in the previous function's context, which was preserved in its own stack frame, allowing the program to "remember" where it was.
+
+    **Marking Scheme:**
+
+    * \[3 Marks] - For explaining that a new stack frame is pushed for each call, storing the local state.
+    * \[2 Marks] - For explaining that popping the frame on return restores the previous context.
+
+</details>
+
+(c) Clearly define the **Binary Search Tree (BST) Property**.
+\[5]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    The Binary Search Tree (BST) Property states that for any given node `N` in the tree:
+
+    1. All values in `N`'s **left subtree** must be **less than** `N`'s value.
+    2. All values in `N`'s **right subtree** must be **greater than** `N`'s value.
+    3. Both the left and right subtrees must also be valid binary search trees.
+
+    **Marking Scheme:**
+
+    * \[2.5 Marks] - For the "left is less" rule.
+    * \[2.5 Marks] - For the "right is greater" rule.
+
+</details>
+
+(d) You are given an empty Binary Search Tree. Draw the resulting BST after inserting the following sequence of values in order: `30, 15, 45`.
+\[5]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    ```
+      30
+     /  \
+    15   45
+    ```
+
+    **Trace:**
+
+    1. `30` becomes the root.
+    2. `15 &lt; 30` -> goes left of 30.
+    3. `45 &gt; 30` -> goes right of 30.
+
+    **Marking Scheme:**
+
+    * \[5 Marks] - For the correctly drawn final tree structure.
+
+</details>
+
+(e) **\[Programming]** Given the C++ code for the recursive `factorial` function, identify the single line of code that represents the **Base Case**.
+\[5]
+
+```cpp
+int factorial(int n) {
+    if (n == 0) {
+        return 1;
+    } else {
+        return n * factorial(n - 1);
+    }
+}
+```
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    The line representing the Base Case is:
+    `return 1;`
+
+    This is the stopping condition; it provides a direct answer for the simplest case (`n == 0`) without making another recursive call.
+
+    **Marking Scheme:**
+
+    * \[5 Marks] - For correctly identifying the `return 1;` line as the base case.
+
+</details>
+
+---
+
+### **QUESTION 4  \[25 MARKS]**
+
+(a) Explain the purpose of a **hash function** and state one property of a good hash function.
+\[5]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    * **Purpose:** A hash function's purpose is to take a key of arbitrary size (e.g., a string) and convert it into a fixed-size integer that can be used as an index in a hash table's array. This allows for direct calculation of a data item's location rather than searching for it.
+    * **Property:** A good hash function should be **deterministic** (always producing the same index for the same key) and should provide a **uniform distribution** (spreading keys evenly across the array to minimize collisions).
+
+    **Marking Scheme:**
+
+    * \[3 Marks] - For a clear explanation of a hash function's purpose.
+    * \[2 Marks] - For stating one correct property (e.g., deterministic, uniform, fast).
+
+</details>
+
+(b) Describe how the **separate chaining** method works to resolve collisions in a hash table.
+\[5]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    Separate chaining resolves collisions by making each slot in the hash table array a pointer to a separate data structure, typically a **linked list**. When multiple keys hash to the same index, their corresponding key-value pairs are not stored in the array itself, but are instead added as new nodes to the linked list at that specific index. A search then involves hashing to the correct index and traversing the small linked list to find the correct key.
+
+    **Marking Scheme:**
+
+    * \[5 Marks] - For a clear explanation of the method (array of linked lists, colliding items go into the list).
+
+</details>
+
+(c) Describe the exploration strategy of **Breadth-First Search (BFS)** and state the data structure it uses.
+\[5]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    * **Strategy:** BFS explores a graph **broadly**, in concentric layers. It starts at a source vertex and visits all of its direct neighbors first. Then, it visits all the neighbors of those neighbors, and so on, moving one level outward at a time.
+    * **Data Structure:** BFS uses a **Queue** to manage the vertices to visit next, ensuring a FIFO exploration order.
+
+    **Marking Scheme:**
+
+    * \[3 Marks] - For correctly describing the broad, level-by-level exploration strategy.
+    * \[2 Marks] - For correctly identifying the Queue.
+
+</details>
+
+(d) Describe the exploration strategy of **Depth-First Search (DFS)** and state the data structure it uses (either explicitly or implicitly).
+\[5]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    * **Strategy:** DFS explores a graph **deeply**. It starts at a source vertex and follows a single path as far as it can go. When it reaches a dead end or an already visited node, it **backtracks** to the last junction and explores another unvisited path.
+    * **Data Structure:** DFS uses a **Stack**. This is often implemented implicitly by the program's **Call Stack** when using a recursive algorithm.
+
+    **Marking Scheme:**
+
+    * \[3 Marks] - For correctly describing the deep, backtracking exploration strategy.
+    * \[2 Marks] - For correctly identifying the Stack (or Call Stack for recursion).
+
+</details>
+
+(e) **\[Programming]** Write a complete C++ function `void printArray(int arr[], int size)` that prints all elements of an integer array on a single line, separated by spaces.
+\[5]
+
+```cpp
+#include <iostream>
+
+void printArray(int arr[], int size) {
+    for (int i = 0; i < size; i++) {
+        std::cout << arr[i] << " ";
+    }
+    std::cout << std::endl;
+}
+```
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+```cpp
+    #include <iostream>
+
+    void printArray(int arr[], int size) {
+    for (int i = 0; i < size; i++) {
+    std::cout << arr[i] << " ";
+}
+    std::cout << std::endl;
+}
+```
+
+    **Marking Scheme:**
+
+    * \[2 Marks] - For the correct `for` loop structure (`i` from 0 to `size-1`).
+    * \[2 Marks] - For correctly printing the element `arr[i]`.
+    * \[1 Mark] - For printing a space and a final newline for formatting.
+
+</details>
+
+---
+<a class="download-link" href="/files/dsa/specimen-papers/dsa-specimen-paper1.pdf" download>Download Specimen Paper</a>
+---

@@ -1,0 +1,60 @@
+---
+id: lecture-notes
+title: Lecture Notes
+hide_title: true
+sidebar_position: 1
+sidebar_label: Queues
+sidebar_class_name: icon-lecture
+---
+import ModuleBanner from '@site/src/components/dsa/dsa-banner';
+
+<ModuleBanner />
+
+## **Week 7: Introduction to Queues**
+
+A **Queue** is a linear data structure that models a real-world waiting line. It enforces a strict order where elements are added at one end and removed from the other.
+
+### **The Queue ADT (FIFO)**
+The governing principle of a Queue is **FIFO (First-In, First-Out)**. This is the fairest way to manage a line: the first one to arrive is the first one to be served.
+
+* **Analogy:** The best analogy is a checkout line at a supermarket in Mauritius. Customers enter the line at the back and are served from the front. The first person who got in line is the first person to check out and leave. 👨‍👩‍👧‍👦
+
+
+### **Core Queue Operations**
+A Queue ADT is defined by these core operations:
+
+* **`enqueue(value)`**: Adds a new item to the **rear** (back) of the queue.
+* **`dequeue()`**: Removes and returns the item from the **front** of the queue.
+* **`front()`**: Returns the item at the front without removing it.
+* **`isEmpty()`**: Returns `true` if the queue contains no elements.
+
+### **Linked-List-Based Implementation**
+A linked list provides a very natural and efficient way to implement a dynamic queue.
+
+* **The Structure**: Our `Queue` class will need two private pointers: `Node* front` and `Node* rear`.
+  * The `front` pointer acts like the `head` of the list, marking where we `dequeue` from.
+  * The `rear` pointer tracks the last node, allowing us to `enqueue` new items efficiently.
+* **Mapping Operations**:
+  * **`enqueue(value)`**: This is an **append** operation. A new node is added after the current `rear` node, and the `rear` pointer is updated. Because we have a direct pointer to the `rear`, this is an **$O(1)$** operation.
+  * **`dequeue()`**: This is a **delete head** operation. The `front` pointer is simply moved to the next node in the chain. This is also an **$O(1)$** operation.
+
+### **Array-Based Implementation (The Circular Queue)**
+Implementing a queue with a standard array presents a problem. As we `dequeue` items, the `front` index moves forward, leaving unused, "dead" space at the beginning of the array.
+
+* **The Solution**: We treat the array as a **circle**. When an index reaches the end of the array, it wraps around to the beginning (index 0). This is called a **Circular Queue**.
+* **How it Works**: The wrap-around logic is achieved using the **modulo operator (`%`)**. To find the next position for an index `i`, we use the formula `(i + 1) % MAX_SIZE`.
+* **State Management**: In a circular queue, it can be tricky to tell if the queue is full or empty just by looking at the `front` and `rear` indices. A common solution is to maintain a `currentSize` variable.
+  * `isEmpty()` is true when `currentSize == 0`.
+  * `isFull()` is true when `currentSize == MAX_SIZE`.
+
+
+
+### **Queue Applications**
+Queues are fundamental in computing for managing tasks and resources in an orderly fashion.
+* **Simulations**: Modeling any real-world waiting line, like customers at a bank or calls to a help desk.
+* **Operating Systems**: CPU task scheduling and managing requests for shared resources like printers or disk drives.
+* **Networking**: Buffering network packets to handle them in the order they were received.
+* **Graph Algorithms**: Breadth-First Search (BFS), a key graph traversal algorithm, uses a queue to explore nodes level by level.
+
+***
+

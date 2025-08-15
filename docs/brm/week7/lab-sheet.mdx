@@ -1,0 +1,74 @@
+---
+id: lab-sheet7
+title: Lab sheet 7
+hide_title: true
+sidebar_position: 2
+sidebar_label: Data Transformation
+sidebar_class_name: icon-lab
+---
+import ModuleBanner from '@site/src/components/brm/brm-banner';
+
+<ModuleBanner />
+
+## Lab 7: Data Transformation in SPSS
+
+### Objective
+To learn how to create new variables from existing data using the `Compute Variable` command and how to regroup continuous data into categories using the `Recode into Different Variables` command.
+
+### Part A: The Scenario and Data
+
+For this lab, we need the job satisfaction data from last week. This file should have scores for four job satisfaction items (`JS1`, `JS2`, `JS3`, `JS4`).
+
+**Your Tasks:**
+1.  Create a single, overall "Total Satisfaction Score" by averaging the four items.
+2.  Recode the "Age" variable into categorical "Age Groups".
+
+**Action:** Please open your `Week6_Lab.sav` file. If you don't have it handy, please create a new file and enter this data:
+
+| Participant_ID | Age | JS1 | JS2 | JS3 | JS4 |
+|:---:|:---:|:---:|:---:|:---:|:---:|
+| 1 | 25 | 4 | 5 | 4 | 4 |
+| 2 | 32 | 2 | 2 | 1 | 2 |
+| 3 | 28 | 5 | 5 | 5 | 5 |
+| 4 | 45 | 4 | 4 | 5 | 4 |
+| 5 | 38 | 1 | 2 | 2 | 1 |
+| 6 | 29 | 5 | 4 | 4 | 5 |
+| 7 | 41 | 4 | 4 | 3 | 4 |
+| 8 | 33 | 2 | 3 | 2 | 2 |
+| 9 | 48 | 5 | 5 | 4 | 4 |
+| 10 | 30 | 4 | 3 | 4 | 3 |
+
+---
+### Part B: Creating a Total Score with `Compute Variable`
+
+We'll combine the four `JS` items into a single average score.
+
+1.  From the SPSS menu, go to: **Transform -> Compute Variable...**
+2.  In the 'Target Variable' box at the top-left, type the name for our new variable: `Total_Satisfaction`.
+3.  In the 'Numeric Expression' box on the right, type the following formula to calculate the average:
+`(JS1 + JS2 + JS3 + JS4) / 4`
+4.  Click **OK**.
+5.  Go to your **Data View** window. You will see a new column at the end named `Total_Satisfaction` containing the calculated average score for each participant.
+
+---
+### Part C: Regrouping a Variable with `Recode into Different Variables`
+
+Next, we'll convert the continuous `Age` variable into three distinct age groups. We use "Recode into **Different** Variables" because it's safer—it keeps your original `Age` variable unchanged.
+
+1.  From the SPSS menu, go to: **Transform -> Recode into Different Variables...**
+2.  Move the `Age` variable from the left box into the center 'Input Variable -> Output Variable' box.
+3.  On the right side, under 'Output Variable', type a **Name** for the new variable (e.g., `Age_Group`) and a descriptive **Label** (e.g., "Participant Age Groups"). Click the **Change** button.
+4.  Now, click the **Old and New Values...** button. This is where you define the new groups.
+5.  We will create three groups:
+* On the left side, select **Range** and type `20` through `29`. On the right side, in the 'Value' box, type `1`. Click **Add**.
+* Select **Range** again. Type `30` through `39`. In the 'Value' box, type `2`. Click **Add**.
+* Select **Range, value through HIGHEST**. Type `40`. In the 'Value' box, type `3`. Click **Add**.
+6.  Click **Continue**, then click **OK**.
+7.  A new `Age_Group` column will appear in your Data View. Go to the **Variable View** and for the `Age_Group` variable, click on the **Values** cell to define the labels:
+* `1` = "20-29 years"
+* `2` = "30-39 years"
+* `3` = "40+ years"
+
+You have now successfully transformed your data, making it ready for different types of analysis!
+
+---

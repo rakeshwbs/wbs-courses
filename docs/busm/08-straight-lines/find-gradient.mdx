@@ -1,0 +1,307 @@
+---
+id: find-gradient
+title: Find Gradient
+hide_title: true
+sidebar_position: 1
+sidebar_label: Gradient
+---
+import ModuleBanner from '@site/src/components/busm/busm-banner';
+
+<ModuleBanner />
+---
+### What the Gradient Tells You
+The value of the gradient provides two key pieces of information about the line:
+
+#### Direction
+* A **positive gradient** means the line slopes **upwards** from left to right.
+* A **negative gradient** means the line slopes **downwards** from left to right.
+* A **zero gradient** means the line is perfectly **horizontal**.
+
+#### Steepness
+* The **larger** the absolute value of the gradient, the **steeper** the line is. For example, a line with a gradient of 4 is steeper than a line with a gradient of 1.
+
+
+
+---
+### How It's Calculated
+
+- The gradient is calculated as the ratio of the vertical change (the "rise") to the horizontal change (the "run") between any two points on the line.
+- $$\text{Gradient (m)} = \frac{\text{Change in Y (Rise)}}{\text{Change in X (Run)}}$$
+
+<div style={{ textAlign: "center" }}>
+    <img src="/img/busm/gradient.png" alt="Showing the gradient" style={{ width: "20%" }} />
+</div>
+
+---
+### Find Gradient from Equation
+---
+To find the gradient from a linear equation, first ensure the equation is in the standard form **`y = mx + c`**. The gradient is the value of **`m`**.
+
+### How to Find the Gradient
+
+1.  **Arrange the Equation:** Make sure the equation is written so that **`y`** is isolated on one side.
+2.  **Identify the 'm' value:** The gradient (`m`) is the number (or coefficient) that is directly multiplying the **`x`** term.
+
+---
+### Examples
+
+* For the equation `y = 5x - 7`, the number multiplying `x` is **5**.
+
+Therefore, the gradient is **5**.
+
+* In `y = -x + 3`, the number multiplying `x` is **-1**. The gradient is **-1**.
+
+* In y = **$$\frac{x}{5}$$** + 3, which can be rewritten as y = (**$$\frac{1}{5}$$**)x + 3, the number multiplying `x` is **$$\frac{1}{5}$$**.
+
+The gradient is **$$\frac{1}{5}$$**.
+
+---
+:::warning When the Equation Needs Rearranging
+Sometimes the equation isn't in the perfect `y = mx + c` format. For example, if you had an equation like `2y = 4x + 1`, you must first solve for `y` by dividing the entire equation by 2:
+
+$$y = \frac{4x}{2} + \frac{1}{2} \implies y = 2x + \frac{1}{2}$$
+
+Now that it's in the correct format, you can see the gradient **`m` is 2**.
+:::
+
+---
+### Past Exam Questions
+---
+:::danger 19th November 2024, Section A, Question 9
+State the gradient of the line $y=\frac{x}{5}+3$.
+:::
+:::success Answer
+Gradient = $\frac{1}{5}$ ✔️
+:::note Explanation
+1.  **Standard Form:** The equation is in the form $y = mx + c$.
+2.  **Identify Gradient:** The equation can be written as $y = (\frac{1}{5})x + 3$. The gradient (`m`) is the number multiplying the `x`, which is $\frac{1}{5}$.
+:::
+
+
+---
+:::danger 10 September 2024, Section A, Question 7
+State the gradient of the line $y=5x-7$.
+:::
+:::success Answer
+Gradient = 5 ✔️
+:::note Explanation
+1.  **Standard Form:** The equation is in the form $y = mx + c$.
+2.  **Identify Gradient:** The gradient (`m`) is the number multiplying the `x`, which is 5.
+:::
+
+
+---
+:::danger 4 June 2024, Section A, Question 10
+State the gradient of the line $y=-x+3$.
+:::
+:::success Answer
+Gradient = -1 ✔️
+:::note Explanation
+1.  **Standard Form:** The equation is in the form $y = mx + c$.
+2.  **Identify Gradient:** The term `-x` is the same as `-1x`. The gradient (`m`) is the number multiplying the `x`, which is -1.
+:::
+
+
+---
+:::danger 7 March 2024, Section A, Question 7
+State the gradient of the line $y=\frac{x}{4}+3$.
+:::
+:::success Answer
+Gradient = $\frac{1}{4}$ ✔️
+:::note Explanation
+1.  **Standard Form:** The equation is in the form $y = mx + c$.
+2.  **Identify Gradient:** The equation can be written as $y = (\frac{1}{4})x + 3$. The gradient (`m`) is the number multiplying the `x`, which is $\frac{1}{4}$.
+:::
+
+
+---
+:::danger 21 November 2023, Section A, Question 10
+State the gradient of the line $y=\frac{x}{4}-3$.
+:::
+:::success Answer
+Gradient = $\frac{1}{4}$ ✔️
+:::note Explanation
+1.  **Standard Form:** The equation is in the form $y = mx + c$.
+2.  **Identify Gradient:** The equation can be written as $y = (\frac{1}{4})x - 3$. The gradient (`m`) is the number multiplying the `x`, which is $\frac{1}{4}$.
+:::
+
+
+---
+:::danger 12 September 2023, Section A, Question 9
+State the gradient of the line $y=-x+2$.
+:::
+:::success Answer
+Gradient = -1 ✔️
+:::note Explanation
+1.  **Standard Form:** The equation is in the form $y = mx + c$.
+2.  **Identify Gradient:** The term `-x` is the same as `-1x`. The gradient (`m`) is the number multiplying the `x`, which is -1.
+:::
+
+
+---
+:::danger 9 March 2021, Section A, Question 7
+State the gradient of the line $y=10x - 9$.
+:::
+:::success Answer
+Gradient = 10 ✔️
+:::note Explanation
+1.  **Standard Form:** The equation is in the form $y = mx + c$.
+2.  **Identify Gradient:** The gradient (`m`) is the number multiplying the `x`, which is 10.
+:::
+
+
+---
+:::danger 07 September 2021, Section A, Question 5
+State the gradient of the line $y=-5x-1$.
+:::
+:::success Answer
+Gradient = -5 ✔️
+:::note Explanation
+1.  **Standard Form:** The equation is in the form $y = mx + c$.
+2.  **Identify Gradient:** The gradient (`m`) is the number multiplying the `x`, which is -5.
+:::
+
+
+---
+:::danger 05 March 2019, Section A, Question 5
+For the equation $y = −2x + 10$, state the value of the gradient.
+:::
+:::success Answer
+Gradient = -2 ✔️
+:::note Explanation
+1.  **Standard Form:** The equation is in the form $y = mx + c$.
+2.  **Identify Gradient:** The gradient (`m`) is the number multiplying the `x`, which is -2.
+:::
+
+
+---
+:::danger 05 March 2019, Section A, Question 6
+Find the gradient of the line $2y = 4x + 1$.
+:::
+:::success Answer
+Gradient = 2 ✔️
+:::note Explanation
+1.  **Standard Form:** The equation must first be in the form $y = mx + c$. To achieve this, divide the entire equation by 2.
+2.  **Rearrange:** $$\frac{2y}{2} = \frac{4x}{2} + \frac{1}{2}$$ This simplifies to $y = 2x + \frac{1}{2}$.
+3.  **Identify Gradient:** The gradient (`m`) is the number multiplying the `x`, which is 2.
+:::
+
+---
+## Finding Gradient from two given points
+---
+To find the gradient of a line when given two points, you calculate the ratio of the vertical change (the "rise") to the horizontal change (the "run") between those points.
+
+### The Method
+The method uses a standard formula. Given two points, $(x₁, y₁)$ and $(x₂, y₂)$, the gradient (`m`) is calculated as follows:
+
+1.  **Label your points:** Assign one point as $(x₁, y₁)$ and the other as $(x₂, y₂)$. It doesn't matter which is which, as long as you are consistent.
+2.  **Apply the formula:** Substitute your values into the gradient formula:
+$$m = \frac{\text{Change in Y}}{\text{Change in X}} = \frac{y₂ - y₁}{x₂ - x₁}$$
+3.  **Calculate** the final value.
+
+<div style={{ textAlign: "center" }}>
+    <img src="/img/busm/find-gradient.png" alt="Finding Gradient" style={{ width: "25%" }} />
+</div>
+
+---
+### Worked Example
+
+**Problem:** Find the gradient of the line joining the points **(-1, 3)** and **(3, 5)**.
+
+1.  **Label the points:**
+* Let $(x₁, y₁) = (-1, 3)$
+* Let $(x₂, y₂) = (3, 5)$
+
+2.  **Apply the formula:**
+$$m = \frac{5 - 3}{3 - (-1)}$$
+
+3.  **Calculate the result:**
+$$m = \frac{2}{3 + 1} = \frac{2}{4} = \frac{1}{2}$$
+
+The gradient of the line is **$$\frac{1}{2}$$** (or **0.5**).
+
+---
+### Past Exam Questions
+---
+:::danger 19th November 2024, Section A, Question 16
+Find the gradient of the line joining the points (-1, 3) and (3, 5).
+:::
+:::success Answer
+Gradient = $\frac{1}{2}$ or 0.5 ✔️
+:::note Explanation
+1.  **Label the points:**
+* Let $(x₁, y₁) = (-1, 3)$
+* Let $(x₂, y₂) = (3, 5)$
+2.  **Apply the formula** $m = \frac{y₂ - y₁}{x₂ - x₁}$:
+$$m = \frac{5 - 3}{3 - (-1)}$$
+3.  **Calculate the result:**
+$$m = \frac{2}{3 + 1} = \frac{2}{4} = \frac{1}{2}$$
+:::
+
+
+---
+:::danger 4 June 2024, Section A, Question 20
+Find the gradient of the line joining the points (3, 7) and (5, 4).
+:::
+:::success Answer
+Gradient = $-\frac{3}{2}$ or -1.5 ✔️
+:::note Explanation
+1.  **Label the points:**
+* Let $(x₁, y₁) = (3, 7)$
+* Let $(x₂, y₂) = (5, 4)$
+2.  **Apply the formula** $m = \frac{y₂ - y₁}{x₂ - x₁}$:
+$$m = \frac{4 - 7}{5 - 3}$$
+3.  **Calculate the result:**
+$$m = \frac{-3}{2} = -1.5$$
+:::
+
+
+---
+:::danger 21 November 2023, Section A, Question 19
+Find the gradient of the line joining the points (1, 4) and (3, 10).
+:::
+:::success Answer
+Gradient = 3 ✔️
+:::note Explanation
+1.  **Label the points:**
+* Let $(x₁, y₁) = (1, 4)$
+* Let $(x₂, y₂) = (3, 10)$
+2.  **Apply the formula** $m = \frac{y₂ - y₁}{x₂ - x₁}$:
+$$m = \frac{10 - 4}{3 - 1}$$
+3.  **Calculate the result:**
+$$m = \frac{6}{2} = 3$$
+:::
+
+
+---
+:::danger 12 September 2023, Section A, Question 13
+Find the gradient of the line joining the points (2,4) and (-5, -10)
+:::
+:::success Answer
+Gradient = 2 ✔️
+:::note Explanation
+1.  **Label the points:**
+* Let $(x₁, y₁) = (2, 4)$
+* Let $(x₂, y₂) = (-5, -10)$
+2.  **Apply the formula** $m = \frac{y₂ - y₁}{x₂ - x₁}$:
+$$m = \frac{-10 - 4}{-5 - 2}$$
+3.  **Calculate the result:**
+$$m = \frac{-14}{-7} = 2$$
+:::
+
+
+---
+:::danger 27 November 2018, Section A, Question 19
+Find the gradient of the line joining the points (5, 5) and (-1, 2). Simplify your answer as far as possible.
+:::
+:::success Answer
+Gradient = $\frac{1}{2}$ or 0.5 ✔️
+:::note Explanation
+1.  **Label the points:**
+* Let $(x₁, y₁) = (5, 5)$
+* Let $(x₂, y₂) = (-1, 2)$
+2.  **Apply the formula** $m = \frac{y₂ - y₁}{x₂ - x₁}$:
+$$m = \frac{2 - 5}{-1 - 5}$$
+3.  **Calculate the result:**
+$$m = \frac{-3}{-6} = \frac{1}{2}$$
+:::

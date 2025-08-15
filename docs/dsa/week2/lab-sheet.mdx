@@ -1,0 +1,70 @@
+---
+id: lab-sheet
+title: Lab sheet 1
+hide_title: true
+sidebar_position: 2
+sidebar_label: Implement Linked List
+sidebar_class_name: icon-lab
+---
+import ModuleBanner from '@site/src/components/dsa/dsa-banner';
+
+<ModuleBanner />
+
+## **Lab 2: Building the Foundations of a Linked List**
+
+**Objective:** To translate the theoretical `Node` and `LinkedList` concepts from the lecture into functional C++ code. You will implement the basic structure and the first essential method for adding new data to the list.
+
+### **Task 1: Define the `Node` Class**
+
+1.  Create a new C++ project or file (e.g., `linkedlist.cpp`).
+2.  Define the `Node` class exactly as discussed. It should contain:
+  * A `public int data;` member.
+  * A `public Node* next;` pointer.
+  * A `public` constructor `Node(int value);` that initializes `data` to `value` and `next` to `nullptr`.
+
+-----
+
+### **Task 2: Define the `LinkedList` Class**
+
+1.  In the same file, define the `LinkedList` class.
+2.  It must contain:
+  * A `private Node* head;` member. This is the only data member the class needs.
+  * A `public` constructor `LinkedList();` that initializes `head` to `nullptr`, signifying an empty list.
+
+-----
+
+### **Task 3: Implement the `appendNode` Method**
+
+This is the most important task. You will add a method to the `LinkedList` class that adds a new node to the **end** of the list.
+
+1.  **Declaration:** Inside the `public` section of your `LinkedList` class, declare the method: `void appendNode(int value);`
+
+2.  **Implementation:** Write the logic for the method. Here's a step-by-step guide:
+
+  * First, create a new node on the heap: `Node* newNode = new Node(value);`
+  * **Check if the list is empty.** If `head == nullptr`, it means this is the first node being added. Simply set `head = newNode;` and you are done.
+  * **If the list is not empty,** you need to find the last node.
+  * Create a temporary pointer to traverse the list: `Node* temp = head;`
+  * Use a `while` loop to move through the list as long as `temp->next` is not `nullptr`. Inside the loop, just advance the pointer: `temp = temp->next;`
+  * When the loop finishes, `temp` will be pointing to the current last node.
+  * Link the last node to your new node: `temp->next = newNode;`
+
+-----
+
+### **Task 4: Basic Testing**
+
+1.  In your `main()` function, create an instance of your `LinkedList`.
+2.  Call the `appendNode()` method three or four times with different integer values.
+```cpp
+int main() {
+    LinkedList myList;
+    myList.appendNode(10);
+    myList.appendNode(20);
+    myList.appendNode(30);
+    return 0; // Success!
+}
+```
+3.  Compile and run your code. While you won't see any output yet (we'll add a `display` method next week), the program should execute without any errors or crashes.
+
+-----
+

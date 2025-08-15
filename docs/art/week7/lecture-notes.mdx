@@ -1,0 +1,93 @@
+---
+id: lecture-notes 
+title: Lecture Notes
+sidebar_position: 1
+sidebar_label: Link-State Protocols
+sidebar_class_name: icon-lecture
+---
+import ModuleBanner from '@site/src/components/art/art-banner';
+
+<ModuleBanner />
+
+# Week 7: Link-State Protocols & OSPF Introduction
+
+We've now seen how distance-vector protocols like RIP and EIGRP operate. While EIGRP is highly efficient, its core logic is still based on neighbors sharing route information. This week, we explore a fundamentally different approach: **link-state protocols**, where every router becomes its own map-maker. We will focus on the most popular link-state protocol, **OSPF**.
+
+**Reminder:** Assignment 1 is due this week.
+
+---
+
+## 1. Link-State Logic: Every Router Has a Map
+
+The core philosophy of a link-state protocol is that "routing by rumor" is not enough. Instead, every router should have a complete, identical, and accurate map of the entire network area.
+
+**Analogy: GPS Navigation vs. Asking for Directions**
+
+* **Distance Vector (RIP/EIGRP):** This is like stopping at a junction in Curepipe and asking someone for the next turn to get to Port Louis. You only know the next step and trust that the person you asked knows what they're talking about.
+* **Link-State (OSPF):** This is like having a full GPS map of Mauritius on your phone. You see every road, every town, and every connection. You can independently calculate the absolute best path from your exact location to any other location on the island. In a link-state network, every router has this same, complete map.
+
+### The Link-State Process
+
+All link-state protocols follow a similar four-step process:
+
+1. **Neighbor Discovery:** Each router sends out "Hello" packets on its active interfaces to discover its directly connected neighbors.
+2. **Database Synchronization:** Routers exchange their "maps" with their neighbors. These maps are made up of small descriptive packets called **Link-State Advertisements (LSAs)**. Each router creates LSAs describing its own links and their status. Through a process of **flooding**, these LSAs are passed between all routers until every router in the area has an identical collection of LSAs.
+3. **Building the Link-State Database (LSDB):** Each router assembles the collection of all LSAs into its own local database, the LSDB. This database represents the complete topology map.
+4. **Running the SPF Algorithm:** Each router independently runs the **Shortest Path First (SPF) algorithm** (also known as Dijkstra's algorithm) on its own LSDB. The SPF algorithm calculates the best, loop-free path from itself to every other destination. The results of this calculation are then placed into the router's routing table.
+
+---
+
+## 2. Introduction to OSPF (Open Shortest Path First)
+
+OSPF is the most widely used Interior Gateway Protocol (IGP) in the world. It is a non-proprietary, open standard defined in RFC 2328.
+
+### OSPF Metric: Cost
+
+* Unlike RIP's hop count or EIGRP's composite metric, OSPF uses a simpler metric called **Cost**.
+* Cost is inversely proportional to the **bandwidth** of an interface. A higher bandwidth results in a lower cost.
+* **Formula:** `Cost = Reference Bandwidth / Interface Bandwidth`
+* The default reference bandwidth is 100 Mbps. This is a problem for modern networks with Gigabit or 10-Gigabit links, as they would all calculate a cost of 1. It is best practice to adjust the reference bandwidth on all routers to a higher value to allow for proper path differentiation.
+
+### OSPF Hierarchical Design: Areas
+
+To improve scalability and reduce overhead, OSPF networks can be divided into **Areas**.
+
+* An area is a logical grouping of routers and links.
+* Routing and LSA flooding within an area is intensive. Routing between areas is simplified.
+* All areas must connect to a special backbone area, **Area 0**. This creates a two-level hierarchy.
+
+---
+
+## 3. OSPF Neighbor & Adjacency Formation
+
+Before OSPF routers can share their maps, they must become neighbors.
+
+1. **Neighbor State:** Two routers become neighbors as soon as they see each other's Hello packets and confirm two-way communication.
+2. **Adjacency State:** This is a more advanced relationship where two neighbors have synchronized their Link-State Databases.
+
+For two routers to become neighbors, several parameters in their Hello packets **must match exactly**:
+
+* Hello and Dead Timers
+* Area ID
+* Authentication password (if used)
+* Subnet Mask
+* Stub Area Flag
+
+### The DR/BDR Problem on Multi-Access Networks
+
+On a multi-access network like Ethernet (where many routers can be on the same LAN segment), a problem arises. If every router tried to form a full adjacency with every other router, it would create an "n-squared" problem with adjacencies and LSA flooding (\$n(n-1)/2\$). For 5 routers, this means 10 adjacencies. For 10 routers, it's 45. This is highly inefficient.
+
+### The DR/BDR Solution
+
+To solve this, OSPF elects a **Designated Router (DR)** and a **Backup Designated Router (BDR)** on every multi-access segment.
+
+* The DR acts as the central point for LSA exchange on the segment.
+* All other routers (called **DROthers**) form a full adjacency **only** with the DR and BDR. They do not form adjacencies with each other.
+* When a DROther needs to send an update, it sends its LSA to the DR. The DR is then responsible for flooding that LSA to all other routers on the segment. This reduces the number of adjacencies from \$n(n-1)/2\$ to just \$2n-3\$.
+
+### DR/BDR Election Process
+
+1. The router with the highest **OSPF Interface Priority** (0-255, default is 1) becomes the DR. A priority of 0 means the router can never become a DR.
+2. If there is a tie in priority, the router with the highest **Router ID** wins. The Router ID is a unique 32-bit number that identifies the router, typically the highest IP address on any active loopback interface, or a manually configured value.
+
+---

@@ -1,0 +1,114 @@
+---
+id: evaluation-structured-questions
+title: Exam-type Questions
+hide_title: true
+sidebar_position: 4
+sidebar_label: ✍️ Exam-type Questions
+---
+
+import ModuleBanner from '@site/src/components/art/art-banner';
+
+<ModuleBanner />
+
+**QUESTION 1 \[25 MARKS]**
+
+(a) When configuring route redistribution, two concepts are fundamentally important: the "seed metric" and the `subnets` keyword.
+i. Explain why a **seed metric** must be defined when redistributing routes into EIGRP. \[3]
+ii. Explain the purpose of the **`subnets`** keyword when redistributing into OSPF. \[3]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    i. A **seed metric** is required because the metrics of different routing protocols are incompatible (e.g., OSPF cost vs. EIGRP composite metric). There is no automatic translation. If a starting metric is not manually defined, EIGRP will assign the route an infinite metric, consider it unreachable, and will not install it in its topology table.
+
+    ii. The **`subnets`** keyword is crucial because, by default, OSPF will only redistribute classful networks. For example, it would advertise `172.16.0.0` instead of the specific subnets like `172.16.10.0/24` or `172.16.20.0/24`. The `subnets` keyword tells OSPF to preserve the subnet details and advertise the classless, specific routes, which is essential for modern network designs.
+
+    **Marking Scheme:**
+
+    * \[3 Marks] - For a clear explanation of the need for a seed metric due to incompatible metrics.
+    * \[3 Marks] - For a clear explanation of the `subnets` keyword's role in enabling classless redistribution.
+
+</details>
+
+---
+
+(b) A router is acting as an ASBR between an OSPF 1 domain and an EIGRP 200 domain. You are tasked with taking routes learned via EIGRP and advertising them into the OSPF domain. Write the single, complete command required under the OSPF process to accomplish this.
+\[5]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    The command must be entered under the OSPF routing process and must include the `subnets` keyword.
+
+    ```bash
+    router ospf 1
+    redistribute eigrp 200 subnets
+    ```
+
+    **Marking Scheme:**
+
+    * \[2 Marks] - For entering the correct `router ospf 1` context.
+    * \[3 Marks] - For the correct `redistribute` command, including the correct EIGRP AS number and the essential `subnets` keyword.
+
+</details>
+
+---
+
+(c) You are troubleshooting a router and see the following entry in its routing table:
+`O E2 10.100.5.0/24 [110/20] via 192.168.12.2, 00:15:30, Serial0/0/0`
+
+i. What does the route code `O E2` indicate about this route? \[2]
+ii. What is the administrative distance of this route? \[1]
+iii. What is the metric (cost) of this route? \[1]
+iv. Where did this route most likely originate? \[2]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    i. `O E2` indicates this is an **OSPF External Type 2** route.
+    ii. The administrative distance is **110**.
+    iii. The metric (cost) is **20**.
+    iv. The route most likely originated from a different routing protocol (like EIGRP or RIP) and was **redistributed** into the OSPF domain by an ASBR.
+
+    **Marking Scheme:**
+
+    * \[2 Marks] - For correctly identifying the route as OSPF External Type 2.
+    * \[1 Mark] - For the correct AD.
+    * \[1 Mark] - For the correct metric.
+    * \[2 Marks] - For correctly identifying its origin as a redistributed route.
+
+</details>
+
+---
+
+(d) To control which routes get redistributed, an administrator can use either a `distribute-list` or a `route-map`. Explain the functional difference between these two tools and state which one is considered more powerful and why.
+\[7]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    **Functional Difference:**
+
+    * A `distribute-list` is a simple filtering mechanism. It uses a standard or extended ACL to either **permit or deny** entire routes from being redistributed. Its logic is purely for filtering.
+    * A `route-map` is a much more complex tool. While it can also permit or deny routes (using a `match` clause that often references an ACL), its main power comes from its ability to **modify the attributes** of the routes it permits (using a `set` clause).
+
+    **Which is more powerful?:**
+
+    * The **route-map** is significantly more powerful.
+    * **Why:** A route-map goes beyond simple filtering. It can be used to change the metric, metric-type, or set tags on a route as it's being redistributed. This gives an administrator granular control over not just *if* a route is shared, but *how* it is perceived by the receiving routing protocol, which is critical for influencing path selection in complex networks.
+
+    **Marking Scheme:**
+
+    * \[3 Marks] - For clearly explaining the difference (filter only vs. filter and modify).
+    * \[1 Mark] - For correctly identifying the route-map as more powerful.
+    * \[3 Marks] - For explaining *why* it is more powerful (ability to `set` attributes like metric).
+
+</details>

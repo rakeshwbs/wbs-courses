@@ -1,0 +1,102 @@
+---
+id: lecture-notes
+title: Lecture Notes
+hide_title: true
+sidebar_position: 1
+sidebar_label: Recursion
+sidebar_class_name: icon-lecture
+---
+import ModuleBanner from '@site/src/components/dsa/dsa-banner';
+
+<ModuleBanner />
+
+
+
+## **Week 8: The Power of Recursion**
+
+Recursion is a problem-solving approach where a function calls itself to solve smaller instances of the same problem. Instead of using loops to iterate, recursion breaks a problem down until it reaches a point so simple it can be solved directly.
+
+### **What is Recursion? **
+
+A function is recursive if it calls itself, either directly or indirectly. To work correctly, every recursive function must have two key components.
+
+  * **Analogy: Russian Nesting Dolls**
+Think of a set of Russian nesting dolls. Your task is to find the smallest, solid doll.
+1.  You open the first doll.
+2.  Inside, you find a smaller version of the same doll. You repeat the exact same action: you open it.
+3.  You continue this process until you open a doll and find a solid one that cannot be opened. This is your goal.
+
+The two essential parts of a recursive function are:
+
+1.  **Base Case**: The condition that stops the recursion. In our analogy, it's finding the smallest, solid doll. Without a base case, a function would call itself forever, leading to an error called a **stack overflow**.
+2.  **Recursive Step**: The part of the function that breaks the problem into a smaller, self-similar piece and calls the function again with this smaller piece. It's the act of opening a doll to find another one inside. The recursive step must always make progress towards the base case.
+
+-----
+
+### **The Role of the Call Stack**
+
+Recursion is made possible by the program's **call stack**. Each time a function is called, a new **stack frame** containing its local variables and parameters is pushed onto the call stack. When a function returns, its frame is popped off.
+
+For a recursive call like `factorial(3)`, the stack looks like this:
+
+1.  `factorial(3)` is called. Its frame is pushed on the stack.
+2.  It calls `factorial(2)`. The `factorial(2)` frame is pushed on top.
+3.  It calls `factorial(1)`. The `factorial(1)` frame is pushed on top.
+4.  It calls `factorial(0)`. The `factorial(0)` frame is pushed on top. This hits the base case and returns 1. Its frame is popped.
+5.  Control returns to `factorial(1)`, which calculates `1 * 1`, returns 1, and its frame is popped.
+6.  Control returns to `factorial(2)`, which calculates `2 * 1`, returns 2, and its frame is popped.
+7.  Control returns to `factorial(3)`, which calculates `3 * 2`, returns 6, and its frame is popped. The final result is 6.
+
+-----
+
+### **Classic Examples**
+
+#### **Factorial**
+
+The factorial of a number `n` (`n!`) is the product of all positive integers up to `n`.
+
+  * **Recursive DefinitionBox**: `n! = n * (n-1)!`
+  * **Base Case**: `0! = 1`
+  * **Recursive Step**: `factorial(n) = n * factorial(n - 1)`
+
+<!-- end list -->
+
+```cpp
+int factorial(int n) {
+    // Base Case
+    if (n == 0) {
+        return 1;
+    }
+    // Recursive Step
+    else {
+        return n * factorial(n - 1);
+    }
+}
+```
+
+-----
+
+#### **Fibonacci Sequence**
+
+The Fibonacci sequence (`0, 1, 1, 2, 3, 5, 8...`) is a series where each number is the sum of the two preceding ones.
+
+  * **Recursive DefinitionBox**: `fib(n) = fib(n-1) + fib(n-2)`
+  * **Base Cases**: `fib(0) = 0` and `fib(1) = 1`
+  * **Recursive Step**: `fib(n) = fib(n - 1) + fib(n - 2)`
+
+<!-- end list -->
+
+```cpp
+int fibonacci(int n) {
+    // Base Cases
+    if (n <= 1) {
+        return n;
+    }
+    // Recursive Step
+    else {
+        return fibonacci(n - 1) + fibonacci(n - 2);
+    }
+}
+```
+
+-----

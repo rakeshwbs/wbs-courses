@@ -1,0 +1,251 @@
+---
+id: evaluation-structured-questions
+title: Exam-type Questions
+hide_title: true
+sidebar_position: 4
+sidebar_label: Exam-type Questions
+sidebar_class_name: icon-exam
+---
+import ModuleBanner from '@site/src/components/dsa/dsa-banner';
+
+<ModuleBanner />
+
+
+### **Sample Examination Questions & Answers - Week 1 Concepts**
+
+**QUESTION 1 \[25 MARKS]**
+
+(a) Differentiate between an **Algorithm** and a **Program**. In your answer, explain the role of **pseudocode** in the process of moving from an algorithm to a program.
+\[8]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    An **Algorithm** is a logical, language-independent, step-by-step procedure for solving a problem. It defines the conceptual solution and must be finite and unambiguous.
+
+    A **Program** is the concrete implementation of an algorithm in a specific programming language (like C++). It contains the exact syntax and commands that a computer can execute.
+
+    The core difference is that an algorithm is a conceptual idea, while a program is its tangible, executable manifestation.
+
+    **Role of Pseudocode:** Pseudocode acts as a bridge between the algorithm (the idea) and the program (the code). It allows a developer to outline the algorithm's logic and flow using plain English-like statements, without worrying about the strict syntax of a programming language. This makes it easier to design and verify the logic before committing to writing the actual code.
+
+    **Marking Scheme:**
+
+    * \[2 Marks] - Correctly defines an Algorithm (conceptual, language-independent).
+    * \[2 Marks] - Correctly defines a Program (concrete implementation, specific language).
+    * \[2 Marks] - Clearly articulates the core difference (idea vs. implementation).
+    * \[2 Marks] - Correctly explains the role of pseudocode as a bridge/planning tool.
+
+</details>
+
+(b) Explain the concept of an **Abstract Data Type (ADT)**. Use an analogy other than a car dashboard to illustrate your explanation, and provide one example of an ADT **operation** within your analogy.
+\[7]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    An **Abstract Data Type (ADT)** is a theoretical model that defines a type of data by its behavior (a set of values and a set of operations), without specifying how it is implemented. It separates the "what" (what can it do?) from the "how" (how is it coded?).
+
+    **Analogy:** A coffee vending machine.
+
+    * **Interface (The ADT):** The user sees a set of buttons: "Espresso," "Latte," "Cappuccino," a coin slot, and a dispenser cup. The user knows what pressing "Latte" does—it delivers a latte.
+    * **Implementation (The hidden details):** Inside the machine, there are grinders, water heaters, milk frothers, and complex machinery. The user doesn't need to know how these internal parts work to get their coffee.
+    * **ADT Operation Example:** `select_drink("Latte")`. This operation takes a choice as input and is expected to produce a coffee as output. The user doesn't care if the machine uses fresh beans or instant powder; they only care about the operation's result.
+
+    **Marking Scheme:**
+
+    * \[3 Marks] - Correctly defines ADT, emphasizing the separation of interface and implementation ("what" vs. "how").
+    * \[3 Marks] - Provides a suitable and well-explained analogy.
+    * \[1 Mark] - Provides a clear example of an operation relevant to the chosen analogy.
+
+</details>
+
+(c) Differentiate between **static** and **dynamic** memory allocation in C++. For each type, state where the memory is allocated and identify the C++ keywords used for dynamic allocation. Finally, state one key advantage of using dynamic memory.
+\[10]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    **Static Memory Allocation:** Memory is allocated at compile-time. The size and type of the memory required must be known beforehand. This memory is managed automatically by the compiler and is allocated on the **stack**.
+    *Example: `int x;` `int myArray[10];`*
+
+    **Dynamic Memory Allocation:** Memory is allocated at runtime. This allows the program to request memory as needed, and the size can be determined while the program is running. This memory is allocated from a pool called the **heap**.
+
+    **C++ Keywords:** `new` is used to allocate memory on the heap, and `delete` is used to free it.
+
+    **Key Advantage:** The primary advantage of dynamic memory is **flexibility**. It allows us to create data structures that can grow or shrink in size during program execution, which is impossible with static arrays whose size is fixed at compile time.
+
+    **Marking Scheme:**
+
+    * \[3 Marks] - Correctly defines static allocation (compile-time, stack).
+    * \[3 Marks] - Correctly defines dynamic allocation (runtime, heap).
+    * \[2 Marks] - Correctly identifies both `new` and `delete` keywords.
+    * \[2 Marks] - Clearly states a key advantage (e.g., flexibility, size determined at runtime).
+
+</details>
+
+---
+
+**QUESTION 2 \[25 MARKS]**
+
+(a) Analyze the following C++ code snippet. Explain, line by line, what the code does, and state the final output when it is executed.
+
+```cpp
+#include <iostream>
+
+int main() {
+    int value = 50;
+    int* p_value = &value;
+
+    std::cout << "Initial value: " << value << std::endl;
+
+    *p_value = 100;
+
+    std::cout << "Final value: " << value << std::endl;
+
+    return 0;
+}
+```
+
+\[8]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    **Explanation:**
+
+    1. `int value = 50;`: An integer variable `value` is declared and initialized to 50.
+    2. `int* p_value = &value;`: An integer pointer `p_value` is declared and initialized with the memory address of the `value` variable.
+    3. `std::cout << ...;`: The initial value of `value` (50) is printed.
+    4. `*p_value = 100;`: This line **dereferences** the pointer `p_value`. It accesses the memory location that `p_value` is pointing to (which is the location of `value`) and changes the content at that location to 100.
+    5. `std::cout << ...;`: The final value of `value` is printed. Since the value was changed via the pointer, this will now be 100.
+
+    **Final Output:**
+
+    ```
+    Initial value: 50
+    Final value: 100
+    ```
+
+    **Marking Scheme:**
+
+    * \[4 Marks] - For a correct, clear line-by-line explanation, especially identifying the pointer initialization and dereferencing step.
+    * \[4 Marks] - For providing the exact and correct final output. (2 marks for each line of output).
+
+</details>
+
+(b) The function below is intended to create a new `Book` object on the heap and return a pointer to it. Identify the critical error in this function, explain the consequence of this error, and provide the corrected code.
+
+```cpp
+// Flawed Code
+Book* createBook(std::string title) {
+    Book* newBook = new Book(title);
+    // ... some other operations ...
+    return newBook;
+    // ERROR IS HERE
+}
+```
+
+*Assume the `Book` class is defined elsewhere and has a suitable constructor.*
+\[9]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    **Critical Error:** The code snippet provided doesn't have an error *within the function itself* in a way that's immediately obvious, but it promotes a critical error in program design: **it provides no mechanism to deallocate the memory**. The function allocates memory for a `Book` object on the heap using `new` and returns a pointer to it. The responsibility to call `delete` is passed to the caller of the function. If the caller fails to do this, the memory is never freed.
+
+    **Consequence:** The consequence is a **memory leak**. Every time `createBook` is called and the returned pointer is not explicitly deleted later in the program, that piece of memory on the heap becomes "orphaned"—it remains allocated but is inaccessible after the pointer goes out of scope, wasting system resources.
+
+    **Corrected Code (Illustrating proper usage):**
+    The function itself is a common factory pattern. The correction lies in showing how it should be used correctly in a calling context.
+
+    ```cpp
+    // The function remains the same, as its job is to create.
+    Book* createBook(std::string title) {
+    Book* newBook = new Book(title);
+    return newBook;
+}
+
+    // Correct usage in main() or another function
+    void manageBook() {
+    Book* myNovel = createBook("Data Structures in C++");
+
+    // Use the book
+    myNovel->displayDetails();
+
+    // CRITICAL FIX: The user of the function must free the memory.
+    delete myNovel;
+    myNovel = nullptr; // Good practice to prevent dangling pointer
+}
+    ```
+
+    **Marking Scheme:**
+
+    * \[3 Marks] - For identifying that the issue is the lack of a corresponding `delete` call by the user of the function.
+    * \[3 Marks] - For correctly explaining the consequence as a "memory leak" and what that means.
+    * \[3 Marks] - For providing a code example showing the correct usage pattern (i.e., calling `delete` on the pointer returned by the function).
+
+</details>
+
+(c) Write a complete C++ `class` definition for a `Car`. The class must adhere to the principle of encapsulation and include the following:
+
+* Two **private** data members: `model` (a `std::string`) and `year` (an `int`).
+* A **public** constructor that accepts a model and year to initialize the members.
+* A **public** method called `displayInfo()` that prints the car's model and year to the console.
+\[8]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    ```cpp
+    #include <iostream>
+    #include <string>
+
+    class Car {
+    private:
+    std::string model;
+    int year;
+
+    public:
+    // Constructor
+    Car(std::string m, int y) {
+    model = m;
+    year = y;
+}
+
+    // Public method to display info
+    void displayInfo() {
+    std::cout << "Model: " << model << ", Year: " << year << std::endl;
+}
+};
+
+    // Example of how to use it in main()
+    int main() {
+    Car myCar("Toyota Camry", 2023);
+    myCar.displayInfo();
+    return 0;
+}
+    ```
+
+    **Marking Scheme:**
+
+    * \[2 Marks] - For the correct class structure and declaration of private members with correct types.
+    * \[2 Marks] - For the correct use of `private:` and `public:` access specifiers.
+    * \[2 Marks] - For a correctly implemented public constructor that initializes the members.
+    * \[2 Marks] - For a correctly implemented public `displayInfo()` method.
+
+</details>
+
+---

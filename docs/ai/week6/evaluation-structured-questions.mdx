@@ -1,0 +1,111 @@
+---
+id: evaluation-structured-questions
+title: Exam-type Questions
+hide_title: true
+sidebar_position: 4
+sidebar_label: Exam-type Questions
+sidebar_class_name: icon-exam
+---
+import ModuleBanner from '@site/src/components/ai/ai-banner';
+
+<ModuleBanner />
+### **AFI-373: The AI Architect's Journey**
+
+**Sample Examination Questions & Answers - Week 6 Concepts**
+
+---
+
+**QUESTION 1 \[25 MARKS]**
+
+**(a)** The process of preparing text for a machine learning model is often called the **NLP Pipeline**. List and briefly describe the four key preprocessing steps discussed in the lecture that are performed after initial text cleaning (like converting to lowercase).
+\[8]
+
+<details>
+<summary>Click to see the answer and marking scheme</summary>
+
+**Answer:**
+
+The four key preprocessing steps are:
+
+1. **Tokenization:** The process of breaking down a continuous string of text into a list of individual words or units called tokens.
+2. **Stop-Word Removal:** The process of filtering out and removing extremely common words that carry little semantic meaning (e.g., 'the', 'is', 'a', 'in') to allow the model to focus on more important terms.
+3. **Stemming:** A crude, rule-based process of chopping off the endings of words to reduce them to a common base form (e.g., 'computing' becomes 'comput'). It is fast but can be inaccurate.
+4. **Lemmatization:** A more intelligent process that uses a dictionary to find the actual root word, or lemma, of a word (e.g., 'was' becomes 'be', 'better' becomes 'good'). It is more accurate than stemming.
+
+**Marking Scheme:**
+
+* \[2 Marks] for each correctly identified and described step (Total of 8 marks).
+
+</details>
+
+---
+
+**(b)** Differentiate between **Stemming** and **Lemmatization**. Which one is generally considered more accurate and why?
+\[5]
+
+<details>
+<summary>Click to see the answer and marking scheme</summary>
+
+**Answer:**
+
+The key difference is that **Stemming** uses a crude, rule-based algorithm to chop off word endings to get to a common root, which may not always be a real word (e.g., 'studies' → 'studi'). **Lemmatization**, on the other hand, uses a dictionary and morphological analysis to find the actual dictionary root form of a word, or its lemma (e.g., 'studies' → 'study').
+
+**Lemmatization** is generally considered more accurate because it returns a valid word and understands the context of the word in a sentence, whereas stemming can produce nonsensical stems. The trade-off is that lemmatization is computationally slower than stemming.
+
+**Marking Scheme:**
+
+* \[3 Marks] - For a clear differentiation (crude chopping vs. dictionary-based root finding).
+* \[2 Marks] - For identifying Lemmatization as more accurate and explaining why (returns a valid word).
+
+</details>
+
+---
+
+**(c)** A data scientist is building a sentiment analysis model for hotel reviews. Consider the following two reviews:
+
+* **Review A:** "The service was bad, but the food was good."
+* **Review B:** "The food was bad, but the service was good."
+
+Explain why the **Bag-of-Words (BoW)** vectorization method would struggle to distinguish the sentiment between these two reviews.  
+\[6]
+
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+**Answer:**
+The Bag-of-Words (BoW) method would struggle because it completely **disregards word order, grammar, and context**. It represents a document simply by the frequency count of the words it contains.
+For both Review A and Review B, the "bag of words" would be identical:
+\{the: 4, service: 2, was: 4, bad: 2, but: 2, food: 2, good: 2\}.
+Since the word counts are exactly the same for both reviews, their numerical vector representations under the BoW model would be identical.
+Therefore, the model would be unable to distinguish their opposite meanings, as it has lost the crucial context of which noun \('food' or 'service'\) was associated with which adjective \('good' or 'bad'\).  
+**Marking Scheme:**
+* \[3 Marks] - For explaining that BoW ignores word order and context.
+* \[3 Marks] - For demonstrating that the word counts (and thus the vector representation) for both reviews would be identical, leading to the failure to distinguish them.
+</details>
+---
+**(d)** What is the key advantage of **Word Embeddings** (like Word2Vec) over both Bag-of-Words and TF-IDF?
+\[6]
+
+<details>
+<summary>Click to see the answer and marking scheme</summary>
+
+**Answer:**
+
+The key advantage of Word Embeddings is that they represent words as dense numerical vectors in a way that captures **semantic meaning, context, and relationships** between words.
+
+Unlike BoW and TF-IDF, which treat words as isolated, independent features, word embeddings place words with similar meanings close to each other in a multi-dimensional vector space.
+This allows the model to understand concepts like "excellent" is similar to "fantastic," and even capture complex analogies like `vector('King') - vector('Man') + vector('Woman')` results in a vector close to `vector('Queen')`.
+This deep understanding of context and meaning leads to far more powerful and nuanced performance in NLP tasks.
+
+**Marking Scheme:**
+
+* \[3 Marks] - For stating that embeddings capture semantic meaning and context.
+* \[3 Marks] - For contrasting this with BoW/TF-IDF by explaining that embeddings understand word similarity and relationships, which the other methods do not.
+
+</details>
+
+
+
+
+
+

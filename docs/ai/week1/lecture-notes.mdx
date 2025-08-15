@@ -1,0 +1,348 @@
+---
+id: lecture-notes
+title: Lecture Notes
+hide_title: true
+sidebar_position: 1
+sidebar_label: Intro to AI
+sidebar_class_name: icon-lecture
+---
+import ModuleBanner from '@site/src/components/ai/ai-banner';
+import DefinitionBox from '@site/src/components/custom-admonitions/DefinitionBox';
+import CenteredImage from '@site/src/components/image-changer/CenteredImage';
+import { KeyPoints, KP } from '@site/src/components/custom-admonitions/KeyPoints';
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<ModuleBanner />
+
+<div className="ai-banner">
+    <!-- paste the full SVG here -->
+</div>
+
+
+# Week 1: Introduction to Artificial Intelligence
+
+#### Date: Saturday, 30<sup>th</sup> August 2025
+
+---
+## Definition of AI
+---
+There is not one single, universally accepted definition of Artificial Intelligence (AI). This is because the word "Intelligence" itself is a tricky term.
+One precise and academically accepted definition is given below.
+<DefinitionBox term="Academically Accepted Definition of AI">
+    Artificial Intelligence (AI) is the field of computer science concerned with creating systems that can perform tasks that normally require human intelligence,
+    such as learning, reasoning, problem-solving, perception, and language understanding.
+</DefinitionBox>
+
+---
+## Core Characteristics of AI Systems
+AI systems typically exhibit one or more of the following capabilities:
+<div className="cap-grid-3x2">
+    <article className="cap-card">
+        <h4>Learning</h4>
+        <p>The ability to improve performance over time based on data and experience.</p>
+    </article>
+    <article className="cap-card">
+        <h4>Reasoning</h4>
+        <p>The ability to draw logical conclusions or make informed decisions.</p>
+    </article>
+    <article className="cap-card">
+        <h4>Perception</h4>
+        <p>The ability to interpret sensory input (e.g., vision, speech).</p>
+    </article>
+    <article className="cap-card">
+        <h4>Interaction</h4>
+        <p>The ability to communicate naturally with humans.</p>
+    </article>
+    <article className="cap-card">
+        <h4>Adaptation</h4>
+        <p>The ability to adjust to changing environments or new information.</p>
+    </article>
+</div>
+
+---
+
+## Categories of AI
+AI can be classified based on capability and functionality:
+### By Capability (The "How Powerful"):
+
+This classifies AI based on its breadth and depth of intelligence, describing its level on the power scale.
+
+<KeyPoints variant="primary" icon="❖">
+    <KP term="Artificial Narrow Intelligence (ANI)">
+        - Specializes in one task only.
+        - Examples: Chatbots, recommendation engines, facial recognition.
+    </KP>
+
+    <KP term="Artificial General Intelligence (AGI)">
+        - Can perform any intellectual task a human can do.
+        - Currently theoretical; under active research.
+    </KP>
+
+    <KP term="Artificial Superintelligence (ASI)">
+        - Surpasses human intelligence in all domains.
+        - Hypothetical and poses ethical concerns.
+    </KP>
+</KeyPoints>
+
+### By Functionality (The "How it Works"):
+
+This classifies AI based on its internal architecture and its ability to perceive and learn from the world.
+
+<KeyPoints variant="primary" icon="❖">
+    <KP term="Reactive Machines">
+        - This is the most basic type of AI, which acts purely on the current situation without any memory of past events.
+        - It perceives the world directly and acts on what it sees, meaning it will respond to the same situation in the exact same way every single time.
+        - A famous example is IBM's Deep Blue, the chess computer that defeated Garry Kasparov.
+    </KP>
+
+    <KP term="Limited Memory">
+        - This type of AI can look into the past to make better decisions in the present, but its memory is short-lived.
+        - It uses past data to inform immediate actions, which is how most modern AI systems, like self-driving cars observing the speed of other cars, operate.
+    </KP>
+
+    <KP term="Theory of Mind">
+        - This is a more advanced, theoretical concept where AI could understand and interact with the emotions, thoughts, and beliefs of other intelligent beings.
+        - Such an AI wouldn't just recognize objects but would comprehend the intentions and feelings of people and other AIs around it, a level of sophistication we have not yet achieved.
+    </KP>
+    <KP term="Self-Aware AI">
+        - This is the final, hypothetical stage of AI development, where a machine would have its own consciousness, self-awareness, and personal feelings.
+        - Essentially, this AI would be a sentient being, aware of its own existence and internal state, which for now remains the stuff of science fiction.
+    </KP>
+</KeyPoints>
+
+---
+## The Modern AI Technology Landscape
+---
+### Core Disciplines & Learning Methods
+
+<div className="q-card">
+    <p>
+        These branches represent the foundational ways AI systems learn and reason.
+    </p>
+</div>
+<div className="concept-card">
+    <h3>Machine Learning (ML)</h3>
+    <p>
+        This is the core of modern AI. It involves creating algorithms that allow computers to learn patterns and make predictions from data without being explicitly programmed.
+    </p>
+
+    <div className="example-box">
+        <strong>Example:</strong> Netflix or Spotify recommendations.
+        - These platforms analyze the data from what you watch or listen to and compare it to millions of other users to predict what you might like next.
+    </div>
+</div>
+
+<div className="concept-card">
+    <h3>Deep Learning</h3>
+    <p>
+        A powerful subfield of machine learning that uses multi-layered "deep" artificial neural networks to learn from vast amounts of data. It excels at finding complex, subtle patterns.
+    </p>
+
+    <div className="example-box">
+        <strong>Example:</strong> Facial recognition to unlock your phone.
+        - Deep learning models are trained on thousands of images to learn the unique features of your face, allowing your phone to recognize you instantly.
+    </div>
+</div>
+
+<div className="concept-card">
+    <h3>Reinforcement Learning</h3>
+    <p>
+        A method where an AI agent learns by trial and error. It receives rewards for good actions and penalties for bad ones, enabling it to master complex tasks like playing games (e.g., Chess, Go) or controlling a robot.
+    </p>
+
+    <div className="example-box">
+        <strong>Example:</strong> Advanced AI playing video games.
+        - An AI agent like DeepMind's AlphaGo learned to defeat the world's best Go players by "practicing" the game millions of times and learning from its successes and failures.
+    </div>
+</div>
+
+<div className="concept-card">
+    <h3>Neural Networks</h3>
+    <p>
+        Inspired by the human brain, these are computing systems made of interconnected nodes ("neurons") that process information. They are the fundamental structure behind deep learning.
+    </p>
+
+    <div className="example-box">
+        <strong>Example:</strong> Character recognition.
+        - When you deposit a check by taking a photo with your banking app, neural networks analyze the pixels to recognize and convert your handwritten numbers into digital text.
+    </div>
+</div>
+
+<div className="concept-card">
+    <h3>Expert Systems</h3>
+    <p>
+        An early form of AI designed to mimic the decision-making ability of a human expert in a specific domain. They use a database of knowledge and a set of "if-then" rules to provide answers or solutions.
+    </p>
+
+    <div className="example-box">
+        <strong>Example:</strong> A medical diagnostic system can act as an expert system.
+        - By inputting a patient’s symptoms, the system uses its database of medical knowledge and rules
+        to suggest possible diagnoses for a doctor to consider.
+    </div>
+</div>
+
+### Human-Computer Interaction
+<div className="q-card">
+    <p>
+    These branches focus on enabling more natural communication and interaction between humans and machines.
+    </p>
+</div>
+<div className="concept-card">
+    <h3>Natural Language Processing (NLP)</h3>
+    <p>
+        This gives computers the ability to understand, interpret, and generate human language, both text and speech. It's the technology behind chatbots, translation apps, and sentiment analysis.
+    </p>
+
+    <div className="example-box">
+        <strong>Example:</strong> Language translation apps.
+        - Google Translate uses NLP to analyze the structure and meaning of a sentence in one language and then reconstruct it in another.
+    </div>
+</div>
+<div className="concept-card">
+    <h3>Computer Vision</h3>
+    <p>
+        This field trains computers to "see" and interpret the visual world. It allows machines to analyze images and videos to identify objects, people, and scenes, which is crucial for facial recognition and self-driving cars.
+    </p>
+
+    <div className="example-box">
+        <strong>Example:</strong>  Lane detection in modern cars.
+        - Cars with driver-assist features use computer vision to "see" the lane markings on the road and warn you if you start to drift.
+    </div>
+</div>
+<div className="concept-card">
+    <h3>Speech Recognition</h3>
+    <p>
+        A subfield of NLP focused specifically on converting spoken language into written text. This technology powers virtual assistants like Siri and Alexa.
+    </p>
+        <div className="example-box">
+        <strong>Example:</strong> Voice assistants like Siri and Alexa.
+            - When you say, "Hey Siri, set a timer for 10 minutes," speech recognition technology converts your spoken words into a command the device can execute.
+    </div>
+</div>
+
+---
+
+### Advanced & Applied AI
+
+<div className="q-card">
+    <p>
+        These branches often combine techniques from other areas to create new
+        capabilities or solve specific, real-world problems.
+    </p>
+</div>
+
+
+<div className="concept-card">
+    <h3>Generative AI</h3>
+    <p>
+        This branch focuses on creating AIs that can generate new, original content, such as text, images, music, and code. Models like GPT and DALL-E are leading examples.
+    </p>
+    <div className="example-box">
+        <strong>Example:</strong> Image creation with Midjourney or DALL-E.
+        - You can type a text description like "a photo of an astronaut riding a horse on Mars," and the AI generates a completely new, original image based on your prompt.
+    </div>
+</div>
+
+<div className="concept-card">
+    <h3>Robotics</h3>
+    <p>
+        This field combines AI with engineering to build and control robots that can perform physical tasks in the real world. AI serves as the "brain" that allows a robot to perceive its environment and make decisions.
+    </p>
+    <div className="example-box">
+        <strong>Example:</strong> Warehouse automation bots.
+        - Companies like Amazon use thousands of robots that autonomously navigate warehouses to find, lift, and move shelves of products to human workers for packing.
+    </div>
+</div>
+<div className="concept-card">
+    <h3>Cognitive Computing</h3>
+    <p>
+        This aims to simulate human thought processes in a computerized model. It strives to create systems that can understand context, ambiguity, and intent, much like a person would.
+    </p>
+    <div className="example-box">
+        <strong>Example:</strong> Personalized healthcare.
+        - A cognitive system could analyze a patient's entire medical history, recent research papers, and genetic data to suggest highly personalized treatment plans for a doctor to review.
+    </div>
+</div>
+<div className="concept-card">
+    <h3>Fuzzy Logic</h3>
+    <p>
+        A technique that deals with reasoning that is approximate rather than exact.
+        It allows an AI to handle concepts of partial truth—where something can be "partly true" or "partly false"—which is
+        useful for systems that need to make decisions based on imprecise data, like an automatic transmission.
+    </p>
+    <div className="example-box">
+        <strong> Example:</strong> A modern washing machine.
+        - It uses sensors to gauge factors like the size of the laundry load and the dirtiness of the clothes (not just "dirty" or "clean") to automatically adjust the water level and wash cycle for optimal efficiency.
+    </div>
+</div>
+
+---
+## Common Use-cases of AI
+
+
+
+<Tabs className="usecase-tabs" values={[
+    {label: 'Daily Life', value: 'life'},
+    {label: 'Entertainment & E-commerce', value: 'ent'},
+    {label: 'Business & Finance', value: 'biz'},
+    {label: 'Healthcare', value: 'health'},
+    { label: 'Transportation', value: 'transport' },
+    ]}>
+    <TabItem value="life">
+        <ul className="usecase-list two-col">
+            <li><span className="k">Virtual Assistants</span> — Siri, Alexa, Google Assistant use NLP to understand voice commands, set timers, play music, and answer queries.</li>
+            <li><span className="k">Navigation & Mapping</span> — Google Maps/Waze analyze real-time traffic to predict arrival time and reroute around congestion.</li>
+            <li><span className="k">Social Media Feeds</span> — Ranking algorithms personalize feeds from past interactions to keep you engaged.</li>
+            <li><span className="k">Spam Email Filters</span> — Models learn junk characteristics and auto-move messages out of your inbox.</li>
+        </ul>
+    </TabItem>
+
+    <TabItem value="ent">
+        <ul className="usecase-list two-col">
+            <li><span className="k">Streaming Recommendations</span> — Netflix/YouTube/Spotify learn viewing or listening history to suggest content.</li>
+            <li><span className="k">Personalized Shopping</span> — “Recommended for you” based on browsing, purchases, and similar users.</li>
+            <li><span className="k">Dynamic Pricing</span> — Prices adjust in real time for flights, hotels, and ride-sharing based on demand and competition.</li>
+        </ul>
+    </TabItem>
+
+    <TabItem value="biz">
+        <ul className="usecase-list two-col">
+            <li><span className="k">Fraud Detection</span> — Banks flag unusual transactions by learning typical spending patterns.</li>
+            <li><span className="k">Customer Service Chatbots</span> — 24/7 instant answers; escalate complex issues to agents.</li>
+            <li><span className="k">Hiring & Recruitment</span> — Scan CVs to match skills and experience to job descriptions.</li>
+        </ul>
+    </TabItem>
+
+    <TabItem value="health">
+        <ul className="usecase-list two-col">
+            <li><span className="k">Medical Imaging Analysis</span> — Detect signs of disease in MRIs/CT/X-rays with high accuracy.</li>
+            <li><span className="k">Drug Discovery</span> — Mine bio datasets to identify potential candidates faster than traditional methods.</li>
+            <li><span className="k">Predictive Health</span> — Wearables analyze heart rate/activity to warn of irregularities.</li>
+        </ul>
+    </TabItem>
+
+    <TabItem value="transport">
+        <ul className="usecase-list two-col">
+            <li>
+                <span className="k">Self-Driving & Driver-Assist</span> — Companies like Tesla use AI and
+                computer vision for autopilot, automatic lane changes, and self-parking.
+            </li>
+            <li>
+                <span className="k">Traffic Management</span> — Smart cities analyze camera and sensor data to
+                optimize traffic-light timing, reducing congestion and travel times.
+            </li>
+            <li>
+                <span className="k">Predictive Maintenance</span> — AI monitors vehicle health (e.g., aircraft,
+                trains) and predicts component failures so maintenance is scheduled before breakdowns.
+            </li>
+        </ul>
+    </TabItem>
+
+</Tabs>
+
+
+
+
+

@@ -1,0 +1,137 @@
+---
+id: lab-sheet
+title: Labsheet
+sidebar_position: 2
+hide_title: true
+sidebar_label: 💻 Configure RIP
+---
+import ModuleBanner from '@site/src/components/art/art-banner';
+
+<ModuleBanner />
+
+# Week 3 Lab: Configuring and Troubleshooting RIPv1
+
+## Objective
+
+In this lab, you will replace manual static routes with a dynamic routing protocol. You will configure RIPv1 on a three-router topology, verify that all routers automatically learn the network map, and use powerful troubleshooting commands like `show ip protocols` and `debug ip rip` to observe the protocol's inner workings in real time.
+
+## Required Software
+
+-   Cisco Packet Tracer
+
+## Network Topology
+
+For this lab, we will use a new, slightly more complex topology to better observe dynamic routing. It consists of three routers in a line. We will use **loopback interfaces** to simulate attached LANs, as this is a quick and effective method in a lab environment.
+
+```text
+      (Lo0: 192.168.1.1/24)             (Lo0: 192.168.2.1/24)             (Lo0: 192.168.3.1/24)
++-----------+    10.1.12.0/30    +-----------+    10.1.23.0/30    +-----------+
+|  Router-A |--------------------|  Router-B |--------------------|  Router-C |
++-----------+ S0/0/0      S0/0/0 +-----------+ S0/0/1      S0/0/1 +-----------+
+     .1                            .2           .1                            .2
+```
+
+### IP Addressing Scheme
+
+| Device | Interface | IP Address | Subnet Mask |
+| :--- | :--- | :--- | :--- |
+| **Router-A** | S0/0/0 | `10.1.12.1` | `255.255.255.252` |
+| | Loopback0 | `192.168.1.1` | `255.255.255.0` |
+| **Router-B** | S0/0/0 | `10.1.12.2` | `255.255.255.252` |
+| | S0/0/1 | `10.1.23.1` | `255.255.255.252` |
+| | Loopback0 | `192.168.2.1` | `255.255.255.0` |
+| **Router-C** | S0/0/1 | `10.1.23.2` | `255.255.255.252` |
+| | Loopback0 | `192.168.3.1` | `255.255.255.0` |
+
+---
+
+## Lab Tasks
+
+### Task 1: Build and Configure the Base Topology
+
+1.  Place three routers (e.g., 4321 model) and connect them with Serial DTE/DCE cables as shown. Remember to add the `NIM-2T` serial modules to the routers first.
+2.  Configure the IP addresses on the physical **serial interfaces** for all three routers according to the table. Remember to set a `clock rate` on the DCE side of each serial link and use `no shutdown`.
+3.  Configure the **loopback interfaces**. A loopback is a virtual interface that is always up. It's great for simulating LANs.
+    -   On **Router-A**:
+        ```bash
+        configure terminal
+        interface Loopback0
+        ip address 192.168.1.1 255.255.255.0
+        exit
+        ```
+    -   Repeat for Router-B and Router-C using their respective Loopback0 addresses.
+4.  Verify your base config. Try to ping from Router-A (`10.1.12.1`) to Router-B (`10.1.12.2`). This should succeed. Now try to ping from Router-A (`10.1.12.1`) to Router-C (`10.1.23.2`). This should **fail** because there is no routing yet.
+
+### Task 2: Configure RIPv1
+
+1.  On **Router-A**, enter router configuration mode for RIP and add the classful networks it is connected to.
+    ```bash
+    router rip
+    network 192.168.1.0
+    network 10.0.0.0
+    ```
+2.  On **Router-B**, do the same for its connected networks.
+    ```bash
+    router rip
+    network 192.168.2.0
+    network 10.0.0.0
+    ```
+3.  On **Router-C**, do the same for its connected networks.
+    ```bash
+    router rip
+    network 192.168.3.0
+    network 10.0.0.0
+    ```
+
+### Task 3: Verification and Analysis
+
+1.  Wait about 30-60 seconds for the routers to exchange updates and for the protocol to **converge**.
+2.  On **Router-A**, view the routing table.
+    ```bash
+    show ip route
+    ```
+    You should see routes marked with an **'R'** for networks `192.168.2.0/24` and `192.168.3.0/24`.
+3.  Examine the entry for `192.168.3.0/24`. It should show `[120/2]`. This means the route was learned via RIP (AD=120) and is 2 hops away.
+4.  Confirm full connectivity. From Router-A's CLI, ping Router-C's loopback interface.
+    ```bash
+    ping 192.168.3.1
+    ```
+    The ping should now be **SUCCESSFUL**.
+
+### Task 4: Troubleshooting and Observation
+
+1.  On any router, use the `show ip protocols` command. This is one of the most useful verification commands.
+    ```bash
+    show ip protocols
+    ```
+    Observe the output. It confirms that RIP is running, shows the update timer interval (30s), and lists the networks that are being routed.
+2.  Now for the powerful part. On **Router-B**, enable real-time debugging for RIP.
+    ```bash
+    debug ip rip
+    ```
+    Wait up to 30 seconds. You will see RIP updates being sent and received. You can see Router-B sending its table to A and C, and receiving their tables in return.
+3.  **VERY IMPORTANT:** Turn off debugging as soon as you are done observing. In a production network, debugging can crash a router.
+    ```bash
+    undebug all
+    ```
+
+### Task 5 (Bonus): Simulating a Failure
+
+1.  On **Router-C**, shut down the loopback interface to simulate a LAN failure.
+    ```bash
+    configure terminal
+    interface Loopback0
+    shutdown
+    ```
+2.  On **Router-B**, turn on `debug ip rip` again.
+3.  Watch the debug output. When Router-C sends its next update to Router-B, you should see it advertise the `192.168.3.0` network with a metric of 16. This is **Route Poisoning** in action! Router-C is actively telling its neighbors that the network is dead.
+4.  Remember to `undebug all` and bring the interface back up with `no shutdown` on Router-C when you're finished.
+
+---
+
+## Exploration Questions
+
+1.  In the output of `show ip route` on Router-A, what is the hop count (metric) to reach Router-C's LAN (`192.168.3.1`)? Why is it that specific value?
+2.  If the physical link between Router-B and Router-C was a very slow 64kbps connection, and the link between Router-A and Router-B was a super-fast 1Gbps connection, would RIP on Router-A choose a different path to get to Router-B's LAN? Why or why not?
+3.  Why did we use the `network 10.0.0.0` command on all routers, even though they are connected to different `/30` subnets within the 10.0.0.0 range? What does this tell you about how RIPv1 processes network statements?
+

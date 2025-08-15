@@ -1,0 +1,135 @@
+---
+id: lab-sheet
+title: Labsheet
+sidebar_position: 2
+hide_title: true
+sidebar_label: 💻 Configure OSPF
+---
+import ModuleBanner from '@site/src/components/art/art-banner';
+
+<ModuleBanner />
+
+# Week 7 Lab: Basic Single-Area OSPF Configuration
+
+## Objective
+
+This lab will provide your first hands-on experience with a link-state protocol. You will configure a basic OSPF Area 0 network, manually set router IDs for predictability, and verify that routers form neighbor adjacencies. A key focus will be to observe the Designated Router (DR) and Backup Designated Router (BDR) election process on a multi-access Ethernet segment and then manipulate the outcome.
+
+## Required Software
+
+-   Cisco Packet Tracer
+
+## Network Topology
+
+We will build a "triangle" topology where three routers connect to a central switch. This creates a multi-access broadcast domain, which forces a DR/BDR election. Each router will have a loopback interface to simulate an attached LAN.
+
+```text
+      (Lo0: 1.1.1.1/24)        (Lo0: 2.2.2.2/24)        (Lo0: 3.3.3.3/24)
+           |                        |                        |
+      +----------+             +----------+             +----------+
+      | Router-A |-------------| Router-B |-------------| Router-C |
+      +----------+ G0/0    G0/0 +----------+ G0/0    G0/0 +----------+
+           |       .1               .2               .3       |
+           |                        |                        |
+           +------------------------+------------------------+
+                                |
+                          +-----------+
+                          |  Switch   | (LAN: 192.168.1.0/24)
+                          +-----------+
+```
+
+### IP Addressing Scheme
+
+| Device | Interface | IP Address | Subnet Mask |
+| :--- | :--- | :--- | :--- |
+| **Router-A** | G0/0 | `192.168.1.1` | `255.255.255.0` |
+| | Loopback0 | `1.1.1.1` | `255.255.255.0` |
+| **Router-B** | G0/0 | `192.168.1.2` | `255.255.255.0` |
+| | Loopback0 | `2.2.2.2` | `255.255.255.0` |
+| **Router-C** | G0/0 | `192.168.1.3` | `255.255.255.0` |
+| | Loopback0 | `3.3.3.3` | `255.255.255.0` |
+
+---
+
+## Lab Tasks
+
+### Task 1: Build and Configure the Base Topology
+
+1.  Place three routers, one switch, and connect them as shown.
+2.  Configure the IP addresses on both the GigabitEthernet and Loopback0 interfaces for all three routers.
+3.  Verify connectivity on the local LAN by pinging between the routers' G0/0 interfaces (e.g., from Router-A, `ping 192.168.1.2` and `ping 192.168.1.3`). This should succeed.
+
+### Task 2: Configure Single-Area OSPF
+
+We will use OSPF process ID 10. *Note: This ID is locally significant and does not need to match between routers.*
+
+1.  On **Router-A**, configure OSPF. We will manually set the router-id for predictability.
+```bash
+configure terminal
+router ospf 10
+router-id 1.1.1.1
+network 192.168.1.0 0.0.0.255 area 0
+network 1.1.1.0 0.0.0.255 area 0
+```
+2.  On **Router-B**, configure OSPF.
+```bash
+router ospf 10
+router-id 2.2.2.2
+network 192.168.1.0 0.0.0.255 area 0
+network 2.2.2.0 0.0.0.255 area 0
+```
+3.  On **Router-C**, configure OSPF.
+```bash
+router ospf 10
+router-id 3.3.3.3
+network 192.168.1.0 0.0.0.255 area 0
+network 3.3.3.0 0.0.0.255 area 0
+```
+
+### Task 3: Verify OSPF Neighbors and DR/BDR Election
+
+1.  Wait about 40 seconds for the OSPF dead timer to expire and for adjacencies to form. You should see log messages on the console.
+2.  On **all three routers**, issue the command: `show ip ospf neighbor`.
+3.  **Analysis:** Examine the output carefully.
+-   You will see the Neighbor ID, their Priority, their State, and their Address.
+-   One router's neighbors will both be in state `FULL/DR` and `FULL/BDR`. This is the DROther.
+-   One router will have neighbors in state `FULL/DROTHER` and `FULL/BDR`. This is the DR.
+-   One router will have neighbors in state `FULL/DROTHER` and `FULL/DR`. This is the BDR.
+-   **Prediction:** Since all routers have the default priority of 1, the router with the highest Router-ID (`3.3.3.3` - Router-C) should be elected DR. The router with the second-highest ID (`2.2.2.2` - Router-B) should be the BDR.
+
+### Task 4: Verify Routing
+
+1.  On **Router-A**, view the routing table: `show ip route`.
+2.  You should now see routes marked with **'O'** for the loopback networks of Router-B (`2.2.2.0/24`) and Router-C (`3.3.3.0/24`).
+3.  Confirm full network connectivity by pinging from Router-A's loopback to Router-C's loopback.
+```bash
+ping 3.3.3.3 source 1.1.1.1
+```
+The ping should succeed.
+
+### Task 5 (Bonus): Manipulate the DR/BDR Election
+
+Let's force Router-A to become the DR by changing its priority.
+
+1.  On **Router-A**, go into the G0/0 interface configuration and set the OSPF priority to a high value.
+```bash
+configure terminal
+interface GigabitEthernet0/0
+ip ospf priority 200
+```
+2.  To force an immediate re-election, clear the OSPF process on all routers. *Warning: This is disruptive and should only be done in a lab.*
+```bash
+clear ip ospf process
+```
+Type `yes` to confirm. Do this on A, B, and C.
+3.  Wait a minute, then run `show ip ospf neighbor` on all three routers again.
+4.  **Analysis:** Router-A should now be the DR because its priority (200) is higher than the default priority (1) on the other routers. Priority always wins over the router ID.
+
+---
+
+## Exploration Questions
+
+1.  In the `show ip ospf neighbor` output, what is the difference between a neighbor in the `FULL` state versus one in the `2-WAY` state? Why did we only see `FULL` states on the DROther's neighbors?
+2.  In the initial election, why was Router-C chosen as the Designated Router (DR)?
+3.  If you set an interface's OSPF priority to `0`, what is the consequence?
+4.  The OSPF `network` command requires an `area` ID. In your own words, what is the high-level purpose of dividing an OSPF network into different areas?

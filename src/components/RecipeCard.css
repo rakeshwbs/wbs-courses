@@ -1,0 +1,56 @@
+.recipe-card {
+    background: var(--ifm-background-surface-color);
+    border: 1px solid var(--ifm-color-emphasis-300);
+    border-radius: var(--ifm-card-border-radius);
+    box-shadow: var(--ifm-global-shadow-lw);
+    margin: 2rem 0;
+    overflow: hidden; /* Ensures border-radius is respected */
+}
+
+.recipe-card-header {
+    padding: 1.5rem;
+    background-color: var(--ifm-color-emphasis-100);
+    border-bottom: 1px solid var(--ifm-color-emphasis-300);
+}
+
+.recipe-card-header h2 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    font-size: 1.75rem;
+}
+
+.recipe-card-body {
+    padding: 1.5rem;
+    display: grid;
+    gap: 2rem;
+}
+
+/* On wider screens, display prerequisites and steps side-by-side */
+@media (min-width: 768px) {
+    .recipe-card-body {
+        grid-template-columns: 1fr 2fr;
+    }
+}
+
+.recipe-section h3 {
+    font-size: 1.2rem;
+    color: var(--ifm-color-primary);
+    margin-top: 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--ifm-color-primary-light);
+}
+
+.recipe-section ul, .recipe-section ol {
+    padding-left: 20px;
+    margin-bottom: 0;
+}
+
+.recipe-card-footer {
+    padding: 1.5rem;
+    background-color: var(--ifm-color-emphasis-100);
+    border-top: 1px solid var(--ifm-color-emphasis-300);
+}
+
+.recipe-card-footer h3 {
+    margin: 0 0 0.5rem 0;
+}

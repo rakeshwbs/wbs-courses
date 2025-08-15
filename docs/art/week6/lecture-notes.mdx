@@ -1,0 +1,87 @@
+---
+id: lecture-notes 
+title: Lecture Notes
+hide_title: true
+sidebar_position: 1
+sidebar_label: NAT
+sidebar_class_name: icon-lecture
+---
+import ModuleBanner from '@site/src/components/art/art-banner';
+
+<ModuleBanner />
+
+# Week 6: Network Address Translation (NAT)
+
+So far, we have assumed that every device we want to connect has a unique, public IP address. In reality, this isn't possible due to IPv4 address exhaustion. This week, we explore the essential technology that makes the modern internet work despite this limitation: Network Address Translation (NAT).
+
+**Important:** The Mid-Semester Test, covering material from Weeks 1-5, will be held this week.
+
+---
+
+## 1. The Problem: IPv4 Address Exhaustion
+
+The IPv4 protocol provides approximately 4.3 billion unique addresses. With the explosion of internet-connected devices, this supply has been exhausted. To solve this, RFC 1918 defined specific ranges of IP addresses that can be used internally within private networks but are **not routable** on the public internet.
+
+-   **Private IP Ranges:**
+-   `10.0.0.0` to `10.255.255.255` (10.0.0.0/8)
+-   `172.16.0.0` to `172.31.255.255` (172.16.0.0/12)
+-   `192.168.0.0` to `192.168.255.255` (192.168.0.0/16)
+
+Your home network, your university lab, and corporate offices all use these private IPs. This raises a critical question: how does your PC with a private address like `192.168.1.5` access a public server like `google.com`? The answer is NAT.
+
+## 2. What is NAT?
+
+**Network Address Translation (NAT)** is the process where a network device, typically a router, modifies the source or destination IP address in a packet's header as it passes through.
+
+**Primary Purpose:** To translate private, non-routable IP addresses into public, routable IP addresses, allowing devices on a private network to communicate with the internet.
+
+### NAT Analogy: The Office Receptionist
+Imagine an office building where each employee has a unique extension number (a private IP), but the entire company only has one public mailing address (a public IP).
+-   When an employee (e.g., Ann from extension #101) sends a letter, she gives it to the receptionist.
+-   The receptionist (the NAT router) replaces Ann's extension with the official company mailing address and sends it out. Crucially, the receptionist notes in a logbook: "Outgoing package #582A was from Ann at #101."
+-   When a reply to package #582A arrives at the company address, the receptionist checks the logbook, sees it's for Ann, and forwards it to extension #101.
+This is exactly how NAT works.
+
+### NAT Terminology
+-   **Inside Local:** The private IP of a host on your internal network (e.g., `192.168.1.5`).
+-   **Inside Global:** The public IP that represents your internal host to the outside world. This is your public IP from your ISP (e.g., MyT or Emtel).
+-   **Outside Global:** The true, public IP of the external host (e.g., `google.com`'s server IP).
+-   **Outside Local:** The IP of the external host as seen from your internal network (almost always the same as Outside Global).
+
+---
+
+## 3. Types of NAT
+
+### 1. Static NAT
+-   **Concept:** A one-to-one, permanent mapping between a single Inside Local address and a single Inside Global address.
+-   **Example:** `192.168.1.50` (your private web server) is **always** translated to `203.0.113.10` (your public IP).
+-   **Use Case:** Exposing an internal server to the internet. If you host a website at your office, you would use Static NAT to map a public IP to your internal web server's private IP.
+
+### 2. Dynamic NAT
+-   **Concept:** Maps any of a group of private addresses to one of a *pool* of available public addresses on a first-come, first-served basis.
+-   **Process:** An internal device sends a packet. The router picks the next available public IP from its pool and creates a temporary one-to-one mapping. When the session is over, the public IP is returned to the pool for another device to use.
+-   **Limitation:** If you have a pool of 5 public IPs, only 5 internal devices can access the internet simultaneously. It does not scale well.
+
+### 3. Port Address Translation (PAT) or NAT Overload
+-   **Concept:** This is the most common form of NAT. It maps **multiple** private IP addresses to a **single** public IP address by also tracking port numbers.
+-   **Process:** The NAT router takes the source private IP and source port number and translates it to its own public IP and a unique new source port number.
+-   PC-A (`192.168.1.10:50000`) -> Router -> Public IP (`203.0.113.10:61001`)
+-   PC-B (`192.168.1.11:50000`) -> Router -> Public IP (`203.0.113.10:61002`)
+-   The router maintains a translation table of these unique IP:Port mappings. When return traffic comes back to `203.0.113.10` on port `61001`, the router knows to forward it to `192.168.1.10`.
+-   **Benefit:** This allows thousands of internal devices to share a single public IP address, which is how virtually all home and small business networks operate.
+
+---
+
+## 4. NAT Configuration Steps
+
+Configuring NAT on a Cisco router generally involves three steps:
+
+1.  **Define Inside/Outside Interfaces:** You must tell the router which interface is connected to the internal (private) network and which is connected to the external (public) network.
+-   `ip nat inside`
+-   `ip nat outside`
+2.  **Define the Translation Rule:** You create the logic for the translation.
+-   For **Static NAT**, you define the one-to-one mapping.
+-   For **Dynamic NAT**, you create an ACL to identify which internal IPs are allowed to be translated and define the pool of public IPs.
+-   For **PAT**, you create an ACL and tell the router to "overload" on its outside interface's IP.
+3.  These specific commands will be covered in this week's lab.
+

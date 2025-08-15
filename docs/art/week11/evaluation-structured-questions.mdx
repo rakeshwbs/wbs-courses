@@ -1,0 +1,104 @@
+---
+id: evaluation-structured-questions
+title: Exam-type Questions
+hide_title: true
+sidebar_position: 4
+sidebar_label: ✍️ Exam-type Questions
+---
+import ModuleBanner from '@site/src/components/art/art-banner';
+
+<ModuleBanner />
+
+**QUESTION 1 [25 MARKS]**
+
+(a) When a BGP router learns multiple paths to the same destination prefix, it does not use a simple metric. Instead, it follows a strict, multi-step algorithm. List the **first four** major steps of the BGP path selection process in the correct order of evaluation.
+[8]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    The first four major steps, in order, are:
+
+    1. Prefer the path with the highest **WEIGHT**.
+    2. Prefer the path with the highest **LOCAL_PREFERENCE**.
+    3. Prefer the path that was **locally originated** by this router (via a `network` or `aggregate` command).
+    4. Prefer the path with the shortest **AS_PATH**.
+
+    **Marking Scheme:**
+
+    * [2 Marks] - For each correct step listed in the correct sequence.
+
+</details>
+
+(b) Compare and contrast the BGP **Weight** attribute with the **Local Preference** attribute. In your answer, you must address:
+i. Their scope of influence (i.e., where the attribute is recognized). [4]
+ii. Which of the two is evaluated first in the best path algorithm. [1]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    i. **Scope of Influence:**
+    - **Weight:** Is locally significant only to the router on which it is configured. It is a Cisco-proprietary attribute and is **not** advertised to any other BGP peer.
+    - **Local Preference:** Is significant throughout the entire local Autonomous System. It **is** advertised to all iBGP peers and is used to create a consistent exit-path policy for the entire AS.
+
+    ii. **Order of Evaluation:**
+    - **Weight** is evaluated first. It is the very first step in the BGP path selection process.
+
+    **Marking Scheme:**
+
+    * [2 Marks] - For correctly describing the scope of Weight.
+    * [2 Marks] - For correctly describing the scope of Local Preference.
+    * [1 Mark] - For correctly stating that Weight is evaluated first.
+
+</details>
+
+(c) Your company router is in **AS 65500** and has an eBGP peering with an ISP neighbor at **`203.0.113.1`**. You want to ensure that all routes learned from this ISP are preferred throughout your entire company. You decide to use Local Preference. Write the full and exact commands to create a route-map named `PREFER_ISP` that sets the local preference to 500, and then apply it to the incoming routes from your ISP neighbor.
+[6]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    The solution requires creating a simple route-map and applying it to the BGP neighbor in the correct direction.
+
+    ```bash
+    configure terminal
+    !
+    route-map PREFER_ISP permit 10
+    set local-preference 500
+    !
+    router bgp 65500
+    neighbor 203.0.113.1 route-map PREFER_ISP in
+    ```
+
+    **Marking Scheme:**
+
+    * [3 Marks] - For the correct route-map configuration.
+    * [3 Marks] - For correctly applying the route-map to the neighbor in the `in` direction under the BGP process.
+
+</details>
+
+(d) The AS_PATH is arguably the most fundamental BGP path attribute. Describe its **two** primary functions within the BGP protocol.
+[6]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    1. **Loop Prevention:** This is its most critical function. The AS_PATH is a list of Autonomous Systems that a route advertisement has traversed. A BGP router will reject any update in which it sees its own AS number already present in the AS_PATH list. This fundamentally prevents routing loops between Autonomous Systems.
+
+    2. **Path Selection Metric:** After local policy attributes like Weight and Local Preference are considered, the length of the AS_PATH is used as a primary metric for path selection. BGP will prefer the path that has traversed the fewest Autonomous Systems—in other words, the path with the **shortest AS_PATH**.
+
+    **Marking Scheme:**
+    * [3 Marks] - For a clear explanation of its function as a loop-prevention mechanism.
+    * [3 Marks] - For a clear explanation of its function as a path selection metric (shorter is better).
+
+</details>
+
+

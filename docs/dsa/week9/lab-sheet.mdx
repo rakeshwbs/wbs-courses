@@ -1,0 +1,89 @@
+---
+id: lab-sheet
+title: Lab sheet 1
+hide_title: true
+sidebar_position: 2
+sidebar_label: Build Binary Search Tree
+sidebar_class_name: icon-lab
+---
+import ModuleBanner from '@site/src/components/dsa/dsa-banner';
+
+<ModuleBanner />
+
+## **Lab 9: Building a Binary Search Tree**
+
+**Objective:** To implement a basic Binary Search Tree (BST) in C++. This involves creating the `TreeNode` structure and implementing the core `insert` and `search` operations using recursive helper functions.
+
+### **Task 1: Define the `TreeNode` Class**
+
+1.  Create a new C++ project.
+2.  Define the `TreeNode` class. It must contain:
+  * A `public int value;` member.
+  * A `public TreeNode* left;` pointer.
+  * A `public TreeNode* right;` pointer.
+3.  Create a constructor `TreeNode(int val);` that initializes `value` with `val` and sets both `left` and `right` pointers to `nullptr`.
+
+-----
+
+### **Task 2: The `BinarySearchTree` Class Structure**
+
+1.  Define the `BinarySearchTree` class.
+2.  It needs one `private` data member: `TreeNode* root;`.
+3.  The `public` constructor should initialize `root` to `nullptr`.
+4.  Declare the public methods and their private recursive helpers as shown in the lecture:
+```cpp
+class BinarySearchTree {
+private:
+    TreeNode* root;
+    // Recursive Helpers
+    TreeNode* insert(TreeNode* currentNode, int val);
+    bool search(TreeNode* currentNode, int val);
+
+public:
+    BinarySearchTree();
+    void insert(int val);
+    bool search(int val);
+};
+```
+
+-----
+
+### **Task 3: Implement the `insert` Method**
+
+This is a classic recursive implementation. You will implement both the public and private `insert` methods.
+
+1.  **Public `insert(int val)`**: This function is simple. It starts the recursion on the root of the tree and updates the root with the result. The body should be: `root = insert(root, val);`.
+2.  **Private `insert(TreeNode* currentNode, int val)`**: This is the recursive workhorse.
+  * **Base Case**: If `currentNode` is `nullptr`, you've found the insertion point. Create a `new TreeNode(val)` and `return` a pointer to it.
+  * **Recursive Step**:
+  * If `val` is less than `currentNode->value`, recursively call `insert` on the left subtree: `currentNode->left = insert(currentNode->left, val);`.
+  * If `val` is greater than `currentNode->value`, recursively call `insert` on the right subtree: `currentNode->right = insert(currentNode->right, val);`.
+  * Finally, `return currentNode;`. This step is crucial for re-linking the tree as the recursion unwinds.
+
+-----
+
+### **Task 4: Implement the `search` Method**
+
+This follows the same public/private recursive pattern.
+
+1.  **Public `search(int val)`**: This starts the recursion from the root. The body should be: `return search(root, val);`.
+2.  **Private `search(TreeNode* currentNode, int val)`**:
+  * **Base Case 1**: If `currentNode` is `nullptr`, the value does not exist. `return false`.
+  * **Base Case 2**: If `currentNode->value == val`, you've found the value. `return true`.
+  * **Recursive Step**:
+  * If `val` is less than `currentNode->value`, `return search(currentNode->left, val);`.
+  * If `val` is greater than `currentNode->value`, `return search(currentNode->right, val);`.
+
+-----
+
+### **Task 5: Comprehensive Testing**
+
+In your `main()` function, test your BST implementation.
+
+1.  Create an instance of `BinarySearchTree`.
+2.  Insert a series of values to build a non-trivial tree. For example: `50, 30, 70, 20, 40, 60, 80`.
+3.  Use your `search()` method to look for values you know are in the tree (e.g., 40, 80) and print the results. They should be `true`.
+4.  Search for values you know are *not* in the tree (e.g., 99, 15) and print the results. They should be `false`.
+
+-----
+

@@ -1,0 +1,109 @@
+---
+id: evaluation-structured-questions
+title: Exam-type Questions
+hide_title: true
+sidebar_position: 4
+sidebar_label: Exam-type Questions
+sidebar_class_name: icon-exam
+---
+import ModuleBanner from '@site/src/components/ai/ai-banner';
+
+<ModuleBanner />
+
+### **Sample Examination Questions & Answers – Week 4 Concepts**
+
+---
+
+**QUESTION 1 \[25 MARKS]**
+
+**(a)** A Decision Tree learns by making a series of splits on the data. Explain the goal of a split and name one of the mathematical metrics used by the algorithm to determine the "best" split at any given node.
+\[6]
+
+<details>  
+<summary>Click to see the answer and marking scheme</summary>  
+
+**Answer:**
+The goal of a split in a Decision Tree is to divide a set of data points (at a node) into two or more subsets (child nodes) that are as **"pure"** as possible. A pure node is one where the majority of data points belong to a single class. The algorithm seeks the feature and threshold value that will result in the greatest increase in purity in the resulting child nodes.
+
+One of the mathematical metrics used to measure this is **Gini Impurity** or **Information Gain** (based on Entropy). The algorithm chooses the split that results in the lowest Gini Impurity or the highest Information Gain.
+
+**Marking Scheme:**
+
+* \[3 Marks] – For explaining the goal of a split (to increase purity / separate classes).
+* \[3 Marks] – For correctly naming either Gini Impurity or Information Gain/Entropy.
+
+</details>
+
+---
+
+**(b)** Define **overfitting** in the context of a Decision Tree model. Describe one practical method you could use to identify if a trained Decision Tree model is suffering from overfitting.
+\[7]
+
+<details>  
+<summary>Click to see the answer and marking scheme</summary>  
+
+**Answer:**
+**DefinitionBox:** Overfitting occurs when a Decision Tree model learns the training data too well, to the point where it memorizes not only the underlying patterns but also the specific noise and random fluctuations present in that particular training set. This results in a model that is overly complex.
+
+**Identification Method:** The most reliable way to identify overfitting is to **compare the model's performance on the training set versus its performance on a separate, unseen test set**. If the model shows very high accuracy on the training data (e.g., 99–100%) but a significantly lower accuracy on the test data (e.g., 75%), it is a classic sign of overfitting. The large gap indicates the model has failed to generalize its learning to new data.
+
+**Marking Scheme:**
+
+* \[3 Marks] – For a clear definition of overfitting (learning the noise, not just the pattern).
+* \[2 Marks] – For describing the method of comparing training vs. testing performance.
+* \[2 Marks] – For explaining what the result would look like (high training score, significantly lower testing score).
+
+</details>
+
+---
+
+**(c)** The **Random Forest** algorithm is an ensemble method that builds multiple Decision Trees to produce a more robust model. Describe the two primary sources of randomness it introduces to ensure the trees in the "forest" are diverse.
+\[8]
+
+<details>  
+<summary>Click to see the answer and marking scheme</summary>  
+
+**Answer:**
+
+The two primary sources of randomness are:
+
+1. **Bootstrap Aggregating (Bagging):** Each individual Decision Tree in the forest is trained on a different random sample of the original training data. This sample is drawn "with replacement," meaning some data points may appear multiple times in a sample, while others may not appear at all. This ensures each tree sees a slightly different version of the data.
+
+2. **Random Feature Subsets:** At each split point within each tree, the algorithm does not consider all available features to find the best split. Instead, it considers only a small, random subset of the features. This prevents a few powerful features from dominating every tree and forces the different trees to learn from different aspects of the data, increasing their diversity.
+
+**Marking Scheme:**
+
+* \[4 Marks] – For a clear explanation of Bagging (random sampling of data for each tree).
+* \[4 Marks] – For a clear explanation of using random subsets of features at each split.
+
+</details>
+
+---
+
+**(d)** A company has built two models to predict customer churn.
+
+* **Model A (Decision Tree):** Achieves 99% accuracy on the training data and 82% accuracy on the test data.
+* **Model B (Random Forest):** Achieves 91% accuracy on the training data and 89% accuracy on the test data.
+
+Which model would you recommend for deployment on the live system? Justify your choice.
+\[4]
+
+<details>  
+<summary>Click to see the answer and marking scheme</summary>  
+
+**Answer:**
+
+I would recommend **Model B (Random Forest)** for deployment.
+
+**Justification:** Model A is clearly overfitting. The massive drop in accuracy from 99% on the training data to 82% on the test data shows that it has memorized the training set and does not generalize well to new, unseen data. Its real-world performance is likely to be around 82%.
+
+Model B, the Random Forest, shows much more stable and reliable performance. Its accuracy on the test data (89%) is significantly higher than Model A's, and the small gap between its training (91%) and testing (89%) accuracy indicates that it has generalized well and is not significantly overfit. Therefore, it is expected to be more reliable and accurate when making predictions on new customers.
+
+**Marking Scheme:**
+
+* \[1 Mark] – For choosing Model B.
+* \[3 Marks] – For a strong justification that correctly identifies Model A as overfit and explains why Model B's higher test accuracy and better generalization make it the superior choice.
+
+</details>
+
+---

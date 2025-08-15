@@ -1,0 +1,212 @@
+---
+id: ungrouped-data-std-deviation
+title: Find Standard deviation for UnGrouped Data
+hide_title: true
+sidebar_position: 1
+sidebar_label: UnGrouped Data
+---
+import ModuleBanner from '@site/src/components/busm/busm-banner';
+
+<ModuleBanner />
+---
+### **Concept: Sample Standard Deviation from a Frequency Table**
+
+The **standard deviation** is a measure of how spread out the numbers in a dataset are from their mean (average). A low standard deviation indicates that the data points are clustered closely around the mean, while a high standard deviation indicates they are spread out over a wider range.
+
+The formula you provided is used to calculate the **sample standard deviation (s)** for ungrouped data that is presented in a frequency table.
+
+
+**Breaking Down the Formula:**
+* **s**: The symbol for the sample standard deviation.
+* **Σ**: The Greek letter Sigma, which means "the sum of".
+* **f**: The frequency of each data value (how many times it appears).
+* **x**: The actual data value.
+* **Σf**: The sum of all the frequencies, which is the total number of data points in the sample (`n`).
+* **Σfx**: The sum of each data value multiplied by its frequency.
+* **Σfx²**: The sum of each data value **squared**, then multiplied by its frequency.
+
+To use this formula, you expand the frequency table with columns to calculate the necessary totals.
+
+---
+### **Worked Examples from Past Papers**
+
+:::danger 3 September 2019, Section B, Question 24
+The number of times a group of people go shopping each week is shown in the table below. Calculate the sample standard deviation of the data.
+
+| Number of times people go shopping | Frequency |
+| :--- | :---: |
+| 1 | 21 |
+| 2 | 27 |
+| 3 | 19 |
+| 4 | 15 |
+| 5 | 11 |
+| 6 | 5 |
+| 7 | 2 |
+:::
+:::success Answer
+Standard Deviation ≈ 1.71 ✔️
+:::note Explanation
+
+1.  **Create a working table:**
+
+| Value (x) | Frequency (f) | f × x | x² | f × x² |
+| :--- | :---: | :---: | :---: | :---: |
+| 1 | 21 | 21 | 1 | 21 |
+| 2 | 27 | 54 | 4 | 108 |
+| 3 | 19 | 57 | 9 | 171 |
+| 4 | 15 | 60 | 16 | 240 |
+| 5 | 11 | 55 | 25 | 275 |
+| 6 | 5 | 30 | 36 | 180 |
+| 7 | 2 | 14 | 49 | 98 |
+| **Total**| **Σf = 100** | **Σ(fx) = 291** | | **Σ(fx²) = 1135**|
+2.  **Substitute totals into the formula:**
+$$s = \sqrt{\frac{1}{(\sum f) - 1} \left[ \sum fx^2 - \frac{(\sum fx)^2}{(\sum f)} \right]}$$ $$s = \sqrt{\frac{1}{100 - 1} \left[ 1135 - \frac{(291)^2}{100} \right]}$$
+3.  **Calculate:**
+$$s = \sqrt{\frac{1}{99} \left[ 1135 - \frac{84681}{100} \right]}$$ $$s = \sqrt{\frac{1}{99} [1135 - 846.81]}$$ $$s = \sqrt{\frac{1}{99} [288.19]} \approx \sqrt{2.911} \approx 1.706$$
+:::
+
+
+---
+:::danger 1 March 2016, Section B, Question 21
+A survey asks 75 people the number of times they shop in the town centre each week. Calculate the standard deviation. Give your answer to 3 significant figures.
+
+| Number of times | Frequency |
+| :--- | :---: |
+| 0 | 6 |
+| 1 | 18 |
+| 2 | 20 |
+| 3 | 12 |
+| 4 | 9 |
+| 5 | 7 |
+| 6 | 3 |
+:::
+:::success Answer
+Standard Deviation ≈ 1.62 ✔️
+:::note Explanation
+
+1.  **Create a working table:**
+
+| Value (x) | Frequency (f) | f × x | x² | f × x² |
+| :--- | :---: | :---: | :---: | :---: |
+| 0 | 6 | 0 | 0 | 0 |
+| 1 | 18 | 18 | 1 | 18 |
+| 2 | 20 | 40 | 4 | 80 |
+| 3 | 12 | 36 | 9 | 108 |
+| 4 | 9 | 36 | 16 | 144 |
+| 5 | 7 | 35 | 25 | 175 |
+| 6 | 3 | 18 | 36 | 108 |
+| **Total**| **Σf = 75** | **Σ(fx) = 183** | | **Σ(fx²) = 633**|
+2.  **Substitute totals into the formula:**
+$$s = \sqrt{\frac{1}{75 - 1} \left[ 633 - \frac{(183)^2}{75} \right]}$$
+3.  **Calculate:**
+$$s = \sqrt{\frac{1}{74} \left[ 633 - \frac{33489}{75} \right]}$$ $$s = \sqrt{\frac{1}{74} [633 - 446.52]}$$ $$s = \sqrt{\frac{1}{74} [186.48]} \approx \sqrt{2.52} \approx 1.587$$
+Rounding to 3 significant figures gives **1.59**.
+:::
+
+---
+:::danger 3 March 2015, Section B, Question 24
+A survey is carried out to find out the number of people living in each apartment in an apartment block. Calculate the standard deviation. Give your answer to 3 significant figures.
+
+| Number of people | Frequency |
+| :--- | :---: |
+| 1 | 10 |
+| 2 | 21 |
+| 3 | 32 |
+| 4 | 20 |
+| 5 | 11 |
+| 6 | 6 |
+:::
+:::success Answer
+Standard Deviation ≈ 1.34 ✔️
+:::note Explanation
+
+1.  **Create a working table:**
+
+| Value (x) | Frequency (f) | f × x | x² | f × x² |
+| :--- | :---: | :---: | :---: | :---: |
+| 1 | 10 | 10 | 1 | 10 |
+| 2 | 21 | 42 | 4 | 84 |
+| 3 | 32 | 96 | 9 | 288 |
+| 4 | 20 | 80 | 16 | 320 |
+| 5 | 11 | 55 | 25 | 275 |
+| 6 | 6 | 36 | 36 | 216 |
+| **Total**| **Σf = 100** | **Σ(fx) = 319** | | **Σ(fx²) = 1193**|
+2.  **Substitute totals into the formula:**
+$$s = \sqrt{\frac{1}{100 - 1} \left[ 1193 - \frac{(319)^2}{100} \right]}$$
+3.  **Calculate:**
+$$s = \sqrt{\frac{1}{99} \left[ 1193 - \frac{101761}{100} \right]}$$ $$s = \sqrt{\frac{1}{99} [1193 - 1017.61]}$$ $$s = \sqrt{\frac{1}{99} [175.39]} \approx \sqrt{1.7716} \approx 1.331$$
+Rounding to 3 significant figures gives **1.33**.
+:::
+
+
+---
+:::danger 7 March 2017, Section B, Question 21
+A survey asks 100 students how often they have visited the library during the past month. Calculate the sample standard deviation. Give your answer to 3 sf.
+
+| Number of visits | Frequency |
+| :--- | :---: |
+| 0 | 8 |
+| 1 | 11 |
+| 2 | 12 |
+| 3 | 15 |
+| 4 | 22 |
+| 5 | 19 |
+| 6 | 13 |
+:::
+:::success Answer
+Standard Deviation ≈ 1.83 ✔️
+:::note Explanation
+
+1.  **Create a working table:**
+
+| Value (x) | Frequency (f) | f × x | x² | f × x² |
+| :--- | :---: | :---: | :---: | :---: |
+| 0 | 8 | 0 | 0 | 0 |
+| 1 | 11 | 11 | 1 | 11 |
+| 2 | 12 | 24 | 4 | 48 |
+| 3 | 15 | 45 | 9 | 135 |
+| 4 | 22 | 88 | 16 | 352 |
+| 5 | 19 | 95 | 25 | 475 |
+| 6 | 13 | 78 | 36 | 468 |
+| **Total**| **Σf = 100** | **Σ(fx) = 341** | | **Σ(fx²) = 1489**|
+2.  **Substitute totals into the formula:**
+$$s = \sqrt{\frac{1}{100 - 1} \left[ 1489 - \frac{(341)^2}{100} \right]}$$
+3.  **Calculate:**
+$$s = \sqrt{\frac{1}{99} \left[ 1489 - \frac{116281}{100} \right]}$$ $$s = \sqrt{\frac{1}{99} [1489 - 1162.81]}$$ $$s = \sqrt{\frac{1}{99} [326.19]} \approx \sqrt{3.2948} \approx 1.815$$
+Rounding to 3 significant figures gives **1.82**.
+:::
+
+---
+:::danger 28 May 2019, Section B, Question 24
+30 employees had their punctuality monitored over a week to find out the number of times they were late for work. The results are shown below. Calculate the sample standard deviation of the data.
+
+1, 4, 2, 1, 1, 1, 3, 3, 1, 3, 5, 1, 1, 2, 1, 2, 2, 2, 4, 3, 2, 3, 1, 1, 1, 1, 4, 1, 2, 2
+:::
+:::success Answer
+Standard Deviation ≈ 1.24 ✔️
+:::note Explanation
+
+1.  **Create a frequency table from the raw data:**
+
+| Number of times late (x) | Frequency (f) |
+| :--- | :---: |
+| 1 | 13 |
+| 2 | 8 |
+| 3 | 5 |
+| 4 | 3 |
+| 5 | 1 |
+2.  **Create a working table:**
+
+| Value (x) | Frequency (f) | f × x | x² | f × x² |
+| :--- | :---: | :---: | :---: | :---: |
+| 1 | 13 | 13 | 1 | 13 |
+| 2 | 8 | 16 | 4 | 32 |
+| 3 | 5 | 15 | 9 | 45 |
+| 4 | 3 | 12 | 16 | 48 |
+| 5 | 1 | 5 | 25 | 25 |
+| **Total**| **Σf = 30** | **Σ(fx) = 61** | | **Σ(fx²) = 163**|
+3.  **Substitute totals into the formula:**
+$$s = \sqrt{\frac{1}{30 - 1} \left[ 163 - \frac{(61)^2}{30} \right]}$$
+4.  **Calculate:**
+$$s = \sqrt{\frac{1}{29} \left[ 163 - \frac{3721}{30} \right]}$$ $$s = \sqrt{\frac{1}{29} [163 - 124.033... ]}$$ $$s = \sqrt{\frac{1}{29} [38.966...]} \approx \sqrt{1.3436} \approx 1.159$$
+:::

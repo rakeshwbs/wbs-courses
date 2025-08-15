@@ -1,0 +1,59 @@
+---
+id: lecture-notes
+title: Lecture Notes
+hide_title: true
+sidebar_position: 1
+sidebar_label: Advanced Analysis
+sidebar_class_name: icon-lecture
+
+---
+import ModuleBanner from '@site/src/components/brm/brm-banner';
+
+<ModuleBanner />
+
+## Week 10: Advanced Analysis (ANOVA & Regression)
+
+### **Analysis of Variance (ANOVA)**
+
+Imagine you want to compare the effectiveness of three different advertisements. You could run three separate t-tests (Ad A vs. B, A vs. C, B vs. C), but this is a bad idea. Why? It inflates your chance of a false positive (a Type I error). The more tests you run, the higher the probability that you'll find a "significant" result just by random chance.
+
+ANOVA solves this problem by comparing the means of **three or more groups** in a single test.
+
+#### **How ANOVA Works (The F-statistic)**
+
+Conceptually, ANOVA works by comparing the variation **between** the groups to the variation **within** each group. If the variation between the groups is much larger than the variation within them, it suggests there's a real difference. This comparison is calculated as a single number called the **F-statistic**.
+
+#### **One-Way ANOVA**
+This is the simplest form of ANOVA.
+* **Purpose:** To test for a significant difference in the means of three or more independent groups.
+* **Variables Needed:**
+  * One categorical Independent Variable (IV) with 3+ levels (e.g., Low, Medium, High dose).
+  * One continuous Dependent Variable (DV) (e.g., Recovery Time).
+* **Research Question:** "Is there a significant difference in student test scores across three different teaching methods?"
+
+If the ANOVA test is significant (p ≤ .05), it tells you that *at least one group is different from the others*, but it doesn't tell you *which specific groups* differ. For that, you need to run **Post-Hoc Tests** (like Tukey's HSD), which compare each pair of groups.
+
+---
+### **Simple Linear Regression**
+
+While ANOVA and t-tests compare group means, **regression** is used to **predict** an outcome. Simple linear regression models the relationship between two continuous variables to predict the value of a dependent variable based on an independent variable.
+
+#### **The Equation of a Line**
+Regression finds the "line of best fit" through a scatter plot of data points.  This line is described by the equation:
+
+**$Y = b_0 + b_1X$**
+
+* **$Y$**: The Dependent Variable (the outcome you want to predict).
+* **$X$**: The Independent Variable (the predictor).
+* **$b_1$**: The **slope** (or regression coefficient). This is the most important part—it tells you how much **$Y$** is expected to change for a one-unit increase in **$X$**.
+* **$b_0$**: The **intercept**. This is the predicted value of **$Y$** when **$X$** is zero.
+
+#### **Interpreting Regression Results**
+When you run a regression, you'll look for a few key values:
+* **R-squared ($R^2$)**: This tells you the **percentage of variance** in the dependent variable that is "explained" by the independent variable. An $R^2$ of 0.60 means that 60% of the variation in $Y$ can be accounted for by changes in $X$.
+* **p-value for the overall model**: This tells you if your line of best fit is better than just guessing the mean (i.e., if your model is statistically significant).
+* **p-value for the coefficient ($b_1$)**: This tells you if your independent variable is a significant predictor of the dependent variable.
+
+* **Research Question:** "Can we use a company's advertising budget ($X$) to predict its quarterly sales ($Y$)?"
+
+---

@@ -1,0 +1,191 @@
+---
+id: evaluation-structured-questions
+title: Exam-type Questions
+hide_title: true
+sidebar_position: 4
+sidebar_label: Exam-type Questions
+sidebar_class_name: icon-exam
+---
+import ModuleBanner from '@site/src/components/dsa/dsa-banner';
+
+<ModuleBanner />
+
+### **Sample Examination Questions & Answers - Week 4 Concepts**
+
+**QUESTION 1 \[25 MARKS]**
+
+(a) State one key **advantage** and one key **disadvantage** of using a doubly linked list when compared to a singly linked list.
+\[8]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    **Advantage:** The primary advantage is the ability to perform **bidirectional traversal**. From any given node, you can efficiently move both forward (using `next`) and backward (using `prev`). This makes certain operations, like finding a node's predecessor or deleting a known node, much more efficient and simpler to implement.
+
+    **Disadvantage:** The main disadvantage is **increased memory consumption**. Each node in the list must store an extra pointer (`prev`), which increases the memory footprint of the entire list, especially for lists with a large number of elements.
+
+    **Marking Scheme:**
+
+    * \[4 Marks] - For correctly identifying and explaining the advantage of bidirectional traversal.
+    * \[4 Marks] - For correctly identifying and explaining the disadvantage of increased memory usage per node.
+
+</details>
+
+(b) You are tasked with designing the fundamental building block for a doubly linked list. Write the complete C++ `class` definition for a `Node` that could be used in such a list. The node should store an integer and include a constructor.
+\[7]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    ```cpp
+    class Node {
+    public:
+    int data;    // To store the integer value
+    Node* next;  // Pointer to the next node
+    Node* prev;  // Pointer to the previous node
+
+    // Constructor to initialize the node
+    Node(int value) {
+    data = value;
+    next = nullptr;
+    prev = nullptr;
+}
+};
+    ```
+
+    **Marking Scheme:**
+
+    * \[2 Marks] - For the correct class syntax and name.
+    * \[3 Marks] - For correctly declaring all three members (`data`, `next`, `prev`) with the right types.
+    * \[2 Marks] - For a correctly implemented constructor that initializes all members, setting the pointers to `nullptr`.
+
+</details>
+
+(c) Consider a doubly linked list where `nodeA` is followed by `nodeB`. You need to insert a `newNode` between them. List the **four** essential pointer assignments required to correctly link the `newNode` into the list.
+\[10]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    The four essential pointer assignments are:
+
+    1. **`newNode->next = nodeB;`**
+
+    * This makes the `newNode` point forward to `nodeB`.
+
+    2. **`newNode->prev = nodeA;`**
+
+    * This makes the `newNode` point backward to `nodeA`.
+
+    3. **`nodeA->next = newNode;`**
+
+    * This makes `nodeA` point forward to the `newNode`, replacing its old link to `nodeB`.
+
+    4. **`nodeB->prev = newNode;`**
+
+    * This makes `nodeB` point backward to the `newNode`, replacing its old link to `nodeA`.
+
+    **Marking Scheme:**
+
+    * \[2.5 Marks] - For each correctly identified pointer assignment. (Total of 10 marks).
+
+</details>
+
+---
+
+**QUESTION 2 \[25 MARKS]**
+
+(a) Define a **circularly linked list**. Explain why a standard traversal loop like `while (current != nullptr)` is unsuitable for this structure and describe a condition that could be used instead.
+\[10]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    **DefinitionBox:** A circularly linked list is a type of linked list in which the `next` pointer of the last node does not point to `nullptr`, but instead points back to the `head` node of the list, forming a continuous circle or loop.
+
+    **Why `while (current != nullptr)` is unsuitable:** This condition is unsuitable because in a non-empty circular list, no node's `next` pointer is ever `nullptr`. The traversal would never terminate, resulting in an infinite loop as the pointer cycles through the list indefinitely.
+
+    **Suitable Condition:** A common way to traverse a circular list is to start a pointer at the `head` and loop until the pointer returns to the `head`. A `do-while` loop is perfect for this, as it executes the loop body at least once (to process the head node) before checking the condition.
+
+    *Example Condition:*
+
+    ```cpp
+    // Assuming current starts at head and list is not empty
+    do {
+    // process current node
+    current = current->next;
+} while (current != head);
+    ```
+
+    **Marking Scheme:**
+
+    * \[4 Marks] - For a correct definition of a circular linked list.
+    * \[3 Marks] - For explaining that `while (current != nullptr)` causes an infinite loop.
+    * \[3 Marks] - For describing a suitable alternative condition (e.g., using a `do-while` loop and checking against the `head`).
+
+</details>
+
+(b) A company in Port Louis wants to create a system to manage a single delivery truck's route for the day. The truck starts at the warehouse, visits several locations, and finally returns to the warehouse to prepare for the next day. Explain why a **circularly linked list** would be a more appropriate data structure for this model than a standard, null-terminated linked list.
+\[7]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    A circularly linked list is more appropriate because the truck's journey is inherently circular: **Warehouse -> Location A -> Location B -> ... -> Last Location -> Warehouse**.
+
+    1. **Natural Representation:** The circular structure naturally models the route. The `head` can represent the warehouse. The `next` pointers represent the path to the next location. The final node's `next` pointer pointing back to the `head` perfectly represents the truck's return trip to the warehouse.
+    2. **Continuous Operation:** It simplifies the logic for continuous operation. To simulate the next day's route, there is no need to "reset" the list; the structure is already a continuous loop, ready to be traversed again.
+    3. **No "End" State:** Unlike a standard linked list which has a defined end (`nullptr`), this delivery route doesn't really end; it just completes a cycle. A circular list captures this "no end" concept perfectly.
+
+    **Marking Scheme:**
+
+    * \[3 Marks] - For linking the circular structure to the physical circular route of the truck.
+    * \[2 Marks] - For mentioning the benefit of representing a continuous or looping process.
+    * \[2 Marks] - For explaining why the concept of `nullptr` in a standard list is less fitting for this model.
+
+</details>
+
+(c) Analyze the two key lines of code below, which are used to delete `nodeToDelete` from the middle of a doubly linked list. Explain what each line accomplishes.
+
+```cpp
+// Line 1
+nodeToDelete->prev->next = nodeToDelete->next;
+
+// Line 2
+nodeToDelete->next->prev = nodeToDelete->prev;
+```
+
+\[8]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    **Line 1: `nodeToDelete->prev->next = nodeToDelete->next;`**
+
+    * **Explanation:** This line handles the "forward" link. It accesses the node *before* `nodeToDelete` (via `nodeToDelete->prev`) and updates its `next` pointer. Instead of pointing to `nodeToDelete`, it is now set to point to the node *after* `nodeToDelete` (which is `nodeToDelete->next`). This effectively makes the preceding node "skip over" `nodeToDelete`.
+
+    **Line 2: `nodeToDelete->next->prev = nodeToDelete->prev;`**
+
+    * **Explanation:** This line handles the "backward" link. It accesses the node *after* `nodeToDelete` (via `nodeToDelete->next`) and updates its `prev` pointer. Instead of pointing back to `nodeToDelete`, it is now set to point back to the node *before* `nodeToDelete` (which is `nodeToDelete->prev`).
+
+    Together, these two lines completely re-wire the list to exclude `nodeToDelete` from the chain.
+
+    **Marking Scheme:**
+
+    * \[4 Marks] - For a clear explanation of Line 1's purpose (updating the forward link of the previous node).
+    * \[4 Marks] - For a clear explanation of Line 2's purpose (updating the backward link of the next node).
+
+</details>
+

@@ -1,0 +1,62 @@
+---
+id: lecture-notes
+title: Lecture Notes
+hide_title: true
+sidebar_position: 1
+sidebar_label: Measurement
+sidebar_class_name: icon-lecture
+
+---
+import ModuleBanner from '@site/src/components/brm/brm-banner';
+
+<ModuleBanner />
+
+
+## **Week 6: How We Measure (Measurement, Scaling, and Reliability)**
+
+**Measurement** is the process of assigning numbers or labels to concepts and variables in your research. The quality of your entire study rests on the quality of your measurement.
+
+### **Levels of Measurement (A Deeper Look)**
+
+We've touched on these before, but let's formalize them. There are four fundamental levels of measurement, and they determine which statistical analyses you can perform.
+
+1.  **Nominal:** The simplest level. Numbers are used only as labels for categories, with no order.
+* *Examples:* Gender (1=Male, 2=Female), Department (1=Sales, 2=HR).
+* You can count frequencies but can't calculate a meaningful average.
+
+2.  **Ordinal:** This level involves categories that have a meaningful rank or order, but the distance between the ranks is not equal or known.
+* *Examples:* T-shirt sizes (Small, Medium, Large), finishing positions in a race (1st, 2nd, 3rd).
+* You know that 'Large' is bigger than 'Small', but not by how much.
+
+3.  **Interval:** This scale has a meaningful order AND the "intervals" or distances between the points are equal and meaningful. However, it lacks a "true zero."
+* *Example:* Temperature in Celsius. The difference between 10°C and 20°C is the same as between 20°C and 30°C. But 0°C doesn't mean "no temperature."
+
+4.  **Ratio:** This is the highest level of measurement. It has order, equal intervals, AND a true, meaningful zero point, which represents the complete absence of the variable.
+* *Examples:* Age, Weight, Sales in dollars, Number of children. A value of zero means "none."
+
+### **Scaling Techniques in Questionnaires**
+
+A **scale** is a tool designed to measure a complex construct (like an attitude) by combining scores from several questions or items.
+
+* **Likert Scale:** This is the most common scale. Respondents rate their level of agreement with a statement.
+  * *Example:* "I am satisfied with my job."
+  * `(1) Strongly Disagree` `(2) Disagree` `(3) Neutral` `(4) Agree` `(5) Strongly Agree`
+
+* **Semantic Differential Scale:** Respondents rate a concept on a scale anchored by two bipolar (opposite) adjectives.
+  * *Example:* "Our customer service is:"
+  * `Unreliable` `O--O--O--O--O` `Reliable`
+  * `Slow` `O--O--O--O--O` `Fast`
+
+### **Good Measurement: The Concept of Reliability**
+
+For a measurement tool (like a survey scale) to be good, it must be reliable and valid. We'll focus on reliability this week.
+
+**Reliability** refers to the **consistency** of a measurement. If you measure the same thing multiple times under the same conditions, a reliable tool will produce the same or very similar results. It's about dependability and stability.
+
+* **Internal Consistency Reliability:** This is the most common type used for scales. It checks if the various items on a single scale, which are all supposed to be measuring the same underlying construct, are consistent with each other. For example, if you have a 5-item scale to measure "Job Satisfaction," a person who is truly satisfied should score high on all 5 items.
+* **How We Measure It:** We use a statistic called **Cronbach's Alpha ($\alpha$)**.
+  * This value ranges from 0 to 1.
+  * A higher value indicates greater internal consistency among the items.
+  * **Rule of Thumb:** A Cronbach's Alpha value of **$\alpha > 0.70$** is generally considered acceptable for research purposes.
+
+---

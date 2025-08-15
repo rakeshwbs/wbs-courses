@@ -1,0 +1,156 @@
+---
+id: evaluation-structured-questions
+title: Exam-type Questions
+hide_title: true
+sidebar_position: 4
+sidebar_label: Exam-type Questions
+sidebar_class_name: icon-exam
+---
+import ModuleBanner from '@site/src/components/ai/ai-banner';
+
+<ModuleBanner />
+
+
+### **Sample Examination Questions & Answers - Week 10 Concepts**
+
+---
+
+### **QUESTION 1 \[25 MARKS]**
+
+---
+
+#### (a) Diffusion Models are trained using a two-step process.
+
+Describe the **Forward Process** and the **Reverse Process**. What is the main goal of the model during the training phase?
+**\[6 Marks]**
+
+<details>
+<summary>Click to see the answer and marking scheme</summary>
+
+### Answer
+
+The **Forward Process** involves systematically destroying a real image from the training set by adding a small amount of Gaussian noise over many successive steps, until only pure random noise remains.
+
+The **Reverse Process** is what the model learns to do. Its goal during training is to learn how to reverse this noising process. Specifically, the model is trained to look at a noisy image and **predict the noise** that was added to it in the previous step. By learning to predict and remove this noise, it effectively learns how to denoise an image step-by-step.
+
+---
+
+#### Marking Scheme
+
+* **\[2 Marks]** - For a clear description of the Forward Process (adding noise to a real image).
+* **\[2 Marks]** - For a clear description of the Reverse Process (predicting and removing noise).
+* **\[2 Marks]** - For stating the training goal is to learn how to predict the noise.
+
+</details>
+
+---
+
+#### (b) Explain how a trained Diffusion Model generates a completely new image, starting from a canvas of pure random noise.
+
+**\[5 Marks]**
+
+<details>
+<summary>Click to see the answer and marking scheme</summary>
+
+### Answer
+
+A trained Diffusion Model generates a new image by performing the **Reverse Process** iteratively.
+
+1. It begins with a canvas of pure, random static (noise).
+2. This noise is fed into the trained denoising network, which predicts the noise present in the image. It then subtracts a small amount of this predicted noise, revealing a very faint, abstract structure.
+3. The slightly less noisy image is then fed back into the network. This process is repeated for hundreds or thousands of steps.
+
+At each step, more noise is removed, and a more coherent and detailed image gradually emerges from the static, like a photograph developing in a darkroom. 📸
+
+---
+
+#### Marking Scheme
+
+* **\[2 Marks]** - For stating that generation starts with pure random noise.
+* **\[3 Marks]** - For explaining the iterative denoising process where the model repeatedly predicts and removes noise to form the final image.
+
+</details>
+
+---
+
+#### (c) Modern image generation models are guided by text prompts.
+
+**i.** Describe the role of a **text encoder** in this process.
+**\[4 Marks]**
+
+<details>
+<summary>Click to see the answer and marking scheme</summary>
+
+### Answer
+
+A **text encoder** (like CLIP) is a separate, pre-trained model whose job is to understand the meaning of the text prompt. It takes the raw text (e.g., *"a cat sitting on a beach"*) and converts it into a rich numerical representation called a **vector embedding**. This embedding captures the semantic meaning of the words and their relationships, providing a mathematical guide that the image generation model can understand.
+
+---
+
+#### Marking Scheme
+
+* **\[2 Marks]** - For explaining that it converts text into a numerical vector embedding.
+* **\[2 Marks]** - For mentioning that this embedding captures the semantic meaning of the prompt.
+
+</details>
+
+---
+
+**ii.** Explain how the output of the text encoder is used to **condition** or **guide** the image generation process.
+**\[4 Marks]**
+
+<details>
+<summary>Click to see the answer and marking scheme</summary>
+
+### Answer
+
+The text embedding is fed into the denoising network at **each step of the reverse diffusion process**. It acts as a form of **guidance** or **conditioning**. This means the model isn't just removing noise randomly; it is removing noise in a specific way that steers the emerging image to align with the concepts contained in the text embedding. For example, it will denoise in a way that creates shapes and textures consistent with a "cat" and a "beach" if those were in the prompt.
+
+---
+
+#### Marking Scheme
+
+* **\[2 Marks]** - For stating that the embedding is used at each step of the denoising process.
+* **\[2 Marks]** - For explaining that it guides or steers the process to match the prompt’s meaning.
+
+</details>
+
+---
+
+#### (d) A user wants to create a specific image: *"A Mauritian flying fox bat, in the style of a steampunk drawing"*
+
+Explain how **prompt engineering**, including the use of **style modifiers** and **negative prompts**, can help achieve this specific result. 🎨
+**\[6 Marks]**
+
+<details>
+<summary>Click to see the answer and marking scheme</summary>
+
+### Answer
+
+**Prompt Engineering** is the skill of crafting the perfect text prompt to guide the AI toward a desired output.
+
+1. **Style Modifiers:**
+   To achieve the *"steampunk drawing"* look, the user would add specific style keywords to the prompt. Instead of just *"a bat"*, the prompt would become:
+   *"A Mauritian flying fox bat, **steampunk drawing, intricate mechanical wings, gears and cogs, brass and copper, detailed line art**."*
+   These modifiers guide the model’s aesthetic.
+
+2. **Negative Prompts:**
+   To ensure a high-quality drawing, the user can specify what to *avoid*.
+   They would use a **negative prompt** like:
+   *"**photograph, blurry, ugly, deformed, low quality, color**."*
+   This tells the model to avoid realism and maintain the drawn, stylistic nature.
+
+By combining a detailed main prompt with a targeted negative prompt, the user has **maximum control** over the final generated artwork.
+
+---
+
+#### Marking Scheme
+
+* **\[3 Marks]** - For a clear explanation and example of using style modifiers to control the aesthetic.
+* **\[3 Marks]** - For a clear explanation and example of using negative prompts to remove unwanted elements.
+
+</details>
+
+---
+
+

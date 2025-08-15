@@ -1,0 +1,97 @@
+---
+id: lab-sheet
+title: Lab sheet 1
+hide_title: true
+sidebar_position: 2
+sidebar_label: Implement Hash Table
+sidebar_class_name: icon-lab
+---
+import ModuleBanner from '@site/src/components/dsa/dsa-banner';
+
+<ModuleBanner />
+
+
+
+## **Lab 10: Implementing a Hash Table with Separate Chaining**
+
+**Objective:** To build a functional hash table from scratch. You will implement the dictionary ADT by using an array, a hash function, and linked lists to handle collisions via the **separate chaining** strategy.
+
+### **Task 1: The `KeyValuePair` and `HashTable` Structure**
+
+To simplify this lab, we will use C++'s built-in `std::list` to act as our linked list. Make sure to include `<string>`, `<list>`, and `<iostream>`.
+
+1.  **Key-Value Pair**: First, define a simple structure to hold our data.
+```cpp
+struct KeyValuePair {
+    std::string key;
+    int value;
+};
+```
+2.  **HashTable Class**: Define the `HashTable` class.
+  * **private**:
+  * A constant integer `TABLE_SIZE` (e.g., set it to `10` for easy testing).
+  * An array of linked lists: `std::list<KeyValuePair> table[TABLE_SIZE];`. Each element of this array is a complete linked list that will hold our key-value pairs.
+  * A hash function declaration: `int hashFunction(std::string key);`
+  * **public**:
+  * The constructor.
+  * `void insert(std::string key, int value);`
+  * `int search(std::string key);`
+
+-----
+
+### **Task 2: Implement the Hash Function**
+
+This private method will convert a key into an array index.
+
+1.  **Implementation**: Write the code for `int hashFunction(std::string key)`.
+2.  **Logic**:
+  * Initialize an integer `hash` to 0.
+  * Loop through each character of the `key` string. In each iteration, add the ASCII value of the character to `hash`.
+  * Return the final `hash` value modulo `TABLE_SIZE` (`hash % TABLE_SIZE`). This ensures the index is always within the bounds of your array.
+
+-----
+
+### **Task 3: Implement the `insert` Method**
+
+This method adds a new key-value pair to the table.
+
+1.  **Implementation**: Write the code for `void insert(std::string key, int value);`.
+2.  **Logic**:
+  * Calculate the `index` for the `key` by calling your `hashFunction`.
+  * Create a `KeyValuePair` object with the provided key and value.
+  * Access the linked list at that index: `table[index]`.
+  * Use the list's `push_back()` method to add the new key-value pair to the end of the list at that index.
+
+-----
+
+### **Task 4: Implement the `search` Method**
+
+This method finds the value associated with a given key.
+
+1.  **Implementation**: Write the code for `int search(std::string key);`. It should return the integer value if found, and `-1` if not found.
+2.  **Logic**:
+  * Calculate the `index` for the `key` using your `hashFunction`.
+  * Get a reference to the linked list at that index: `std::list<KeyValuePair>& list = table[index];`.
+  * Use an iterator to loop through the linked list at that index.
+  * For each `KeyValuePair` in the list, check if its `key` matches the `key` you are searching for.
+  * If you find a match, return the pair's `value`.
+  * If the loop finishes without finding a match, the key is not in the table, so `return -1`.
+
+-----
+
+### **Task 5: Comprehensive Testing**
+
+In your `main()` function, test your hash table.
+
+1.  Create an instance of your `HashTable`.
+2.  Insert several key-value pairs. Try to use keys that you think might collide (e.g., "cat" and "act" might if the hash function is simple).
+```cpp
+myHashTable.insert("John", 25);
+myHashTable.insert("Sarah", 30);
+myHashTable.insert("Mike", 22);
+```
+3.  Search for keys that you know exist and print their values.
+4.  Search for a key that does not exist and verify that `-1` is returned.
+
+-----
+

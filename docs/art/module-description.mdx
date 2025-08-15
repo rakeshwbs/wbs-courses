@@ -1,0 +1,27 @@
+---
+id: module-description
+title: Module Description
+hide_title: true
+sidebar_position: 1
+sidebar_label: Module Description
+---
+import ModuleBanner from '@site/src/components/art/art-banner';
+
+<ModuleBanner />
+
+| **Week** | **Lecture Topics** | **Tutorial / Lab Focus** |
+|----------|--------------------|--------------------------|
+| **1** | Course Introduction & Networking Review <br/> • Course structure & assessments. <br/> • Review of OSI & TCP/IP models (CLO 1). <br/> • Introduction to routing vs. switching. | Discussion of course expectations. Review of basic network commands (`ping`, `traceroute`) and subnetting. |
+| **2** | Initial Router Configuration & Static Routing <br/> • WAN Technologies, CSU/DSU, Encapsulation. <br/> • Packet Forwarding Mechanism. <br/> • Static & Default Routes (Advantages/Disadvantages). | Lab: Basic router interface configuration and implementation of static and default routes between routers. |
+| **3** | Introduction to Dynamic Routing: RIP <br/> • Distance Vector routing logic. <br/> • RIPv1: Metric calculation, timers, and updates. <br/> • Routing loops and prevention mechanisms. | Lab: Configuring and troubleshooting a network running RIPv1. Observing routing table updates and loop behavior. |
+| **4** | Advanced Distance Vector Protocols <br/> • RIPv2: Classless routing, VLSM, authentication. <br/> • Introduction to Enhanced Interior Gateway Routing Protocol (EIGRP). <br/> • EIGRP features and DUAL algorithm. | Lab: Migrating a network from RIPv1 to RIPv2. Basic configuration of EIGRP. |
+| **5** | EIGRP In-Depth & Access Control Lists (ACLs) <br/> • EIGRP Tables (Neighbor, Topology, Routing). <br/> • EIGRP metric calculation (K-values). <br/> • Standard & Extended ACLs for traffic filtering. | Lab: Advanced EIGRP configuration and troubleshooting. Implementing standard and extended ACLs to permit/deny traffic. <br/> **(Assignment 1 Released)** |
+| **6** | Network Address Translation (NAT) & Mid-Term Test <br/> • NAT: Static, Dynamic, and Port Address Translation (PAT). <br/> • Concepts and configuration. | Lab: Configuring static NAT, dynamic NAT, and PAT. <br/> **(Mid-Semester Test covering Weeks 1-5)** |
+| **7** | Link-State Protocols: OSPF Introduction <br/> • Link-State vs. Distance Vector logic. <br/> • Open Shortest Path First (OSPF) concepts. <br/> • Neighbor and Adjacency formation (DR/BDR selection). | Lab: Configuring a basic single-area OSPF network and verifying neighbor adjacencies. <br/> **(Assignment 1 Due)** |
+| **8** | Advanced OSPF Configuration <br/> • OSPF Link State Advertisements (LSAs) & Database. <br/> • Multi-Area OSPF configuration. <br/> • Special Area Types (Stub, Totally Stubby, NSSA). | Lab: Implementing a multi-area OSPF network. Configuring and verifying stub areas. |
+| **9** | Path Control: Route Redistribution <br/> • Understanding the need for redistribution. <br/> • Redistributing routes between EIGRP and OSPF. <br/> • Controlling redistribution with route maps and distribute lists. | Lab: Configuring and verifying two-way route redistribution between different routing protocols. <br/> **(Assignment 2 Released)** |
+| **10** | Path Control: PBR & BGP Introduction <br/> • Policy-Based Routing (PBR). <br/> • Introduction to Border Gateway Protocol (BGP). <br/> • Internal BGP (iBGP) vs. External BGP (eBGP). | Lab: Implementing PBR to alter default routing paths. Configuring basic eBGP and iBGP peering. |
+| **11** | Advanced BGP <br/> • BGP Path Selection Process & Attributes. <br/> • Verifying BGP tables. <br/> • BGP Route Filtering techniques. | Lab: Influencing BGP path selection using attributes like weight and local preference. <br/> **(Assignment 2 Due)** |
+| **12** | Course Review & Final Exam Preparation <br/> • Comprehensive review of all routing protocols (RIP, EIGRP, OSPF, BGP) (CLO 4). <br/> • Summary of path control and other key topics. <br/> • Q&A Session. | Comprehensive review lab incorporating multiple routing protocols and technologies. Discussion of sample final exam questions. |
+
+

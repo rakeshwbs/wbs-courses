@@ -1,0 +1,79 @@
+---
+id: lab-sheet
+title: Lab sheet 1
+hide_title: true
+sidebar_position: 2
+sidebar_label: Create Doubly list
+sidebar_class_name: icon-lab
+---
+import ModuleBanner from '@site/src/components/dsa/dsa-banner';
+
+<ModuleBanner />
+
+## **Lab 4: Implementing a Doubly Linked List**
+
+**Objective:** To build a functional `DoublyLinkedList` class from scratch. This lab will challenge you to correctly manage both `next` and `prev` pointers to enable powerful bidirectional traversal.
+
+### **Task 1: Define the New `Node` Class**
+1.  Create a new C++ project or file for this lab.
+2.  Define the `Node` class for a doubly linked list. It must contain:
+* A `public int data;` member.
+* A `public Node* next;` pointer.
+* A `public Node* prev;` pointer.
+3.  Create a constructor `Node(int value);` that initializes `data` to `value` and sets both `next` and `prev` to `nullptr`.
+
+***
+
+### **Task 2: The `DoublyLinkedList` Class Structure**
+1.  Define the `DoublyLinkedList` class.
+2.  To make operations like appending more efficient, we will track both ends of the list. Add two `private` members: `Node* head;` and `Node* tail;`.
+3.  The `public` constructor should initialize both `head` and `tail` to `nullptr`.
+
+***
+
+### **Task 3: Implement `appendNode`**
+This method adds a node to the end of the list. Using a `tail` pointer makes this an $O(1)$ operation.
+
+1.  **Declaration:** Add `void appendNode(int value);` to your class.
+2.  **Implementation:**
+* Create a `newNode`.
+* **If the list is empty (`head == nullptr`)**: Set both `head` and `tail` to point to the `newNode`.
+* **If the list is not empty**:
+  * Set the current `tail->next` to `newNode`.
+  * Set `newNode->prev` to the current `tail`.
+  * Finally, update the `tail` pointer to be the `newNode`.
+
+***
+
+### **Task 4: Implement Bidirectional Traversal**
+This is where you'll see the power of a doubly linked list.
+
+1.  **`displayForward()`**: Implement a method that traverses the list from `head` to `tail` using the `next` pointers and prints the data.
+2.  **`displayBackward()`**: Implement a second method that traverses the list from `tail` to `head` using the `prev` pointers and prints the data.
+
+***
+
+### **Task 5: Implement `deleteNode` (The Challenge)**
+This method should find a node with a specific value and remove it, carefully re-wiring all pointers.
+
+1.  **Declaration:** Add `void deleteNode(int valueToDelete);` to your class.
+2.  **Implementation:**
+* Find the node to delete, starting from the `head`.
+* If the node is not found, do nothing.
+* **If deleting the `head` node**: Update `head` to `head->next`. If the list is not empty after this, set the new `head`'s `prev` pointer to `nullptr`.
+* **If deleting the `tail` node**: Update `tail` to `tail->prev` and set the new `tail`'s `next` pointer to `nullptr`.
+* **If deleting from the middle**: Let the node to be deleted be `nodeToDelete`. The logic is: `nodeToDelete->prev->next = nodeToDelete->next;` and `nodeToDelete->next->prev = nodeToDelete->prev;`.
+* In all cases where a node is found, remember to `delete` it to free memory.
+* Don't forget to handle the case where deleting a node makes the list empty.
+
+***
+
+### **Task 6: Comprehensive Testing**
+In `main()`, test all your methods thoroughly.
+* Append several nodes.
+* Call `displayForward()` and `displayBackward()` to check the structure.
+* Delete a node from the middle. Display both ways again.
+* Delete the head, then the tail. Display both ways after each deletion.
+
+***
+

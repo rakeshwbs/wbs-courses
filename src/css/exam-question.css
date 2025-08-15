@@ -1,0 +1,134 @@
+/* ====== Palette hooks (inherits Docusaurus theme) ====== */
+:root {
+    --exam-accent: var(--ifm-color-primary);
+    --exam-surface: var(--ifm-background-surface-color);
+    --exam-border: var(--ifm-color-emphasis-200);
+    --exam-text: var(--ifm-font-color-base);
+}
+
+html[data-theme='dark'] {
+    --exam-accent: var(--ifm-color-primary);
+}
+
+/* ====== Card container ====== */
+.exam-card{
+    border:1px solid var(--exam-border);
+    border-radius:18px;
+    padding:1.25rem;
+    background:
+            radial-gradient(140% 120% at 0% 0%,
+            color-mix(in srgb, var(--exam-accent) 6%, transparent) 0%,
+            transparent 60%),
+            var(--exam-surface);
+    box-shadow: 0 24px 48px -28px rgba(0,0,0,.25), 0 6px 16px rgba(0,0,0,.06);
+}
+
+/* ====== Header ====== */
+.exam-header{
+    display:flex; align-items:center; justify-content:space-between;
+    gap:1rem; margin-bottom:.75rem;
+}
+.exam-header h2{
+    margin:0;
+    font-weight:900;
+    font-size: clamp(1.1rem, .9rem + .9vw, 1.6rem);
+    letter-spacing:.3px;
+}
+.marks-badge{
+    align-self:flex-start;
+    padding:.25rem .6rem;
+    border-radius:999px;
+    font-weight:800; font-size:.8rem; letter-spacing:.2px;
+    color: color-mix(in srgb, var(--exam-accent) 90%, var(--exam-text));
+    background: color-mix(in srgb, var(--exam-accent) 15%, var(--exam-surface));
+    border:1px solid color-mix(in srgb, var(--exam-accent) 35%, transparent);
+}
+
+/* ====== Questions ====== */
+.q-part{ padding: .75rem 0 1rem; border-top:1px dashed color-mix(in srgb, var(--exam-accent) 28%, transparent); }
+.q-part:first-of-type{ border-top:0; }
+.q-part h3{
+    margin:.4rem 0 .6rem;
+    font-weight:800;
+    font-size: clamp(1.02rem, .95rem + .45vw, 1.25rem);
+    line-height:1.35;
+}
+.q-part .marks{ font-weight:700; color: color-mix(in srgb, var(--exam-accent) 85%, var(--exam-text)); }
+
+/* ====== Answer accordion (glass) ====== */
+.ans{
+    position:relative;
+    border-radius:16px;
+    background: color-mix(in srgb, var(--exam-accent) 8%, var(--exam-surface));
+    border: 1px solid color-mix(in srgb, var(--exam-accent) 35%, transparent);
+    overflow:hidden;
+    transition: box-shadow .25s ease, border-color .25s ease, background-color .25s ease;
+}
+.ans summary{
+    cursor:pointer;
+    list-style:none;
+    font-weight:700;
+    padding:.75rem 1rem;
+    position:relative;
+    display:flex; align-items:center; gap:.6rem;
+}
+.ans summary::-webkit-details-marker{ display:none; }
+.ans summary::before{
+    content:"";
+    width:1rem; height:1rem; border-radius:50%;
+    border:2px solid color-mix(in srgb, var(--exam-accent) 75%, var(--exam-text));
+    box-shadow: inset 0 0 0 3px color-mix(in srgb, var(--exam-accent) 16%, transparent);
+    transition: transform .25s ease, background-color .25s ease;
+}
+.ans[open] summary::before{
+    transform: rotate(180deg) scale(1.05);
+    background: color-mix(in srgb, var(--exam-accent) 65%, #fff);
+}
+
+/* subtle divider under summary */
+.ans[open] summary{ border-bottom:1px solid color-mix(in srgb, var(--exam-accent) 24%, transparent); }
+
+.ans-body{
+    padding: .85rem 1rem 1rem;
+    backdrop-filter: blur(8px) saturate(140%);
+    -webkit-backdrop-filter: blur(8px) saturate(140%);
+    background:
+            linear-gradient(180deg,
+            color-mix(in srgb, var(--exam-accent) 10%, transparent),
+            transparent 30%),
+            color-mix(in srgb, var(--exam-surface) 80%, transparent);
+    animation: ans-reveal .28s ease-out both;
+}
+@keyframes ans-reveal{ from{ opacity:0; transform: translateY(6px);} to{ opacity:1; transform:none;} }
+
+.ans-body h4{ margin:.3rem 0 .4rem; font-weight:800; color: color-mix(in srgb, var(--exam-accent) 85%, var(--exam-text)); }
+.bullets{ margin:.25rem 0 .6rem; }
+
+/* ====== Marking scheme grid ====== */
+.scheme{
+    margin-top:.6rem;
+    display:grid; gap:.5rem;
+}
+.scheme-row{
+    display:grid; grid-template-columns: 42px 1fr; align-items:center; gap:.5rem;
+    padding:.45rem .6rem; border-radius:.6rem;
+    background: color-mix(in srgb, var(--exam-accent) 10%, var(--exam-surface));
+    border:1px solid color-mix(in srgb, var(--exam-accent) 28%, transparent);
+}
+.points{
+    display:grid; place-items:center;
+    width:34px; height:34px; border-radius:8px;
+    font-weight:900;
+    color:#fff;
+    background: linear-gradient(135deg,
+    color-mix(in srgb, var(--exam-accent) 85%, #fff),
+    color-mix(in srgb, var(--exam-accent) 65%, #fff));
+    box-shadow: 0 10px 20px -12px color-mix(in srgb, var(--exam-accent) 65%, transparent);
+}
+
+/* ====== Print tweaks ====== */
+@media print{
+    .exam-card{ box-shadow:none; border-color:#999; }
+    .ans, .ans-body, .scheme-row{ background:#fff !important; filter:none; box-shadow:none; }
+    .ans[open] summary{ border-bottom:1px solid #bbb; }
+}

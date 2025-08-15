@@ -1,0 +1,228 @@
+---
+id: evaluation-structured-questions
+title: Exam-type Questions
+hide_title: true
+sidebar_position: 4
+sidebar_label: Exam-type Questions
+sidebar_class_name: icon-exam
+---
+import ModuleBanner from '@site/src/components/dsa/dsa-banner';
+
+<ModuleBanner />
+
+
+### **Sample Examination Questions & Answers - Week 2 Concepts**
+
+**QUESTION 1 \[25 MARKS]**
+
+(a) Compare and contrast **arrays** and **linked lists** in terms of the following two aspects:
+i. Memory Allocation and Layout
+ii. Efficiency of inserting an element at the beginning of the collection
+\[10]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    i. **Memory Allocation and Layout:**
+
+    * **Array:** Stores elements in a **single, contiguous block of memory**. The memory location of any element can be calculated directly from its index (e.g., `base_address + index * size_of_element`), allowing for \$O(1)\$ access.
+    * **Linked List:** Stores elements in individual **nodes** which can be located **anywhere in memory**. The logical order is maintained not by physical location but by pointers within each node that point to the next node in the sequence.
+
+    ii. **Efficiency of Insertion at the Beginning:**
+
+    * **Array:** This is an inefficient operation, with a time complexity of \$O(n)\$. To insert an element at the beginning, every existing element must be shifted one position to the right to make space.
+    * **Linked List:** This is a highly efficient operation, with a time complexity of \$O(1)\$. It only requires creating a new node and updating a couple of pointers: the new node's `next` pointer is set to the current `head`, and the `head` pointer is updated to point to the new node. No shifting is required.
+
+    **Marking Scheme:**
+
+    * \[2 Marks] - Correctly describes array memory layout (contiguous).
+    * \[2 Marks] - Correctly describes linked list memory layout (non-contiguous, pointers).
+    * \[2 Marks] - Correctly identifies array insertion as inefficient/\$O(n)\$ with justification (shifting).
+    * \[2 Marks] - Correctly identifies linked list insertion as efficient/\$O(1)\$ with justification (pointer manipulation).
+    * \[2 Marks] - For overall clarity and comparison.
+
+</details>
+
+(b) Draw a simple diagram of a linked list that stores the integer values `10 -> 20 -> 30`. Your diagram must clearly label the following components:
+
+* The `head` pointer
+* Each `Node`
+* The `data` and `next` parts of the node containing the value `20`
+* The `nullptr` that signifies the end of the list
+\[8]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    The diagram should look similar to this:
+
+    `head` --> `[ 10 | next_ptr ]` --> `[ 20 | next_ptr ]` --> `[ 30 | nullptr ]`
+
+    **Labels:**
+
+    * The arrow originating from the word `head` should point to the first node (containing 10).
+    * Each box `[ value | ptr ]` should be identified as a `Node`.
+    * In the second node, the number `20` should be labeled as `data`. The arrow pointing from it to the third node should be labeled `next`.
+    * The symbol in the `next` position of the third node (e.g., a ground symbol or the word `nullptr`) must be labeled as `nullptr`.
+
+    **Marking Scheme:**
+
+    * \[2 Marks] - Correctly shows and labels the `head` pointer pointing to the first node.
+    * \[2 Marks] - Correctly draws three nodes in the correct sequence.
+    * \[2 Marks] - Correctly labels the `data` and `next` components of the middle node.
+    * \[2 Marks] - Correctly shows and labels the `nullptr` at the end of the final node.
+
+</details>
+
+(c) Explain the difference in purpose between the `Node` class and the `LinkedList` class in an Object-Oriented implementation. Why is this separation a good design practice?
+\[7]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    **Difference in Purpose:**
+
+    * The **`Node` class** is a simple data container. Its only job is to hold a single piece of data and a pointer to the next `Node`. It represents one element in the chain.
+    * The **`LinkedList` class** is the manager or "engine" of the entire structure. It holds the `head` pointer and contains the public methods (`appendNode`, `deleteNode`, etc.) that define the list's behavior. The user interacts with the `LinkedList` class, not directly with the `Node`s.
+
+    **Why it's good design:**
+    This separation follows the **Single Responsibility Principle** and **Encapsulation**. The `Node` class is only responsible for being a node. The `LinkedList` class is responsible for managing the collection of nodes. This makes the code cleaner, easier to debug, and hides the implementation details (like pointer manipulation) from the user of the class, preventing accidental corruption of the list.
+
+    **Marking Scheme:**
+
+    * \[2 Marks] - Correctly explains the purpose of the `Node` class (container for data/pointer).
+    * \[2 Marks] - Correctly explains the purpose of the `LinkedList` class (manager, holds head, public methods).
+    * \[3 Marks] - Explains that this is good design due to Encapsulation or Single Responsibility, and that it hides complexity from the user.
+
+</details>
+
+---
+
+**QUESTION 2 \[25 MARKS]**
+
+(a) Write a complete C++ implementation for the `Node` class as discussed in the lecture. The class should have a `public` integer data member, a `public` pointer to the next node, and a constructor that initializes these members.
+\[8]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    ```cpp
+    class Node {
+    public:
+    int data;
+    Node* next;
+
+    // Constructor
+    Node(int value) {
+    this->data = value;
+    this->next = nullptr;
+}
+};
+    ```
+
+    **Marking Scheme:**
+
+    * \[2 Marks] - For the correct class definition syntax `class Node { ... };`.
+    * \[2 Marks] - For correctly declaring the public `data` and `next` members with the right types (`int` and `Node*`).
+    * \[4 Marks] - For a correctly implemented public constructor that takes an `int`, initializes `data` with the value, and correctly initializes `next` to `nullptr`. (Use of `this->` is good practice but not required for full marks).
+
+</details>
+
+(b) You are tasked with implementing the `appendNode(int value)` method for the `LinkedList` class. Analyze the two main cases the method must handle:
+i. The list is currently empty.
+ii. The list is not empty.
+
+For each case, write down the logical steps (in pseudocode or plain English) that must be taken to correctly append the new node.
+\[10]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    First step for both cases: Create a new `Node` on the heap, e.g., `Node* newNode = new Node(value);`
+
+    **i. Case 1: The list is empty (`head == nullptr`)**
+
+    1. Set the `head` pointer to point to the `newNode`.
+
+    * *Logic:* Since the list was empty, this new node is now both the first and the last node in the list.
+
+    **ii. Case 2: The list is not empty (`head != nullptr`)**
+
+    1. Create a temporary pointer (e.g., `temp`) and initialize it with `head`.
+    2. Traverse the list using the `temp` pointer. Keep moving it to the next node (`temp = temp->next`) until it points to the last node (i.e., until `temp->next == nullptr`).
+    3. Once the loop finishes, `temp` is pointing to the current last node.
+    4. Set the `next` pointer of this last node to point to the `newNode`.
+
+    * *Logic:* This attaches the new node to the end of the existing chain.
+
+    **Marking Scheme:**
+
+    * \[1 Mark] - For stating the initial creation of the new node.
+    * \[4 Marks] - For correctly describing the logic for an empty list (check if `head` is null, then assign `head` to the new node).
+    * \[5 Marks] - For correctly describing the logic for a non-empty list (create a temporary pointer, traverse to the end, then link the last node's `next` to the new node).
+
+</details>
+
+(c) Consider the following `LinkedList` class definition. Write the complete C++ code for the class constructor and a destructor `~LinkedList()` that properly cleans up all nodes to prevent memory leaks.
+
+```cpp
+class LinkedList {
+private:
+    Node* head;
+
+public:
+    // Constructor to be implemented
+    LinkedList();
+
+    // Destructor to be implemented
+    ~LinkedList();
+
+    // ... other methods like appendNode ...
+};
+```
+
+\[7]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    ```cpp
+    // Constructor
+    LinkedList::LinkedList() {
+    head = nullptr;
+}
+
+    // Destructor
+    LinkedList::~LinkedList() {
+    Node* current = head;
+    Node* nextNode = nullptr;
+
+    while (current != nullptr) {
+    nextNode = current->next; // Store pointer to the next node
+    delete current;           // Delete the current node
+    current = nextNode;       // Move to the next node
+}
+    head = nullptr; // List is now empty
+}
+    ```
+
+    **Marking Scheme:**
+
+    * \[2 Marks] - For the correct, simple implementation of the constructor, setting `head` to `nullptr`.
+    * \[5 Marks] - For a correct destructor implementation that iteratively traverses the list and deletes each node one by one without losing the pointer to the rest of the list. (3 marks for the loop logic, 2 marks for using `delete`).
+
+</details>
+
+

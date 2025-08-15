@@ -1,0 +1,85 @@
+---
+id: lecture-notes
+title: Lecture Notes
+hide_title: true
+sidebar_position: 1
+sidebar_label: Sorting Algorithms
+sidebar_class_name: icon-lecture
+---
+import ModuleBanner from '@site/src/components/dsa/dsa-banner';
+
+<ModuleBanner />
+
+## **Week 12: Sorting Algorithms & Course Review**
+
+### **What is Sorting?**
+
+**Sorting** is the process of arranging items in a collection (like an array) into a specific order, most commonly numerical or alphabetical order. It's one of the most studied problems in computer science because it's a critical prerequisite for many other efficient algorithms (like binary search).
+
+-----
+
+### **Simple Sorting Algorithms: $O(n^2)$ Complexity**
+
+These algorithms are simple to understand and implement but are generally too slow for large datasets.
+
+#### **Bubble Sort**
+
+This is the most straightforward sorting algorithm. It repeatedly steps through the list, compares adjacent elements, and swaps them if they are in the wrong order. The process is repeated until the list is sorted, causing the largest elements to "bubble" to the end.
+
+  * **Analogy**: Like bubbles in a carbonated drink rising to the top.
+  * **Complexity**: **$O(n^2)$** due to the nested loops, making it very inefficient for most applications.
+
+<!-- end list -->
+
+```cpp
+// Pseudocode for Bubble Sort
+for i from 0 to n-1:
+    for j from 0 to n-i-2:
+        if arr[j] > arr[j+1]:
+            swap(arr[j], arr[j+1])
+```
+
+#### **Insertion Sort**
+
+Insertion sort builds the final sorted array one item at a time. It's more efficient in practice than Bubble Sort.
+
+  * **Analogy**: Like sorting a hand of playing cards. You pick up one card at a time and insert it into its correct position within the sorted cards you are already holding.
+  * **Complexity**: **$O(n^2)$** in the worst case, but it's very efficient for small or nearly-sorted datasets, with a best-case complexity of $O(n)$.
+
+-----
+
+### **A Glimpse at Efficient Sorting: $O(n \\log n)$**
+
+For large datasets, we need more clever algorithms. Most of these use a strategy called **"Divide and Conquer"**.
+
+#### **Merge Sort**
+
+Merge Sort is a classic example of a Divide and Conquer algorithm.
+
+1.  **Divide**: Recursively split the array in half until you have many subarrays of size 1 (which are inherently sorted).
+2.  **Conquer & Combine**: Repeatedly merge the sorted subarrays back together until you are left with one single, fully sorted array. The "merge" step, which skillfully combines two sorted lists, is the key to the algorithm's efficiency.
+
+<!-- end list -->
+
+  * **Complexity**: A consistent and reliable **$O(n \\log n)$**. This is significantly faster than $O(n^2)$ and makes Merge Sort a very popular choice for general-purpose sorting.
+
+-----
+
+### **Course Review & Final Exam Preparation** 回顾
+
+Let's take a moment to look back at everything we've learned.
+
+  * **Core Concepts**: We learned about **Abstract Data Types (ADTs)**, the importance of **Algorithm Analysis ($Big-O$ notation)**, and the power of **Recursion**.
+  * **Linear Data Structures**:
+  * **Linked Lists** (Singly, Doubly, Circular) showed us dynamic data and pointer manipulation.
+  * **Stacks** (LIFO) and **Queues** (FIFO) taught us about specialized structures that restrict access to solve specific problems.
+  * **Non-Linear Data Structures**:
+  * **Binary Search Trees** introduced hierarchical data and O(log n) searching.
+  * **Hash Tables** showed us how to achieve O(1) average time access with a hash function and collision resolution.
+  * **Graphs** provided the ultimate tool for modeling complex networks and relationships, which we explored with **BFS** and **DFS**.
+
+The most important takeaway is learning how to choose the **right data structure for the right job** based on the operations you need to perform efficiently.
+
+Remember, your **Final Written Assignment** is due this week. Good luck with your revision for the final exam\!
+
+-----

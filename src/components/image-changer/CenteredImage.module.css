@@ -1,0 +1,27 @@
+.container {
+    text-align: center;
+    margin: 2em 0; /* Add some vertical space */
+}
+
+.image {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 8px; /* Softer, rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* A subtle shadow for depth */
+
+    /* Smooth transition for all animated properties */
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    border: 4px solid transparent;
+}
+
+.image:hover {
+    /* Gently lift and grow the image on hover */
+    transform: scale(1.03) translateY(-4px);
+
+    /* Enhance the shadow for a stronger "lifted" effect */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    border-color: #007bff; /* A nice shade of blue */
+}

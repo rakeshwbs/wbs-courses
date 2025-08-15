@@ -1,0 +1,83 @@
+---
+id: lecture-notes
+title: Lecture Notes
+hide_title: true
+sidebar_position: 1
+sidebar_label: Advanced Linked Lists
+sidebar_class_name: icon-lecture
+---
+import ModuleBanner from '@site/src/components/dsa/dsa-banner';
+
+<ModuleBanner />
+
+## **Week 4: Advanced Linked List Structures**
+
+So far, we've worked with singly linked lists, which are like a one-way street—you can only move forward. This week, we'll explore more powerful variations that allow for more complex and efficient operations.
+
+### **1. The Doubly Linked List ↔️**
+
+The biggest limitation of a singly linked list is the inability to traverse backward. If you're at a specific node and need to find the one before it, you have no choice but to start over from the `head`. A **doubly linked list** solves this problem.
+
+#### **The New Node Structure**
+
+In a doubly linked list, each node contains **two pointers**:
+
+  * `next`: Points to the next node in the sequence (same as before).
+  * `prev`: Points to the *previous* node in the sequence.
+
+The `head` node's `prev` pointer is `nullptr`.
+
+```cpp
+class Node {
+public:
+    int data;
+    Node* next;
+    Node* prev; // The new addition!
+
+    Node(int value) {
+        data = value;
+        next = nullptr;
+        prev = nullptr;
+    }
+};
+```
+
+#### **How Operations Change**
+
+The added `prev` pointer means that insertion and deletion operations require more "pointer surgery." For example, to insert a `newNode` between `nodeA` and `nodeB`:
+
+1.  `newNode` must point to `nodeB` (`newNode->next = nodeB;`).
+2.  `newNode` must point back to `nodeA` (`newNode->prev = nodeA;`).
+3.  `nodeA` must point forward to `newNode` (`nodeA->next = newNode;`).
+4.  `nodeB` must point back to `newNode` (`nodeB->prev = newNode;`).
+
+It's more work, but the payoff is significant.
+
+#### **Advantages & Disadvantages**
+
+  * **Advantage:** You can traverse the list in both directions. Deleting a node is easier because you don't need to keep a separate "previous" pointer during traversal; you can get it directly from the node you want to delete (`nodeToDelete->prev`).
+  * **Disadvantage:** Each node requires extra memory for the `prev` pointer. The implementation logic for insertion and deletion is more complex and has more potential points of error.
+
+### **2. The Circularly Linked List 🔄**
+
+A **circularly linked list** is a variation where the last node doesn't point to `nullptr`. Instead, the `next` pointer of the last node points back to the `head` node, forming a complete circle.
+
+#### **Key Characteristics**
+
+  * There is no "end" in the traditional sense, as there's no `nullptr`.
+  * You can start at any node and traverse the entire list, eventually returning to your starting point.
+
+#### **Applications**
+
+This structure is perfect for applications that require a continuous loop or round-robin behavior, such as:
+
+  * Managing turns in a multiplayer game.
+  * Creating a slideshow that loops back to the beginning after the last slide.
+  * Certain operating system scheduling algorithms.
+
+#### **Traversal**
+
+Traversal is different because you can't check for `nullptr`. A common way to traverse is to start at the `head` and use a `do-while` loop that continues until your traversal pointer is back at the `head`.
+
+-----
+

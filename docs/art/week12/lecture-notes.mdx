@@ -1,0 +1,94 @@
+---
+id: lecture-notes 
+title: Lecture Notes
+hide_title: true
+sidebar_position: 1
+sidebar_label: Module Review
+sidebar_class_name: icon-lecture
+---
+import ModuleBanner from '@site/src/components/art/art-banner';
+
+<ModuleBanner />
+
+# Week 12: Module Review & Final Exam Preparation
+
+Welcome to our final week. The goal today is not to introduce new material, but to consolidate everything we've learned, from basic static routes to advanced BGP policies. This review will serve as a study guide for your final examination. Let's recap the journey.
+
+---
+
+## 1. IGP Comparison: The Big Picture
+
+We studied three major Interior Gateway Protocols (IGPs). Understanding their differences is crucial.
+
+| Feature | RIP | EIGRP | OSPF |
+| :--- | :--- | :--- | :--- |
+| **Protocol Type** | Distance Vector | Advanced Distance Vector | Link-State |
+| **Primary Metric** | Hop Count | Composite (Bandwidth, Delay) | Cost (Bandwidth) |
+| **Default AD** | 120 | 90 (Internal) / 170 (External) | 110 |
+| **Key Feature** | Simplicity | Fast Convergence (DUAL) | Hierarchical (Areas), Open Standard |
+| **Key Limitation** | High Convergence Time | Cisco-Standard (Historically) | More complex configuration |
+| **Updates** | Periodic, Full Table | Partial, Triggered | LSA Flooding on change |
+| **Best For** | Very small, simple networks (rarely used now) | Scalable Cisco networks | Large, scalable, multi-vendor networks |
+
+---
+
+## 2. Path Control Techniques: A Review
+
+Knowing how to route is only half the battle. Controlling *which* paths are chosen and *what* traffic can use them is just as important.
+
+### Route Redistribution
+- **Purpose:** To share routes between different routing protocols (e.g., OSPF and EIGRP).
+- **Core Challenge:** Incompatible metrics. You **must** define a **seed metric** when injecting routes into a new protocol.
+- **Key Commands:**
+- `redistribute [protocol] subnets` (The `subnets` keyword is critical for OSPF).
+- `distribute-list` (Simple filtering with an ACL).
+- `route-map` (Advanced control to filter and modify attributes like metric).
+
+### Policy-Based Routing (PBR)
+- **Purpose:** To override the destination-based routing table for specific traffic.
+- **Logic:** Instead of just looking at the destination, PBR can route based on source IP, protocol, etc.
+- **Configuration Flow:** **ACL** (to identify traffic) -> **route-map** (`match` ACL, `set` new next-hop) -> **Interface** (`ip policy route-map ...`).
+
+### Access Control Lists (ACLs)
+- **Purpose:** To filter packets.
+- **Standard ACL:** Filters on **source IP only**. Place it **close to the destination**.
+- **Extended ACL:** Filters on source/destination IP, protocol, and ports. Place it **close to the source**.
+- **Golden Rule:** Remember the **implicit deny any** at the end of every ACL.
+
+---
+
+## 3. The Role of BGP
+
+BGP is fundamentally different from the IGPs.
+- **Purpose:** As an **Exterior Gateway Protocol (EGP)**, its job is to route **between** Autonomous Systems. It is the protocol of the internet.
+- **Focus:** BGP's focus is not on speed, but on **policy and control**.
+- **Path Selection:** It uses a complex multi-step algorithm based on **Path Attributes**. The most important attributes to remember are:
+1. **Weight:** Local-to-router only, Cisco-proprietary. (Highest wins).
+2. **Local Preference:** AS-wide policy for choosing an exit point. (Highest wins).
+3. **AS_PATH:** The list of traversed ASNs. Used for loop prevention and as a primary metric (shortest wins).
+
+---
+
+## 4. Final Exam Preparation Advice
+
+### What to Focus On:
+- **Differentiate the Protocols:** Know the AD, metric, and core logic (DV vs LS) for RIP, EIGRP, and OSPF.
+- **Configuration Basics:** You should be comfortable with the basic `router`, `network`, and `redistribute` commands for each protocol.
+- **Verification Commands:** These are critical. Know what information you can get from:
+- `show ip route`
+- `show ip protocols`
+- `show ip ospf neighbor`
+- `show ip eigrp neighbors`
+- `show ip bgp summary`
+- `show ip nat translations`
+- **Key Concepts:** Understand the *why* behind the configurations.
+- Why does EIGRP need a seed metric?
+- Why does OSPF need a DR/BDR?
+- Why does BGP have both iBGP and eBGP?
+- Why do we need NAT?
+
+### How to Study:
+1. **Review these notes.**
+2. **Redo the labs.** Hands-on practice is the best way to solidify your knowledge. Try to do them from memory first, then check your work.
+3. **Explain concepts out loud.** If you can explain how a stub area works to someone else (or even just to yourself), you truly understand it.
+4. **Prepare for Q&A.**

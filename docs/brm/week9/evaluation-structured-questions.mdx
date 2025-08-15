@@ -1,0 +1,108 @@
+---
+id: evaluation-structured-questions
+title: Exam-type Questions
+hide_title: true
+sidebar_position: 4
+sidebar_label: Exam-type Questions
+sidebar_class_name: icon-exam
+---
+import ModuleBanner from '@site/src/components/brm/brm-banner';
+
+<ModuleBanner />
+
+### **Sample Examination Questions & Answers - Week 9 Concepts**
+
+**QUESTION 1 [25 MARKS]**
+
+(a) Explain the role of the **p-value** in hypothesis testing. In your answer, you must describe the decision rule for determining statistical significance using the standard alpha level of 0.05.
+[10]
+
+<details>
+<summary>Click to see the answer and marking scheme</summary>
+
+**Answer:**
+
+The **p-value** is the probability of obtaining the observed results (or more extreme results) from a sample, assuming the null hypothesis is true. It quantifies the evidence against the null hypothesis. A small p-value indicates that the observed data is very unlikely if there were no real effect.
+
+**The Decision Rule:**
+Compare the p-value to the significance level (alpha, α = 0.05):
+* If **p ≤ 0.05**, **reject the null hypothesis**. The result is statistically significant, meaning there is sufficient evidence to support the alternative hypothesis.
+* If **p > 0.05**, **fail to reject the null hypothesis**. The result is not statistically significant, meaning there is insufficient evidence to claim a real effect.
+
+**Marking Scheme:**
+* [4 Marks] - For a clear definition of the p-value.
+* [3 Marks] - For correctly stating the "p ≤ 0.05" rule and outcome.
+* [3 Marks] - For correctly stating the "p > 0.05" rule and outcome.
+
+</details>
+
+(b) For each of the following research questions, identify the most appropriate statistical test from this list: **Independent-Samples t-Test, Paired-Samples t-Test, or Chi-Square Test of Independence.**
+[15]
+
+1. "Is there an association between a student's faculty (Arts vs. Science) and their preferred study method (Alone vs. Group)?"
+2. "Do employees show a higher job satisfaction score *after* a company retreat compared to their score *before* the retreat?"
+3. "Is there a difference in the average sales figures between stores managed by male managers and stores managed by female managers?"
+4. "Is there a relationship between a person's smoking status (Smoker vs. Non-smoker) and whether they have been diagnosed with a specific respiratory illness (Yes vs. No)?"
+5. "Are the average response times for Customer Service Team A different from the average response times for Customer Service Team B?"
+
+<details>
+<summary>Click to see the answer and marking scheme</summary>
+
+**Answer:**
+
+1. **Chi-Square Test of Independence** – two categorical variables.
+2. **Paired-Samples t-Test** – one group measured twice.
+3. **Independent-Samples t-Test** – comparing means of two independent groups.
+4. **Chi-Square Test of Independence** – two categorical variables.
+5. **Independent-Samples t-Test** – comparing means of two independent groups.
+
+**Marking Scheme:**
+* [3 Marks] - For each correct identification (Total 15 marks).
+
+</details>
+
+---
+
+**QUESTION 2 [25 MARKS]**
+
+A researcher conducts an **Independent-Samples t-Test** to compare the mean exam scores of two groups: a 'Standard Study' group and a 'New Method' group.
+
+**SPSS Output:**
+
+| Group           | N  | Mean   | Std. Deviation |
+|-----------------|----|--------|----------------|
+| Standard Study  | 30 | 75.20  | 8.50           |
+| New Method      | 30 | 82.50  | 9.10           |
+
+**Independent Samples Test Table**
+t = -3.150, df = 58, **Sig. (2-tailed) = .003**
+
+(a) State the null hypothesis ($H_0$) for this study.
+[5]
+(b) What is the p-value for this test? Is the result statistically significant? Explain your decision.
+[10]
+(c) Write a single sentence that summarizes the conclusion of this study, including the means of both groups and the p-value.
+[10]
+
+<details>
+<summary>Click to see the answer and marking scheme</summary>
+
+**Answer:**
+
+**(a) Null Hypothesis ($H_0$):**
+There is no significant difference in the mean exam scores between the 'Standard Study' group and the 'New Method' group.
+
+**(b) p-value and Significance:**
+* **p-value:** .003 (from "Sig. (2-tailed)").
+* **Significance:** Yes, statistically significant.
+* **Decision:** Since .003 ≤ 0.05, reject $H_0$.
+
+**(c) Conclusion Sentence:**
+An independent-samples t-test showed that the 'New Method' group had significantly higher exam scores (M = 82.50) than the 'Standard Study' group (M = 75.20), p = .003.
+
+**Marking Scheme:**
+* (a) [5 Marks] - For a clear, correct null hypothesis.
+* (b) [10 Marks] - 3 marks for p-value, 3 marks for stating significance, 4 marks for decision rule.
+* (c) [10 Marks] - Includes means of both groups, correct test, and exact p-value.
+
+</details>

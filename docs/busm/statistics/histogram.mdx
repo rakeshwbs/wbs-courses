@@ -1,0 +1,195 @@
+---
+id: histogram
+title: Histogram
+hide_title: true
+sidebar_position: 7
+sidebar_label: Histogram
+---
+import ModuleBanner from '@site/src/components/busm/busm-banner';
+
+<ModuleBanner />
+
+### **Concept: Frequency Density and Histograms**
+
+A **histogram** is a type of bar chart used to represent the distribution of continuous numerical data. Unlike a standard bar chart where the height of the bar shows the frequency, in a histogram, the **area of the bar** represents the frequency.
+
+This becomes very important when the class intervals (the groups or "bins") have **unequal widths**. To ensure the graph is accurate and not misleading, we plot **Frequency Density** on the vertical (y) axis.
+
+**The Rule:**
+Frequency Density is calculated with the following formula:
+$$\text{Frequency Density} = \frac{\text{Frequency}}{\text{Class Width}}$$
+* **Frequency:** The number of data points in a class.
+* **Class Width:** The difference between the upper and lower bounds of the class interval.
+
+When drawing the histogram, the **width** of each bar is its class width, and the **height** is its frequency density. This way, the area of the bar (Height × Width) correctly represents the frequency.
+
+---
+### **Worked Examples from Past Papers**
+
+:::danger 19th November 2024, Section B, Question 21
+Complete the following table of frequency densities:
+| Commute time, t (minutes) | Frequency |
+| :--- | :---: |
+| $0 \le t < 10$ | 6 |
+| $10 \le t < 25$ | 33 |
+| $25 \le t < 45$ | 50 |
+| $45 \le t < 65$ | 72 |
+| $65 \le t < 90$ | 55 |
+| $90 \le t < 120$ | 24 |
+:::
+:::success Answer
+| Commute time, t (minutes) | Frequency | Class Width | Frequency density |
+| :--- | :---: | :---: | :---: |
+| $0 \le t < 10$ | 6 | 10 | 0.6 |
+| $10 \le t < 25$ | 33 | 15 | 2.2 |
+| $25 \le t < 45$ | 50 | 20 | 2.5 |
+| $45 \le t < 65$ | 72 | 20 | 3.6 |
+| $65 \le t < 90$ | 55 | 25 | 2.2 |
+| $90 \le t < 120$ | 24 | 30 | 0.8 |
+:::note Explanation
+1.  **Row 1:** Class Width = $10 - 0 = 10$. Frequency Density = $6 \div 10 = 0.6$.
+2.  **Row 2:** Class Width = $25 - 10 = 15$. Frequency Density = $33 \div 15 = 2.2$.
+3.  **Row 3:** Class Width = $45 - 25 = 20$. Frequency Density = $50 \div 20 = 2.5$.
+4.  **Row 4:** Class Width = $65 - 45 = 20$. Frequency Density = $72 \div 20 = 3.6$.
+5.  **Row 5:** Class Width = $90 - 65 = 25$. Frequency Density = $55 \div 25 = 2.2$.
+6.  **Row 6:** Class Width = $120 - 90 = 30$. Frequency Density = $24 \div 30 = 0.8$.
+
+<div style={{ textAlign: "center" }}>
+    <img src="/img/busm/histogram1.png" alt="Histogram Diagram" style={{ width: "60%" }} />
+</div>
+:::
+
+
+---
+:::danger 4 June 2024, Section B, Question 21
+Complete the following table of frequency densities.
+| Amount of delay, t (minutes) | Frequency |
+| :--- | :---: |
+| $0 \le t < 2$ | 146 |
+| $2 \le t < 5$ | 96 |
+| $5 \le t < 10$ | 60 |
+| $10 \le t < 20$ | 25 |
+| $20 \le t < 50$ | 45 |
+| $50 \le t < 90$ | 20 |
+:::
+:::success Answer
+| Amount of delay, t (minutes) | Frequency | Class Width | Frequency density |
+| :--- | :---: | :---: | :---: |
+| $0 \le t < 2$ | 146 | 2 | 73 |
+| $2 \le t < 5$ | 96 | 3 | 32 |
+| $5 \le t < 10$ | 60 | 5 | 12 |
+| $10 \le t < 20$ | 25 | 10 | 2.5 |
+| $20 \le t < 50$ | 45 | 30 | 1.5 |
+| $50 \le t < 90$ | 20 | 40 | 0.5 |
+
+:::note Explanation
+1.  **Row 1:** Class Width = $2 - 0 = 2$. Frequency Density = $146 \div 2 = 73$.
+2.  **Row 2:** Class Width = $5 - 2 = 3$. Frequency Density = $96 \div 3 = 32$.
+3.  **Row 3:** Class Width = $10 - 5 = 5$. Frequency Density = $60 \div 5 = 12$.
+4.  **Row 4:** Class Width = $20 - 10 = 10$. Frequency Density = $25 \div 10 = 2.5$.
+5.  **Row 5:** Class Width = $50 - 20 = 30$. Frequency Density = $45 \div 30 = 1.5$.
+6.  **Row 6:** Class Width = $90 - 50 = 40$. Frequency Density = $20 \div 40 = 0.5$.
+
+<div style={{ textAlign: "center" }}>
+    <img src="/img/busm/histogram2.png" alt="Histogram Diagram" style={{ width: "60%" }} />
+</div>
+:::
+
+
+---
+:::danger 12 September 2023, Section B, Question 24
+Complete the following table of frequency densities.
+| Waiting times, t (minutes) | Frequency |
+| :--- | :---: |
+| $0 \le t < 2$ | 8 |
+| $2 \le t < 3$ | 14 |
+| $3 \le t < 4$ | 17 |
+| $4 \le t < 6$ | 25 |
+| $6 \le t < 9$ | 21 |
+| $9 \le t < 10$ | 7 |
+:::
+:::success Answer
+| Waiting times, t (minutes) | Frequency | Class Width | Frequency density |
+| :--- | :---: | :---: | :---: |
+| $0 \le t < 2$ | 8 | 2 | 4 |
+| $2 \le t < 3$ | 14 | 1 | 14 |
+| $3 \le t < 4$ | 17 | 1 | 17 |
+| $4 \le t < 6$ | 25 | 2 | 12.5 |
+| $6 \le t < 9$ | 21 | 3 | 7 |
+| $9 \le t < 10$ | 7 | 1 | 7 |
+✔️
+:::note Explanation
+1.  **Row 1:** Class Width = $2 - 0 = 2$. Frequency Density = $8 \div 2 = 4$.
+2.  **Row 2:** Class Width = $3 - 2 = 1$. Frequency Density = $14 \div 1 = 14$.
+3.  **Row 3:** Class Width = $4 - 3 = 1$. Frequency Density = $17 \div 1 = 17$.
+4.  **Row 4:** Class Width = $6 - 4 = 2$. Frequency Density = $25 \div 2 = 12.5$.
+5.  **Row 5:** Class Width = $9 - 6 = 3$. Frequency Density = $21 \div 3 = 7$.
+6.  **Row 6:** Class Width = $10 - 9 = 1$. Frequency Density = $7 \div 1 = 7$.
+
+<div style={{ textAlign: "center" }}>
+    <img src="/img/busm/histogram3.png" alt="Histogram Diagram" style={{ width: "60%" }} />
+</div>
+
+:::
+
+---
+:::danger 26 November 2019, Section B, Question 21
+A manager records the amount of time that customers wait before being served. Complete the table and use this information to draw a histogram of the data.
+:::
+:::success Answer
+| Time, t (minutes) | Frequency | Class Width | Frequency Density |
+| :--- | :---: | :---: | :---: |
+| $0 \le t < 1$ | 20 | 1 | 20 |
+| $1 \le t < 2$ | 29 | 1 | 29 |
+| $2 \le t < 4$ | 62 | 2 | 31 |
+| $4 \le t < 5$ | 42 | 1 | 42 |
+| $5 \le t < 7$ | 56 | 2 | 28 |
+| $7 \le t < 10$ | 33 | 3 | 11 |
+✔️
+:::note Explanation
+1.  **Row 1:** Class Width = $1 - 0 = 1$. Frequency Density = $20 \div 1 = 20$.
+2.  **Row 2:** Class Width = $2 - 1 = 1$. Frequency Density = $29 \div 1 = 29$.
+3.  **Row 3:** Class Width = $4 - 2 = 2$. Frequency Density = $62 \div 2 = 31$.
+4.  **Row 4:** Class Width = $5 - 4 = 1$. Frequency Density = $42 \div 1 = 42$.
+5.  **Row 5:** Class Width = $7 - 5 = 2$. Frequency Density = $56 \div 2 = 28$.
+6.  **Row 6:** Class Width = $10 - 7 = 3$. Frequency Density = $33 \div 3 = 11$.
+
+<div style={{ textAlign: "center" }}>
+    <img src="/img/busm/histogram4.png" alt="Histogram Diagram" style={{ width: "60%" }} />
+</div>
+:::
+
+---
+:::danger 05 March 2019, Section B, Question 21
+A theme park records the ages of all visitors on one particular day. Complete the table and use this information to draw a histogram of the data.
+| Age, a (year) | Frequency |
+| :--- | :---: |
+| $0 \le a < 10$ | 60 |
+| $10 \le a < 15$ | 130 |
+| $15 \le a < 25$ | 320 |
+| $25 \le a < 40$ | 240 |
+| $40 \le a < 65$ | 250 |
+| $65 \le a < 90$ | 50 |
+:::
+:::success Answer
+| Age, a (year) | Frequency | Class Width | Frequency Density |
+| :--- | :---: | :---: | :---: |
+| $0 \le a < 10$ | 60 | 10 | 6 |
+| $10 \le a < 15$ | 130 | 5 | 26 |
+| $15 \le a < 25$ | 320 | 10 | 32 |
+| $25 \le a < 40$ | 240 | 15 | 16 |
+| $40 \le a < 65$ | 250 | 25 | 10 |
+| $65 \le a < 90$ | 50 | 25 | 2 |
+✔️
+:::note Explanation
+1.  **Row 1:** Class Width = $10 - 0 = 10$. Frequency Density = $60 \div 10 = 6$.
+2.  **Row 2:** Class Width = $15 - 10 = 5$. Frequency Density = $130 \div 5 = 26$.
+3.  **Row 3:** Class Width = $25 - 15 = 10$. Frequency Density = $320 \div 10 = 32$.
+4.  **Row 4:** Class Width = $40 - 25 = 15$. Frequency Density = $240 \div 15 = 16$.
+5.  **Row 5:** Class Width = $65 - 40 = 25$. Frequency Density = $250 \div 25 = 10$.
+6.  **Row 6:** Class Width = $90 - 65 = 25$. Frequency Density = $50 \div 25 = 2$.
+
+<div style={{ textAlign: "center" }}>
+    <img src="/img/busm/histogram5.png" alt="Histogram Diagram" style={{ width: "60%" }} />
+</div>
+:::

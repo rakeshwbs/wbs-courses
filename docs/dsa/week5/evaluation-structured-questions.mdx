@@ -1,0 +1,193 @@
+---
+id: evaluation-structured-questions
+title: Exam-type Questions
+hide_title: true
+sidebar_position: 4
+sidebar_label: Exam-type Questions
+sidebar_class_name: icon-exam
+---
+import ModuleBanner from '@site/src/components/dsa/dsa-banner';
+
+<ModuleBanner />
+
+
+### **Sample Examination Questions & Answers - Week 5 Concepts**
+
+**QUESTION 1 \[25 MARKS]**
+
+(a) Define the **LIFO (Last-In, First-Out)** principle that governs a stack. Provide a real-world analogy, other than a stack of plates or books, to illustrate your definition.
+\[8]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    **LIFO (Last-In, First-Out)** is a principle where the last element added to a collection is the first element to be removed. Access is restricted to only the most recently added item (the "top" item).
+
+    **Analogy:** A PEZ candy dispenser.
+
+    * **Push:** You load new candies into the dispenser from the top. The last candy you load in sits at the very top.
+    * **Pop:** When you want a candy, the dispenser only allows you to take the one at the top. You cannot access the candies in the middle or at the bottom without first removing all the ones above them. The last candy loaded is the first one dispensed.
+
+    **Marking Scheme:**
+
+    * \[4 Marks] - For a clear and correct definition of the LIFO principle.
+    * \[4 Marks] - For providing a suitable, well-explained real-world analogy.
+
+</details>
+
+(b) You are given an empty stack of integers. Trace the following sequence of operations, showing the state of the stack after each operation and listing the values returned by `pop()`.
+
+1. `push(50)`
+2. `push(60)`
+3. `push(70)`
+4. `pop()`
+5. `push(80)`
+6. `pop()`
+7. `peek()`
+
+What is the final value returned by `peek()`?
+\[9]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    **Trace:**
+
+    1. `push(50)` → Stack: `[50]`
+    2. `push(60)` → Stack: `[50, 60]`
+    3. `push(70)` → Stack: `[50, 60, 70]`
+    4. `pop()`    → Returns **70**. Stack: `[50, 60]`
+    5. `push(80)` → Stack: `[50, 60, 80]`
+    6. `pop()`    → Returns **80**. Stack: `[50, 60]`
+    7. `peek()`   → Returns **60**. Stack state is unchanged.
+
+    The final value returned by `peek()` is **60**.
+
+    **Marking Scheme:**
+
+    * \[5 Marks] - For correctly showing the state of the stack after each of the first 5 operations.
+    * \[2 Marks] - For correctly identifying the two values returned by `pop()` (70 and 80).
+    * \[2 Marks] - For correctly identifying the final value returned by `peek()` (60).
+
+</details>
+
+(c) Explain the key difference between the stack operations `pop()` and `peek()`.
+\[8]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    The key difference is that `pop()` is a **destructive** operation, while `peek()` is a **non-destructive** (or read-only) operation.
+
+    * **`pop()`**: This operation both retrieves the value of the top element AND removes that element from the stack. After a `pop()`, the stack's size decreases by one, and a new element (the one below it) becomes the top.
+    * **`peek()`**: This operation retrieves the value of the top element but does **not** remove it. After a `peek()`, the stack remains in the exact same state as it was before the operation was called.
+
+    **Marking Scheme:**
+
+    * \[4 Marks] - For correctly explaining the `pop()` operation (removes and returns).
+    * \[4 Marks] - For correctly explaining the `peek()` operation (only returns, does not remove).
+    * (Full marks require using terms like destructive/non-destructive or explicitly stating that one changes the stack while the other does not).
+
+</details>
+
+---
+
+**QUESTION 2 \[25 MARKS]**
+
+(a) Write the complete C++ code for the `push(int value)` method for an array-based `Stack` class. Your implementation must include the necessary check to prevent a **Stack Overflow**. Assume `MAX_SIZE`, `arr`, and `top` are defined members of the class.
+\[9]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+```cpp
+
+    #include <iostream> // For error message
+
+    void Stack::push(int value) \{
+        // 1. Check for Stack Overflow
+        if (isFull()) { // or if (top == MAX_SIZE - 1)
+        std::cout << "Error: Stack Overflow!" << std::endl;
+        return;
+    }
+
+        // 2. Increment top
+        top++;
+
+        // 3. Place the value at the new top position
+        arr[top] = value;
+    }
+
+```
+    **Marking Scheme:**
+
+    * \[4 Marks] - For correctly implementing the check for a full stack before any other action.
+    * \[2 Marks] - For correctly incrementing the `top` index.
+    * \[3 Marks] - For correctly assigning the value to the array at the new `top` position.
+
+</details>
+
+(b) Write the complete C++ code for the `pop()` method. Your implementation must include a check to prevent **Stack Underflow** and should return an integer value (e.g., `-1` as an error code if the stack is empty).
+\[9]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    ```cpp
+    #include <iostream> // For error message
+
+    int Stack::pop() {
+        // 1. Check for Stack Underflow
+        if (isEmpty()) { // or if (top == -1)
+        std::cout << "Error: Stack Underflow!" << std::endl;
+        return -1; // Return error code
+    }
+
+        // 2. Retrieve the top value
+        int value = arr[top];
+
+        // 3. Decrement top
+        top--;
+
+        // 4. Return the retrieved value
+        return value;
+    }
+    ```
+
+    **Marking Scheme:**
+
+    * \[4 Marks] - For correctly implementing the check for an empty stack and returning an error value.
+    * \[2 Marks] - For correctly retrieving the value from the array before changing `top`.
+    * \[2 Marks] - For correctly decrementing the `top` index.
+    * \[1 Mark] - For returning the correct (non-error) value.
+
+</details>
+
+(c) In an array-based stack implementation, explain the role of the `top` integer variable and justify why it is typically initialized to `-1`.
+\[7]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    **Role of `top`:** The `top` variable is an index that keeps track of the position of the topmost element in the stack's underlying array. It is the single most important piece of state for the stack, as it tells us where the next `push` should occur, where the next `pop` or `peek` should read from, and whether the stack is empty or full.
+
+    **Justification for initializing to -1:** It is initialized to `-1` because `0` is the first valid index in a C++ array. By starting at `-1`, we establish a clear state that means "the stack is empty". This convention simplifies the `push` logic: we can always increment `top` *first* and then place the element at the new `top` index. If we started `top` at 0, the logic would be more complex (e.g., place element, then increment), and checking for an empty stack would be less straightforward.
+
+    **Marking Scheme:**
+
+    * \[4 Marks] - For a clear explanation of the role of `top` (tracks the index of the top element).
+    * \[3 Marks] - For justifying the -1 initialization (represents an empty state, simplifies `push` logic as index 0 is the first valid position).
+
+</details>

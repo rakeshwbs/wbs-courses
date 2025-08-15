@@ -1,0 +1,108 @@
+---
+id: evaluation-structured-questions
+title: Exam-type Questions
+hide_title: true
+sidebar_position: 4
+sidebar_label: ✍️ Exam-type Questions
+---
+import ModuleBanner from '@site/src/components/art/art-banner';
+
+<ModuleBanner />
+
+**QUESTION 1 [25 MARKS]**
+
+(a) Your colleague argues for using RIPv1 on a new network because "it's simpler to configure." You strongly advise against this. Provide **two** distinct technical reasons why RIPv2 is a superior choice for any modern network design, and briefly explain the benefit of each.
+[6]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    *(Student can provide any two of the following)*
+
+    1.  **Reason 1: Classless Operation.** RIPv2 is a classless protocol, meaning it sends subnet mask information in its routing updates.
+    -   **Benefit:** This allows it to support Variable Length Subnet Masking (VLSM) and discontiguous networks, which are essential for efficient IP address management in modern networks. RIPv1's classful nature makes it incompatible with these designs.
+    2.  **Reason 2: Multicast Updates.** RIPv2 sends its updates to the multicast address `224.0.0.9`, whereas RIPv1 uses broadcast (`255.255.255.255`).
+    -   **Benefit:** Multicasting is more efficient. Only devices configured for RIPv2 will process the incoming updates. With broadcasting, every single device on the network segment (including PCs, servers, printers) must process the update up to the network layer before discarding it, wasting CPU cycles.
+    3.  **Reason 3: Authentication.** RIPv2 supports authentication (plain-text or MD5) for its routing updates.
+    -   **Benefit:** This adds a layer of security, allowing a router to verify that updates are coming from a trusted neighbor and preventing unauthorized or misconfigured routers from injecting false routes.
+
+    **Marking Scheme:**
+
+    * [3 Marks] - For the first correctly identified reason and a clear explanation of its benefit.
+    * [3 Marks] - For the second correctly identified reason and a clear explanation of its benefit.
+
+</details>
+
+(b) You are configuring EIGRP for Autonomous System **90**. Your router has two interfaces to be advertised:
+- `GigabitEthernet0/1`, with IP address `192.168.45.1/24`
+- `Serial0/1/0`, with IP address `10.9.9.9/30`
+
+Write the complete and exact commands required to start the EIGRP process and advertise both of these specific networks.
+[6]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    The configuration requires starting the correct EIGRP process and using network statements with the correct wildcard masks.
+
+    ```bash
+    configure terminal
+    router eigrp 90
+    network 192.168.45.0 0.0.0.255
+    network 10.9.9.8 0.0.0.3
+    ```
+
+    **Marking Scheme:**
+
+    * [1 Mark] - For `router eigrp 90`.
+    * [2 Marks] - For the correct `network` statement for the LAN, including the correct wildcard mask.
+    * [3 Marks] - For the correct `network` statement for the WAN, including the correct network address (`10.9.9.8`) and the correct wildcard mask.
+
+</details>
+
+(c) EIGRP is considered a significant improvement over RIP. Describe **two** major advantages that EIGRP has over RIPv2.
+[6]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    *(Student can provide any two of the following)*
+
+    1.  **Superior Metric:** EIGRP uses a sophisticated composite metric based on bandwidth and delay by default. This allows it to make much more intelligent path selections than RIP, which only considers hop count and ignores link speed entirely.
+    2.  **Faster Convergence:** EIGRP's DUAL algorithm allows it to pre-calculate a backup path (Feasible Successor). If the primary path fails, it can switch to the backup almost instantly. RIP must go through a much slower process of timers (invalid, hold-down, flush) to converge after a failure.
+    3.  **Efficient Updates:** EIGRP only sends partial, bounded updates when a change in the network occurs. RIP sends its entire routing table to all neighbors every 30 seconds, regardless of whether there has been a change, consuming more bandwidth and CPU resources.
+
+    **Marking Scheme:**
+
+    * [3 Marks] - For the first correctly identified advantage and a clear explanation.
+    * [3 Marks] - For the second correctly identified advantage and a clear explanation.
+
+</details>
+
+(d) EIGRP's fast, loop-free convergence is due to its DUAL algorithm. To understand DUAL, define the following terms:
+i. **Successor** [2]
+ii. **Feasible Successor** [2]
+iii. Explain how the existence of a Feasible Successor leads to rapid convergence. [3]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    i.  **Successor:** The Successor is the best, primary, loop-free path to a destination network, as calculated by DUAL. It is the route that is installed in the routing table and used to forward traffic.
+    ii. **Feasible Successor (FS):** A Feasible Successor is a pre-calculated, loop-free backup path to the same destination network. It is stored in the EIGRP topology table but is not used unless the primary Successor path fails.
+    iii. **Rapid Convergence:** When the Successor route fails, the router checks its topology table for a pre-calculated Feasible Successor. If one exists, the router can **immediately** promote the Feasible Successor to become the new Successor and install it in the routing table. This process is nearly instantaneous because the router does not need to perform any new computations or query its neighbors to find a new path. This ability to instantly fail over to a known-good backup path is the reason for EIGRP's sub-second convergence time.
+
+    **Marking Scheme:**
+
+    * [2 Marks] - For a clear and correct definition of Successor.
+    * [2 Marks] - For a clear and correct definition of Feasible Successor.
+    * [3 Marks] - For a clear explanation of the instant failover process.
+
+</details>

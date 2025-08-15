@@ -1,0 +1,191 @@
+---
+id: evaluation-structured-questions
+title: Exam-type Questions
+hide_title: true
+sidebar_position: 4
+sidebar_label: Exam-type Questions
+sidebar_class_name: icon-exam
+---
+import ModuleBanner from '@site/src/components/dsa/dsa-banner';
+
+<ModuleBanner />
+
+### **Sample Examination Questions & Answers - Week 9 Concepts**
+
+**QUESTION 1 \[25 MARKS]**
+
+(a) Clearly define the **Binary Search Tree (BST) Property**. Then, state whether the tree below is a valid BST and justify your answer.
+
+```
+    20
+   /  \
+  10   30
+   \
+    25
+```
+
+\[9]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    **BST Property DefinitionBox:** For any given node `N` in a binary tree, all values in its **left subtree** must be less than `N`'s value, and all values in its **right subtree** must be greater than `N`'s value. This property must hold true for all nodes in the tree.
+
+    **Is the tree a valid BST?** No, it is not.
+
+    **Justification:** The violation occurs at the node with value `25`. While `25` is correctly in the right subtree of node `10` (since `25 > 10`), it is in the left subtree of the root node `20`. According to the BST property, every node in the left subtree of the root `20` must be less than `20`. Since `25` is not less than `20`, the property is violated.
+
+    **Marking Scheme:**
+
+    * \[4 Marks] - For a clear and correct definition of the BST property.
+    * \[1 Mark] - For correctly stating that the tree is not a valid BST.
+    * \[4 Marks] - For a clear justification that correctly identifies the node `25` as violating the property relative to the root node `20`.
+
+</details>
+
+(b) You are given an empty Binary Search Tree. Draw the resulting BST after inserting the following sequence of values in order: `50, 20, 70, 10, 30, 60, 80`.
+\[8]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    The final tree structure should be:
+
+    ```
+    50
+    /  \
+    20   70
+    /  \ /  \
+    10 30 60 80
+    ```
+
+    **Trace of Insertions:**
+
+    1. `50` becomes the root.
+    2. `20 < 50` -> goes left of 50.
+    3. `70 > 50` -> goes right of 50.
+    4. `10 < 50` -> left. `10 < 20` -> goes left of 20.
+    5. `30 < 50` -> left. `30 > 20` -> goes right of 20.
+    6. `60 > 50` -> right. `60 < 70` -> goes left of 70.
+    7. `80 > 50` -> right. `80 > 70` -> goes right of 70.
+
+    **Marking Scheme:**
+
+    * \[8 Marks] - For the correctly drawn final tree structure. (Partial marks awarded for partially correct trees, e.g., -1 for each misplaced node).
+
+</details>
+
+(c) State the **average-case** and **worst-case** time complexity for a `search` operation in a BST with `n` nodes. Describe the structure of a tree that leads to the worst-case scenario.
+\[8]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    * **Average-Case Time Complexity:** **\$O(\log n)\$**.
+
+    * This occurs when the tree is reasonably balanced, as each comparison allows the algorithm to discard roughly half of the remaining nodes.
+    * **Worst-Case Time Complexity:** **\$O(n)\$**.
+
+    **Worst-Case Tree Structure:** The worst case occurs when the tree is **degenerate**, meaning it is completely unbalanced and resembles a linked list. This happens if the values are inserted in a sorted or reverse-sorted order (e.g., inserting `10, 20, 30, 40, 50`). In this structure, every node only has a right child (or only a left child), forming a long chain. A search must then visit every node sequentially.
+
+    **Marking Scheme:**
+
+    * \[2 Marks] - For correctly stating the average-case complexity.
+    * \[2 Marks] - For correctly stating the worst-case complexity.
+    * \[4 Marks] - For correctly describing the degenerate, linked-list-like structure that causes the worst case.
+
+</details>
+
+---
+
+**QUESTION 2 \[25 MARKS]**
+
+(a) Write a complete C++ `class` definition for a `TreeNode` that can be used to build a Binary Search Tree storing integer values. Include a constructor.
+\[7]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    ```cpp
+    class TreeNode {
+    public:
+    int value;
+    TreeNode* left;
+    TreeNode* right;
+
+    // Constructor to initialize the node
+    TreeNode(int val) {
+    value = val;
+    left = nullptr;
+    right = nullptr;
+}
+};
+    ```
+
+    **Marking Scheme:**
+
+    * \[2 Marks] - For the correct class syntax.
+    * \[3 Marks] - For correctly declaring the three members (`value`, `left`, `right`) with the correct types.
+    * \[2 Marks] - For a correctly implemented constructor that initializes all members.
+
+</details>
+
+(b) Describe the recursive algorithm for searching for a `targetValue` in a Binary Search Tree, starting from a `currentNode`. You must clearly state the base cases and the recursive steps. You can use pseudocode or plain English.
+\[10]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    **Function: `search(currentNode, targetValue)`**
+
+    **Base Cases:**
+
+    1. If `currentNode` is `nullptr`, the path has ended, and the value is not in the tree. **Return `false`**.
+    2. If `targetValue` is equal to `currentNode->value`, the value has been found. **Return `true`**.
+
+    **Recursive Steps:**
+
+    1. If `targetValue` is less than `currentNode->value`, the value, if it exists, must be in the left subtree. **Recursively call `search(currentNode->left, targetValue)` and return its result.**
+    2. If `targetValue` is greater than `currentNode->value`, the value, if it exists, must be in the right subtree. **Recursively call `search(currentNode->right, targetValue)` and return its result.**
+
+    **Marking Scheme:**
+
+    * \[2 Marks] - For identifying the `nullptr` base case (value not found).
+    * \[2 Marks] - For identifying the `value ==` base case (value found).
+    * \[3 Marks] - For correctly describing the recursive step for going left.
+    * \[3 Marks] - For correctly describing the recursive step for going right.
+
+</details>
+
+(c) Explain why it is considered good software design to implement BST operations like `insert` and `search` using a `public` method that calls a `private` recursive helper function.
+\[8]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    This design pattern is good for two main reasons: **Simplicity** and **Encapsulation**.
+
+    1. **Simplicity (for the user):** The public interface is kept clean and simple. The user of the class only needs to call `myTree.insert(value)`. They do not need to know about the internal `TreeNode` structure or provide the `root` pointer to start the operation.
+
+    2. **Encapsulation (Hiding Complexity):** The recursive part of the algorithm requires passing node pointers (`TreeNode*`) as parameters from one call to the next. This is an implementation detail. By making the recursive helper function `private`, we hide this complexity from the outside world. This protects the internal state of the tree (like the `root` pointer) from being accidentally modified or corrupted by external code. It enforces a clear boundary between the class's interface and its implementation.
+
+    **Marking Scheme:**
+
+    * \[4 Marks] - For explaining the simplicity aspect (clean public interface for the user).
+    * \[4 Marks] - For explaining the encapsulation aspect (hiding the complexity of recursive calls and protecting internal state like the `root` pointer).
+
+</details>
+
+---

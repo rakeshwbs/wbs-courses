@@ -1,0 +1,78 @@
+---
+id: lab-sheet3
+title: Lab sheet 3
+hide_title: true
+sidebar_position: 2
+sidebar_label: Data Screening
+sidebar_class_name: icon-lab
+---
+import ModuleBanner from '@site/src/components/brm/brm-banner';
+
+<ModuleBanner />
+
+
+## Lab 3: Hypotheses and Initial Data Screening
+
+### **Part A: Formulating Hypotheses (A Quick Exercise)**
+
+Before we touch any data, let's practice the theory.
+
+**Scenario:** A marketing manager wants to know if a new website design encourages customers to spend more money. They plan to randomly show 500 customers the old design and 500 customers the new design and then measure how much each customer spends.
+
+1.  **Write the Null Hypothesis ($H_0$):** What is the statement of "no effect"?
+2.  **Write a Directional Alternative Hypothesis ($H_1$):** What is the specific prediction the manager is hoping for?
+3.  **Identify the Variables:** What are the Independent Variable (IV) and Dependent Variable (DV) in this study?
+
+*(Think about your answers. We will cover similar problems in the exam questions later.)*
+
+---
+
+### **Part B: Basic Data Screening in SPSS**
+
+Data screening is the process of checking your data for errors and anomalies **before** you do any formal testing. It's like a chef checking their ingredients before cooking. The easiest way to start is by looking at frequencies and descriptive statistics.
+
+**1. Create a New Dataset**
+For this exercise, we need a slightly bigger dataset. Please open SPSS, go to **File -> New -> Data**, and enter the following data for 10 participants. Notice there might be some deliberate errors in it.
+
+| ID | Age | Gender | Test_Score (out of 100) |
+|:--:|:---:|:------:|:-----------------------:|
+| 1  | 25  | 1      | 88                      |
+| 2  | 32  | 2      | 76                      |
+| 3  | 28  | 1      | 150                     |
+| 4  | 45  | 2      | 92                      |
+| 5  | 38  | 1      | 65                      |
+| 6  | 999 | 1      | 79                      |
+| 7  | 29  | 2      | 81                      |
+| 8  | 33  | 1      | 95                      |
+| 9  | 41  | 2      | 77                      |
+| 10 | 30  | 2      | 83                      |
+
+*Remember to define your variables in the **Variable View**!*
+* `ID`, `Age`, and `Test_Score` are **Scale**.
+* `Gender` is **Nominal** (e.g., 1=Male, 2=Female).
+
+**2. Run Descriptive Statistics**
+* Go to the menu: **Analyze -> Descriptive Statistics -> Frequencies...**
+* A new window will open. Move the `Age` and `Test_Score` variables from the left box to the right 'Variable(s)' box.
+* Click the **Statistics...** button on the right.
+* Check the boxes for **Mean**, **Median**, **Std. deviation**, **Minimum**, and **Maximum**.
+* Click **Continue**, and then click **OK**.
+
+**3. Check the Output for Errors**
+* An SPSS Output window will appear with your results. Look at the "Statistics" table.
+* **For `Age`:** Look at the 'Maximum' value. It will say `999`. This is clearly a data entry error, as it's not a realistic age.
+* **For `Test_Score`:** Look at the 'Maximum' value. It will say `150`. Since the test is out of 100, this is also a clear error.
+
+
+
+**4. Correct the Data**
+* Go back to your **Data View** window.
+* Find the rows with the errors (Participant 6 has Age `999`, Participant 3 has Test_Score `150`).
+* In a real study, you would check your original records. For this lab, let's assume they were typos. Change the age of `999` to `36` and the test score of `150` to `75`.
+* Run the Frequencies analysis again. The minimum and maximum values should now be realistic.
+
+**5. Save Your Work**
+* Go to **File -> Save As...** and save the file as `Week3_Lab.sav`.
+
+---
+

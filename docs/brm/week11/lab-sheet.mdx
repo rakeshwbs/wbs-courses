@@ -1,0 +1,71 @@
+---
+id: lab-sheet11
+title: Lab sheet 11
+hide_title: true
+sidebar_position: 2
+sidebar_label: Writing Research Proposal
+sidebar_class_name: icon-lab
+---
+import ModuleBanner from '@site/src/components/brm/brm-banner';
+
+<ModuleBanner />
+
+## Lab 11: Preparing Output for Your Research Proposal
+
+### Objective
+To learn how to format, copy, and export tables and charts from the SPSS Output window into a text document (e.g., Microsoft Word, Google Docs).
+
+### Part A: Generating Sample Output
+
+First, we need some results to work with. We'll re-run the One-Way ANOVA from last week's lab.
+
+1.  Open your **`Week10_Lab.sav`** file (the one with the drug trial data).
+2.  Run the One-Way ANOVA again as a reminder:
+* Go to **Analyze -> Compare Means -> One-Way ANOVA...**
+* Put `Recovery_Days` in the 'Dependent List' and `Group` in the 'Factor' box.
+* Under **Post Hoc...**, select **Tukey**.
+* Under **Options...**, select **Descriptives**.
+* Click **OK**.
+3.  You should now have an SPSS Output window containing a Descriptives table, an ANOVA table, and a Post Hoc table.
+
+### Part B: Copying and Formatting Tables
+
+You can copy tables directly from the Output window into your document.
+
+1.  **Simple Copy/Paste (The Quick Way):**
+* In the SPSS Output window, find the main **ANOVA** table.
+* **Right-click** directly on the table.
+* Select **Copy**.
+* Open a text document (like MS Word) and **Paste** (`Ctrl+V` or `Cmd+V`). The table should appear, and you can edit it like any other table in Word.
+
+2.  **Editing Tables Before Copying (The Professional Way):**
+* In the SPSS Output window, **double-click** on the ANOVA table. This will activate the **Pivot Table Editor**.
+* Now you can edit the table. For example, you can right-click on the title of a column you don't need (like "Sum of Squares") and select "Delete" to simplify the table for your report.
+* Once you're done editing, close the Pivot Table Editor window. The changes will be saved in your output.
+* Now, you can right-click and copy the newly formatted table.
+
+### Part C: Copying and Formatting Charts
+
+Let's create a bar chart of the group means to practice with.
+
+1.  From the menu, go to: **Graphs -> Chart Builder...**
+2.  From the 'Gallery', choose **Bar**. Drag the first simple bar chart icon into the preview area.
+3.  Drag your categorical variable, `Group`, onto the **X-Axis**.
+4.  Drag your continuous variable, `Recovery_Days`, onto the **Y-Axis**. The default statistic will be 'Mean', which is what we want.
+5.  Click **OK**. A bar chart will appear in your Output window.
+6.  **Editing the Chart:** Just like with tables, you can **double-click** on the chart to open the **Chart Editor**. Here you can change colors, edit the title, add labels, and much more to make it look professional.
+7.  **Copying the Chart:** Once you've finished editing, close the Chart Editor. **Right-click** on the final chart in your Output window and select **Copy**. Paste it into your document.
+
+
+
+### Part D: Exporting the Entire Output File
+
+If you have many tables and charts, you can export the entire output file at once.
+
+1.  In the SPSS Output window, go to the menu: **File -> Export...**
+2.  An "Export Output" dialog box will appear.
+3.  Under 'Export Format', in the **'Type:'** dropdown menu, select the format you want, such as **"Word/RTF (*.doc)"** or **"PDF (*.pdf)"**.
+4.  Click the **'Browse...'** button to choose where to save your file and give it a name.
+5.  Click **OK**. SPSS will create a single document containing all the tables and charts from your output session.
+
+---

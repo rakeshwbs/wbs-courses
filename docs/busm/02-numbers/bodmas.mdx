@@ -1,0 +1,397 @@
+---
+id: bodmas
+title: BODMAS
+hide_title: true
+sidebar_position: 1
+sidebar_label: BODMAS
+---
+import ModuleBanner from '@site/src/components/busm/busm-banner';
+
+<ModuleBanner />
+### BODMAS Explained!
+
+### What is BODMAS?
+
+BODMAS is a simple acronym that tells you the correct order to solve the different parts of a mathematical
+equation.
+
+Following this order is essential to get the correct answer every time.
+
+:::info The acronym stands for:
+* **B** - Brackets
+* **O** - Orders (Power)
+* **D** - Division
+* **M** - Multiplication
+* **A** - Addition
+* **S** - Subtraction
+:::
+Let's break down each step.
+
+---
+### The Step-by-Step Guide
+
+#### 1. B - Brackets ( )
+The very first thing you do is solve any calculation that is **inside brackets**. If there are brackets inside other brackets, always start with the innermost set.
+* **Example:** In `5 × (4 + 2)`, you solve `4 + 2` first to get 6, then do `5 × 6 = 30`.
+
+#### 2. O - Orders (Powers and Roots)
+Next, you deal with any **powers** (like $x^2$ or $x^3$) or **square roots** (like $\sqrt{9}$).
+* **Example:** In `3 + 2^2`, you solve the power `2^2` first to get 4, then do `3 + 4 = 7`.
+
+#### 3. D & M - Division (÷ or /) and Multiplication (×)
+This is the most important rule to remember: **Division and Multiplication have equal priority.** You don't always do division before multiplication. Instead, you work through the equation from **left to right** and solve any D or M operations as you find them.
+* **Example:** In `10 ÷ 2 × 5`, you work from left to right.
+  * First do `10 ÷ 2 = 5`.
+  * Then do `5 × 5 = 25`.
+
+#### 4. A & S - Addition (+) and Subtraction (-)
+Just like Division and Multiplication, **Addition and Subtraction have equal priority.** You work through the equation from **left to right** and solve any A or S operations as you find them.
+* **Example:** In `10 - 4 + 3`, you work from left to right.
+  * First do `10 - 4 = 6`.
+  * Then do `6 + 3 = 9`.
+
+---
+### Worked Example
+
+Let's solve a question from your list using BODMAS: `Calculate: 44 ÷ (2 + 3²)`.
+
+1.  **B (Brackets):** We need to solve what's inside the brackets first: `(2 + 3²)`.
+2.  **O (Orders):** Inside the brackets, we have a power. We solve that next: `3² = 9`. The brackets now contain `(2 + 9)`.
+3.  **B (Brackets continued):** We finish the calculation inside the brackets: `2 + 9 = 11`.
+4.  **D (Division):** The original problem has now been simplified to `44 ÷ 11`. The final answer is **4**.
+
+    By following the BODMAS order, we can solve complex equations accurately. The key is to work step-by-step and not skip ahead.
+---
+### Past Exam Questions
+---
+:::danger 19th November 2024, Section A, Question 10
+Calculate: $4-(6^{2}-5)$
+:::
+:::success Answer
+ -27✔️
+
+:::note Explanation
+1.  **Brackets:** First, evaluate the expression inside the brackets $(6^2-5)$.
+2.  **Orders:** Inside the brackets, calculate the power: $6^2 = 36$.
+3.  **Subtraction (in brackets):** The brackets become $(36 - 5) = 31$.
+4.  **Final Subtraction:** The expression is now $4 - 31 = -27$.
+:::
+---
+:::danger 10 September 2024, Section A, Question 1
+Calculate: $7-8\times(-2+4)$
+:::
+:::success Answer
+-9✔️
+:::note Explanation
+1.  **Brackets:** Solve the expression inside the brackets: $(-2 + 4) = 2$.
+2.  **Multiplication:** The expression becomes $7 - 8 \times 2$. Perform the multiplication: $8 \times 2 = 16$.
+3.  **Subtraction:** Finally, perform the subtraction: $7 - 16 = -9$.
+:::
+---
+:::danger 4 June 2024, Section A, Question 5
+Calculate: $5^{2}-(4-1)$
+:::
+:::success Answer
+22✔️
+:::note Explanation
+1.  **Brackets:** Solve the expression inside the brackets: $(4 - 1) = 3$.
+2.  **Orders:** The expression becomes $5^2 - 3$. Calculate the power: $5^2 = 25$.
+3.  **Subtraction:** Finally, perform the subtraction: $25 - 3 = 22$.
+:::
+
+---
+:::danger 7 March 2024, Section A, Question 8
+Calculate: $44\div(2+3^{2})$
+:::
+:::success Answer
+4✔️
+:::note Explanation
+1.  **Brackets:** First, evaluate the expression inside the brackets $(2+3^2)$.
+2.  **Orders:** Inside the brackets, calculate the power: $3^2 = 9$.
+3.  **Addition (in brackets):** The brackets become $(2 + 9) = 11$.
+4.  **Division:** The expression is now $44 \div 11 = 4$.
+:::
+
+---
+:::danger 21 November 2023, Section A, Question 6
+Calculate: $80\div4-4\times3$
+:::
+:::success Answer
+8✔️
+:::note Explanation
+Following BODMAS/PEMDAS, Division and Multiplication have equal priority and are done from left to right.
+1.  **Division:** First, calculate $80 \div 4 = 20$.
+2.  **Multiplication:** Next, calculate $4 \times 3 = 12$.
+3.  **Subtraction:** The expression becomes $20 - 12 = 8$.
+:::
+
+---
+:::danger 12 September 2023, Section A, Question 4
+Calculate: $7-4\times5\div2$
+:::
+:::success Answer
+-3✔️
+:::note Explanation
+Following BODMAS/PEMDAS, Multiplication and Division have equal priority and are done from left to right.
+1.  **Multiplication:** First, calculate $4 \times 5 = 20$.
+2.  **Division:** The expression becomes $7 - 20 \div 2$. Now do the division: $20 \div 2 = 10$.
+3.  **Subtraction:** Finally, perform the subtraction: $7 - 10 = -3$.
+:::
+---
+:::danger 13 June 2023, Section A, Question 2
+Calculate: $3+9\div1+5$
+:::
+:::success Answer
+17✔️
+:::note Explanation
+1.  **Division:** First, perform the division: $9 \div 1 = 9$.
+2.  **Addition:** The expression becomes $3 + 9 + 5$. Perform addition from left to right: $3 + 9 = 12$, then $12 + 5 = 17$.
+:::
+---
+:::danger 14 March 2023, Section A, Question 1
+Calculate: $11+7\times2$
+:::
+:::success Answer
+25✔️
+:::note Explanation
+1.  **Multiplication:** First, perform the multiplication: $7 \times 2 = 14$.
+2.  **Addition:** The expression becomes $11 + 14 = 25$.
+:::
+
+
+---
+
+:::danger 08 March 2022, Section A, Question 4
+Calculate $50+18\div6$
+:::
+:::success Answer
+53✔️
+:::note Explanation
+1.  **Division:** First, perform the division: $18 \div 6 = 3$.
+2.  **Addition:** The expression becomes $50 + 3 = 53$.
+:::
+
+
+---
+
+:::danger 08 March 2022, Section A, Question 8
+At 8pm the temperature is $-2^{\circ}C.$ At 11pm the temperature has decreased by $3^{\circ}C$. State the temperature at 11pm.
+:::
+:::success Answer
+$-5^{\circ}C$ ✔️
+:::note Explanation
+A decrease means subtraction. Starting at -2 and decreasing by 3 is calculated as $-2 - 3 = -5$.
+:::
+
+
+---
+
+:::danger 9 March 2021, Section A, Question 2
+Calculate: $60-20\times2$
+:::
+:::success Answer
+20✔️
+:::note Explanation
+1.  **Multiplication:** First, perform the multiplication: $20 \times 2 = 40$.
+2.  **Subtraction:** The expression becomes $60 - 40 = 20$.
+:::
+
+
+---
+
+:::danger 03 March 2020, Section A, Question 1
+Calculate: 20 – 18 ÷ 2
+:::
+:::success Answer
+11✔️
+:::note Explanation
+1.  **Division:** First, perform the division: $18 \div 2 = 9$.
+2.  **Subtraction:** The expression becomes $20 - 9 = 11$.
+:::
+
+
+---
+
+:::danger 26 November 2019, Section A, Question 3
+Calculate: 7 + 8 × 2
+:::
+:::success Answer
+23✔️
+:::note Explanation
+1.  **Multiplication:** First, perform the multiplication: $8 \times 2 = 16$.
+2.  **Addition:** The expression becomes $7 + 16 = 23$.
+:::
+
+
+---
+
+:::danger 3 September 2019, Section A, Question 1
+Calculate: 15 ÷ (3 + 2)
+:::
+:::success Answer
+3✔️
+:::note Explanation
+1.  **Brackets:** First, solve the expression in brackets: $(3 + 2) = 5$.
+2.  **Division:** The expression becomes $15 \div 5 = 3$.
+:::
+
+
+---
+
+:::danger 28 May 2019, Section A, Question 3
+Calculate: -10 - (6 × 3)
+:::
+:::success Answer
+-28✔️
+:::note Explanation
+1.  **Brackets:** First, solve the expression in brackets: $(6 \times 3) = 18$.
+2.  **Subtraction:** The expression becomes $-10 - 18 = -28$.
+:::
+
+
+---
+
+:::danger 05 March 2019, Section A, Question 2
+Calculate: 30 ÷ 3 − 4 × 2
+:::
+:::success Answer
+2✔️
+:::note Explanation
+Following BODMAS/PEMDAS, Division and Multiplication are done from left to right.
+1.  **Division:** First, calculate $30 \div 3 = 10$.
+2.  **Multiplication:** Next, calculate $4 \times 2 = 8$.
+3.  **Subtraction:** The expression becomes $10 - 8 = 2$.
+:::
+
+---
+
+:::danger 27 November 2018, Section A, Question 1
+Calculate: 20 ÷ 5 + 2 × 2
+:::
+:::success Answer
+8✔️
+:::note Explanation
+Following BODMAS/PEMDAS, Division and Multiplication are done from left to right.
+1.  **Division:** First, calculate $20 \div 5 = 4$.
+2.  **Multiplication:** Next, calculate $2 \times 2 = 4$.
+3.  **Addition:** The expression becomes $4 + 4 = 8$.
+:::
+
+
+---
+
+:::danger 6 March 2018, Section A, Question 6
+Calculate: 3 × (5 − 2) + 1
+:::
+:::success Answer
+10✔️
+:::note Explanation
+1.  **Brackets:** First, solve the expression in brackets: $(5 - 2) = 3$.
+2.  **Multiplication:** The expression becomes $3 \times 3 + 1$. Perform the multiplication: $3 \times 3 = 9$.
+3.  **Addition:** Finally, perform the addition: $9 + 1 = 10$.
+:::
+
+
+---
+
+:::danger 28 November 2017, Section A, Question 1
+Calculate: 8 − 5 × 4 − 1
+:::
+:::success Answer
+-13✔️
+:::note Explanation
+1.  **Multiplication:** First, perform the multiplication: $5 \times 4 = 20$.
+2.  **Subtraction:** The expression becomes $8 - 20 - 1$. Perform subtraction from left to right: $8 - 20 = -12$, then $-12 - 1 = -13$.
+:::
+
+
+---
+
+:::danger 5 September 2017, Section A, Question 2
+Calculate: (13 − 3) × −5
+:::
+:::success Answer
+-50✔️
+:::note Explanation
+1.  **Brackets:** First, solve the expression in brackets: $(13 - 3) = 10$.
+2.  **Multiplication:** The expression becomes $10 \times -5 = -50$.
+:::
+
+
+---
+
+:::danger 06 June 2017, Section A, Question 3
+Calculate: 15 ÷ (8 − 3)
+:::
+:::success Answer
+ 3✔️
+:::note Explanation
+1.  **Brackets:** First, solve the expression in brackets: $(8 - 3) = 5$.
+2.  **Division:** The expression becomes $15 \div 5 = 3$.
+:::
+
+
+---
+
+:::danger 07 March 2017, Section A, Question 1
+Calculate: (12 − 4) ÷ (3 + 1)
+:::
+:::success Answer
+2✔️
+:::note Explanation
+1.  **Brackets:** Solve the expressions in both sets of brackets: $(12 - 4) = 8$ and $(3 + 1) = 4$.
+2.  **Division:** The expression becomes $8 \div 4 = 2$.
+:::
+
+---
+
+:::danger 22 November 2016, Section A, Question 6
+Calculate: (−3 + 2) × 4
+:::
+:::success Answer
+ -4✔️
+:::note Explanation
+1.  **Brackets:** First, solve the expression in brackets: $(-3 + 2) = -1$.
+2.  **Multiplication:** The expression becomes $-1 \times 4 = -4$.
+:::
+
+
+---
+
+:::danger 30 August 2016, Section A, Question 1
+Calculate: 2 × (13 − 5)$^2$
+:::
+:::success Answer
+128✔️
+:::note Explanation
+1.  **Brackets:** First, solve the expression in brackets: $(13 - 5) = 8$.
+2.  **Orders:** The expression becomes $2 \times 8^2$. Calculate the power: $8^2 = 64$.
+3.  **Multiplication:** Finally, perform the multiplication: $2 \times 64 = 128$.
+:::
+
+
+---
+
+:::danger 31 May 2016, Section A, Question 4
+Calculate: −3(2 + 6)
+:::
+:::success Answer
+-24✔️
+:::note Explanation
+1.  **Brackets:** First, solve the expression in brackets: $(2 + 6) = 8$.
+2.  **Multiplication:** The expression becomes $-3 \times 8 = -24$.
+:::
+
+
+---
+
+:::danger 1 March 2016, Section A, Question 1
+Calculate: $15^2 − (2 + 3)$
+:::
+:::success Answer
+220✔️
+:::note Explanation
+1.  **Brackets:** First, solve the expression in brackets: $(2 + 3) = 5$.
+2.  **Orders:** The expression becomes $15^2 - 5$. Calculate the power: $15^2 = 225$.
+3.  **Subtraction:** Finally, perform the subtraction: $225 - 5 = 220$.
+:::

@@ -1,0 +1,112 @@
+---
+id: lecture-notes
+title: Lecture Notes
+hide_title: true
+sidebar_position: 1
+sidebar_label: Binary Search Trees
+sidebar_class_name: icon-lecture
+---
+import ModuleBanner from '@site/src/components/dsa/dsa-banner';
+
+<ModuleBanner />
+
+
+## **Week 9: Introduction to Trees & Binary Search Trees**
+
+A **tree** is a powerful data structure that represents hierarchical data. Unlike a list where each element has a clear "next" element, a tree node can have multiple next elements, called "children."
+
+### **Tree Terminology**
+
+Before we can use trees, we need to learn the vocabulary to describe them.
+
+  * **Analogy**: The easiest analogy is a family tree or a company's organizational chart.
+
+  * **Node**: The fundamental part of a tree. It contains a value and pointers to its children.
+
+  * **Edge**: The link or connection between a parent node and a child node.
+
+  * **Root**: The topmost node of the tree. It's the only node with no parent.
+
+  * **Parent**: A node that has one or more children.
+
+  * **Child**: A node that has a parent.
+
+  * **Leaf**: A node with no children. These are the endpoints of the tree.
+
+  * **Height**: The length of the longest path from a node to a leaf. The tree's height is the height of its root.
+
+  * **Depth**: The length of the path from the root to a specific node.
+
+### **Binary Trees**
+
+The most common type of tree is a **Binary Tree**. In a binary tree, each node can have **at most two children**: a `left` child and a `right` child.
+
+### **The Binary Search Tree (BST)**
+
+A Binary Search Tree is a special, *ordered* type of binary tree that makes searching incredibly fast. It is defined by a single, crucial property.
+
+#### **The BST Property**
+
+For any given node `N` in the tree:
+
+1.  All values in `N`'s **left subtree** must be **less than** `N`'s value.
+2.  All values in `N`'s **right subtree** must be **greater than** `N`'s value.
+3.  Both the left and right subtrees must also be binary search trees.
+
+This property means that at any node, you can instantly decide which direction to go to find a value, similar to a binary search in an array.
+
+### **BST Operations (A Recursive Approach)**
+
+#### **Search**
+
+Searching a BST is very efficient. The logic is recursive:
+
+1.  Start at the root.
+2.  If the tree is empty (`root == nullptr`), the value is not there.
+3.  If the target value matches the current node's value, you've found it.
+4.  If the target value is **less than** the current node's value, recursively search the **left** subtree.
+5.  If the target value is **greater than** the current node's value, recursively search the **right** subtree.
+
+On a reasonably balanced tree, this operation has a time complexity of **$O(\\log n)$**, which is extremely fast.
+
+#### **Insertion**
+
+Insertion follows the same logic as searching. You follow the search path down the tree until you find an empty spot (`nullptr`) where the new node should be placed. You then insert the new node there, maintaining the BST property. Like searching, this is also an **$O(\\log n)$** operation on average.
+
+### **C++ Class Structure**
+
+Implementing a BST is a classic example of using recursion. A common design pattern is to have public methods that call private, recursive helper functions.
+
+```cpp
+// The node for our tree
+class TreeNode {
+public:
+    int value;
+    TreeNode* left;
+    TreeNode* right;
+
+    TreeNode(int val) {
+        value = val;
+        left = nullptr;
+        right = nullptr;
+    }
+};
+
+// The class to manage the tree
+class BinarySearchTree {
+private:
+    TreeNode* root;
+
+    // Private recursive helper functions
+    TreeNode* insert(TreeNode* currentNode, int val);
+    bool search(TreeNode* currentNode, int val);
+
+public:
+    // Public-facing methods that start the recursion
+    BinarySearchTree() { root = nullptr; }
+    void insert(int val);
+    bool search(int val);
+};
+```
+
+-----

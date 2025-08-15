@@ -1,0 +1,67 @@
+---
+id: lecture-notes 
+title: Lecture Notes
+hide_title: true
+sidebar_position: 1
+sidebar_label: Generative AI
+sidebar_class_name: icon-lecture
+---
+import ModuleBanner from '@site/src/components/ai/ai-banner';
+
+<ModuleBanner />
+## **Week 9: The Genesis Engine - Introduction to Generative AI**
+**Date:** Saturday, 22 November 2025
+-----
+#### **1.0 Recap and a New Paradigm: From Prediction to Creation**
+
+Good morning. So far on our journey, every model we have built—from Linear Regressors and Random Forests to the powerful CNNs last week—has been what we call a **discriminative model**.
+
+* A **discriminative model** learns a boundary between different classes of data. It answers the question: "Given this input data (X), what is the label (y)?" It learns to *predict* or *classify*.
+
+Today, we explore a new paradigm. We move into the world of **Generative AI**.
+
+* A **generative model** learns the underlying probability distribution of a dataset. Instead of learning a boundary, it learns the "essence" of the data itself. This allows it to answer the question: "Create a *new* piece of data that looks like it came from the original dataset." The goal is not to predict, but to **create**.
+
+#### **2.0 Generative Adversarial Networks (GANs): The AI Art Forger**
+
+One of the most clever and influential ideas in generative AI is the Generative Adversarial Network, or GAN, introduced by Ian Goodfellow in 2014.
+
+**2.1 The Core Idea**
+A GAN sets up a zero-sum game between two competing neural networks:
+
+1.  **The Generator:** Its job is to create new, fake data (e.g., images of faces) that looks completely realistic.
+2.  **The Discriminator:** Its job is to be an expert at telling the difference between real data (from our training set) and the fake data created by the Generator.
+
+**2.2 The Analogy: The Art Forger and the Art Critic**
+This is the best way to understand how a GAN learns:
+
+* The **Generator** is like a budding art forger. Initially, its forgeries (e.g., fake paintings of Mauritian landscapes) are terrible and look like random noise.
+* The **Discriminator** is like an art critic. It is shown a mix of real masterpieces and the forger's fakes and must learn to distinguish them.
+
+**2.3 The Training "Game"**
+
+1.  The Generator creates a batch of fake images.
+2.  The Discriminator is shown both real images and the new fake images and predicts the probability that each one is "real".
+3.  The Discriminator is updated based on how well it did. It gets better at spotting fakes.
+4.  The Generator gets a signal based on how well it fooled the Discriminator. It then updates its own weights to produce even more convincing fakes.
+
+This adversarial process forces both networks to improve. The Generator gets better and better at creating fakes, while the Discriminator gets better and better at detecting them. The game reaches equilibrium when the Generator's fakes are so realistic that the Discriminator is only correct about 50% of the time (i.e., it's just guessing). At this point, the Generator has become a master forger, capable of producing novel, highly realistic images. .
+
+#### **3.0 Transformers and Large Language Models (LLMs): The AI Storyteller**
+
+Now let's switch from images to the generation of our most complex data type: human language.
+
+**3.1 The Transformer Architecture**
+The revolution in text generation was kicked off by a 2017 paper from Google titled "Attention Is All You Need," which introduced the **Transformer** architecture. Older models like Recurrent Neural Networks (RNNs) struggled with long-term dependencies (forgetting the beginning of a long paragraph by the time they reached the end).
+
+**3.2 The Key Innovation: The Attention Mechanism**
+The magic of the Transformer lies in a concept called **self-attention**.
+
+* **Analogy:** When you read the sentence, "The boat, which sailed across the turquoise Mauritian lagoon, was beautiful," and you get to the word "was," your brain instinctively pays more *attention* to the word "boat" than to "lagoon" to understand the subject of the verb.
+* The Attention Mechanism allows a model to do the same thing. As it processes text, it learns to dynamically weigh the importance of all other words in the input when considering the current word. It learns which words to "pay attention to" to best understand the context.
+
+**3.3 Large Language Models (LLMs)**
+Models like GPT (Generative Pre-trained Transformer), Llama, and Gemini are simply enormous Transformer models that have been trained on a massive portion of the text and code available on the internet.
+
+By repeatedly performing a very simple task—predicting the next word in a sentence—on this vast dataset, these models learn grammar, context, facts, reasoning abilities, and different styles of writing. They don't "know" anything in the human sense; they are masterful probabilistic pattern matchers.
+

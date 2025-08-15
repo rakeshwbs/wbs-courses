@@ -1,0 +1,73 @@
+---
+id: lab-sheet
+title: Lab sheet 1
+hide_title: true
+sidebar_position: 2
+sidebar_label: Build Linked Stacks
+sidebar_class_name: icon-lab
+---
+import ModuleBanner from '@site/src/components/dsa/dsa-banner';
+
+<ModuleBanner />
+
+
+## **Lab 6: Linked Stacks & A Practical Application**
+
+**Objective:** To build a dynamic, linked-list-based Stack to overcome the size limitations of an array. You'll then use this new stack to solve a common problem: validating balanced parentheses in an expression.
+
+### **Part 1: Building the Linked Stack**
+
+In this part, you will re-implement the `Stack` ADT, but using a linked list as the underlying data structure.
+
+#### **Task 1: The New `Stack` Class Structure**
+1.  Create a new C++ project. You will need a `Node` class similar to the one from our previous labs (with `data` and a `next` pointer).
+2.  Define your `Stack` class. Its only `private` data member should be `Node* head;`.
+3.  The constructor `Stack()` should initialize `head` to `nullptr`.
+
+#### **Task 2: Implement Stack Operations**
+These methods should map to the efficient O(1) head operations of a linked list.
+
+1.  **`void push(int value)`**: This method should create a new node and **prepend** it to the list, making it the new `head`.
+2.  **`int pop()`**: This method should remove the `head` node from the list and return its value. Remember to handle the **Stack Underflow** case (if `head` is `nullptr`).
+3.  **`int peek()`**: This should return the `data` from the `head` node without deleting it. Also handle the underflow case.
+4.  **`bool isEmpty()`**: This should return `true` if `head` is `nullptr`, and `false` otherwise.
+
+---
+
+### **Part 2: Application - Balanced Parentheses Checker**
+
+Now, you'll use your new dynamic stack to solve a real problem.
+
+#### **Task 3: The Challenge Function**
+Write a standalone boolean function with the following signature. You will need to adapt your `Stack` to handle `char` data instead of `int` for this task.
+
+`bool areParenthesesBalanced(std::string expression);`
+
+This function should return `true` if all brackets (`()`, `[]`, `{}`) in the string are correctly matched and nested, and `false` otherwise.
+
+#### **Task 4: The Algorithm**
+Implement the function using the following logic:
+
+1.  Create an instance of your `Stack<char>`.
+2.  Loop through each character of the input `expression` string.
+3.  If the character is an **opening bracket** (`(`, `{`, or `[`), **`push`** it onto the stack.
+4.  If the character is a **closing bracket** (`)`, `}`, or `]`):
+* First, check if the stack `isEmpty()`. If it is, you have a closing bracket with no opener, which is an error, so `return false`.
+* If the stack is not empty, `pop` the character from the top.
+* Check if the popped character is the correct opening match for the current closing bracket. For example, if the current character is `)`, the popped character must be `(`. If they do not match, the expression is unbalanced, so `return false`.
+5.  **After the loop**: If the stack is perfectly `isEmpty()`, it means every opening bracket found a matching closing bracket. `return true`.
+6.  If the stack is **not** empty after the loop, it means there are leftover opening brackets that were never closed. `return false`.
+
+#### **Task 5: Testing**
+In your `main()` function, test your `areParenthesesBalanced` function with a variety of strings to verify its correctness:
+* `"()"` (should return true)
+* `"()[]{}"` (should return true)
+* `"([)]"` (should return false)
+* `"(]"` (should return false)
+* `"{[]}"` (should return true)
+* `"hello(world)"` (should return true)
+* `")("` (should return false)
+* `"unclosed({" ` (should return false)
+
+***
+

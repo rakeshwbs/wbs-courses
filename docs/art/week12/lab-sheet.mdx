@@ -1,0 +1,100 @@
+---
+id: lab-sheet
+title: Labsheet
+sidebar_position: 2
+hide_title: true
+sidebar_label: 💻 Capstone Exercise
+---
+import ModuleBanner from '@site/src/components/art/art-banner';
+
+<ModuleBanner />
+
+
+# Week 12 Lab: Comprehensive Review Challenge
+
+## Objective
+
+This final lab is a capstone exercise designed to test your combined knowledge from the entire course. You will build and configure a complex network from scratch that integrates multiple technologies including:
+- Multi-area OSPF
+- EIGRP
+- Two-way Route Redistribution
+- Default Route Propagation
+- Port Address Translation (PAT)
+- Extended Access Control Lists (ACLs)
+
+Success in this lab demonstrates a solid understanding of the course material and readiness for the final exam.
+
+## Network Scenario & Topology
+
+A company has two departments: **Corporate (OSPF Domain)** and **Engineering (EIGRP Domain)**. The two departments must be able to communicate. The Engineering department manages the company's connection to the internet. A security policy states that the Engineering team cannot access the sensitive "Corporate Files" server.
+
+```text
+                                (OSPF Area 1)                                   (EIGRP AS 100)
+(Lo0: Corp LAN 1)                 (Lo1: Corp Files)
+  192.168.10.0/24                     192.168.11.0/24
+        |                                 |
+   +----------+        10.0.12.0/30       +----------+        10.0.23.0/30      +----------+       10.0.34.0/30     +----------+
+   |    R1    |-------------------------|    R2    |------------------------|    R3    |----------------------|    R4    |-- to -- "Internet"
+   +----------+        (OSPF Area 0)      |  (ABR &  |                        | (EIGRP)  |                      | (EIGRP & | (Lo0: 8.8.8.8)
+(OSPF Area 1)                           |   ASBR)  |                        +----------+                      |   NAT)   |
+                                        +----------+                             |                               +----------+
+                                                                             (Lo0: Eng LAN)
+                                                                             192.168.30.0/24
+```
+
+---
+
+## Configuration Challenge Tasks
+
+Follow these steps in order to build the network.
+
+### Task 1: Build and Address the Network
+1. Build the topology shown above. The "Internet" can be a simple router with a configured Loopback0 interface at `8.8.8.8/8`.
+2. Configure all IP addresses on the routers' physical and loopback interfaces according to the diagram. (e.g., use `.1` and `.2` for the serial links).
+
+### Task 2: Configure the OSPF Domain
+1. On **R1** and **R2**, configure `router ospf 1`.
+2. Place interfaces into their correct areas. R1's interfaces are all in **Area 1**. R2's interface towards R1 is in **Area 1**, and its interface towards R3 is in **Area 0**.
+3. Verify that R1 and R2 form a neighbor relationship.
+
+### Task 3: Configure the EIGRP Domain
+1. On **R3** and **R4**, configure `router eigrp 100`.
+2. Add the appropriate networks to enable EIGRP on all necessary interfaces.
+3. Verify that R3 and R4 form a neighbor relationship.
+
+### Task 4: Configure Two-Way Redistribution
+1. On **R2**, which is now an **ASBR**, configure two-way redistribution between OSPF 1 and EIGRP 100.
+2. **Crucially**, remember to define a **seed metric** when redistributing into EIGRP, and use the **`subnets`** keyword when redistributing into OSPF.
+3. Verify that R1 can see R3's loopback route (`D EX` or `O E2`) and that R3 can see R1's loopback routes (`D EX` or `O E2`).
+
+### Task 5: Configure Internet Access
+1. On **R4**, configure a **static default route** pointing to the "Internet" router (e.g., `ip route 0.0.0.0 0.0.0.0 [ip_of_internet_router]`).
+2. On **R4**, redistribute this static route into the EIGRP domain so the rest of the company can learn it.
+
+### Task 6: Configure NAT (PAT)
+1. On **R4**, configure Port Address Translation (NAT Overload).
+2. Define the "inside" and "outside" interfaces.
+3. Create an ACL that permits all internal private IP ranges (`192.168.0.0/16`) to be translated.
+4. Configure the NAT rule to use the ACL and overload on R4's "public" interface (the one facing the internet).
+
+### Task 7: Configure the Security Policy ACL
+1. On **R3**, create an extended ACL that **denies** traffic from the Engineering LAN (`192.168.30.0/24`) going to the Corporate Files server (`192.168.11.0/24`).
+2. Remember to include a `permit ip any any` at the end to allow all other traffic.
+3. Apply this ACL **inbound** on R3's LAN interface (Loopback0 in this lab, but would be a physical interface in the real world).
+
+---
+
+## Final Verification Checklist
+
+Before you finish, ensure you can successfully perform the following tests. This proves your configuration is correct.
+
+1. **Full Internal Connectivity:**
+- Can the Corporate LAN (`192.168.10.0`) ping the Engineering LAN (`192.168.30.0`)? **(Should Succeed)**
+2. **Internet Access:**
+- Can the Corporate LAN (`192.168.10.0`) ping the Internet server (`8.8.8.8`)? **(Should Succeed)**
+- Can the Engineering LAN (`192.168.30.0`) ping the Internet server (`8.8.8.8`)? **(Should Succeed)**
+3. **NAT Verification:**
+- When you perform the pings in step 2, does the `show ip nat translations` command on R4 show active PAT entries? **(Should Show Entries)**
+4. **ACL Verification:**
+- Can the Engineering LAN (`192.168.30.0`) ping the Corporate Files server (`192.168.11.1`)? **(Should Fail)**
+- Can the Engineering LAN (`192.168.30.0`) ping the main Corporate LAN (`192.168.10.1`)? **(Should Succeed)**

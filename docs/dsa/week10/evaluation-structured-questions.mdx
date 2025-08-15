@@ -1,0 +1,174 @@
+---
+id: evaluation-structured-questions
+title: Exam-type Questions
+hide_title: true
+sidebar_position: 4
+sidebar_label: Exam-type Questions
+sidebar_class_name: icon-exam
+
+---
+import ModuleBanner from '@site/src/components/dsa/dsa-banner';
+
+<ModuleBanner />
+
+
+
+### **Sample Examination Questions & Answers - Week 10 Concepts**
+
+**QUESTION 1 \[25 MARKS]**
+
+(a) In the context of data structures, define what a **hash function** does and explain what a **collision** is.
+\[8]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    A **hash function** is a function that takes an input key of arbitrary size (like a string) and maps it to an output of a fixed size, which is an integer index. In a hash table, this index is used to determine where the data associated with the key should be stored in an array.
+
+    A **collision** is an event that occurs when the hash function generates the same index for two or more different keys. Since there are more possible keys than there are array slots, collisions are often unavoidable.
+
+    **Marking Scheme:**
+
+    * \[4 Marks] - For a clear and correct definition of a hash function (mapping a key to an index).
+    * \[4 Marks] - For a clear and correct definition of a collision (different keys producing the same index).
+
+</details>
+
+(b) You are given an empty hash table of size 7. Using the simple hash function `index = key.length() % 7` and the **separate chaining** method to resolve collisions, show the final state of the hash table after inserting the following string keys in order: `"apple"`, `"banana"`, `"fig"`, `"grape"`, `"date"`, `"cherry"`.
+\[10]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    **Hash Calculations:**
+
+    * `"apple"`: length 5 → `5 % 7 = 5`
+    * `"banana"`: length 6 → `6 % 7 = 6`
+    * `"fig"`: length 3 → `3 % 7 = 3`
+    * `"grape"`: length 5 → `5 % 7 = 5` (Collision with "apple")
+    * `"date"`: length 4 → `4 % 7 = 4`
+    * `"cherry"`: length 6 → `6 % 7 = 6` (Collision with "banana")
+
+    **Final Hash Table State:**
+
+    * `Index 0: -> nullptr`
+    * `Index 1: -> nullptr`
+    * `Index 2: -> nullptr`
+    * `Index 3: -> [ "fig" ] -> nullptr`
+    * `Index 4: -> [ "date" ] -> nullptr`
+    * `Index 5: -> [ "apple" ] -> [ "grape" ] -> nullptr`
+    * `Index 6: -> [ "banana" ] -> [ "cherry" ] -> nullptr`
+
+    **Marking Scheme:**
+
+    * \[10 Marks] - For the correctly drawn final state. (Partial marks awarded: -1.5 for each misplaced or missing key).
+
+</details>
+
+(c) List and briefly explain two properties of a good hash function.
+\[7]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    1. **Deterministic:** A good hash function must always produce the same output (hash index) for the same input (key). If `"apple"` hashes to index 5 today, it must always hash to index 5. Without this, you would never be able to find your data again.
+    2. **Uniform Distribution:** The function should spread keys as evenly as possible across all available indices in the hash table. This minimizes the number of collisions and prevents clustering, where many keys hash to the same few indices, degrading the hash table's performance.
+
+    *(Other valid answers include "Fast to Compute").*
+
+    **Marking Scheme:**
+
+    * \[3.5 Marks] - For correctly identifying and explaining the first property (e.g., Deterministic).
+    * \[3.5 Marks] - For correctly identifying and explaining the second property (e.g., Uniform Distribution).
+
+</details>
+
+---
+
+**QUESTION 2 \[25 MARKS]**
+
+(a) Write a complete C++ implementation of a simple `hashFunction` for a `HashTable` class. The function should take a `std::string key` and return an `int` index. The logic should be to sum the ASCII values of the characters and use the modulo operator. Assume `TABLE_SIZE` is a defined member of the class.
+\[8]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    ```cpp
+    // Assuming TABLE_SIZE is a member, e.g., 'private: int TABLE_SIZE = 10;'
+    // Assuming the function is a member of the HashTable class
+
+    int HashTable::hashFunction(std::string key) {
+    int hashValue = 0;
+    for (char ch : key) {
+    hashValue += ch; // Add the ASCII value of the character
+}
+    return hashValue % TABLE_SIZE;
+}
+    ```
+
+    **Marking Scheme:**
+
+    * \[2 Marks] - For the correct function signature.
+    * \[3 Marks] - For correctly looping through the string and summing the character values.
+    * \[3 Marks] - For correctly using the modulo operator with `TABLE_SIZE` to produce the final index.
+
+</details>
+
+(b) Describe, in pseudocode or plain English, the algorithm for the `search(key)` operation in a hash table that resolves collisions using **separate chaining**.
+\[9]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    **Algorithm: `search(key)`**
+
+    1. Calculate the `index` by passing the `key` through the `hashFunction`.
+    2. Go to the array at the calculated `index`. This gives you access to a linked list (the chain or bucket).
+    3. If the linked list at this index is empty, the key does not exist. Return "not found".
+    4. If the list is not empty, traverse the linked list node by node.
+    5. In each node, compare the node's stored key with the `key` you are searching for.
+    6. If a match is found, return the `value` from that node.
+    7. If you reach the end of the linked list without finding a match, return "not found".
+
+    **Marking Scheme:**
+
+    * \[2 Marks] - For the initial step of calculating the hash index.
+    * \[2 Marks] - For accessing the correct linked list at that index.
+    * \[3 Marks] - For describing the traversal of the linked list.
+    * \[2 Marks] - For explaining the comparison of keys to find the match.
+
+</details>
+
+(c) Describe the **worst-case scenario** for a hash table that uses separate chaining. What causes it, what does the structure look like, and what is the resulting time complexity of a `search` operation?
+\[8]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    **Cause:** A poor hash function that fails to distribute keys uniformly, mapping every key to the same hash index.
+
+    **Structure:** One slot in the hash table contains a pointer to a long linked list holding all `n` key-value pairs. All other slots are empty.
+
+    **Time Complexity:** Search time becomes **O(n)** because the algorithm must traverse the entire linked list to find a key.
+
+    **Marking Scheme:**
+
+    * \[2 Marks] - For identifying a poor hash function as the cause.
+    * \[3 Marks] - For describing the degenerate linked list structure.
+    * \[3 Marks] - For correctly stating the resulting time complexity as O(n).
+
+</details>
+
+---

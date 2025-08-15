@@ -1,0 +1,459 @@
+---
+id: solved-algebraically
+title: Solving Simultaneous Equations Algebraically
+hide_title: true
+sidebar_position: 1
+sidebar_label: Algebraic Method
+---
+import ModuleBanner from '@site/src/components/busm/busm-banner';
+
+<ModuleBanner />
+---
+### Solving Simultaneous Equations
+---
+Simultaneous equations are a pair of equations with two unknown variables. The goal is to find the single value for **x** and **y** that makes both equations true at the same time. The most common algebraic method used in the exam papers is the **elimination method**.
+
+### The Elimination Method
+
+1.  **Multiply:** If necessary, multiply one or both equations so that the coefficient (the number in front) of either `x` or `y` is the same in both equations.
+2.  **Eliminate:** Add or subtract the two equations to eliminate the variable with the matching coefficient.
+3.  **Solve:** Solve the resulting simple equation to find the value of the first variable.
+4.  **Substitute:** Substitute this value back into one of the original equations to find the value of the second variable.
+
+---
+
+### Past Exam Papers
+---
+
+:::danger 19th November 2024, Section A, Question 13
+Solve the following simultaneous equations algebraically:
+$7x - y = 30$
+$4x + 5y = 6$
+:::
+:::success Answer
+$x = 4$, $y = -2$ ✔️
+:::note Explanation
+
+1.  **Label Equations:**
+  * (1) $7x - y = 30$
+  * (2) $4x + 5y = 6$
+2.  **Multiply:** To eliminate `y`, multiply equation (1) by 5 so the `y` coefficients match.
+  * (3) $35x - 5y = 150$
+3.  **Eliminate:** Add the new equation (3) to equation (2) to eliminate the `y` term.
+```
+  35x - 5y = 150
++  4x + 5y = 6
+-----------------
+  39x      = 156
+```
+4.  **Solve for x:**
+$$x = \frac{156}{39} \implies x = 4$$
+5.  **Substitute:** Substitute $x=4$ back into the original equation (1):
+$$7(4) - y = 30$$   $$28 - y = 30 \implies y = -2$$
+:::
+
+
+-----
+
+:::danger 14 March 2023, Section A, Question 11
+Solve the simultaneous equations algebraically.
+$5x - 3y = 13$
+$x + 2y = -26$
+:::
+:::success Answer
+$x = -4$, $y = -11$ ✔️
+:::note Explanation
+
+1.  **Label Equations:**
+  * (1) $5x - 3y = 13$
+  * (2) $x + 2y = -26$
+2.  **Multiply:** To eliminate `x`, multiply equation (2) by 5.
+  * (3) $5x + 10y = -130$
+3.  **Eliminate:** Subtract the original equation (1) from the new equation (3).
+```
+   5x + 10y = -130
+- (5x -  3y =   13)
+--------------------
+        13y = -143
+```
+4.  **Solve for y:**
+$$y = \frac{-143}{13} \implies y = -11$$
+5.  **Substitute:** Substitute $y=-11$ back into the original equation (2):
+$$x + 2(-11) = -26$$   $$x - 22 = -26 \implies x = -4$$
+:::
+
+
+-----
+
+:::danger 07 September 2021, Section A, Question 11
+Solve these simultaneous equations algebraically.
+$4x - 5y = 21$
+$11x + 10y = 34$
+:::
+:::success Answer
+$x = 4$, $y = -1$ ✔️
+:::note Explanation
+
+1.  **Label Equations:**
+  * (1) $4x - 5y = 21$
+  * (2) $11x + 10y = 34$
+2.  **Multiply:** To eliminate `y`, multiply equation (1) by 2.
+  * (3) $8x - 10y = 42$
+3.  **Eliminate:** Add the new equation (3) to equation (2) to eliminate the `y` term.
+```
+   8x - 10y = 42
++ 11x + 10y = 34
+------------------
+  19x       = 76
+```
+4.  **Solve for x:**
+$$x = \frac{76}{19} \implies x = 4$$
+5.  **Substitute:** Substitute $x=4$ back into the original equation (1):
+$$4(4) - 5y = 21$$   $$16 - 5y = 21 \implies -5y = 5 \implies y = -1$$
+:::
+
+-----
+
+:::danger 19th November 2024, Section A, Question 13
+Solve the following simultaneous equations algebraically:
+$7x - y = 30$
+$4x + 5y = 6$
+:::
+:::success Answer
+$x = 4$, $y = -2$ ✔️
+:::note Explanation
+
+1.  **Label Equations:**
+      * (1) $7x - y = 30$
+      * (2) $4x + 5y = 6$
+2.  **Multiply:** To eliminate `y`, multiply equation (1) by 5.
+      * (3) $35x - 5y = 150$
+3.  **Eliminate:** Add the new equation (3) to equation (2).
+```
+      35x - 5y = 150
+    +  4x + 5y = 6
+    -----------------
+      39x      = 156
+```
+4.  **Solve for x:**
+    $$x = \frac{156}{39} \implies x = 4$$
+5.  **Substitute:** Substitute $x=4$ back into equation (1):
+    $$7(4) - y = 30 \implies 28 - y = 30 \implies y = -2$$
+    :::
+
+
+-----
+
+:::danger 10 September 2024, Section A, Question 19
+Solve these simultaneous equations algebraically.
+$5x-y=14$
+$15x+5y=10$
+:::
+:::success Answer
+$x = 2$, $y = -4$ ✔️
+:::note Explanation
+
+1.  **Label Equations:**
+      * (1) $5x - y = 14$
+      * (2) $15x + 5y = 10$
+2.  **Multiply:** To eliminate `y`, multiply equation (1) by 5.
+      * (3) $25x - 5y = 70$
+3.  **Eliminate:** Add the new equation (3) to equation (2).
+```
+      25x - 5y = 70
+    + 15x + 5y = 10
+    -----------------
+      40x      = 80
+```
+4.  **Solve for x:**
+    $$x = \frac{80}{40} \implies x = 2$$
+5.  **Substitute:** Substitute $x=2$ back into equation (1):
+    $$5(2) - y = 14 \implies 10 - y = 14 \implies y = -4$$
+    :::
+
+-----
+
+:::danger 4 June 2024, Section A, Question 11
+Solve the simultaneous equations algebraically.
+$5x-y=-17$
+$3x + 8y = 7$
+:::
+:::success Answer
+$x = -3$, $y = 2$ ✔️
+:::note Explanation
+
+1.  **Label Equations:**
+      * (1) $5x - y = -17$
+      * (2) $3x + 8y = 7$
+2.  **Multiply:** To eliminate `y`, multiply equation (1) by 8.
+      * (3) $40x - 8y = -136$
+3.  **Eliminate:** Add the new equation (3) to equation (2).
+```
+      40x - 8y = -136
+    +  3x + 8y = 7
+    ------------------
+      43x      = -129
+```
+4.  **Solve for x:**
+    $$x = \frac{-129}{43} \implies x = -3$$
+5.  **Substitute:** Substitute $x=-3$ back into equation (1):
+    $$5(-3) - y = -17 \implies -15 - y = -17 \implies y = 2$$
+    :::
+
+-----
+
+:::danger 7 March 2024, Section A, Question 19
+Solve the simultaneous equations algebraically.
+$5x-y=17$
+$15x+7y=31$
+:::
+:::success Answer
+$x = 3$, $y = -2$ ✔️
+:::note Explanation
+
+1.  **Label Equations:**
+      * (1) $5x - y = 17$
+      * (2) $15x + 7y = 31$
+2.  **Multiply:** To eliminate `y`, multiply equation (1) by 7.
+      * (3) $35x - 7y = 119$
+3.  **Eliminate:** Add the new equation (3) to equation (2).
+```
+      35x - 7y = 119
+    + 15x + 7y = 31
+    ------------------
+      50x      = 150
+```
+4.  **Solve for x:**
+    $$x = \frac{150}{50} \implies x = 3$$
+5.  **Substitute:** Substitute $x=3$ back into equation (1):
+    $$5(3) - y = 17 \implies 15 - y = 17 \implies y = -2$$
+    :::
+
+-----
+
+:::danger 21 November 2023, Section A, Question 11
+Solve the simultaneous equations algebraically.
+$16x+2y=2$
+$12x-y=9$
+:::
+:::success Answer
+$x = 0.5$, $y = -3$ ✔️
+:::note Explanation
+
+1.  **Label Equations:**
+      * (1) $16x + 2y = 2$
+      * (2) $12x - y = 9$
+2.  **Multiply:** To eliminate `y`, multiply equation (2) by 2.
+      * (3) $24x - 2y = 18$
+3.  **Eliminate:** Add equation (1) and the new equation (3).
+```
+      16x + 2y = 2
+    + 24x - 2y = 18
+    -----------------
+      40x      = 20
+```
+4.  **Solve for x:**
+    $$x = \frac{20}{40} \implies x = 0.5$$
+5.  **Substitute:** Substitute $x=0.5$ back into equation (2):
+    $$12(0.5) - y = 9 \implies 6 - y = 9 \implies y = -3$$
+    :::
+
+-----
+
+:::danger 12 September 2023, Section A, Question 14
+Solve the simultaneous equations
+$3x-6y=18$ and $3x+y=11$
+:::
+:::success Answer
+$x = 4$, $y = -1$ ✔️
+:::note Explanation
+
+1.  **Label Equations:**
+      * (1) $3x - 6y = 18$
+      * (2) $3x + y = 11$
+2.  **Multiply:** No multiplication is needed as the `x` coefficients are already the same.
+3.  **Eliminate:** Subtract equation (1) from equation (2).
+```
+       3x +  y = 11
+    - (3x - 6y = 18)
+    -----------------
+             7y = -7
+```
+4.  **Solve for y:**
+    $$y = \frac{-7}{7} \implies y = -1$$
+5.  **Substitute:** Substitute $y=-1$ back into equation (2):
+    $$3x + (-1) = 11 \implies 3x - 1 = 11 \implies 3x = 12 \implies x = 4$$
+    :::
+
+-----
+
+:::danger 13 June 2023, Section A, Question 17
+Solve these simultaneous equations algebraically.
+$2x+6y=19$
+$6x+3y=12$
+:::
+:::success Answer
+$x = 0.5$, $y = 3$ ✔️
+:::note Explanation
+
+1.  **Label Equations:**
+      * (1) $2x + 6y = 19$
+      * (2) $6x + 3y = 12$
+2.  **Multiply:** To eliminate `y`, multiply equation (2) by 2.
+      * (3) $12x + 6y = 24$
+3.  **Eliminate:** Subtract equation (1) from the new equation (3).
+```
+      12x + 6y = 24
+    - (2x + 6y = 19)
+    -----------------
+      10x      = 5
+```
+4.  **Solve for x:**
+    $$x = \frac{5}{10} \implies x = 0.5$$
+5.  **Substitute:** Substitute $x=0.5$ back into equation (2):
+    $$6(0.5) + 3y = 12 \implies 3 + 3y = 12 \implies 3y = 9 \implies y = 3$$
+    :::
+
+-----
+
+:::danger 14 March 2023, Section A, Question 11
+Solve the simultaneous equations algebraically.
+$5x - 3y = 13$
+$x + 2y = -26$
+:::
+:::success Answer
+$x = -4$, $y = -11$ ✔️
+:::note Explanation
+
+1.  **Label Equations:**
+      * (1) $5x - 3y = 13$
+      * (2) $x + 2y = -26$
+2.  **Multiply:** To eliminate `x`, multiply equation (2) by 5.
+      * (3) $5x + 10y = -130$
+3.  **Eliminate:** Subtract equation (1) from the new equation (3).
+```
+       5x + 10y = -130
+    - (5x -  3y =   13)
+    --------------------
+            13y = -143
+```
+4.  **Solve for y:**
+    $$y = \frac{-143}{13} \implies y = -11$$
+5.  **Substitute:** Substitute $y=-11$ back into equation (2):
+    $$x + 2(-11) = -26 \implies x - 22 = -26 \implies x = -4$$
+    :::
+
+-----
+
+:::danger 08 March 2022, Section A, Question 14
+Solve these simultaneous equations algebraically:
+$3x-4y=17$
+$5x+y=13$
+:::
+:::success Answer
+$x = 3$, $y = -2$ ✔️
+:::note Explanation
+
+1.  **Label Equations:**
+      * (1) $3x - 4y = 17$
+      * (2) $5x + y = 13$
+2.  **Multiply:** To eliminate `y`, multiply equation (2) by 4.
+      * (3) $20x + 4y = 52$
+3.  **Eliminate:** Add equation (1) and the new equation (3).
+```
+       3x - 4y = 17
+    + 20x + 4y = 52
+    -----------------
+      23x      = 69
+```
+4.  **Solve for x:**
+    $$x = \frac{69}{23} \implies x = 3$$
+5.  **Substitute:** Substitute $x=3$ back into equation (2):
+    $$5(3) + y = 13 \implies 15 + y = 13 \implies y = -2$$
+    :::
+
+-----
+
+:::danger 07 September 2021, Section A, Question 11
+Solve these simultaneous equations algebraically.
+$4x - 5y = 21$
+$11x + 10y = 34$
+:::
+:::success Answer
+$x = 4$, $y = -1$ ✔️
+:::note Explanation
+
+1.  **Label Equations:**
+      * (1) $4x - 5y = 21$
+      * (2) $11x + 10y = 34$
+2.  **Multiply:** To eliminate `y`, multiply equation (1) by 2.
+      * (3) $8x - 10y = 42$
+3.  **Eliminate:** Add the new equation (3) and equation (2).
+```
+       8x - 10y = 42
+    + 11x + 10y = 34
+    ------------------
+      19x       = 76
+```
+4.  **Solve for x:**
+    $$x = \frac{76}{19} \implies x = 4$$
+5.  **Substitute:** Substitute $x=4$ back into equation (1):
+    $$4(4) - 5y = 21 \implies 16 - 5y = 21 \implies -5y = 5 \implies y = -1$$
+    :::
+
+-----
+
+:::danger 9 March 2021, Section A, Question 15
+Solve these simultaneous equations algebraically:
+$5x - 3y = 27$
+$11x + 9y = -3$
+:::
+:::success Answer
+$x = 3$, $y = -4$ ✔️
+:::note Explanation
+
+1.  **Label Equations:**
+      * (1) $5x - 3y = 27$
+      * (2) $11x + 9y = -3$
+2.  **Multiply:** To eliminate `y`, multiply equation (1) by 3.
+      * (3) $15x - 9y = 81$
+3.  **Eliminate:** Add the new equation (3) and equation (2).
+```
+      15x - 9y = 81
+    + 11x + 9y = -3
+    -----------------
+      26x      = 78
+```
+4.  **Solve for x:**
+    $$x = \frac{78}{26} \implies x = 3$$
+5.  **Substitute:** Substitute $x=3$ back into equation (1):
+    $$5(3) - 3y = 27 \implies 15 - 3y = 27 \implies -3y = 12 \implies y = -4$$
+    :::
+-----
+
+:::danger 03 March 2020, Section A, Question 13
+Solve these simultaneous equations algebraically.
+$3𝑥 + 2𝑦 = 8$
+$9𝑥 + 10𝑦 = 16$
+:::
+:::success Answer
+$x = 4$, $y = -2$ ✔️
+:::note Explanation
+
+1.  **Label Equations:**
+      * (1) $3x + 2y = 8$
+      * (2) $9x + 10y = 16$
+2.  **Multiply:** To eliminate `x`, multiply equation (1) by 3.
+      * (3) $9x + 6y = 24$
+3.  **Eliminate:** Subtract the new equation (3) from equation (2).
+```
+       9x + 10y = 16
+    - (9x +  6y = 24)
+    ------------------
+              4y = -8
+```
+4.  **Solve for y:**
+    $$y = \frac{-8}{4} \implies y = -2$$
+5.  **Substitute:** Substitute $y=-2$ back into equation (1):
+    $$3x + 2(-2) = 8 \implies 3x - 4 = 8 \implies 3x = 12 \implies x = 4$$
+    :::

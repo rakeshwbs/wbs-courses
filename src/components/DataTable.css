@@ -1,0 +1,35 @@
+.datatable-container {
+    margin-bottom: 2rem;
+}
+
+.datatable-filter {
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    border-radius: var(--ifm-border-radius);
+    border: 1px solid var(--ifm-color-emphasis-300);
+    width: 100%;
+    max-width: 400px;
+}
+
+.table-wrapper {
+    overflow-x: auto; /* Allow horizontal scrolling on small screens */
+}
+
+.datatable-container table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.datatable-container th,
+.datatable-container td {
+    padding: 0.75rem;
+    border: 1px solid var(--ifm-color-emphasis-300);
+    text-align: left;
+}
+
+.datatable-container th {
+    background-color: var(--ifm-color-emphasis-100);
+    font-weight: bold;
+    cursor: pointer;
+    user-select: none;
+}

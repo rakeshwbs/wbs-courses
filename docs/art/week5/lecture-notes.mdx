@@ -1,0 +1,96 @@
+---
+id: lecture-notes 
+title: Lecture Notes
+hide_title: true
+sidebar_position: 1
+sidebar_label: Access Control Lists
+sidebar_class_name: icon-lecture
+---
+import ModuleBanner from '@site/src/components/art/art-banner';
+
+<ModuleBanner />
+
+# Week 5: EIGRP & Access Control Lists (ACLs)
+
+Last week we introduced EIGRP and its key features. This week, we'll explore its internal structure: the tables it uses to store information and the metric it uses to make decisions. Then, we will move from routing to traffic control and security by introducing Access Control Lists (ACLs).
+
+**Reminder:** Assignment 1, covering topics from Weeks 1-5, will be released this week.
+
+---
+
+## 1. The Three Tables of EIGRP
+
+EIGRP uses a system of three tables to manage routing information, moving from general neighbor data to the final, best routes.
+
+1.  **Neighbor Table (`show ip eigrp neighbors`)**
+-   **Purpose:** Contains a list of all directly connected routers that are running EIGRP in the same Autonomous System and have successfully exchanged Hello packets.
+-   **Analogy:** Your phone's contact list. It's a list of people you can talk to directly.
+
+2.  **Topology Table (`show ip eigrp topology`)**
+-   **Purpose:** This is the brain of EIGRP. It contains **every single route** learned from all neighbors. It's a complete map of all possible paths.
+-   The DUAL algorithm analyzes this table to find the best path (Successor) and any backup paths (Feasible Successors) for each destination.
+-   **Analogy:** A map of Mauritius showing every possible road, back-alley, and highway to get from one point to another.
+
+3.  **Routing Table (`show ip route`)**
+-   **Purpose:** This is the final, optimized table. It contains only the **best of the best** routes (the Successors) selected from the Topology Table. This is the table the router actually uses to forward packets.
+-   **Analogy:** The single, optimized route your GPS gives you after analyzing all possible roads on the map.
+
+---
+
+## 2. The EIGRP Composite Metric
+
+We know EIGRP uses a metric based on bandwidth and delay. The router calculates this using a formula with specific **K-values**.
+
+-   **K-values:** These are five constants (K1 to K5) that act as on/off switches in the metric formula. By default, only **K1 (Bandwidth)** and **K3 (Delay)** are turned on.
+-   **CRITICAL:** For two routers to become EIGRP neighbors, their **K-values must match exactly**.
+-   **Bandwidth:** The metric uses the **slowest** bandwidth of any link along the entire path to the destination.
+-   **Delay:** The metric uses the **sum** of the delays of all links along the path.
+
+### AD and FD: The View from the Topology Table
+
+When you look at the `show ip eigrp topology` output, you'll see two key metric values:
+
+-   **Feasible Distance (FD):** This is *my* router's total calculated metric to reach a destination. It's my perspective of the total distance. The FD of the Successor is the metric that gets placed in the routing table.
+-   **Advertised/Reported Distance (AD/RD):** This is the metric that my *neighbor* is advertising to me. It's their FD to the destination. It's what they told me their distance is.
+
+### The Feasibility Condition
+
+This is the golden rule DUAL uses to select a loop-free backup path (a Feasible Successor):
+> For a path to qualify as a Feasible Successor, the **Advertised Distance (AD)** received from the neighbor must be **less than** the **Feasible Distance (FD)** of my current best path (the Successor).
+
+**Analogy:** My best route to Port Louis takes 30 minutes (my FD). My colleague says he knows a route that takes him 25 minutes (his AD). Because 25 < 30, his route is a valid, loop-free backup for me. If he told me his route takes 40 minutes, I would not consider it a valid backup, as he might be learning about Port Louis through me, which could cause a loop.
+
+---
+
+## 3. Introduction to Access Control Lists (ACLs)
+
+We now switch from routing (how to get there) to filtering (who is allowed to go). An **Access Control List (ACL)** is an ordered list of `permit` or `deny` statements applied to a router interface.
+
+-   **Sequential Processing:** The router checks a packet against each line of the ACL in order, from top to bottom.
+-   **First Match Wins:** As soon as the packet matches a line, the action (`permit` or `deny`) is taken, and the router stops processing the ACL.
+-   **Implicit Deny Any:** This is the most important ACL rule. At the end of every ACL is an invisible, un-erasable line that says `deny ip any any`. If a packet doesn't match any of the lines you wrote, it gets dropped. **This means every useful ACL must have at least one `permit` statement.**
+
+---
+
+## 4. Types of ACLs
+
+### Standard ACLs (Numbered 1-99)
+-   **Simple & Fast:** They are processed quickly by the router.
+-   **Filters on SOURCE IP Address Only:** They can only permit or deny traffic based on where it came from. You cannot specify a destination or port number.
+-   **Placement Rule:** Because they are not very specific, they should be placed as **close to the destination** as possible.
+
+### Extended ACLs (Numbered 100-199)
+-   **Powerful & Specific:** They offer much more granular control.
+-   **Filters on Multiple Criteria:** Can filter based on:
+-   Source IP Address
+-   Destination IP Address
+-   Protocol (TCP, UDP, ICMP, etc.)
+-   Source and Destination Port Numbers (e.g., port 80 for HTTP, 443 for HTTPS).
+-   **Placement Rule:** Because they are so specific, they should be placed as **close to the source** as possible to drop unwanted traffic early.
+
+### Applying an ACL
+Creating an ACL does nothing. You must apply it to an interface in a specific direction.
+
+-   `ip access-group [number or name] [in | out]`
+-   **`in`**: The ACL is checked for packets *entering* the router through this interface.
+-   **`out`**: The ACL is checked for packets *leaving* the router through this interface.

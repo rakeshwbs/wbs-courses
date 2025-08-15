@@ -1,0 +1,134 @@
+---
+id: lab-sheet
+title: Labsheet
+sidebar_position: 2
+hide_title: true
+sidebar_label: 💻 EIGRP
+---
+import ModuleBanner from '@site/src/components/art/art-banner';
+
+<ModuleBanner />
+
+# Week 4 Lab: RIPv2 and Introduction to EIGRP
+
+## Objective
+
+This lab is split into two parts. In Part 1, you will experience a classic network failure caused by RIPv1's classful nature and then fix it by migrating to the classless RIPv2. In Part 2, you will replace RIP entirely with a basic EIGRP configuration, observing its different verification commands and behavior.
+
+## Required Software
+
+- Cisco Packet Tracer
+
+## Network Topology
+
+We will use the same three-router topology from Week 3, but with a different IP addressing scheme designed to highlight classful vs. classless behavior. This is a **discontiguous network**.
+
+```text
+      (Lo0: 172.16.1.1/24)              (No LAN)                  (Lo0: 172.16.2.1/24)
++-----------+    10.1.12.0/30    +-----------+    10.1.23.0/30    +-----------+
+|  Router-A |--------------------|  Router-B |--------------------|  Router-C |
++-----------+ S0/0/0      S0/0/0 +-----------+ S0/0/1      S0/0/1 +-----------+
+     .1                            .2           .1                            .2
+````
+
+---
+
+## Part 1: Migrating from RIPv1 to RIPv2
+
+### Task 1: Build and Configure the Base Topology
+
+1. Build the three-router topology above. Configure all physical and loopback interfaces with the specified IP addresses.
+2. Do not configure any routing yet.
+
+### Task 2: Configure RIPv1 and Observe the Failure
+
+1. On **all three routers**, configure basic RIPv1.
+
+* On **Router-A**: `router rip`, `network 172.16.0.0`, `network 10.0.0.0`
+* On **Router-B**: `router rip`, `network 10.0.0.0`
+* On **Router-C**: `router rip`, `network 172.16.0.0`, `network 10.0.0.0`
+2. Wait about a minute for RIP to converge.
+3. On **Router-A**, check the routing table: `show ip route`.
+4. **Analysis:** You will see a route for `172.16.0.0/16` pointing towards Router-B, but you will **not** see a specific route for Router-C's LAN (`172.16.2.0/24`). A ping from Router-A's loopback (`ping 172.16.2.1 source Lo0`) will fail. This is because RIPv1 auto-summarizes the `172.16.0.0` networks at the major `10.0.0.0` network boundary.
+
+### Task 3: Upgrade to RIPv2 and Verify the Fix
+
+1. On **all three routers**, upgrade your RIP configuration to version 2 and disable auto-summary.
+
+```bash
+configure terminal
+router rip
+version 2
+no auto-summary
+   ```
+2. Wait another minute for the new updates to be exchanged.
+3. On **Router-A**, check the routing table again: `show ip route`.
+4. **Analysis:** You should now see the specific route `R 172.16.2.0/24 [120/2] via 10.1.12.2...`. The classless RIPv2 sends the subnet mask in its updates, allowing it to correctly handle this discontiguous design. A ping from Router-A's loopback to Router-C's loopback will now succeed.
+
+---
+
+## Part 2: Basic EIGRP Configuration
+
+Now, we will replace RIP with a superior protocol.
+
+### Task 4: Remove the RIP Configuration
+
+1. On **all three routers**, enter global configuration mode and remove the entire RIP process.
+
+```bash
+configure terminal
+no router rip
+```
+2. Verify that all 'R' routes disappear from the routing table with `show ip route`.
+
+### Task 5: Configure EIGRP
+
+We will use Autonomous System (AS) number **100**. This number must be the same on all routers for them to become neighbors.
+
+1. On **Router-A**, configure EIGRP. Note the use of **wildcard masks** (the inverse of a subnet mask).
+
+```bash
+router eigrp 100
+network 172.16.1.0 0.0.0.255
+network 10.1.12.0 0.0.0.3
+```
+2. On **Router-B**, configure EIGRP.
+
+```bash
+router eigrp 100
+network 10.1.12.0 0.0.0.3
+network 10.1.23.0 0.0.0.3
+```
+3. On **Router-C**, configure EIGRP.
+
+```bash
+router eigrp 100
+network 172.16.2.0 0.0.0.255
+network 10.1.23.0 0.0.0.3
+```
+
+### Task 6: Verify EIGRP Operation
+
+1. As you configure the routers, you will see console messages about new adjacencies being formed. This is the Hello protocol at work.
+2. On **Router-B**, use the primary EIGRP verification command to see its neighbors.
+
+```bash
+show ip eigrp neighbors
+```
+
+You should see entries for Router-A (`10.1.12.1`) and Router-C (`10.1.23.2`).
+3. On **Router-A**, check the routing table: `show ip route`.
+4. **Analysis:** You will now see routes marked with a **'D'** (for DUAL). Notice that the administrative distance is `90`, and the metric is a very large number. This is the composite metric.
+5. Confirm full connectivity by pinging from Router-A's loopback to Router-C's loopback.
+
+---
+
+## Exploration Questions
+
+1. In Part 1, why exactly did RIPv1 fail to advertise the `172.16.2.0/24` route from Router-C to Router-A? What is the name of the process that caused this?
+2. Compare the output of `show ip route` for a route learned by RIP vs. EIGRP. What are the two most obvious differences in the `[AD/Metric]` portion of the entry?
+3. What command did you use in Task 6 to verify that EIGRP routers had successfully formed neighbor relationships? What protocol do they use to form these relationships?
+4. The EIGRP `network` command uses a wildcard mask (e.g., `0.0.0.3`). The subnet mask for that network was `255.255.255.252`. What is the mathematical relationship between a subnet mask and its corresponding wildcard mask?
+
+
+

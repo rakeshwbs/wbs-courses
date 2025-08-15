@@ -1,0 +1,67 @@
+---
+id: lecture-notes
+title: Lecture Notes
+hide_title: true
+sidebar_position: 1
+sidebar_label: Graphs
+sidebar_class_name: icon-lecture
+---
+import ModuleBanner from '@site/src/components/dsa/dsa-banner';
+
+<ModuleBanner />
+
+## **Week 11: Introduction to Graphs**
+
+A **Graph** is a non-linear data structure consisting of a set of **vertices** (or nodes) and a set of **edges** that connect pairs of these vertices. It's the ultimate structure for modeling networks and relationships.
+
+### **Graph Terminology**
+
+* **Analogy**: Think of a social network like Facebook or a map of roads connecting cities in Mauritius.
+* **Vertex (or Node)**: Represents an entity. (e.g., a person, a city, a web page).
+* **Edge (or Arc)**: Represents a connection or relationship between two vertices. (e.g., a friendship, a road, a hyperlink).
+
+
+
+Graphs can be:
+* **Undirected**: Edges have no direction (a friendship between A and B is the same as B and A).
+* **Directed (Digraph)**: Edges have a direction (a one-way street from Port Louis to Grand Baie is not the same as the reverse).
+* **Weighted**: Each edge has a "cost" or "weight" (the distance in kilometers between two cities).
+
+### **Representing Graphs**
+There are two primary ways to represent a graph in code:
+
+#### **1. Adjacency Matrix**
+An `N x N` grid (where `N` is the number of vertices). We set `matrix[i][j] = 1` if there is an edge from vertex `i` to `j`, and `0` otherwise.
+* **Pros**: Very fast to check if an edge exists between two vertices (O(1)).
+* **Cons**: Uses a lot of memory ($O(N^2)$), which is wasteful for graphs with few edges ("sparse" graphs).
+
+#### **2. Adjacency List**
+This is the more common approach. We use an array of linked lists. The list at index `i` of the array contains all the vertices that are adjacent to vertex `i`.
+* **Pros**: Memory efficient for sparse graphs.
+* **Cons**: Slower to check if a specific edge exists (you have to search the list).
+
+
+
+### **Graph Traversal Algorithms**
+"Traversing" a graph means visiting every vertex exactly once. The two main algorithms for this are BFS and DFS.
+
+#### **Breadth-First Search (BFS)**
+BFS explores the graph layer by layer. It finds all of a node's immediate neighbors before moving on to their neighbors.
+* **Analogy**: Spreading a rumor. You tell all your friends, then they all tell their friends. The rumor spreads out in waves.
+* **How it works**: Uses a **Queue**.
+  1.  Start at a source vertex, mark it as visited, and `enqueue` it.
+  2.  While the queue is not empty:
+  3.  `dequeue` a vertex, let's call it `u`.
+  4.  For each of `u`'s unvisited neighbors, mark them as visited and `enqueue` them.
+* **Use Case**: Excellent for finding the shortest path between two nodes in an unweighted graph.
+
+#### **Depth-First Search (DFS)**
+DFS explores as far as possible down one path before backtracking.
+* **Analogy**: Navigating a maze. You follow one path until you hit a dead end, then you backtrack to the last junction and try a different path.
+* **How it works**: Uses a **Stack** (often implemented implicitly via recursion).
+  1.  Start at a source vertex `u` and mark it as visited.
+  2.  For each of `u`'s unvisited neighbors, recursively call `DFS` on that neighbor.
+* **Use Case**: Good for finding connected components, solving puzzles like mazes, and topological sorting.
+
+***
+

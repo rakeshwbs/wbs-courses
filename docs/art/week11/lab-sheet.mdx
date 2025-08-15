@@ -1,0 +1,126 @@
+---
+id: lab-sheet
+title: Labsheet
+sidebar_position: 2
+hide_title: true
+sidebar_label: 💻 BGP Path Selection
+---
+import ModuleBanner from '@site/src/components/art/art-banner';
+
+<ModuleBanner />
+
+
+# Week 11 Lab: BGP Path Selection
+
+## Objective
+
+This lab demonstrates how to influence BGP's path selection process. You will create a multi-homed scenario where your router learns two different paths to the same destination. You will first observe BGP's default choice and then use route-maps to apply the **Weight** and **Local Preference** attributes to override that choice and enforce a specific path policy.
+
+## Required Software
+
+- Cisco Packet Tracer
+
+## Network Topology
+
+We will simulate a company (Router-A in AS 65001) that is multi-homed to two different ISPs (Router-B in AS 65002 and Router-C in AS 65003). To simulate a destination on the internet, both ISPs will advertise the same Loopback network.
+
+```text
+                     (AS 65002 - ISP 1)
++----------+      10.1.12.0/30      +----------+
+| Router-A |------------------------| Router-B |----(Lo0: 8.8.8.8/32)
+| (AS 65001)|                        +----------+
++----------+      10.1.13.0/30      +----------+
+|          |------------------------| Router-C |----(Lo0: 8.8.8.8/32)
+                     (AS 65003 - ISP 2)
+```
+
+---
+
+## Lab Tasks
+
+### Task 1: Build Topology and Observe Default Path Selection
+
+1. Build the topology and configure all IP addresses as shown.
+2. **Configure eBGP Peering:**
+ - On **Router-A**: Peer with both R-B and R-C.
+```bash
+router bgp 65001
+ neighbor 10.1.12.2 remote-as 65002
+ neighbor 10.1.13.2 remote-as 65003
+```
+ - On **Router-B**: Peer with R-A.
+```bash
+router bgp 65002
+ neighbor 10.1.12.1 remote-as 65001
+```
+ - On **Router-C**: Peer with R-A.
+```bash
+router bgp 65003
+ neighbor 10.1.13.1 remote-as 65001
+```
+3. **Advertise the Prefix:** On **both Router-B and Router-C**, advertise the loopback network.
+ ```bash
+ router bgp [65002 or 65003]
+  network 8.8.8.8 mask 255.255.255.255
+```
+4. **Verification:**
+ - On Router-A, run `show ip bgp summary` to ensure both peering sessions are established.
+ - On Router-A, run `show ip bgp`. You will see two entries for the `8.8.8.8/32` network. One path will have a `>` next to it, indicating it is the **best** path chosen by BGP. Note which path was chosen by default. (It will likely be the one from the neighbor with the lower router ID).
+
+### Task 2: Influencing Path with the `weight` Attribute
+
+**Goal:** Force Router-A to prefer the path through Router-B (AS 65002), regardless of the default choice.
+
+1. On **Router-A**, create a route-map that will set a high weight.
+ ```bash
+ route-map PREFER_ISP1 permit 10
+  set weight 1000
+```
+2. Apply this route-map to the neighbor relationship with Router-B. The `in` direction means we are modifying attributes of routes *as they are received* from this neighbor.
+ ```bash
+ router bgp 65001
+  neighbor 10.1.12.2 route-map PREFER_ISP1 in
+```
+3. Clear the BGP session to force the new policy to apply immediately:
+`clear ip bgp * soft`
+4. **Verification:** On Router-A, run `show ip bgp` again. The `>` indicating the best path should now be pointing to the path learned from `10.1.12.2` (Router-B), because `weight` is the first attribute BGP checks, and a higher weight is preferred.
+
+### Task 3: Influencing Path with `local-preference`
+
+**Goal:** Understand how to set local preference, which is used to influence the exit path for your entire AS.
+
+1. First, remove the weight configuration from Router-A.
+ ```bash
+ router bgp 65001
+  no neighbor 10.1.12.2 route-map PREFER_ISP1 in
+ !
+ no route-map PREFER_ISP1
+```
+Clear the session again:
+`clear ip bgp * soft`
+2. On **Router-A**, create a new route-map to set a higher local preference. The default is 100, so we'll set it to 200.
+ ```bash
+ route-map SET_LOCAL_PREF permit 10
+  set local-preference 200
+```
+3. Apply this route-map to the neighbor relationship with Router-C (AS 65003).
+ ```bash
+ router bgp 65001
+  neighbor 10.1.13.2 route-map SET_LOCAL_PREF in
+```
+4. Clear the session:
+`clear ip bgp * soft`
+5. **Verification:** On Router-A, run `show ip bgp`.
+ - Find the two paths for `8.8.8.8/32`.
+ - You will see that the path from Router-C (`10.1.13.2`) now has a Local Pref of `200`, while the path from Router-B has the default of `100`.
+ - Because higher local preference is preferred (after weight), the `>` best path marker will now point to the path through Router-C.
+ - *Note: If we had other iBGP routers in our AS, they would also learn about this higher local preference and agree to use Router-C as the exit point.*
+
+---
+
+## Exploration Questions
+
+1. What is the fundamental difference between the `weight` and `local-preference` attributes in terms of their scope of influence?
+2. In the BGP path selection algorithm, which is checked first: `weight` or `local-preference`?
+3. A `prefix-list` is often used with route-maps for filtering. What is one major advantage a `prefix-list` has over a standard `access-list` for matching routes?
+4. If you wanted to influence how ISP 1 (AS 65002) sends traffic *into* your network, which BGP attribute would you typically use? (Hint: It was mentioned in the lecture).

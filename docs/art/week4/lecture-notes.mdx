@@ -1,0 +1,98 @@
+---
+id: lecture-notes 
+title: Lecture Notes
+hide_title: true
+sidebar_position: 1
+sidebar_label: Vector Protocols
+sidebar_class_name: icon-lecture
+---
+import ModuleBanner from '@site/src/components/art/art-banner';
+
+<ModuleBanner />
+
+# Week 4: Advanced Distance Vector Protocols (RIPv2 & EIGRP Intro)
+
+Last week, we saw how RIPv1 automates routing but also learned about its severe limitations, particularly its classful nature. This week, we'll look at its direct successor, RIPv2, which solves these problems. Then, we will introduce a far more powerful and sophisticated protocol: EIGRP.
+
+---
+
+## 1. Upgrading from RIPv1: The Need for RIPv2
+
+RIPv1 was a great first step, but its limitations make it unusable in modern networks:
+-   **No VLSM Support:** Because it's classful and doesn't send subnet masks, you can't use variable-length subnet masks. This is incredibly inefficient for IP addressing.
+-   **No Discontiguous Network Support:** It cannot handle situations where subnets of the same major network are separated by a different major network.
+-   **Broadcast Updates:** Using broadcast address `255.255.255.255` for updates is inefficient. Every single device on the subnet has to process the update up to Layer 3 before discarding it, even non-router devices like PCs and printers.
+
+RIPv2 was created specifically to address these issues.
+
+---
+
+## 2. Key Features of RIPv2
+
+RIPv2 keeps the same core logic (hop count metric, timers) but adds critical enhancements.
+
+### Feature 1: Classless Routing
+This is the most important improvement. **RIPv2 is a classless routing protocol.** It includes the subnet mask along with the network address in its routing updates.
+-   **Benefit:** This allows RIPv2 to support **VLSM** and discontiguous networks, making it compatible with modern network designs.
+
+### Feature 2: Multicast Updates
+Instead of broadcasting updates, RIPv2 sends them to the reserved multicast address **`224.0.0.9`**.
+-   **Benefit:** This is much more efficient. Only devices that have been configured for RIPv2 will "listen" to this address. Other devices like PCs can discard the packet at Layer 2, saving CPU cycles.
+
+### Feature 3: Authentication
+RIPv2 allows you to configure authentication for routing updates. This means routers can verify that an update is coming from a trusted, legitimate neighbor before accepting its routing information.
+-   **Benefit:** This prevents a misconfigured or malicious router from injecting false routes into your network. RIPv2 supports both plain-text and more secure MD5 authentication.
+
+### Configuration
+Upgrading from RIPv1 to RIPv2 is simple.
+```bash
+router rip
+ version 2         // This command enables RIPv2
+ no auto-summary   // This is a best-practice command
+ network 10.0.0.0
+```
+The `no auto-summary` command is crucial. By default, RIPv2 will still try to summarize routes at their classful boundaries (e.g., summarize all `172.16.x.x` subnets to `172.16.0.0`). Turning this off is necessary for most modern network designs.
+
+---
+
+## 3. Beyond RIP: Introduction to EIGRP
+
+While RIPv2 fixes RIPv1's flaws, it's still a basic protocol limited by its hop-count metric and slow convergence. **EIGRP (Enhanced Interior Gateway Routing Protocol)** is a far more advanced protocol, often called a "hybrid" protocol because it takes the best of distance-vector simplicity and adds link-state speed and reliability.
+
+### Key Advantages over RIP
+-   **Fast Convergence:** EIGRP can react almost instantly to network changes.
+-   **Efficient Updates:** It does not send periodic full-table updates, saving bandwidth and CPU.
+-   **Sophisticated Metric:** It uses a much smarter metric to choose the best path.
+
+---
+
+## 4. Core Features of EIGRP
+
+### Advanced Composite Metric
+Instead of just hop count, EIGRP uses a **composite metric**. By default, it calculates the best path based on the **lowest bandwidth** and the **cumulative delay** of all links along a path. It can also factor in link reliability and load. This results in a much more intelligent path selection than RIP.
+
+### Neighbor Discovery & RTP
+-   EIGRP uses a **Hello Protocol** to discover and maintain relationships with its neighbors.
+-   It uses its own **Reliable Transport Protocol (RTP)** to manage the delivery of updates, not TCP or UDP. RTP ensures that critical updates are delivered reliably and in order.
+
+### Partial and Bounded Updates
+This is a key efficiency feature.
+-   **Partial:** When a route changes, EIGRP only sends an update about that *specific* change, not its entire table.
+-   **Bounded:** The update is only sent to the routers that are actually affected by the change.
+This is in stark contrast to RIP, which sends its full table to all neighbors every 30 seconds, regardless of whether anything has changed.
+
+---
+
+## 5. The DUAL Algorithm: EIGRP's Engine
+
+EIGRP's speed and loop-free operation are thanks to its underlying algorithm: the **Diffusing Update Algorithm (DUAL)**.
+
+DUAL's primary job is to calculate the best, loop-free path to every destination. The best path is called the **Successor**.
+
+The magic of DUAL is that it also identifies and pre-calculates a **backup path**, called the **Feasible Successor (FS)**. This backup path is guaranteed to be loop-free.
+
+**Analogy: Driving with a GPS**
+-   The **Successor** is the primary route your GPS gives you from Rose Hill to a hotel in Flic en Flac.
+-   The **Feasible Successor** is the alternate route your GPS has already calculated in case the main road is closed.
+
+If the primary route (the Successor) fails, the router doesn't need to stop and ask its neighbors for new directions. It can **immediately** fail over to the pre-calculated backup route (the Feasible Successor). This is why EIGRP convergence is often sub-second. If no Feasible Successor exists, only then does the router need to "diffuse" a query to its neighbors to find a new path.

@@ -1,0 +1,300 @@
+---
+id: ungrouped-data-mean
+title: Estimate Mean for UnGrouped Data
+hide_title: true
+sidebar_position: 2
+sidebar_label: Ungrouped Data
+---
+import ModuleBanner from '@site/src/components/busm/busm-banner';
+
+<ModuleBanner />
+---
+### **Concept: Mean from a Frequency Table** 📊
+
+To find the mean from an ungrouped frequency table, you follow a process similar to finding the mean of a simple list, but it's more efficient for large datasets. Instead of adding each number individually, you multiply each value by how many times it appears (its frequency).
+
+**The Method:**
+1.  **Create a new column:** Add a third column to your table labeled **`f × x`**, where `f` is the frequency and `x` is the data value.
+2.  **Multiply:** For each row, multiply the value (`x`) by its frequency (`f`) and write the result in the new column.
+3.  **Find the Totals:** Calculate the sum of the **Frequency (`Σf`)** column and the sum of the **`f × x` (`Σ(fx)`)** column.
+4.  **Calculate the Mean:** Divide the total of the `f × x` column by the total of the `f` column.
+
+$$\text{Mean} = \frac{\sum (f \times x)}{\sum f}$$
+
+---
+:::danger 13 June 2023, Section B, Question 24
+A group of customers are asked about the number of parcels they sent by the courier company during the last month. The results are displayed in the table below. Calculate the sample mean of this data.
+
+| Number of parcels | Frequency |
+| :--- | :---: |
+| 1 | 16 |
+| 2 | 25 |
+| 3 | 28 |
+| 4 | 21 |
+| 5 | 20 |
+| 6 | 18 |
+| 7 | 10 |
+| 8 | 5 |
+:::
+:::success Answer
+Mean ≈ 3.86 parcels ✔️
+:::note Explanation
+| Number of parcels (x) | Frequency (f) | f × x |
+| :--- | :---: | :---: |
+| 1 | 16 | 16 |
+| 2 | 25 | 50 |
+| 3 | 28 | 84 |
+| 4 | 21 | 84 |
+| 5 | 20 | 100 |
+| 6 | 18 | 108 |
+| 7 | 10 | 70 |
+| 8 | 5 | 40 |
+| **Total**| **Σf = 143** | **Σ(fx) = 552** |
+
+$$\text{Mean} = \frac{\sum (f \times x)}{\sum f} = \frac{552}{143} \approx 3.86$$
+:::
+
+
+---
+:::danger 3 September 2019, Section B, Question 24
+The number of times a group of people go shopping each week is shown in the table below. Calculate the sample mean of the data.
+
+| Number of times people go shopping (x) | Frequency (f) |
+| :--- | :---: |
+| 1 | 21 |
+| 2 | 27 |
+| 3 | 19 |
+| 4 | 15 |
+| 5 | 11 |
+| 6 | 5 |
+| 7 | 2 |
+:::
+:::success Answer
+Mean = 2.91 times ✔️
+:::note Explanation
+| Number of times (x) | Frequency (f) | f × x |
+| :--- | :---: | :---: |
+| 1 | 21 | 21 |
+| 2 | 27 | 54 |
+| 3 | 19 | 57 |
+| 4 | 15 | 60 |
+| 5 | 11 | 55 |
+| 6 | 5 | 30 |
+| 7 | 2 | 14 |
+| **Total**| **Σf = 100** | **Σ(fx) = 291** |
+
+$$\text{Mean} = \frac{\sum (f \times x)}{\sum f} = \frac{291}{100} = 2.91$$
+:::
+
+
+---
+:::danger 6 March 2018, Section B, Question 21
+The number of goals scored in the last 25 hockey matches played by Newtown hockey team is recorded in the table below. Find the sample mean of the data.
+
+| Number of goals | Frequency |
+| :--- | :---: |
+| 0 | 3 |
+| 1 | 5 |
+| 2 | 7 |
+| 3 | 4 |
+| 4 | 3 |
+| 5 | 2 |
+| 6 | 1 |
+:::
+:::success Answer
+Mean = 2.36 goals ✔️
+:::note Explanation
+| Number of goals (x) | Frequency (f) | f × x |
+| :--- | :---: | :---: |
+| 0 | 3 | 0 |
+| 1 | 5 | 5 |
+| 2 | 7 | 14 |
+| 3 | 4 | 12 |
+| 4 | 3 | 12 |
+| 5 | 2 | 10 |
+| 6 | 1 | 6 |
+| **Total**| **Σf = 25** | **Σ(fx) = 59** |
+
+$$\text{Mean} = \frac{\sum (f \times x)}{\sum f} = \frac{59}{25} = 2.36$$
+:::
+
+---
+:::danger 28 November 2017, Section B, Question 24
+A survey records the shoe size of a group of 180 students. The results are shown in the table below. Find the sample mean of the data.
+
+| Shoe size | Frequency |
+| :--- | :---: |
+| 4 | 24 |
+| 5 | 41 |
+| 6 | 46 |
+| 7 | 37 |
+| 8 | 22 |
+| 9 | 10 |
+:::
+:::success Answer
+Mean ≈ 6.12 ✔️
+:::note Explanation
+| Shoe size (x) | Frequency (f) | f × x |
+| :--- | :---: | :---: |
+| 4 | 24 | 96 |
+| 5 | 41 | 205 |
+| 6 | 46 | 276 |
+| 7 | 37 | 259 |
+| 8 | 22 | 176 |
+| 9 | 10 | 90 |
+| **Total**| **Σf = 180** | **Σ(fx) = 1102** |
+
+$$\text{Mean} = \frac{\sum (f \times x)}{\sum f} = \frac{1102}{180} \approx 6.12$$
+:::
+
+
+---
+:::danger 6 June 2017, Section B, Question 24
+A survey records the number of times a group of 200 people visit the town centre each week. The results are shown in the table below. Find the sample mean of the data.
+
+| Number of visitors | Frequency |
+| :--- | :---: |
+| 0 | 23 |
+| 1 | 38 |
+| 2 | 52 |
+| 3 | 40 |
+| 4 | 29 |
+| 5 | 18 |
+:::
+:::success Answer
+Mean = 2.34 visits ✔️
+:::note Explanation
+| Number of visitors (x) | Frequency (f) | f × x |
+| :--- | :---: | :---: |
+| 0 | 23 | 0 |
+| 1 | 38 | 38 |
+| 2 | 52 | 104 |
+| 3 | 40 | 120 |
+| 4 | 29 | 116 |
+| 5 | 18 | 90 |
+| **Total**| **Σf = 200** | **Σ(fx) = 468** |
+
+$$\text{Mean} = \frac{\sum (f \times x)}{\sum f} = \frac{468}{200} = 2.34$$
+:::
+
+---
+:::danger 7 March 2017, Section B, Question 21
+A survey asks 100 students how often they have visited the library during the past month. The results are shown in the table below. Calculate the sample mean.
+
+| Number of visits | Frequency |
+| :--- | :---: |
+| 0 | 8 |
+| 1 | 11 |
+| 2 | 12 |
+| 3 | 15 |
+| 4 | 22 |
+| 5 | 19 |
+| 6 | 13 |
+:::
+:::success Answer
+Mean = 3.41 visits ✔️
+:::note Explanation
+| Number of visits (x) | Frequency (f) | f × x |
+| :--- | :---: | :---: |
+| 0 | 8 | 0 |
+| 1 | 11 | 11 |
+| 2 | 12 | 24 |
+| 3 | 15 | 45 |
+| 4 | 22 | 88 |
+| 5 | 19 | 95 |
+| 6 | 13 | 78 |
+| **Total**| **Σf = 100** | **Σ(fx) = 341** |
+
+$$\text{Mean} = \frac{\sum (f \times x)}{\sum f} = \frac{341}{100} = 3.41$$
+:::
+
+---
+:::danger 1 March 2016, Section B, Question 21
+A survey asks 75 people the number of times they shop in the town centre each week. The results are shown in the table below. Calculate the mean number of times people shop.
+
+| Number of times | Frequency |
+| :--- | :---: |
+| 0 | 6 |
+| 1 | 18 |
+| 2 | 20 |
+| 3 | 12 |
+| 4 | 9 |
+| 5 | 7 |
+| 6 | 3 |
+:::
+:::success Answer
+Mean = 2.44 times ✔️
+:::note Explanation
+| Number of times (x) | Frequency (f) | f × x |
+| :--- | :---: | :---: |
+| 0 | 6 | 0 |
+| 1 | 18 | 18 |
+| 2 | 20 | 40 |
+| 3 | 12 | 36 |
+| 4 | 9 | 36 |
+| 5 | 7 | 35 |
+| 6 | 3 | 18 |
+| **Total**| **Σf = 75** | **Σ(fx) = 183** |
+
+$$\text{Mean} = \frac{\sum (f \times x)}{\sum f} = \frac{183}{75} = 2.44$$
+:::
+
+
+---
+:::danger 3 March 2015, Section B, Question 24
+A survey is carried out to find out the number of people living in each apartment in an apartment block. The results are shown in the table below. Calculate the mean number of people living in each apartment.
+
+| Number of people | Frequency |
+| :--- | :---: |
+| 1 | 10 |
+| 2 | 21 |
+| 3 | 32 |
+| 4 | 20 |
+| 5 | 11 |
+| 6 | 6 |
+:::
+:::success Answer
+Mean = 3.19 people ✔️
+:::note Explanation
+| Number of people (x) | Frequency (f) | f × x |
+| :--- | :---: | :---: |
+| 1 | 10 | 10 |
+| 2 | 21 | 42 |
+| 3 | 32 | 96 |
+| 4 | 20 | 80 |
+| 5 | 11 | 55 |
+| 6 | 6 | 36 |
+| **Total**| **Σf = 100** | **Σ(fx) = 319** |
+
+$$\text{Mean} = \frac{\sum (f \times x)}{\sum f} = \frac{319}{100} = 3.19$$
+:::
+
+
+---
+:::danger 2 September 2014, Section B, Question 24
+The number of students absent from a class each day over a five-week period is shown in the table below. Calculate the mean number of absent students to 1 decimal place.
+
+| Number of absent students | Frequency |
+| :--- | :---: |
+| 0 | 6 |
+| 1 | 7 |
+| 2 | 11 |
+| 3 | 8 |
+| 4 | 2 |
+| 5 | 1 |
+:::
+:::success Answer
+Mean ≈ 1.9 students ✔️
+:::note Explanation
+| Number of absent students (x) | Frequency (f) | f × x |
+| :--- | :---: | :---: |
+| 0 | 6 | 0 |
+| 1 | 7 | 7 |
+| 2 | 11 | 22 |
+| 3 | 8 | 24 |
+| 4 | 2 | 8 |
+| 5 | 1 | 5 |
+| **Total**| **Σf = 35** | **Σ(fx) = 66** |
+
+$$\text{Mean} = \frac{\sum (f \times x)}{\sum f} = \frac{66}{35} \approx 1.9$$
+:::

@@ -1,0 +1,182 @@
+---
+id: lab-sheet
+title: Labsheet
+sidebar_position: 2
+hide_title: true
+sidebar_label: Build Neural Model
+sidebar_class_name: icon-lab
+
+---
+import ModuleBanner from '@site/src/components/ai/ai-banner';
+
+<ModuleBanner />
+# Lab 07: Building Your First Artificial Brain
+
+**Objective:** By the end of this lab, you will have used the Keras API to build, compile, train, and evaluate your first sequential Artificial Neural Network on an image classification task.
+
+**Scenario:** You will be working with the **Fashion MNIST** dataset, a classic in the deep learning world. It contains 70,000 grayscale images of clothing items (like T-shirts, trousers, dresses), each 28x28 pixels. Your task is to build a neural network that can correctly classify these images into their 10 respective categories.
+
+---
+
+### Part A: Data Loading and Preparation
+
+First, we need to import our libraries and load the dataset. Keras provides a convenient way to load Fashion MNIST directly.
+
+#### 1. Import Libraries
+```python
+import tensorflow as tf
+from tensorflow import keras
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+````
+
+#### 2\. Load the Dataset
+
+```python
+fashion_mnist = keras.datasets.fashion_mnist
+(X_train_full, y_train_full), (X_test, y_test) = fashion_mnist.load_data()
+
+# The data is already split into training and testing sets.
+print("Shape of training data:", X_train_full.shape)
+print("Number of training labels:", len(y_train_full))
+```
+
+#### 3\. Preprocess the Data
+
+We need to scale the pixel values from their original range of 0-255 down to a range of 0-1, as neural networks work best with normalized data. We also create a smaller validation set from the training data to monitor performance during training.
+
+```python
+# Create a validation set and scale the pixel values
+X_valid, X_train = X_train_full[:5000] / 255.0, X_train_full[5000:] / 255.0
+y_valid, y_train = y_train_full[:5000], y_train_full[5000:]
+X_test = X_test / 255.0
+
+# Define the class names for later plotting
+class_names = ["T-shirt/top", "Trouser", "Pullover", "Dress", "Coat",
+               "Sandal", "Shirt", "Sneaker", "Bag", "Ankle boot"]
+```
+
+Let's take a look at one of the images to see what we're working with.
+
+```python
+plt.imshow(X_train[0], cmap="binary")
+plt.axis('off')
+plt.show()
+```
+
+-----
+
+### Part B: Building the Neural Network Model
+
+We will build a simple `Sequential` model, which is a linear stack of layers. It's like building with LEGOs—you just stack one layer on top of the other.
+
+```python
+# Set a random seed for reproducibility
+np.random.seed(42)
+tf.random.set_seed(42)
+
+# 1. Instantiate the Sequential model
+model = keras.models.Sequential([
+    # 2. Add the layers
+    # This layer unrolls the 28x28 image into a single 784-pixel vector. It's the entry point to our network.
+    keras.layers.Flatten(input_shape=[28, 28]),
+    
+    # This is our first hidden layer with 300 neurons and ReLU activation
+    keras.layers.Dense(300, activation="relu"),
+    
+    # This is our second hidden layer with 100 neurons and ReLU activation
+    keras.layers.Dense(100, activation="relu"),
+    
+    # This is the output layer with 10 neurons (one for each class).
+    # Softmax ensures the outputs are probabilities that sum to 1.
+    keras.layers.Dense(10, activation="softmax")
+])
+
+# Print a summary of the model's architecture
+model.summary()
+```
+
+-----
+
+### Part C: Compiling the Model
+
+Before we can train the model, we must configure its learning process using the `.compile()` method. Here we specify the optimizer, the loss function, and the metrics to monitor.
+
+```python
+model.compile(loss="sparse_categorical_crossentropy",
+              optimizer="sgd",
+              metrics=["accuracy"])
+```
+
+* **`loss`:** We use `sparse_categorical_crossentropy` because we have multiple classes (0-9) and our labels are simple integers.
+* **`optimizer`:** We'll start with `'sgd'` (Stochastic Gradient Descent). This is the algorithm that will update the model's weights based on the data.
+* **`metrics`:** We want to monitor the `accuracy` during training.
+
+-----
+
+### Part D: Training and Evaluating the Model
+
+Now for the exciting part—training the model\! The `.fit()` method will do all the hard work of forward propagation, backpropagation, and weight updates.
+
+#### 1\. Train the Model
+
+An **epoch** is one full pass through the entire training dataset. We will train for 30 epochs and watch its performance on the validation set.
+
+```python
+history = model.fit(X_train, y_train, epochs=30,
+                    validation_data=(X_valid, y_valid))
+```
+
+#### 2\. Plot Learning Curves
+
+The `history` object contains the training and validation loss and accuracy for each epoch. Plotting these helps us understand the training process.
+
+```python
+pd.DataFrame(history.history).plot(figsize=(8, 5))
+plt.grid(True)
+plt.gca().set_ylim(0, 1) # set the vertical range to [0-1]
+plt.title("Model Training History")
+plt.show()
+```
+
+#### 3\. Evaluate the Final Model
+
+Finally, we evaluate our trained model on the test set, which it has never seen before, to get an unbiased measure of its performance.
+
+```python
+test_loss, test_acc = model.evaluate(X_test, y_test)
+print(f"\nFinal Test Accuracy: {test_acc:.4f}")
+```
+
+-----
+
+### Part E: Making Predictions
+
+Let's use our trained model to make predictions on a few new images from the test set.
+
+```python
+# Get the first 3 images from the test set
+X_new = X_test[:3]
+
+# The predict method returns a probability for each of the 10 classes for each image
+y_proba = model.predict(X_new)
+
+# Get the class with the highest probability for each prediction using np.argmax()
+y_pred_classes = np.argmax(y_proba, axis=1)
+
+# Map the predicted class indices to their actual names
+predicted_names = np.array(class_names)[y_pred_classes]
+
+print("\n--- Predictions on New Images ---")
+print("Predicted classes:", predicted_names)
+
+# Compare with the actual labels
+actual_names = np.array(class_names)[y_test[:3]]
+print("Actual classes:   ", actual_names)
+```
+
+**Conclusion:** Congratulations\! You have successfully built, compiled, trained, and used your first Artificial Neural Network. This foundational skill is the gateway to all the advanced Deep Learning topics we will cover next, such as building networks that can "see" with even greater power (CNNs).
+
+```
+```

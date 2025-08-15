@@ -1,0 +1,117 @@
+---
+id: lab-sheet
+title: Labsheet
+sidebar_position: 2
+hide_title: true
+sidebar_label: 💻 Build Multi-area Network
+---
+import ModuleBanner from '@site/src/components/art/art-banner';
+
+<ModuleBanner />
+
+# Week 8 Lab: Multi-Area OSPF and Special Areas
+
+## Objective
+
+This lab moves beyond a single area to explore the hierarchical power of OSPF. You will build a multi-area network, identifying the Area Border Router (ABR) and verifying inter-area routes. You will then practice two key scaling techniques: configuring route summarization on an ABR and converting a standard area into a Stub Area to reduce the size of its routing table and LSDB.
+
+## Required Software
+
+-   Cisco Packet Tracer
+
+## Network Topology
+
+We will use a three-router topology to create two distinct areas: Area 1 and the backbone Area 0.
+
+```text
+      (Area 1)                          (Area 0)
+(Lo0: 1.1.1.1/24)                 (Lo0: 3.3.3.3/24)
+     |                                (Lo1: 30.30.30.30/24, External)
++----------+      10.1.12.0/30      +----------+      10.1.23.0/30      +----------+
+| Router-A |------------------------| Router-B |------------------------| Router-C |
+| (Internal)|       (ABR)           | (Backbone) |      (ASBR)      |
++----------+      (Area 1/0)        +----------+      (Area 0)        +----------+
+````
+
+* **Router-A:** An internal router, entirely within Area 1.
+* **Router-B:** The Area Border Router (ABR), with interfaces in both Area 1 and Area 0.
+* **Router-C:** A backbone router. We will later make it an ASBR by redistributing its Loopback1 interface.
+
+---
+
+## Lab Tasks
+
+### Task 1: Build and Configure Multi-Area OSPF
+
+1. Build the topology and configure all IP addresses on the physical and loopback interfaces as shown.
+2. On **Router-A**, configure OSPF. Both of its networks will be in **Area 1**.
+
+```bash
+router ospf 1
+router-id 1.1.1.1
+network 1.1.1.0 0.0.0.255 area 1
+network 10.1.12.0 0.0.0.3 area 1
+```
+3. On **Router-B (the ABR)**, configure OSPF, placing each interface in its correct area.
+
+```bash
+router ospf 1
+router-id 2.2.2.2
+network 10.1.12.0 0.0.0.3 area 1  // Interface towards R-A
+network 10.1.23.0 0.0.0.3 area 0  // Interface towards R-C
+```
+4. On **Router-C**, configure OSPF. Both of its networks will be in **Area 0**.
+
+```bash
+router ospf 1
+router-id 3.3.3.3
+network 3.3.3.0 0.0.0.255 area 0
+network 10.1.23.0 0.0.0.3 area 0
+```
+
+### Task 2: Verify Inter-Area Routing
+
+1. On **Router-A**, check the routing table: `show ip route`. You should see the route to R-C's loopback (`3.3.3.0/24`). Notice that it is marked as **O IA**, which means "OSPF Inter-Area".
+2. On **Router-C**, check the routing table: `show ip route`. You should see the route to R-A's loopback (`1.1.1.0/24`), also marked **O IA**.
+3. On **Router-B (the ABR)**, inspect the LSDB: `show ip ospf database`. You will see Type 1 (Router) and Type 2 (Network) LSAs, but you will also see it generating Type 3 (Summary) LSAs to advertise routes between the areas.
+4. Confirm full connectivity with a ping from R-A's loopback to R-C's loopback.
+
+### Task 3: Configure Inter-Area Summarization
+
+**Goal:** On the ABR, summarize Area 1's networks into a single advertisement for Area 0.
+
+1. On **Router-B (the ABR)**, enter the OSPF configuration and create a summary route. Let's summarize the `1.1.1.0/24` and `10.1.12.0/30` networks into `1.0.0.0/8`.
+
+```bash
+router ospf 1
+area 1 range 1.0.0.0 255.0.0.0
+```
+2. **Verification:** Go to **Router-C** and run `show ip route` again. The specific route for `1.1.1.0/24` should be gone, replaced by a single inter-area (`O IA`) route for `1.0.0.0/8`. This reduces the size of Router-C's routing table.
+
+### Task 4: Configure a Stub Area
+
+**Goal:** Convert Area 1 into a stub area to block external routes.
+
+1. First, we need an external route to block. On **Router-C**, we will make it an ASBR by redistributing its connected Loopback1 interface into OSPF.
+
+```bash
+router ospf 1
+redistribute connected subnets
+```
+2. Go to **Router-A** and run `show ip route`. You should see a new route for `30.30.30.0/24` marked as **O E2**, which means it's an OSPF External Type 2 route.
+3. Now, let's block that route. On **both Router-A and Router-B**, you must configure Area 1 as a stub area. **This command must be on all routers within the area.**
+
+* On **Router-A**: `router ospf 1`, then `area 1 stub`
+* On **Router-B**: `router ospf 1`, then `area 1 stub`
+4. After the neighbor adjacency resets and reforms, go to **Router-A** and run `show ip route` one last time.
+5. **Verification:** The specific external route (`O E2`) for `30.30.30.0/24` should be gone. In its place, you will see a new **default route** (`O*IA 0.0.0.0/0`) that the ABR (Router-B) has injected. Router-A no longer needs to know about specific external routes; it just sends all unknown traffic to its ABR.
+
+---
+
+## Exploration Questions
+
+1. What does the route code `O IA` mean in the output of `show ip route`, and how is it different from a route coded simply as `O`?
+2. On which type of OSPF router (internal, ABR, or ASBR) do you configure an `area range` command for summarization? Why does it make sense to configure it there?
+3. What is the primary benefit of configuring an area as a "stub area"?
+4. In Task 4, what would have happened if you configured the `area 1 stub` command on Router-B but forgot to add it to Router-A?
+

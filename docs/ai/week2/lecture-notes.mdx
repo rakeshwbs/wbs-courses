@@ -1,0 +1,728 @@
+---
+id: lecture-notes
+title: Lecture Notes
+hide_title: true
+sidebar_position: 1
+sidebar_label: Machine Learning
+sidebar_class_name: icon-lecture
+---
+
+import ModuleBanner from '@site/src/components/ai/ai-banner';
+import DefinitionBox from '@site/src/components/custom-admonitions/DefinitionBox';
+import CenteredImage from '@site/src/components/image-changer/CenteredImage';
+import {
+  KeyPoints,
+  KP,
+} from '@site/src/components/custom-admonitions/KeyPoints';
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<ModuleBanner />
+
+# Week 2: Machine Learning
+
+#### Date:\*\* Saturday, 13 September 2025
+
+---
+
+## Definition of Machine Learning
+
+---
+
+<DefinitionBox term="Machine Learning Defined!">
+  Machine Learning (ML) is a branch of Artificial Intelligence (AI) that focuses
+  on developing algorithms and models that enable computer systems to
+  automatically learn patterns and relationships from data, and improve their
+  performance on a specific task over time, without being explicitly programmed
+  with step-by-step instructions.
+</DefinitionBox>
+
+---
+
+## T-P-E Framework
+
+---
+
+<div>
+  <p>
+    Any ML problem can be broken into three components using the T-P-E
+    Framework:
+  </p>
+</div>
+
+<div className="cap-grid-3x2">
+    <article className="cap-card">
+        <h4>Task (T)</h4>
+        <p>The specific goal, such as classification or regression.</p>
+    </article>
+    <article className="cap-card">
+        <h4>Performance Measure (P)</h4>
+        <p>The metric used to evaluate success, such as accuracy or error rate.</p>
+    </article>
+    <article className="cap-card">
+        <h4>Experience (E)</h4>
+        <p>The data used for learning.</p>
+    </article>
+</div>
+<br/>
+<div className="concept-card">
+    <h3 className="heading-with-icon">
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+            className="heading-icon"
+        >
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            <circle cx="12" cy="12" r="4"/>
+            <line x1="9.5" y1="9.5" x2="14.5" y2="14.5"/>
+        </svg>
+        <span>Example 1 – Spam Filter</span>
+    </h3>
+
+    <p>
+        <br/>
+        A Machine Learning researcher would break it down:
+    </p>
+
+
+    <div className="example-box">
+        <div className="cap-grid-3x2">
+            <article className="cap-card">
+                <h4>Task (T)</h4>
+                <p>To classify emails as either 'spam' or 'not spam'.</p>
+            </article>
+            <article className="cap-card">
+                <h4>Performance Measure (P)</h4>
+                <p> The percentage (or fraction) of emails the model correctly classifies.</p>
+            </article>
+            <article className="cap-card">
+                <h4>Experience (E)</h4>
+                <p>A large dataset of emails where each one has already been labeled by humans as 'spam' or 'not spam'.</p>
+            </article>
+        </div>
+    </div>
+    <br/>
+    <div className="q-card">
+        <p>
+            The model "learns" by going through the dataset and identifying patterns associated with spam. Its performance is "good"
+            if it correctly classifies a high percentage of new, unseen emails.
+        </p>
+    </div>
+
+</div>
+<br/>
+<div className="concept-card">
+    <h3 className="heading-with-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M3 11l9-8 9 8" />
+            <path d="M5 10v10h14V10" />
+            <path d="M9 20v-6h6v6" />
+            <polyline points="3,17 9,11 13,15 21,7" />
+        </svg>
+
+        <span>Example 2 – House Price Prediction</span>
+    </h3>
+
+    <p>
+        <br/>
+        A Machine Learning researcher would break it down:
+    </p>
+    <div className="example-box">
+        <div className="cap-grid-3x2">
+            <article className="cap-card">
+                <h4>Task (T)</h4>
+                <p>
+                    <ul>
+                        <li>To predict a numerical value (the house's price) based on its features (like square footage, number of bedrooms, location).</li>
+                        <li>This is a regression task.</li>
+                    </ul>
+                </p>
+            </article>
+            <article className="cap-card">
+                <h4>Performance Measure (P)</h4>
+                <p> A dataset of real estate listings, containing the features and the final sale price for each house.</p>
+            </article>
+            <article className="cap-card">
+                <h4>Experience (E)</h4>
+                <p>
+                    <ul>
+                        <li>Since we're predicting a number, we can't use simple accuracy.</li>
+                        <li>Instead, we'd use a metric like Root Mean Squared Error (RMSE),
+                            which measures the average difference between our model's predicted prices and the actual sale prices.</li>
+                    </ul>
+                     </p>
+            </article>
+        </div>
+    </div>
+    <br/>
+    <div className="q-card">
+        <p>
+            The T-P-E framework helps us formally define any ML problem.
+        </p>
+    </div>
+
+
+    <KeyPoints variant="primary" icon="❖">
+        <KP term="❓What is common in both examples?">
+            The key idea in both the spam filter and house price examples is that the program learns patterns from the data itself.
+        </KP>
+    </KeyPoints>
+
+</div>
+
+## Traditional Programming and Machine Learning
+
+<div className="concept-card">
+  <h3>Traditional Programming</h3>
+  <p>
+    In Traditional programming, a human developer analyzes a problem and writes
+    explicit, hard-coded rules for the computer to follow. Think of it like a
+    very detailed recipe.
+  </p>
+  <div className="example-box">
+    <strong>Example:</strong> Spam Filter
+    <ul>
+      <li>
+        A programmer might write a long list of rules like: IF the email
+        contains the word "sale" AND "free", THEN mark as spam.
+      </li>
+      <li>The program's logic is entirely handcrafted by the developer.</li>
+    </ul>
+  </div>
+</div>
+
+<div className="concept-card">
+  <h3>Machine Learning</h3>
+  <p>
+    In machine learning, the developer doesn't write the rules. Instead, they
+    write a program that can learn the rules from data. The machine creates its
+    own logic.
+  </p>
+  <div className="example-box">
+    <strong>Example:</strong> Spam Filter
+    <ul>
+      <li>
+        We give the model thousands of emails already labeled 'spam' or 'not
+        spam'.
+      </li>
+      <li>
+        The algorithm learns the patterns on its own—perhaps it discovers that
+        certain phrases, sender domains, or even the time of day are highly
+        predictive of spam.
+      </li>
+    </ul>
+  </div>
+</div>
+<KeyPoints variant="primary" icon="❖">
+  <KP term="Advantage of ML over Traditional Programming">
+    <p>
+      The biggest advantage of the machine learning approach is its scalability
+      and adaptability.
+    </p>
+    <div className="cap-grid-2x1">
+      <article className="cap-card">
+        <h4>Traditional Programming</h4>
+        <p>
+          <ul>
+            <li>
+              A human programmer would have to constantly update the rules in a
+              traditional spam filter.
+            </li>
+            <li>
+              Spammers change their tactics, use new keywords, and find new ways
+              to trick the system.
+            </li>
+            <li>
+              A programmer would have to manually write a new rule for every new
+              trick. This is a maintenance nightmare.
+            </li>
+          </ul>
+        </p>
+      </article>
+      <br />
+      <article className="cap-card">
+        <h4>Machine Learning</h4>
+        <p>
+          <ul>
+            <li>
+              A machine learning model, on the other hand, can be retrained on
+              new data.
+            </li>
+            <li>
+              When it sees new examples of spam, it automatically learns the new
+              patterns without a human having to explicitly program them.{' '}
+            </li>
+            <li>It adapts to the changing environment on its own.</li>
+          </ul>
+        </p>
+      </article>
+    </div>
+  </KP>
+</KeyPoints>
+<figure className="image-card">
+  <picture>
+    {/* Optional WebP for smaller size; remove if you do not have it */}
+    <source
+      srcSet="/img/ai/week2/traditional-vs-machine-learning.png"
+      type="image/png"
+    />
+    <img
+      src="/img/ai/week2/traditional-vs-machine-learning.png"
+      alt="Traditional Programming vs Machine Learning"
+      loading="lazy"
+      decoding="async"
+      className="image-card__img"
+    />
+  </picture>
+  <figcaption className="image-card__caption">
+    Traditional Programming vs Machine Learning
+  </figcaption>
+</figure>
+<figure className="image-card">
+  <picture>
+    {/* Optional WebP for smaller size; remove if you do not have it */}
+    <source
+      srcSet="/img/ai/week2/traditional-vs-machine-learning2.png"
+      type="image/png"
+    />
+    <img
+      src="/img/ai/week2/traditional-vs-machine-learning2.png"
+      alt="Traditional Programming vs Machine Learning"
+      loading="lazy"
+      decoding="async"
+      className="image-card__img"
+    />
+  </picture>
+</figure>
+
+<KeyPoints variant="primary" icon="❖">
+  <KP term="Traditional Programming">
+    In traditional programming, a function can be written that takes input in
+    celsius and returns the output in fahrenheit using the formula
+
+    $$
+    F = {^{\circ}\mathrm{C}} \times 1.8 + 32
+    $$
+    <ul>
+      <li> Note that the program was explicitly told the instructions to execute.</li>
+    </ul>
+
+  </KP>
+  <KP term="Machine Learning">
+    With Machine learning approach, the input and the output are known and the
+    model learns the relationship between the input and the output.
+  </KP>
+</KeyPoints>
+
+## Machine Learning Paradigms
+
+#### The Spectrum of Learning: From Full Supervision to Trial and Error
+
+<DefinitionBox term="Machine Learning Paradigms">
+  <p>
+    The paradigms of machine learning describe the different ways an algorithm
+    can learn from data. Each paradigm is suited for different types of problems
+    and data availability.
+  </p>
+</DefinitionBox>
+
+{/* ===== Advanced MDX/CSS component: Learning Paradigms Deck ===== */}
+
+<section class="ai-modes" aria-label="Machine Learning Paradigms">
+  {/* --- Accessible tab controls (no JS) --- */}
+
+{/* --- Panels (one code path, four states) --- */}
+
+  <div class="ai-panels">
+    <article id="panel-supervised" role="tabpanel" aria-labelledby="tab-supervised" class="ai-card">
+      <header>
+        <h3>Supervised Learning</h3>
+        <small class="chip">Labeled data • Predict known targets</small>
+      </header>
+
+      {/* Flip card: brief vs. full detail */}
+      <div class="ai-flip">
+        <div class="front">
+          <p>Learn a mapping from inputs to labeled outputs and generalize to unseen data.</p>
+          <p>
+            <ul class="bullets">
+              <li>Supervised learning is the most common paradigm. </li>
+              <li>The model learns from data that has been manually labeled with the correct answers.</li>
+              <li>It's like a student studying for an exam using a textbook with both questions and an answer key.</li>
+              <li>The goal is to learn the relationship between the inputs and the labeled outputs to make accurate predictions on new, unlabeled data.</li>
+            </ul>
+          </p>
+          <em class="hint">Hover or focus to view the real-world example</em>
+        </div>
+        <div class="back">
+          <h4>Real-world example: Credit-card fraud detection</h4>
+          <p>A bank trains a model on a massive dataset of past credit card transactions. Each transaction is labeled as either "legitimate" or "fraudulent."
+            The model learns the complex patterns associated with fraud (e.g., unusual purchase locations, abnormal spending amounts, rapid transactions).
+            When you swipe your card, this trained model analyzes the transaction in real-time and assigns a probability of it being fraudulent, allowing the bank to approve or decline the charge instantly.</p>
+        </div>
+      </div>
+    </article>
+
+    <article id="panel-unsup" role="tabpanel" aria-labelledby="tab-unsup" class="ai-card">
+      <header>
+        <h3>Unsupervised Learning</h3>
+        <small class="chip">No labels • Discover structure</small>
+      </header>
+      <div class="ai-flip">
+        <div class="front">
+          <p>Find latent patterns and groups directly from features without predefined answers.</p>
+          <ul class="bullets">
+
+              <li>Unsupervised learning involves training a model on data that has no labels or predefined answers.</li>
+              <li>The model task is to explore the data and find hidden patterns, structures, or groups on its own.</li>
+              <li>It is like being given a box of mixed fruits and asked to sort them into piles based on their
+                characteristics, without being told what the fruits are. </li>
+          </ul>
+          <em class="hint">Hover or focus to view the real-world example</em>
+        </div>
+        <div class="back">
+          <h4>Real-world example: Recommendation engines</h4>
+          <p> When you watch a movie on Netflix, the service suggests other content you might like.
+            This is often powered by unsupervised learning.
+            The algorithm analyzes your viewing history and compares it to the viewing patterns of millions of other users.
+            It identifies clusters of users with similar tastes.
+            If you and another group of users all liked Movies A, B, and C, and that group also liked Movie D, the system will recommend Movie D to you, assuming you share that hidden taste preference.
+            It discovered the "taste group" without any explicit labels.</p>
+        </div>
+      </div>
+    </article>
+
+    <article id="panel-semi" role="tabpanel" aria-labelledby="tab-semi" class="ai-card">
+      <header>
+        <h3>Semi-Supervised Learning</h3>
+        <small class="chip">Few labels • Many unlabeled</small>
+      </header>
+      <div class="ai-flip">
+        <div class="front">
+          <p>Leverage a small labeled set plus a large unlabeled pool to improve performance.</p>
+          <ul class="bullets">
+            <li>This paradigm is a hybrid approach used when you have a small amount of valuable labeled data and a much larger pool of unlabeled data. </li>
+            <li>It uses the small labeled set to get started and then leverages the structure of the large unlabeled set to improve its understanding.</li>
+          </ul>
+          <em class="hint">Hover or focus to view the real-world example</em>
+        </div>
+        <div class="back">
+          <h4>Real-world example: Medical image analysis</h4>
+          <p>Obtaining an expert diagnosis for a medical scan (like an MRI or CT scan) is expensive and time-consuming.
+            A hospital might have millions of scans (unlabeled data) but only a few thousand that have been carefully diagnosed by a radiologist (labeled data).
+            A semi-supervised model first learns from the small, expert-labeled set.
+            It then uses this initial knowledge to make sense of the larger unlabeled dataset, significantly improving its diagnostic accuracy beyond what would be possible with the small labeled set alone.</p>
+        </div>
+      </div>
+    </article>
+
+    <article id="panel-rl" role="tabpanel" aria-labelledby="tab-rl" class="ai-card">
+      <header>
+        <h3>Reinforcement Learning</h3>
+        <small class="chip">Act • Observe • Reward</small>
+      </header>
+      <div class="ai-flip">
+        <div class="front">
+          <p>Learn a policy by interacting with an environment and optimizing cumulative reward.</p>
+          <ul class="bullets">
+            <li>Reinforcement learning is about learning through trial and error. A model, or 'agent,' interacts with a dynamic environment and receives feedback in the form of rewards for good actions and penalties for bad ones.</li>
+            <li>The agent’s goal is to learn the best strategy, called a 'policy,' to maximize its cumulative reward over time.  </li>
+          </ul>
+          <em class="hint">Hover or focus to view the real-world example</em>
+        </div>
+        <div class="back">
+          <h4>Real-world example: Robotics and manufacturing</h4>
+          <p>In a modern factory, a robotic arm can use reinforcement learning to learn how to pick up objects of various shapes and sizes from a conveyor belt.
+            The robot "acts" by moving its arm and gripper. It receives a positive reward when it successfully picks up and places an object in the correct bin.
+            It receives a penalty if it drops the object or misses it.
+            After millions of attempts (trials), the agent learns the optimal, most efficient sequence of movements to grab any object, adapting its strategy in real-time.</p>
+        </div>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+## Modern Machine Learning Architectures
+
+#### Choosing Your Champion: Deep Learning vs. Gradient Boosting
+
+<DefinitionBox term="Machine Learning Architecture">
+  <p>
+    A machine learning architecture refers to the fundamental design or
+    blueprint of a model. Different architectures are engineered to solve
+    different types of problems and handle different kinds of data.
+  </p>
+</DefinitionBox>
+
+<section class="ml-tabs" aria-label="Model families">
+  {/* Radios must be siblings of BOTH .segmented and .panels */}
+  <input type="radio" name="mltab" id="t-nn"    defaultChecked />
+  <input type="radio" name="mltab" id="t-tree"  />
+  <input type="radio" name="mltab" id="t-linear"/>
+  <input type="radio" name="mltab" id="t-kernel"/>
+  <input type="radio" name="mltab" id="t-inst"  />
+
+<div class="segmented" role="tablist" aria-label="Families">
+  <label role="tab" for="t-nn">
+    Neural Networks
+  </label>
+  <label role="tab" for="t-tree">
+    Tree-Based Ensembles
+  </label>
+  <label role="tab" for="t-linear">
+    Linear Models
+  </label>
+  <label role="tab" for="t-kernel">
+    Kernel Methods
+  </label>
+  <label role="tab" for="t-inst">
+    Instance-Based
+  </label>
+</div>
+
+  <div class="panels">
+    <section id="p-nn" role="tabpanel" aria-labelledby="t-nn" class="panel">
+      <h3>Neural Networks</h3>
+      <p><strong>Core Idea:</strong></p>
+      <ul>
+        <li>Neural Networks, the architecture behind <strong>Deep Learning</strong>, are inspired by the interconnected neurons in the human brain. </li>
+        <li>They are built from layers of nodes ('neurons'), where each node performs a simple calculation.</li>
+        <li>Data is passed through these layers, and with each pass, the network learns to recognize increasingly complex patterns.</li>
+        <li>A shallow network might learn simple features like edges or colors, while a deep network with many layers can learn abstract concepts like faces, animals, or the sentiment of a sentence. </li>
+    </ul>
+      <p><strong>Strengths:</strong></p>
+      <ul>
+        <li>State-of-the-art performance on complex, unstructured data (images, text, audio).</li>
+        <li>Automatically learns relevant features from raw data, reducing the need for manual feature engineering.</li>
+        <li>Can model highly complex, non-linear relationships.</li>
+      </ul>
+
+      <p><strong>Weaknesses:</strong></p>
+      <ul>
+        <li>Requires very large amounts of data to perform well.</li>
+        <li>Computationally expensive to train, often requiring specialized hardware like GPUs.</li>
+        <li>Often a "black box," making it difficult to interpret exactly why a specific decision was made.</li>
+      </ul>
+
+      <p><strong>Real-World Use-Case:</strong></p>
+      <ul>
+        <li>Advanced Driver-Assistance Systems (ADAS).</li>
+        <li>Car manufacturers like Tesla use Convolutional Neural Networks (CNNs) to power their Autopilot features. Cameras around the car feed video streams into the CNNs.</li>
+        <li>The networks process this raw pixel data to identify and classify objects in real-time—other cars, pedestrians, traffic lights, lane markings, and road signs.</li>
+        <li>By understanding the complete visual environment, the system can make decisions like steering to stay in a lane, braking for an obstacle, or stopping at a red light.</li>
+      </ul>
+
+    </section>
+
+    <section id="p-tree" role="tabpanel" aria-labelledby="t-tree" class="panel">
+      <h3>Tree-Based Ensembles</h3>
+      <p><strong>Core Idea:</strong></p>
+      <ul>
+        <li>This architecture builds upon the simple decision tree—a model that asks a series of if/else questions to arrive at a decision.</li>
+        <li>An ensemble combines hundreds or thousands of these simple "weak" trees to create a single, highly accurate "strong" model.</li>
+        <li>The two main strategies are Bagging (like in a Random Forest), where trees are trained independently in parallel, and Boosting (like in XGBoost), where trees are trained sequentially, with each new tree correcting the errors of the previous one.</li>
+      </ul>
+
+      <p><strong>Strengths:</strong></p>
+      <ul>
+        <li>Typically the best-performing architecture for structured (tabular) data.</li>
+        <li>Relatively fast and efficient to train compared to deep learning.</li>
+        <li>Can provide "feature importance" scores, offering some level of interpretability.</li>
+      </ul>
+
+      <p><strong>Weaknesses:</strong></p>
+      <ul>
+        <li>Less effective on unstructured data like images or raw text.</li>
+        <li>Can be prone to overfitting if the many model parameters are not tuned carefully.</li>
+      </ul>
+
+      <p><strong>Real-World Use-Case:</strong></p>
+      <ul>
+        <li>Dynamic Insurance Pricing.</li>
+        <li>An insurance company uses a Gradient Boosted Tree model to calculate car insurance premiums.</li>
+        <li>The model is trained on a massive historical dataset containing customer information (age, driving history, location, car model) and their claims history.</li>
+        <li>When a new customer applies, the model processes their data through its hundreds of decision trees to accurately predict their risk profile.</li>
+        <li>This allows the company to offer a personalized premium—a safe, experienced driver in a low-risk area pays less than a young driver with a sports car in a busy city.</li>
+      </ul>
+
+    </section>
+
+    <section id="p-linear" role="tabpanel" aria-labelledby="t-linear" class="panel">
+      <h3>Linear Models</h3>
+      <p><strong>Core Idea:</strong></p>
+      <ul>
+        <li>This is the most fundamental architecture.</li>
+        <li>It assumes a simple, linear relationship between the input features and the output.</li>
+        <li>For every unit increase in an input feature, the output changes by a fixed amount (its "weight").</li>
+        <li>The goal is to find the optimal weights to create the best-fitting straight line (for regression) or separating plane (for classification) through the data.</li>
+      </ul>
+
+      <p><strong>Strengths:</strong></p>
+      <ul>
+        <li>Highly interpretable; the weight of each feature clearly shows its influence on the outcome.</li>
+        <li>Very fast to train and requires minimal computational resources.</li>
+        <li>Works well on small datasets and is less prone to overfitting than complex models.</li>
+      </ul>
+
+      <p><strong>Weaknesses:</strong></p>
+      <ul>
+        <li>The assumption of a linear relationship is often too simplistic for complex, real-world problems.</li>
+        <li>Its predictive power is generally lower than that of more advanced architectures.</li>
+      </ul>
+
+      <p><strong>Real-World Use-Case:</strong></p>
+      <ul>
+        <li>Retail Demand Forecasting.</li>
+        <li>A large supermarket chain needs to predict how many gallons of milk to stock each week.</li>
+        <li>They can use a simple linear model trained on past sales data.</li>
+        <li>The model might learn a formula like: Milk_Sold = 500 + (0.7 * Price_Discount) - (50 * Avg_Temperature) + (200 * Is_Holiday).</li>
+        <li>This highly interpretable model tells the store manager exactly how demand is expected to change based on price, weather, and holidays, helping to prevent stock shortages or wasteful overstocking.</li>
+      </ul>
+
+    </section>
+
+    <section id="p-kernel" role="tabpanel" aria-labelledby="t-kernel" class="panel">
+      <h3>Kernel Methods</h3>
+      <p><strong>Core Idea:</strong> The most famous example is the Support Vector Machine (SVM). These models are used for classification and work by finding the optimal boundary or "hyperplane" that creates the widest possible margin between different classes of data points. Their key feature is the "kernel trick," which allows them to find non-linear boundaries by projecting data into a higher-dimensional space where a simple linear separator can be found.</p>
+
+      <p><strong>Strengths:</strong></p>
+      <ul>
+        <li>Highly effective at finding complex, non-linear relationships.</li>
+        <li>Robust on smaller, cleaner datasets and in high-dimensional spaces.</li>
+        <li>Mathematically rigorous with a clear optimization goal.</li>
+      </ul>
+
+      <p><strong>Weaknesses:</strong></p>
+      <ul>
+        <li>Can be computationally slow and memory-intensive with very large datasets.</li>
+        <li>Less interpretable than linear or tree-based models.</li>
+        <li>Performance is highly dependent on choosing the right "kernel" function.</li>
+      </ul>
+
+      <p><strong>Real-World Use-Case:</strong> Handwriting Recognition.</p>
+      <ul>
+        <li>An SVM can be used to classify handwritten digits from a postal service.</li>
+        <li>Each image of a digit is converted into a vector of pixel values.</li>
+        <li>The SVM, using a powerful kernel, learns to find the optimal separating boundaries in this high-dimensional pixel space to distinguish between a "7" and a "1," or a "5" and a "6."</li>
+        <li>Even though some digits are written in very similar ways, the SVM is excellent at finding the subtle, non-linear patterns that define the boundaries between them.</li>
+      </ul>
+
+    </section>
+
+    <section id="p-inst" role="tabpanel" aria-labelledby="t-inst" class="panel">
+      <h3>Instance-Based</h3>
+      <p><strong>Core Idea:</strong> This architecture is a "lazy learner." Instead of building a general model during a training phase, it simply stores the entire training dataset. When it needs to make a prediction for a new data point, it looks at the "k" most similar data points (its "nearest neighbors") from the stored set and makes a decision based on them—either by taking a majority vote (for classification) or an average (for regression).</p>
+
+      <p><strong>Strengths:</strong></p>
+      <ul>
+        <li>Very simple to understand and implement.</li>
+        <li>Requires no training time, as the "learning" is just storing the data.</li>
+        <li>Can easily adapt to new data by simply adding it to the dataset.</li>
+      </ul>
+
+      <p><strong>Weaknesses:</strong></p>
+      <ul>
+        <li>Prediction can be very slow and computationally expensive for large datasets.</li>
+        <li>Performance suffers in high-dimensional spaces (known as the "curse of dimensionality").</li>
+        <li>Requires meaningful distance metrics and feature scaling to work well.</li>
+      </ul>
+
+      <p><strong>Real-World Use-Case:</strong> Plagiarism Detection. A service like Turnitin can use an instance-based approach to check a student's paper.
+        The "training data" is a massive database of existing books, articles, and student papers. The new paper is broken down into sentences or paragraphs (the new instances).
+        For each sentence, the system finds the "nearest neighbors" from its database—the most similar-sounding sentences that have been written before.
+        If a sentence is extremely "close" to an existing one in the database, it is flagged as potential plagiarism.</p>
+
+    </section>
+
+  </div>
+</section>
+## The Machine Learning Project Lifecycle
+
+<section class="mlp">
+  <ol class="mlp-steps" role="list">
+    <li class="mlp-card">
+      <h3>Data collection</h3>
+      <p>
+        <ul>
+          <li>Identify and acquire relevant data from databases, logs, surveys, and third-party
+            APIs. </li>
+          <li>Ensure coverage of the problem space, correct sampling, and compliance with
+            privacy and consent requirements.</li>
+        </ul>
+
+      </p>
+    </li>
+
+    <li class="mlp-card">
+      <h3>Data cleaning</h3>
+      <p>
+
+        <ul>
+          <li>Improve data quality by handling missing values, fixing or removing duplicates and
+            outliers, standardizing formats, and correcting label errors.</li>
+          <li>Document assumptions and keep a clean, versioned dataset.</li>
+        </ul>
+
+      </p>
+    </li>
+
+    <li class="mlp-card">
+      <h3>Feature engineering</h3>
+      <p>
+        <ul>
+          <li>Transform raw data into informative inputs: encode categoricals, scale/normalize numerics, create aggregates and domain features, and remove leakage.</li>
+          <li>Optionally apply feature selection or dimensionality reduction.</li>
+        </ul>
+      </p>
+    </li>
+
+    <li class="mlp-card">
+      <h3>Model training</h3>
+      <p>
+
+        <ul>
+          <li>Choose suitable algorithms and train with proper splits or cross-validation.</li>
+          <li>Tune hyperparameters, use pipelines, and ensure reproducibility with fixed seeds and environment tracking.</li>
+        </ul>
+      </p>
+    </li>
+
+    <li class="mlp-card">
+      <h3>Evaluation</h3>
+      <p>
+
+        <ul>
+          <li>Measure performance on unseen data using task-appropriate metrics (e.g., accuracy/F1 for classification; RMSE/MAE for regression).</li>
+          <li>Perform error analysis, calibration, and fairness checks; compare to baselines.</li>
+        </ul>
+      </p>
+    </li>
+
+    <li class="mlp-card">
+      <h3>Deployment</h3>
+      <p>
+
+        <ul>
+          <li>Package and serve the model (API, batch job, or embedded service) with CI/CD, model registry, and configuration that matches production. </li>
+          <li> Address scalability, latency, security, and rollback plans.</li>
+        </ul>
+      </p>
+    </li>
+
+    <li class="mlp-card">
+      <h3>Monitoring</h3>
+      <p>
+
+        <ul>
+          <li>Track prediction quality, latency, cost, and data/concept drift in production.</li>
+          <li>Set alerts, gather feedback/labels, and trigger retraining or dataset updates to
+            maintain performance over time.</li>
+        </ul>
+      </p>
+    </li>
+
+  </ol>
+</section>

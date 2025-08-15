@@ -1,0 +1,113 @@
+---
+id: evaluation-structured-questions
+title: Exam-type Questions
+hide_title: true
+sidebar_position: 4
+sidebar_label: ✍️ Exam-type Questions
+---
+import ModuleBanner from '@site/src/components/art/art-banner';
+
+<ModuleBanner />
+**QUESTION 1 [25 MARKS]**
+
+(a) Explain the core operational logic of a distance-vector protocol, which is often called "routing by rumor." What is the primary metric used by RIPv1, and what is a major disadvantage of using this metric?
+[6]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    * **Routing by Rumor:** This describes how distance-vector protocols work. Each router does not have a complete map of the network. Instead, it learns about remote networks solely from the routing tables passed to it by its directly connected neighbors. It trusts what its neighbors say ("the rumor") about the distance and direction to other networks.
+
+    * **Primary Metric:** The primary and only metric used by RIPv1 is **hop count** (the number of routers a packet must cross).
+
+    * **Disadvantage:** A major disadvantage is that hop count ignores other important path characteristics like **bandwidth** and **delay**. A path with fewer hops might be chosen even if it is significantly slower (e.g., a 2-hop path over slow serial links would be preferred over a 3-hop path over fast gigabit links).
+
+    **Marking Scheme:**
+
+    * [2 Marks] - For a clear explanation of "routing by rumor."
+    * [2 Marks] - For correctly identifying the metric as hop count.
+    * [2 Marks] - For explaining the disadvantage (ignores bandwidth/speed).
+
+</details>
+
+(b) You are tasked with configuring the 'RoseHill' router in the diagram below. Provide the complete and exact set of commands required to enable RIPv1 and advertise its connected networks.
+```text
+                                         +-----------+
+LAN 1: 192.168.77.0/24 -- Gig0/0 -- | RoseHill  | -- Ser0/0 -- Link: 172.16.1.0/24
+                                         +-----------+
+```
+[5]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    The configuration requires entering RIP configuration mode and then adding the two classful networks that the router is a part of.
+
+    ```bash
+    configure terminal
+    router rip
+    network 192.168.77.0
+    network 172.16.0.0
+    ```
+
+    **Marking Scheme:**
+
+    * [1 Mark] - For `configure terminal`.
+    * [1 Mark] - For the `router rip` command.
+    * [1 Mark] - For the `network 192.168.77.0` command.
+    * [2 Marks] - For the correct classful `network 172.16.0.0` command (not the /24 subnet).
+
+</details>
+
+(c) An administrator issues the `show ip route` command and sees the following line in the output:
+
+`R 192.168.30.0/24 [120/2] via 10.1.1.2, 00:00:21, Serial0/0/0`
+
+Based on this single entry, answer the following:
+i. What routing protocol is being used? [1]
+ii. What is the Administrative Distance of this route? [1]
+iii. What is the metric to reach the destination network? [1]
+iv. What is the IP address of the next-hop router? [1]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    i.  **R** stands for **RIP**.
+    ii. The Administrative Distance is **120**. (This is the first number in the brackets).
+    iii. The metric (hop count) is **2**. (This is the second number in the brackets).
+    iv. The next-hop router's IP address is **10.1.1.2**.
+
+    **Marking Scheme:**
+
+    * [1 Mark] - For each correct answer. Total of 4 marks.
+
+</details>
+
+(d) To combat routing loops, RIP uses several mechanisms. Name and explain **two** distinct loop-prevention mechanisms.
+[10]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    *(Student can choose any two of the following for full marks)*
+
+    1.  **Split Horizon:** This rule states that a router will not advertise a route out of the same interface through which it learned the route. This prevents simple, two-router loops where two routers would otherwise send the same route information back and forth to each other indefinitely.
+    2.  **Route Poisoning:** When a route fails, the router doesn't just stop advertising it. Instead, it immediately advertises the route with an "infinite" metric of 16. This poisoned route explicitly informs all neighbors that the network is unreachable, forcing them to remove it from their tables much faster than waiting for a timeout.
+    3.  **Maximum Hop Count:** RIP defines a maximum valid hop count of 15. If a packet is stuck in a loop, its hop count metric will increment with each router it passes through. Once the metric reaches 16, the route is considered invalid and the packet is dropped, preventing it from looping forever.
+    4.  **Hold-down Timers:** After a route is marked as possibly down, a router can start a hold-down timer. During this period, the router will ignore any new updates for that route that have an equal or worse metric than the original. This prevents the router from being tricked by old, late-arriving updates into re-instating a bad route.
+
+    **Marking Scheme:**
+    * [1 Mark] - For correctly naming the first mechanism.
+    * [4 Marks] - For a clear and accurate explanation of the first mechanism.
+    * [1 Mark] - For correctly naming the second mechanism.
+    * [4 Marks] - For a clear and accurate explanation of the second mechanism.
+
+</details>

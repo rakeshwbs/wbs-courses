@@ -1,0 +1,113 @@
+---
+id: evaluation-structured-questions
+title: Exam-type Questions
+hide_title: true
+sidebar_position: 4
+sidebar_label: ✍️ Exam-type Questions
+---
+import ModuleBanner from '@site/src/components/art/art-banner';
+
+<ModuleBanner />
+
+**QUESTION 1 [25 MARKS]**
+
+(a) EIGRP uses a structured approach to manage routing information with three distinct tables. List these three tables and, for each one, briefly describe its purpose.
+[6]
+
+<details>
+<summary>Click to see the answer and marking scheme</summary>
+
+**Answer:**
+
+1.  **Neighbor Table:** Its purpose is to maintain a list of all directly connected routers with which an EIGRP adjacency has been successfully formed. It stores information learned from Hello packets, such as the neighbor's address and hold time.
+2.  **Topology Table:** This is EIGRP's main database. Its purpose is to store all routes learned from all EIGRP neighbors, including all possible paths (both best and backup) to a destination. The DUAL algorithm runs against this table.
+3.  **Routing Table:** Its purpose is to store only the single best, loop-free path (the Successor route) for every known destination. This is the actual table the router uses to make its forwarding decisions.
+
+**Marking Scheme:**
+
+* [2 Marks] - For correctly identifying the Neighbor Table and its purpose.
+* [2 Marks] - For correctly identifying the Topology Table and its purpose.
+* [2 Marks] - For correctly identifying the Routing Table and its purpose.
+
+</details>
+
+(b) A router's EIGRP topology table shows that the best path (the Successor) to network `172.16.30.0/24` has a **Feasible Distance (FD) of 41154000**. The router also knows of two other paths to the same network:
+-   A path through Router-X, which has an **Advertised Distance (AD) of 39998000**.
+-   A path through Router-Y, which has an **Advertised Distance (AD) of 42001000**.
+
+i. State the EIGRP Feasibility Condition. [2]
+ii. Based on this condition, which path (if any) will be chosen as the Feasible Successor? Justify your choice for both paths. [4]
+
+<details>
+<summary>Click to see the answer and marking scheme</summary>
+
+**Answer:**
+
+i.  **Feasibility Condition:** For a route to be considered a loop-free backup (a Feasible Successor), the neighbor's **Advertised Distance (AD)** for that route must be strictly **less than** the current **Feasible Distance (FD)** of the Successor route.
+
+ii. **Path Selection:**
+    -   **Path via Router-X:** This path **WILL** be selected as the Feasible Successor.
+        -   *Justification:* Its AD (39,998,000) is less than the current FD (41,154,000), so it meets the Feasibility Condition.
+    -   **Path via Router-Y:** This path **WILL NOT** be selected as a Feasible Successor.
+        -   *Justification:* Its AD (42,001,000) is *not* less than the current FD (41,154,000), so it fails the Feasibility Condition.
+
+**Marking Scheme:**
+
+* [2 Marks] - For correctly stating the Feasibility Condition (AD < FD).
+* [2 Marks] - For correctly identifying the path via Router-X as the FS and providing the correct justification.
+* [2 Marks] - For correctly identifying that the path via Router-Y is not an FS and providing the correct justification.
+
+</details>
+
+(c) You need to create a standard ACL to block all traffic from a specific server at `192.168.99.5` from leaving a router's `GigabitEthernet0/0` interface. All other traffic must be allowed. Write the full set of commands to create this ACL and apply it correctly.
+[6]
+
+<details>
+<summary>Click to see the answer and marking scheme</summary>
+
+**Answer:**
+
+The solution requires two lines for the access list (one to deny the specific host, one to permit everything else) and one line to apply it to the interface in the correct direction.
+
+```bash
+configure terminal
+access-list 50 deny host 192.168.99.5
+access-list 50 permit any
+!
+interface GigabitEthernet0/0
+ ip access-group 50 out
+```
+
+**Marking Scheme:**
+
+* [2 Marks] - For the correct `deny` statement using the `host` keyword or equivalent mask.
+* [2 Marks] - For the essential `permit any` statement.
+* [2 Marks] - For correctly applying the ACL to the interface in the `out` direction.
+
+</details>
+
+(d) An administrator has configured the following extended ACL. Explain, in simple terms, the purpose and effect of each of the two lines.
+```
+access-list 120 deny udp any host 172.16.10.10 eq 53
+access-list 120 permit ip any any
+```
+[7]
+
+<details>
+<summary>Click to see the answer and marking scheme</summary>
+
+**Answer:**
+
+* **Line 1 (`access-list 120 deny udp any host 172.16.10.10 eq 53`):**
+    -   **Purpose/Effect:** This line explicitly **denies** any device (`any`) from sending UDP traffic to the specific server at `172.16.10.10` on destination port 53. Port 53 is used for DNS (Domain Name System). In effect, this line blocks any device from performing a standard DNS query to that specific server.
+
+* **Line 2 (`access-list 120 permit ip any any`):**
+    -   **Purpose/Effect:** This line acts as a catch-all to **permit** all other IP traffic. It allows any source to send any type of IP traffic (TCP, ICMP, etc.) to any destination. This is necessary to override the implicit deny at the end of the ACL and allow non-DNS traffic to function normally.
+
+**Marking Scheme:**
+
+* [4 Marks] - For a clear and complete explanation of the first line (denies UDP, any source, specific host, specific port/DNS).
+* [3 Marks] - For a clear and complete explanation of the second line (permits all other IP traffic).
+
+</details>
+

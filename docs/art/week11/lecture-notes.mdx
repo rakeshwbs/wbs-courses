@@ -1,0 +1,84 @@
+---
+id: lecture-notes 
+title: Lecture Notes
+hide_title: true
+sidebar_position: 1
+sidebar_label: Advanced BGP
+sidebar_class_name: icon-lecture
+---
+import ModuleBanner from '@site/src/components/art/art-banner';
+
+<ModuleBanner />
+
+# Week 11: Advanced BGP
+
+Last week, we established basic BGP peering. Now, we dive into what makes BGP the powerful policy tool that runs the internet. We'll explore how BGP stores information, its complex decision-making process, the attributes it uses to influence that process, and how we can filter the routes we send and receive.
+
+**Reminder:** Assignment 2 is due this week.
+
+---
+
+## 1. The BGP Tables
+
+Like other advanced protocols, BGP uses several tables to organize information.
+
+1. **Neighbor Table:** A list of all configured BGP peers and the current status of their session. This is the first place you check for connectivity issues.
+- **Command:** `show ip bgp summary`
+
+2. **BGP Table (RIB):** The main BGP database, also called the Routing Information Base (RIB). It contains all the network prefixes learned from every neighbor. If it learns multiple paths to the same prefix, it stores all of them here, along with their attributes.
+- **Command:** `show ip bgp`
+
+3. **IP Routing Table:** The main routing table of the router. It contains only the **single best path** for each prefix, selected from the BGP table after the path selection algorithm has run.
+- **Command:** `show ip route`
+
+---
+
+## 2. The BGP Path Selection Process
+
+When BGP learns multiple paths to the same destination, it doesn't use a simple metric like cost or hop count. Instead, it follows a strict, multi-step decision process. The first valid attribute on the list that allows for a decision wins.
+
+Here are the most important steps in the process, in order:
+
+1. **Highest WEIGHT:** A Cisco-proprietary, locally significant number. It is not advertised to any other router. (Higher is better).
+2. **Highest LOCAL_PREFERENCE:** A value used *within* an AS to choose an exit point. It is shared between iBGP peers. (Higher is better).
+3. **Locally Originated:** Prefer a path that this router originated itself (using the `network` command).
+4. **Shortest AS_PATH:** Prefer the path that has traversed the fewest Autonomous Systems. This is BGP's primary metric and loop-avoidance mechanism.
+5. **Lowest Origin Code:** (i > e > ?).
+6. **Lowest MED (Multi-Exit Discriminator):** An attribute used to influence how a neighboring AS enters your AS.
+7. **Prefer eBGP over iBGP paths.**
+8. **Lowest neighbor Router-ID** (as a final tie-breaker).
+
+---
+
+## 3. BGP Path Attributes: The Levers of Policy
+
+**Path Attributes** are the details that describe a BGP route. They are the "levers" we can pull to influence the path selection process.
+
+### AS_PATH (Well-Known Mandatory)
+- **What it is:** A list of all AS numbers that a route has passed through to reach you.
+- **Purpose:** This is the primary loop prevention mechanism. A BGP router will **not accept** a route if it sees its own AS number already in the AS_PATH list. The path selection process also prefers the path with the shortest AS_PATH.
+
+### NEXT_HOP (Well-Known Mandatory)
+- **What it is:** The IP address of the next router to send packets to for a given prefix.
+- **Rule:** For eBGP, the next-hop is typically the IP address of the peering neighbor. For iBGP, the next-hop learned from eBGP is carried unchanged throughout the AS.
+
+### LOCAL_PREFERENCE (Well-Known, Discretionary)
+- **What it is:** A numeric value (default 100) that is only exchanged between **iBGP peers**. It is not sent to eBGP neighbors.
+- **Purpose:** To influence the **exit point** from your own AS. You can set a higher local preference on routes learned from your preferred ISP. All routers inside your AS will agree to use that exit path because **higher local preference is preferred**.
+- **Analogy:** The management of your company sends a memo saying, "All international mail must now go through the Port Louis office, not the Curepipe office."
+
+### WEIGHT (Cisco Proprietary, Locally Significant)
+- **What it is:** A number (0-65535) that is only significant to the **local router** it is configured on. It is **not advertised** to any BGP neighbor.
+- **Purpose:** It is the very first tie-breaker, used to tell one specific router to prefer one path over another, regardless of any other attributes. **Higher weight is preferred**.
+- **Analogy:** A local manager telling their mail clerk, "I don't care what the memo says, *my* outgoing mail goes through the Curepipe office because it's faster from here."
+
+---
+
+## 4. BGP Route Filtering
+
+Receiving the full internet routing table (over 1 million routes) is often unnecessary and consumes significant memory. Filtering the routes you send and receive is a critical BGP skill.
+
+- **Distribute-Lists:** Uses a standard or extended ACL to filter routes. Simple but limited, as ACLs are not designed to match on subnet mask length.
+- **Prefix-Lists:** The preferred method for filtering based on network prefixes. A prefix-list is more powerful than an ACL because it can match on both the network address **and** the prefix length.
+- **Example:** `ip prefix-list MY_LIST permit 10.0.0.0/8 ge 24` will permit any route that is a `/24` or longer (e.g., `/25`, `/26`) inside the `10.0.0.0/8` range.
+- **Route-Maps:** The most powerful tool. A route-map uses a prefix-list (or ACL) in its `match` clause and can then either `permit`/`deny` the route or use a `set` clause to modify its attributes (like weight or local preference) before it is accepted or advertised.

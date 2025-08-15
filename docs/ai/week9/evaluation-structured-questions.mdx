@@ -1,0 +1,127 @@
+---
+id: evaluation-structured-questions
+title: Exam-type Questions
+hide_title: true
+sidebar_position: 4
+sidebar_label: Exam-type Questions
+sidebar_class_name: icon-exam
+---
+
+import ModuleBanner from '@site/src/components/ai/ai-banner';
+
+<ModuleBanner />
+
+### 📘 **Sample Examination Questions & Answers - Week 9 Concepts**
+
+---
+
+### **QUESTION 1 \[25 MARKS]**
+
+---
+
+#### (a) Explain the fundamental goal of a **Generative AI** model and how it differs from a **Discriminative AI** model. Provide one clear example for each type of model.
+
+**\[8 Marks]**
+
+<details>
+<summary>Click to see the answer and marking scheme</summary>
+
+**Answer:**
+
+The fundamental goal of a **Generative AI** model is to learn the underlying probability distribution of a dataset in order to **create new, original data samples** that are similar to the data it was trained on. It answers the question, "What does this data look like?"
+
+* **Example:** A model like DALL·E or Stable Diffusion creating a new image of a *cyberpunk Port Louis* from a text prompt.
+
+In contrast, the fundamental goal of a **Discriminative AI** model is to learn a decision boundary between different classes of data. Its purpose is to **predict a label or category** for a given input. It answers the question, "Given this data, what is its label?"
+
+* **Example:** A CNN model that classifies an image as containing either a *cat* or a *dog*.
+
+**Marking Scheme:**
+
+* \[2 Marks] - For correctly explaining the goal of a Generative model (to create/generate new data).
+* \[2 Marks] - For a suitable example of a Generative model.
+* \[2 Marks] - For correctly explaining the goal of a Discriminative model (to predict/classify existing data).
+* \[2 Marks] - For a suitable example of a Discriminative model.
+
+</details>
+
+---
+
+#### (b) A Generative Adversarial Network (GAN) consists of two neural networks: a **Generator** and a **Discriminator**. Describe the specific role of each network.
+
+**\[6 Marks]**
+
+<details>
+<summary>Click to see the answer and marking scheme</summary>
+
+**Answer:**
+
+1. **Generator:**
+   This network's role is to act as a "creator" or "forger." It takes a random noise vector as input and attempts to transform it into a new, synthetic data sample (e.g., an image) that is indistinguishable from the real data in the training set. Its goal is to become so good at creating fakes that it can fool the Discriminator.
+
+2. **Discriminator:**
+   This network's role is to act as a "critic" or "detective." It is a standard classification network that is shown both real images from the training set and fake images from the Generator. Its goal is to learn to accurately classify whether a given image is real or fake.
+
+**Marking Scheme:**
+
+* \[3 Marks] - For a clear description of the Generator's role (creates fake data from noise).
+* \[3 Marks] - For a clear description of the Discriminator's role (classifies data as real or fake).
+
+</details>
+
+---
+
+#### (c) Explain the **adversarial training process** of a GAN. How do the two networks help each other improve, and when does the training ideally stop?
+
+**\[7 Marks]**
+
+<details>
+<summary>Click to see the answer and marking scheme</summary>
+
+**Answer:**
+
+The training process is a **zero-sum game**. The Generator creates fakes, and the Discriminator tries to detect them. The Discriminator is updated based on its classification performance. The crucial step is that the feedback from the Discriminator—how successfully it was fooled—is used to update the Generator.
+
+This creates a feedback loop where:
+
+* A better Discriminator forces the Generator to produce more realistic fakes.
+* More realistic fakes from the Generator force the Discriminator to become a better critic.
+
+This **adversarial competition** drives both networks to improve simultaneously. Ideally, the training stops when a **Nash equilibrium** is reached. This occurs when the Generator's fakes are so realistic that the Discriminator's accuracy drops to **50%**, meaning it can no longer do better than random guessing.
+
+**Marking Scheme:**
+
+* \[3 Marks] - For explaining the adversarial loop (Generator improves based on Discriminator's feedback, and vice versa).
+* \[2 Marks] - For explaining the concept of equilibrium.
+* \[2 Marks] - For stating that this equilibrium is reached when the Discriminator’s accuracy is 50%.
+
+</details>
+
+---
+
+#### (d) Why is it more practical for developers to use a **pre-trained** language model from a platform like Hugging Face rather than training one from scratch?
+
+**\[4 Marks]**
+
+<details>
+<summary>Click to see the answer and marking scheme</summary>
+
+**Answer:**
+
+It is more practical because training large, foundational models (like LLMs) from scratch is **prohibitively expensive and time-consuming**. This process requires:
+
+* Massive, curated datasets (often a significant portion of the internet)
+* Vast amounts of specialized computing hardware (hundreds or thousands of GPUs)
+* Weeks or months to train, costing millions of dollars
+
+Platforms like **Hugging Face** democratize AI by allowing developers to access and build upon these powerful pre-trained models without incurring these immense costs.
+
+**Marking Scheme:**
+
+* \[4 Marks] - For explaining that training from scratch is extremely expensive in terms of data, compute power, and time.
+
+</details>
+
+---
+
+

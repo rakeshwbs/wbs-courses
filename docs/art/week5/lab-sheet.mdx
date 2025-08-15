@@ -1,0 +1,123 @@
+---
+id: lab-sheet
+title: Labsheet
+sidebar_position: 2
+hide_title: true
+sidebar_label: 💻 ACL Implementation
+---
+import ModuleBanner from '@site/src/components/art/art-banner';
+
+<ModuleBanner />
+
+# Week 5 Lab: EIGRP Analysis & ACL Implementation
+
+## Objective
+
+This advanced lab is split into two parts. In Part 1, you will build a redundant topology to investigate the EIGRP topology table, identify Successor and Feasible Successor routes, and manually apply the Feasibility Condition. In Part 2, you will practice network security by creating and applying both standard and extended Access Control Lists (ACLs) to permit and deny specific types of traffic.
+
+## Part 1: EIGRP Topology Table and Feasibility Condition
+
+In this part, we will build a network with redundant paths to explore how EIGRP chooses its best and backup paths.
+
+### Topology for Part 1
+
+```text
+                 +----------+
+       S0/0/0----| Router-B |----S0/0/1
+       |         +----------+         |
++----------+                      +----------+
+| Router-A |                      | Router-C |----(Lo0: 192.168.3.1/24)
++----------+                      +----------+
+       |         +----------+         |
+       S0/1/0----| Router-D |----S0/1/1
+                 +----------+
+```
+
+* **Links:** All serial links are in the `10.0.0.0/24` range. Assign IPs logically (e.g., A-B link is `10.0.ab.x`, A-D link is `10.0.ad.x`).
+* **EIGRP AS 100** will be used.
+* **Bandwidth Manipulation:** To force a clear best path, we will set the bandwidth on the links.
+
+* Set bandwidth on links A->B and B->C to **1024** Kbps.
+* Set bandwidth on links A->D and D->C to **512** Kbps.
+* Command: on the interface, `bandwidth [kbps]` (e.g., `bandwidth 512`).
+
+### Tasks for Part 1
+
+1. Build and configure the topology. Configure IP addresses and enable `eigrp 100` on all routers. **Crucially, set the bandwidth values on the serial interfaces as described above.**
+2. On **Router-A**, our goal is to analyze the path to Router-C's loopback (`192.168.3.0/24`). First, check the routing table: `show ip route`. You should see the best path is via Router-B due to the higher bandwidth. This is your **Successor**. Note the metric (the Feasible Distance).
+3. Now, dive into the brain of EIGRP. On **Router-A**, run:
+
+```bash
+show ip eigrp topology
+   ```
+4. Find the entry for `192.168.3.0/24`. You will see two paths listed, one via Router-B and one via Router-D.
+5. **Manual Analysis:**
+
+* Identify the **Successor** (it will be marked). Note its **Feasible Distance (FD)**.
+* Look at the other path via Router-D. Note the **Advertised Distance (AD)** from Router-D.
+* Apply the **Feasibility Condition**: Is Router-D's AD *less than* your current FD? If yes, the path through Router-D is a **Feasible Successor (FS)**.
+6. The `show ip eigrp topology` command only shows Successors and Feasible Successors. To see all paths, even those that failed the condition, use `show ip eigrp topology all-links`.
+
+---
+
+## Part 2: Implementing ACLs
+
+For this part, you can use a simple two-router topology (like from Week 2) to keep the focus on the ACL logic.
+
+* Router-A (LAN: `192.168.1.0/24`) connected to Router-B (LAN: `192.168.2.0/24`).
+* PC-A is at `192.168.1.10`. PC-B is at `192.168.2.10`.
+* Ensure you have routing (EIGRP or static) configured so that PC-A can ping PC-B.
+
+### Task 2: Standard ACL
+
+**Goal:** Block all traffic from PC-A specifically, but allow traffic from any other device on that network.
+
+1. On **Router-B**, create a standard ACL.
+
+```bash
+configure terminal
+access-list 10 deny host 192.168.1.10
+access-list 10 permit any
+```
+
+*(Note: The `permit any` is crucial. Without it, the implicit deny would block everything).*
+2. Apply the ACL to the interface leading to PC-B's LAN. Because it's a standard ACL, we apply it close to the destination.
+
+```bash
+interface GigabitEthernet0/0  // Or whatever interface faces PC-B
+ip access-group 10 out
+```
+3. **Verification:** From PC-A, try to ping PC-B (`192.168.2.10`). The ping should **fail**. If you added another PC to the `192.168.1.0` network, its ping would succeed.
+
+### Task 3: Extended ACL
+
+**Goal:** Block only PING traffic (ICMP) from PC-A's entire network, but allow all other types of traffic (like web traffic).
+
+1. First, remove the old ACL from the interface on Router-B: `no ip access-group 10 out`. Then remove the ACL itself: `no access-list 10`.
+2. On **Router-A**, create an extended ACL. Because it's extended, we apply it close to the source.
+
+```bash
+configure terminal
+access-list 110 deny icmp 192.168.1.0 0.0.0.255 host 192.168.2.10
+access-list 110 permit ip any any
+```
+
+*(Note: The first line denies ICMP from the whole 192.168.1.0/24 network to the specific PC-B. The `permit ip any any` allows all other traffic to pass).*
+3. Apply the ACL to the interface facing PC-A's LAN.
+
+```bash
+interface GigabitEthernet0/0 // Or whatever interface faces PC-A
+ip access-group 110 in
+```
+4. **Verification:** From PC-A, try to ping PC-B. It should **fail**. However, if PC-B were a web server, PC-A would still be able to access its web page because we only blocked ICMP, not all IP traffic.
+
+---
+
+## Exploration Questions
+
+1. In Part 1, if the path via Router-D was a Feasible Successor and the link between Router-A and Router-B failed, what would happen? Would EIGRP need to send out query packets?
+2. What is the "implicit deny any" and why is it the most important concept to remember when building an ACL?
+3. Explain in your own words why standard ACLs should be placed close to the destination, while extended ACLs should be placed close to the source.
+4. When you apply an ACL with the `in` keyword, does the router check the packet against the ACL before or after it makes a routing decision?
+
+---

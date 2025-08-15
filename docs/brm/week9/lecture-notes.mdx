@@ -1,0 +1,58 @@
+---
+id: lecture-notes
+title: Lecture Notes
+hide_title: true
+sidebar_position: 1
+sidebar_label: Hypothesis Testing
+sidebar_class_name: icon-lecture
+
+---
+import ModuleBanner from '@site/src/components/brm/brm-banner';
+
+<ModuleBanner />
+## Week 9: Making Inferences (Hypothesis Testing)
+
+The core of inferential statistics is **hypothesis testing**. This is the formal procedure researchers use to test whether their predictions (hypotheses) are supported by the evidence.
+
+### The Logic of Hypothesis Testing
+
+Remember the **Null Hypothesis ($H_0$)** (no effect) and the **Alternative Hypothesis ($H_1$)** (a real effect exists)? The process works like a courtroom trial:
+
+1.  We start by **assuming the null hypothesis is true** (the "defendant" is innocent). We assume there is no real effect or relationship in the population.
+2.  We then look at our sample data and ask: "If the null hypothesis were true, how likely is it that we would get a result as extreme as the one we found?"
+3.  This probability is a crucial value called the **p-value**.
+
+### The p-value: The Deciding Factor
+
+The **p-value** is the probability of observing your data (or something even more extreme) *if the null hypothesis is actually true*. It's the probability of a "fluke."
+
+* A **small p-value** (e.g., 0.01) means it's very unlikely you would see your result by random chance alone.
+* A **large p-value** (e.g., 0.40) means your result could easily have happened by random chance.
+
+To make a decision, we compare the p-value to a pre-determined cutoff point called the **significance level**, or **alpha ($\alpha$)**. The universal standard for alpha in most fields is **0.05**.
+
+**The Decision Rule:**
+* If **p ≤ 0.05**: The result is **statistically significant**. We have enough evidence to **reject the null hypothesis** and support our alternative hypothesis. We conclude there is a real effect.
+* If **p > 0.05**: The result is **not statistically significant**. We **fail to reject the null hypothesis**. This doesn't mean the null is true, only that we don't have enough evidence to say it's false.
+
+### Choosing the Right Statistical Test
+
+Different research questions require different statistical tests. Here are three of the most common ones.
+
+#### 1. Independent-Samples t-Test
+* **Purpose:** To compare the **means** of **two independent groups**.
+* **Variables:** One categorical IV with two levels (e.g., Control Group vs. Experimental Group) and one continuous DV (e.g., Quiz Score).
+* **Research Question:** "Is there a significant difference in quiz scores between the group that used the new study app and the group that did not?"
+
+#### 2. Paired-Samples t-Test
+* **Purpose:** To compare the **means** of the **same group** at two different times or under two different conditions (e.g., pre-test/post-test).
+* **Variables:** Two related continuous measurements (e.g., `Weight_Before`, `Weight_After`).
+* **Research Question:** "Did employees' sales performance significantly increase after they completed a training program?"
+
+#### 3. Chi-Square ($\chi^2$) Test of Independence
+* **Purpose:** To determine if there is a significant **association** between **two categorical (nominal or ordinal) variables**.
+* **Variables:** Two categorical variables (e.g., `Department`, `Smoker_Status`).
+* **Research Question:** "Is there an association between an employee's department and whether or not they are satisfied with their job (Yes/No)?"
+
+---
+

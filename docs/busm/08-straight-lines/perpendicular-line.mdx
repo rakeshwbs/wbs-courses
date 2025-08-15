@@ -1,0 +1,97 @@
+---
+id: perpendicular-line
+title: Find Equation of Perpendicular Line
+hide_title: true
+sidebar_position: 4
+sidebar_label: Perpendicular Line
+---
+import ModuleBanner from '@site/src/components/busm/busm-banner';
+
+<ModuleBanner />
+---
+### Perpendicular line
+---
+**Perpendicular lines** are two lines that intersect each other at a perfect **right angle (90°)**.
+<div style={{ textAlign: "center" }}>
+    <img src="/img/busm/perpendicular-lines.jpg" alt="Finding Gradient" style={{ width: "50%" }} />
+</div>
+### The Gradient Rule
+The most important property of perpendicular lines is the relationship between their gradients. If one line has a gradient of **`m₁`**, the gradient of a line perpendicular to it, **`m₂`**, will be its **negative reciprocal**.
+
+To find the negative reciprocal, you do two things:
+1.  **Find the reciprocal** (flip the fraction).
+2.  **Change the sign** (positive becomes negative, and negative becomes positive).
+
+The formula is:
+$$m_2 = -\frac{1}{m_1}$$
+
+This also means that the product of the two gradients will always be **-1**.
+
+$$m_1 \times m_2 = -1$$
+
+---
+### Example
+* If a line has a gradient of **4**, the gradient of a line perpendicular to it is **$-\frac{1}{4}$**.
+* If a line has a gradient of **$-\frac{2}{3}$**, the gradient of a line perpendicular to it is **$\frac{3}{2}$**.
+
+| Equation of the Line | Gradient (m) | Perpendicular Gradient ($-\frac{1}{m}$) |
+| :--- | :---: | :---: |
+| $y = 5x - 7$  | 5 | $-\frac{1}{5}$ |
+| $y = -2x + 5$  | -2 | $\frac{1}{2}$ |
+| $y = \frac{x}{5} + 3$ | $\frac{1}{5}$ | -5 |
+| $y = -x + 3$  | -1 | 1 |
+| $2x + y = 4$ | -2 | $\frac{1}{2}$ |
+---
+### Finding the Equation of a Perpendicular Line
+---
+
+To find the equation of a line that is perpendicular to a given line and passes through a specific point, you can follow these steps.
+
+#### **Step 1: Find the Gradient (m) of the Original Line**
+- First, you have to ensure that the equation of the line given is in the form of **`y = mx + c`**.
+
+- Once it is in this form, you can read the value of **`m`**, which is the gradient.
+
+#### **Step 2: Find the Gradient of the Perpendicular Line**
+To find the gradient of the perpendicular line, you do two things to the original gradient (`m`):
+* **Find the reciprocal** (flip the fraction; for example, 3 becomes $$\frac{1}{3}$$).
+* **Change the sign** (if the sign is positive, change it to negative; if it is negative, change it to positive).
+
+This new gradient is the "negative reciprocal" of the original.
+
+#### **Step 3: Find the Y-Intercept (c) of the New Line**
+
+Now, write the equation of the perpendicular line in the form of `y = (new gradient)x + c`.
+
+You can find the value of `c` by replacing the values of `x` and `y` with the coordinates of the point that the perpendicular line passes through.
+
+#### **Step 4: Write the Final Equation**
+
+Finally, write out the equation using the new gradient and the value of `c` you just found.
+
+---
+### **Worked Example**
+
+**Problem:** Find the equation of the line perpendicular to `y = -2x + 5` that passes through the point **(4, 8)**.
+
+1.  **Find the Original Gradient:**
+
+The equation `y = -2x + 5` is already in the correct form. The original gradient **`m` is -2**.
+
+2.  **Find the Perpendicular Gradient:**
+* The reciprocal of -2 (or $$\frac{-2}{1}$$) is $$\frac{-1}{2}$$.
+* Change the sign from negative to positive.
+* The new, perpendicular gradient is **$$\frac{1}{2}$$**.
+
+3.  **Find the Y-Intercept (c):**
+* Start with the new equation: $$y = \frac{1}{2}x + c$$.
+* Substitute the point (x=4, y=8):
+
+    $$8 = (\frac{1}{2})(4) + c$$.
+* This simplifies to `8 = 2 + c`.
+* Solving for `c` gives **`c = 6`**.
+
+4.  **Write the Final Equation:**
+
+The final equation for the perpendicular line is:
+$$y = \frac{1}{2}x + 6$$

@@ -1,0 +1,67 @@
+---
+id: lab-sheet
+title: Lab sheet 1
+hide_title: true
+sidebar_position: 2
+sidebar_label: Lab 1
+sidebar_class_name: Class Basics
+---
+import ModuleBanner from '@site/src/components/dsa/dsa-banner';
+
+<ModuleBanner />
+
+
+## **Lab 1: C++ Environment & Core Concepts**
+
+:::note Objective
+The goal of this lab is to set up your programming environment and get hands-on practice with the fundamental C++ concepts discussed in the lecture. This practical work is essential for building complex data structures later.
+:::
+### **Task 1: Environment Setup & "Hello, World\!"**
+
+1.  **Install a C++ Compiler:** If you don't have one, install `g++`. On Windows, you can use MinGW-w64. On macOS, Xcode Command Line Tools will provide it. On Linux, it's typically pre-installed or available via `sudo apt-get install build-essential`.
+2.  **Configure an Editor:** It's recommended to use a modern code editor like Visual Studio Code. Install the "C/C++" extension from Microsoft.
+3.  **Compile & Run:** Write the classic "Hello, World\!" program, save it as `hello.cpp`, and compile it from your terminal using the command `g++ hello.cpp -o hello`. Run it to ensure everything is working.
+
+<!-- end list -->
+
+```cpp
+#include <iostream>
+
+int main() {
+    std::cout << "Hello, World!" << std::endl;
+    return 0;
+}
+```
+
+-----
+
+### **Task 2: Functions & Pointers**
+
+1.  Write a C++ program that includes a function `void swap(int* ptrA, int* ptrB)`.
+2.  This function should take two integer pointers as arguments and swap the *values* they point to.
+3.  In your `main()` function, declare two integers, `int x = 10;` and `int y = 20;`.
+4.  Print their values, call the `swap` function with the addresses of `x` and `y`, and then print their values again to confirm they have been swapped.
+
+-----
+
+### **Task 3: Dynamic Memory Allocation**
+
+1.  Write a program that prompts the user to enter a size for an array.
+2.  Declare an integer pointer, e.g., `int* dynamicArray;`.
+3.  Allocate memory on the heap for an integer array of the user-specified size using the `new` keyword.
+4.  Use a loop to fill the array with some values (e.g., the first `n` even numbers).
+5.  Print the contents of the array.
+6.  Crucially, free the allocated memory using `delete[]` before your program ends to prevent a memory leak.
+
+-----
+
+### **Task 4: Class Basics**
+
+1.  Define a simple `Book` class.
+2.  The class should have **private** data members: `std::string title;` and `int yearPublished;`.
+3.  It should have **public** member functions:
+  * A constructor `Book(std::string t, int y);` to initialize the data members.
+  * A method `void displayDetails();` that prints the book's title and publication year to the console.
+4.  In `main()`, create an instance of your `Book` class and call its `displayDetails()` method to verify it works correctly.
+
+-----

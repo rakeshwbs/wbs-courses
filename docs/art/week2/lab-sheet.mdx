@@ -1,0 +1,116 @@
+---
+id: lab-sheet
+title: Labsheet
+sidebar_position: 2
+hide_title: true
+sidebar_label: 💻 Static Routes
+---
+import ModuleBanner from '@site/src/components/art/art-banner';
+
+<ModuleBanner />
+
+# Week 2 Lab: Implementing Static & Default Routes
+
+## Objective
+
+This lab directly continues from Week 1. You will solve the connectivity issue between the two LANs by implementing static routes. You will verify full connectivity using `ping` and `traceroute`, and examine the routing table to see the changes. Finally, you will explore a more scalable type of static route: the default route.
+
+## Required Setup
+
+-   The completed Cisco Packet Tracer topology from Week 1. If you did not save it, please rebuild it according to the Week 1 Labsheet.
+
+## Network Topology (Reminder)
+
+```text
+       (LAN 1: Ebène)                               (LAN 2: Port Louis)
+                                  Serial DTE/DCE
+      192.168.1.0/24                   Link                    192.168.2.0/24
+                                 10.0.0.0/30
++------------+     +-----------+ S0/0/0      S0/0/0 +-----------+     +------------+
+|    PC-A    |-----|  Switch-A |------------------| Router-B  |-----|  Switch-B  |-----|    PC-B    |
++------------+     +-----------+       R-A        +-----------+     +------------+     +------------+
+   .10   g: .1       G0/0 .1                         G0/0 .1                           .10  g: .1
+```
+
+---
+
+## Lab Tasks
+
+### Task 1: Confirm the Problem
+
+1.  Before making any changes, open the command prompt on **PC-A** and ping **PC-B**.
+
+```bash
+ping 192.168.2.10
+    ```
+The ping should fail, as it did at the end of Lab 1.
+2.  On **Router-A**, view the routing table.
+```bash
+enable
+show ip route
+```
+Confirm that there is no entry for the `192.168.2.0` network.
+
+### Task 2: Configure Specific Static Routes
+
+You will now manually add the routes to teach each router about the other's LAN.
+
+1.  On **Router-A**, enter global configuration mode and add a static route to the Port Louis network (`192.168.2.0/24`). The next hop is Router-B's serial interface (`10.0.0.2`).
+```bash
+configure terminal
+ip route 192.168.2.0 255.255.255.0 10.0.0.2
+```
+2.  On **Router-B**, enter global configuration mode and add a static route back to the Ebène network (`192.168.1.0/24`). The next hop is Router-A's serial interface (`10.0.0.1`).
+```bash
+configure terminal
+ip route 192.168.1.0 255.255.255.0 10.0.0.1
+```
+
+### Task 3: Verify End-to-End Connectivity
+
+Now that the routes are in place, let's test if our solution worked.
+
+1.  On **Router-A**, view the routing table again.
+```bash
+show ip route
+```
+You should now see a new line that starts with `S`. This is your static route! It should look like this: `S   192.168.2.0/24 [1/0] via 10.0.0.2`.
+2.  On **PC-A**, repeat the ping to **PC-B**.
+```bash
+ping 192.168.2.10
+```
+The ping should now be SUCCESSFUL. You have achieved full end-to-end connectivity.
+3.  From **PC-A**, use the `tracert` command to see the path the packet takes.
+```bash
+tracert 192.168.2.10
+```
+The output should show three hops:
+-   Your gateway (Router-A: `192.168.1.1`)
+-   The next router (Router-B: `10.0.0.2`)
+-   The final destination (PC-B: `192.168.2.10`)
+
+### Task 4 (Bonus): Re-configuring with Default Routes
+
+A default route is a "catch-all" route used when a router doesn't have a specific route for a destination. It's often called a "quad-zero" route. Let's see it in action.
+
+1.  First, remove the specific static routes you configured. Use the `no` form of the command.
+-   On **Router-A**: `no ip route 192.168.2.0 255.255.255.0 10.0.0.2`
+-   On **Router-B**: `no ip route 192.168.1.0 255.255.255.0 10.0.0.1`
+2.  Now, configure a default route on **Router-A** that sends any unknown traffic to Router-B.
+```bash
+ip route 0.0.0.0 0.0.0.0 10.0.0.2
+```
+3.  Configure a default route on **Router-B** that sends any unknown traffic to Router-A.
+```bash
+ip route 0.0.0.0 0.0.0.0 10.0.0.1
+```
+4.  Verify connectivity again by pinging from PC-A to PC-B. It should still work.
+5.  Check the routing table on Router-A with `show ip route`. You will now see a `S*` route, indicating a static default route candidate.
+
+---
+
+## Exploration Questions
+
+1.  In the output of `show ip route` for your specific static route, you saw `[1/0]`. What do the '1' and the '0' represent? (Hint: Refer to the lecture notes on AD).
+2.  What do you think would have happened if you configured the static route on Router-A but forgot to add the return route on Router-B? Would the first ping packet from PC-A even reach PC-B? Would the reply from PC-B ever make it back to PC-A? Explain your reasoning.
+3.  Default routes are very powerful. In a real-world scenario where your company has one router connecting to the internet, would you use a default route or specific static routes to send traffic to web servers like google.com? Why?

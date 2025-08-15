@@ -1,0 +1,137 @@
+---
+id: evaluation-structured-questions
+title: Exam-type Questions
+hide_title: true
+sidebar_position: 4
+sidebar_label: Exam-type Questions
+sidebar_class_name: icon-exam
+---
+import ModuleBanner from '@site/src/components/dsa/dsa-banner';
+
+<ModuleBanner />
+
+## **Sample Examination Questions & Answers - Week 12 Concepts**
+
+---
+
+### **QUESTION 1 \[25 MARKS]**
+
+**(a)** Compare and contrast **Bubble Sort** and **Merge Sort**. Describe the basic working principle of each and state their average-case time complexity.
+\[10]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    **Bubble Sort:**
+
+    * **Principle:** This is a simple comparison-based algorithm. It repeatedly steps through the list, compares adjacent pairs of elements, and swaps them if they are in the wrong order. This process is repeated until the list is sorted, causing the largest elements to "bubble" to the end.
+    * **Average Time Complexity:** **O(n²)**. It is very inefficient for large datasets.
+
+    **Merge Sort:**
+
+    * **Principle:** This is a "Divide and Conquer" algorithm. It recursively divides the array into two halves until it has many subarrays of size 1. Then, it repeatedly merges these sorted subarrays back together in the correct order until a single, fully sorted array remains.
+    * **Average Time Complexity:** **O(n log n)**. It is significantly more efficient than Bubble Sort for large datasets.
+
+    **Marking Scheme:**
+
+    * \[3 Marks] – For correctly describing the principle of Bubble Sort (adjacent swaps).
+    * \[2 Marks] – For stating the correct complexity for Bubble Sort (O(n²)).
+    * \[3 Marks] – For correctly describing the principle of Merge Sort (divide and conquer, merging).
+    * \[2 Marks] – For stating the correct complexity for Merge Sort (O(n log n)).
+
+</details>
+
+---
+
+**(b)** You are given the unsorted array: `[5, 2, 4, 6, 1, 3]`. Show the state of the array after each pass of the outer loop of the **Insertion Sort** algorithm.
+\[9]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    * **Initial Array:** `[5, 2, 4, 6, 1, 3]`
+    * **After pass 1 (key=2):** `[2, 5, 4, 6, 1, 3]` (2 is inserted before 5)
+    * **After pass 2 (key=4):** `[2, 4, 5, 6, 1, 3]` (4 is inserted between 2 and 5)
+    * **After pass 3 (key=6):** `[2, 4, 5, 6, 1, 3]` (6 is already in sorted position)
+    * **After pass 4 (key=1):** `[1, 2, 4, 5, 6, 3]` (1 is inserted at the very beginning)
+    * **After pass 5 (key=3):** `[1, 2, 3, 4, 5, 6]` (3 is inserted between 2 and 4)
+
+    **Final Sorted Array:** `[1, 2, 3, 4, 5, 6]`
+
+    **Marking Scheme:**
+
+    * \[9 Marks] – Awarded for showing the correct state of the array after each of the 5 passes. (Partial marks for partially correct traces).
+
+</details>
+
+---
+
+**(c)** You are tasked with sorting a list of one million (1,000,000) customer records. Of the two algorithms, Bubble Sort (O(n²)) and Merge Sort (O(n log n)), which is the only practical choice and why?
+\[6]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Only Practical Choice:** Merge Sort.
+
+    **Why:** An O(n²) algorithm like Bubble Sort is computationally infeasible for a dataset of this size. If n is 1 million, n² is one trillion (1,000,000,000,000) operations, which would take an extremely long time (hours, days, or even longer) on a modern computer.
+
+    In contrast, an O(n log n) algorithm like Merge Sort is far more efficient. For n = 1 million, n log n is roughly 20 million operations. This is a massive difference and can be completed in well under a second on a modern computer, making it the only practical and realistic choice.
+
+    **Marking Scheme:**
+
+    * \[2 Marks] – For correctly identifying Merge Sort.
+    * \[4 Marks] – For a clear explanation that contrasts the vast difference between n² and n log n operations for a large n, highlighting that O(n²) is impractically slow.
+
+</details>
+
+---
+
+### **QUESTION 2 \[25 MARKS]**
+
+For each of the scenarios below, identify the **single most appropriate data structure** we have studied in this course (e.g., Stack, Queue, BST, Hash Table, Graph, etc.) and provide a brief justification for your choice.
+
+(a) Modeling a social network to find connections like "friends of a friend". \[5]
+(b) Managing print jobs sent to a shared office printer to ensure fairness. \[5]
+(c) Implementing the "undo" feature in a text editor. \[5]
+(d) Storing a dictionary of Mauritian Creole words and their English definitions for fast lookups. \[5]
+(e) Representing a company's organizational chart to show who reports to whom. \[5]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answers:**
+
+    (a) **Data Structure:** Graph
+
+    * **Justification:** A social network is a perfect model of a graph, where people are vertices and friendships are edges. Traversal algorithms like BFS can then be used to find friends of friends.
+
+    (b) **Data Structure:** Queue
+
+    * **Justification:** Print jobs should be handled in a fair, "first come, first served" manner. This is the definition of a First-In, First-Out (FIFO) process, which is exactly what a queue implements.
+
+    (c) **Data Structure:** Stack
+
+    * **Justification:** The "undo" feature requires reversing the last action performed. A stack's Last-In, First-Out (LIFO) nature is ideal for this; the last command executed is pushed onto the stack, and "undo" simply pops it off.
+
+    (d) **Data Structure:** Hash Table
+
+    * **Justification:** A dictionary requires fast lookups of a value (definition) based on a key (the word). A hash table provides an average time complexity of O(1) for this search operation, making it the most efficient choice.
+
+    (e) **Data Structure:** Tree
+
+    * **Justification:** An organizational chart is a classic hierarchy. A tree is the perfect data structure to represent hierarchical relationships, with the CEO at the root and employees branching out as children nodes.
+
+    **Marking Scheme:**
+    \[5 Marks] for each part.
+    \[2 Marks] for the correct data structure.
+    \[3 Marks] for the correct justification.
+
+</details>
+
+---
+

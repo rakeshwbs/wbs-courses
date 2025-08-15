@@ -1,0 +1,139 @@
+---
+id: module-description
+title: Module Description
+hide_title: true
+sidebar_position: 1
+sidebar_label: Module Description
+---
+
+
+### **1. Module Title and Code**
+* **Module Title:** Data Structure & Algorithms
+* **Module Code:** DSA-251
+### **2. Academic Year & Level**
+* **Academic Year:** 2025/2026
+* **Level:** Undergraduate
+* **Credits:** 4
+---
+
+### **Module Description**
+
+This module provides a comprehensive introduction to fundamental data structures and their associated algorithms.
+The core objective is to equip students with the skills to analyze problems and develop efficient, robust solutions in C++.
+A significant emphasis is placed on introducing and applying **Object-Oriented Programming (OOP) principles**.
+These concepts will be woven directly into the implementation of key data structures like stacks, queues, linked lists, and dictionaries.
+
+Students will explore topics ranging from algorithm analysis and recursion to complex structures like trees and graphs.
+The curriculum specifically delves into dictionaries, implementing them using **hashing** and analyzing collision resolution techniques.
+Upon completion, you'll be able to design and implement various abstract data types, analyze algorithm performance using $Big-O$ notation, and adeptly apply recursive problem-solving strategies.
+
+***
+
+### **Week 1: Foundations of Algorithms & C++**
+* **Lecture Focus:** Introduction to algorithms, pseudocode, and the importance of algorithm analysis. Defining an **Abstract Data Type (ADT)**. A quick but essential review of C++ concepts crucial for this course: pointers, memory management, and the fundamental structure of a `class`.
+* **Lab Session (Labsheet 1):**
+  1.  Set up your C++ compiler and IDE (e.g., Visual Studio Code with g++).
+  2.  Write basic C++ programs to practice with functions, pointers, and dynamic memory allocation (`new`/`delete`).
+  3.  Create a simple `Student` class with private member variables and public methods to solidify OOP basics.
+
+***
+
+### **Week 2: Introduction to Linked Lists**
+* **Lecture Focus:** Understanding linear lists and introducing the **linked list** as a dynamic alternative to arrays. We'll start our OOP journey by designing a `Node` class and a `LinkedList` class, complete with a `head` pointer and a constructor.
+* **Lab Session (Labsheet 2):**
+  1.  Define a `Node` class containing an integer `data` field and a `Node* next` pointer.
+  2.  Define a `LinkedList` class that contains a `Node* head` pointer.
+  3.  Implement the `LinkedList` constructor to initialize `head` to `nullptr`.
+  4.  Implement a basic `appendNode()` method to add a new node to the end of the list.
+
+***
+
+### **Week 3: Linked List Operations**
+* **Lecture Focus:** Diving into the core algorithms for manipulating linked lists: insertion (at the head, tail, and a specific position), deletion, and searching. We will analyze the time complexity of these operations, which is typically $O(n)$.
+* **Lab Session (Labsheet 3):**
+  1.  Continue with your `LinkedList` class.
+  2.  Implement methods: `insertNode()`, `deleteNode()`, and `findNode()`.
+  3.  Create a `displayList()` method to traverse and print the list's contents.
+  4.  Thoroughly test your class by handling edge cases (e.g., deleting from an empty list, inserting at the head).
+
+***
+
+### **Week 4: Advanced Linked List Types**
+* **Lecture Focus:** Exploring powerful variations of linked lists. **Doubly-linked lists**, where nodes point forwards and backwards, and **circularly-linked lists**, where the tail connects back to the head. We'll discuss the trade-offs and best use cases for each.
+* **Lab Session (Labsheet 4):**
+  1.  Design and implement a `DoublyLinkedList` class from scratch.
+  2.  Implement insertion and deletion methods, carefully managing both `next` and `prev` pointers.
+  3.  Write two traversal methods: one to print the list forward and another to print it backward.
+
+***
+
+### **Week 5: The Stack ADT**
+* **Lecture Focus:** Introducing the **Stack** ADT, a Last-In, First-Out (LIFO) structure. We'll cover its main operations: `push()`, `pop()`, `peek()` (or `top`), and `isEmpty()`. The first implementation will use a simple fixed-size array.
+* **Lab Session (Labsheet 5):**
+  1.  Create a `Stack` class that uses an array as its underlying data store.
+  2.  Implement the four primary stack operations.
+  3.  Ensure your code handles stack overflow (pushing to a full stack) and underflow (popping from an empty stack) gracefully.
+
+***
+
+### **Week 6: Stack Applications & Linked Implementation**
+* **Lecture Focus:** Applying stacks to solve real problems, such as evaluating postfix expressions ("Reverse Polish Notation") and converting infix to postfix. We will then improve our stack by re-implementing it using our `LinkedList` class, making it fully dynamic.
+* **Lab Session (Labsheet 6):**
+  1.  Re-implement your `Stack` class, this time using your `LinkedList` to store the data. The `push` and `pop` operations will now manipulate the linked list.
+  2.  Write a program that uses your new stack to check for balanced parentheses in a string (e.g., `(a * {b + [c]})` is valid, but `(a + b]` is not).
+  3.  **Note:** The **Mid-Term Test** (20%) would typically occur around this week.
+
+***
+
+### **Week 7: The Queue ADT**
+* **Lecture Focus:** Introducing the **Queue** ADT, a First-In, First-Out (FIFO) structure. We'll cover its operations: `enqueue()`, `dequeue()`, `front()`, and `isEmpty()`. We'll discuss implementations using both a circular array and a linked list.
+* **Lab Session (Labsheet 7):**
+  1.  Implement a `Queue` class using your `LinkedList` as the base.
+  2.  Implement all core queue operations.
+  3.  Simulate a simple real-world scenario, like a customer service line or a printer queue, using your `Queue` class.
+
+***
+
+### **Week 8: The Power of Recursion**
+* **Lecture Focus:** Unlocking the concept of **recursion**. We will break down how recursive functions work using the call stack and identify the two key components: a **base case** and a **recursive step**. Classic examples like Factorial, Fibonacci Numbers, and the Towers of Hanoi will be used to illustrate the pattern.
+* **Lab Session (Labsheet 8):**
+  1.  Write a recursive function to calculate the factorial of a number.
+  2.  Write a recursive function to calculate the Nth Fibonacci number.
+  3.  **Challenge:** Implement a recursive solution to the Towers of Hanoi problem.
+***
+
+### **Week 9: Trees & Binary Search Trees**
+* **Lecture Focus:** Moving to non-linear data structures. Introduction to tree terminology (root, node, child, leaf, height). We'll focus on **Binary Search Trees (BSTs)**, a special type of tree that keeps its elements sorted to allow for efficient searching ($O(\log n)$ on average).
+* **Lab Session (Labsheet 9):**
+  1.  Create a `TreeNode` class and a `BinarySearchTree` class.
+  2.  Implement a recursive `insert()` method that correctly places new nodes to maintain the BST property.
+  3.  Implement a `search()` method to efficiently find values within the tree.
+
+***
+
+### **Week 10: Dictionaries & Hashing**
+* **Lecture Focus:** Exploring the Dictionary ADT (or map), which stores key-value pairs. The primary focus will be on **hashing** as a high-performance implementation technique. We will cover hash functions, the problem of collisions, and the most common collision resolution strategy: **chaining** (using linked lists).
+* **Lab Session (Labsheet 10):**
+  1.  Implement a `HashTable` class. The internal storage should be an array of `LinkedList*`.
+  2.  Write a simple hash function (e.g., a modular hash) to map keys to array indices.
+  3.  Implement `insert(key, value)` and `search(key)` methods that use the hash function and handle collisions via chaining.
+
+***
+
+### **Week 11: Graphs**
+* **Lecture Focus:** Introducing the **Graph** ADT, the most flexible data structure. We'll cover essential terminology (vertex, edge, weighted, directed) and common representations (adjacency matrix vs. adjacency list). We will then learn the two fundamental graph traversal algorithms: **Breadth-First Search (BFS)** and **Depth-First Search (DFS)**.
+* **Lab Session (Labsheet 11):**
+  1.  Implement a `Graph` class using an adjacency list (an array of linked lists is a great choice here).
+  2.  Write methods to add vertices and edges to the graph.
+  3.  Implement BFS and DFS traversal methods.
+
+***
+
+### **Week 12: Basic Sorting & Final Review**
+* **Lecture Focus:** A practical look at sorting algorithms as an application of algorithm analysis. We'll cover **Bubble Sort**, **Insertion Sort**, and **Selection Sort**, analyzing their performance and understanding why they are all $O(n^2)$ algorithms. This serves as a capstone for complexity analysis.
+* **Final Review:** A comprehensive recap of all data structures and concepts. This is the time to connect all the dots and prepare for the final examination.
+* **Lab Session (Labsheet 12):**
+  1.  Implement the Bubble Sort and Insertion Sort algorithms.
+  2.  Compare their performance on small and medium-sized data sets.
+  3.  Final Q&A and review of all lab assignments.
+  4.  **Note:** The **Final Written Assignment** (10%) is due this week.

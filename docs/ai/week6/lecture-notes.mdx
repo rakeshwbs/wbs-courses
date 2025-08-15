@@ -1,0 +1,66 @@
+---
+id: lecture-notes 
+title: Lecture Notes
+hide_title: true
+sidebar_position: 1
+sidebar_label: NLP
+sidebar_class_name: icon-lecture
+---
+import ModuleBanner from '@site/src/components/ai/ai-banner';
+
+<ModuleBanner />
+
+
+## **Week 6: The Language Enigma - Deep Learning for NLP**
+**Date:** Saturday, 8 November 2025
+
+-----
+
+### **Lecture Notes**
+
+#### **1.0 Recap and Today's Challenge: Teaching Machines to Read**
+
+Good morning. Over the past few weeks, our journey has taken us through building models that can predict numerical values (Supervised Learning) and find hidden groups in data (Unsupervised Learning). We've even built models that can "see" and interpret images (Computer Vision).
+
+Today, we face what is arguably the most complex and nuanced data source of all: **human language**. Language is filled with ambiguity, context, sarcasm, slang, and intricate grammatical rules. How can we possibly get a machine to make sense of a hotel review, a news article, or a medical report? This is the central challenge of **Natural Language Processing (NLP)**. Our goal today is to understand the foundational techniques for turning raw text into structured data that our machine learning models can understand.
+
+#### **2.0 The NLP Pipeline: From Raw Text to Usable Data**
+
+You cannot simply feed a raw text document to a machine learning model. It must first be cleaned and structured through a series of preprocessing steps known as the NLP Pipeline.
+
+1.  **Text Cleaning:** This step removes all the "clutter" that doesn't add much meaning, such as HTML tags (`<p>`, `br>`), punctuation marks, and numbers. We also typically convert all text to **lowercase** to ensure that "Hotel" and "hotel" are treated as the same word.
+2.  **Tokenization:** This is the process of breaking down a string of text into individual units, or **tokens**. Most often, a token is just a word. For example, the sentence "The hotel was great\!" becomes the tokens: `['the', 'hotel', 'was', 'great', '!']`.
+3.  **Stop-Word Removal:** Stop words are extremely common words that carry little semantic meaning, such as 'the', 'a', 'is', 'in', 'and'. We typically remove them from our token list to allow the model to focus on the more important words. Our list would become: `['hotel', 'was', 'great']`.
+4.  **Stemming vs. Lemmatization:** This step reduces words to their root form to group together different inflections of the same word.
+    * **Stemming:** A crude, rule-based process of chopping off word endings. It's fast but can be inaccurate. For example, `computing`, `computer`, and `computed` might all become `comput`.
+    * **Lemmatization:** A more intelligent process that uses a dictionary to find the actual root word, or **lemma**. It's slower but more accurate. For example, `was` becomes `be`, and `better` becomes `good`. For most applications, lemmatization is preferred.
+
+#### **3.0 Feature Extraction: Turning Words into Numbers**
+
+This is the most critical step. Our models don't understand words; they understand numerical vectors. The process of converting our cleaned tokens into numbers is called **feature extraction** or **vectorization**.
+
+**3.1 Approach 1: Bag-of-Words (BoW)**
+This is the simplest and most traditional approach.
+
+* **Process:**
+    1.  First, create a **vocabulary** of every unique word that appears in your entire collection of documents (your corpus).
+    2.  For each document, create a vector where each element corresponds to a word in the vocabulary. The value of the element is simply the **count** of how many times that word appears in the document.
+* **Analogy:** Imagine you have a document. You ignore all grammar and word order, dump all the words into a "bag," shake it up, and simply count the frequency of each word. That's a Bag-of-Words model.
+* **Limitation:** It completely loses context and word order. The sentences "The food was good but the service was bad" and "The service was good but the food was bad" would have very similar BoW representations, even though they have opposite meanings.
+
+**3.2 Approach 2: TF-IDF (Term Frequency-Inverse Document Frequency)**
+TF-IDF is a significant improvement over BoW because it scores words not just on how often they appear, but on how *important* they are to a specific document.
+
+* **It has two parts:**
+    1.  **Term Frequency (TF):** This is the same as Bag-of-Words. How often does a term appear in a document?
+    2.  **Inverse Document Frequency (IDF):** This is a penalty score for words that are very common across *all* documents. The word "hotel" might appear in every hotel review, so it will get a low IDF score. A word like "cockroach" might only appear in a few specific negative reviews, so it will get a high IDF score.
+* **The Final Score:** The TF-IDF score for a word is simply **TF \* IDF**. This calculation gives a higher weight to words that are frequent in a *single document* but are rare across the entire corpus, effectively highlighting the words that are most uniquely descriptive of that document.
+
+**3.3 The Modern Approach: Word Embeddings**
+The biggest limitation of both BoW and TF-IDF is that they treat words as isolated items. They don't know that "excellent" and "fantastic" are similar, or that "king" and "queen" are related.
+
+* **Core Idea:** **Word Embeddings** represent words as dense numerical vectors in a multi-dimensional space (e.g., 300 dimensions). The key breakthrough is that the position and direction of these vectors capture the **semantic meaning** and **context** of the words.
+* **Key Property:** Words with similar meanings will have similar vectors (i.e., they will be close to each other in this vector space).
+* **Analogy:** Think of it like a map. On a map of Mauritius, the vectors for "Port Louis" and "Caudan Waterfront" would be very close together, while the vectors for "Port Louis" and "Mahébourg" would be further apart.
+* Famous pre-trained word embedding models like **Word2Vec** and **GloVe** can even capture relationships, famously demonstrating that `vector('King') - vector('Man') + vector('Woman')` results in a vector very close to `vector('Queen')`.
+

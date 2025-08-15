@@ -1,0 +1,155 @@
+---
+id: evaluation-structured-questions
+title: Exam-type Questions
+hide_title: true
+sidebar_position: 4
+sidebar_label: ✍️ Exam-type Questions
+---
+import ModuleBanner from '@site/src/components/art/art-banner';
+
+<ModuleBanner />
+
+**QUESTION 1 [25 MARKS]**
+
+(a) Clearly differentiate between **routing** and **switching**. In your answer, you must mention the primary device used for each function, the OSI layer at which each operates, and the type of address each process uses to make its decisions.
+[6]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    The core difference lies in their function and scope within a network.
+
+    * **Switching** is the process of forwarding data frames **within a single Local Area Network (LAN)**.
+    * **Device:** Switch
+    * **OSI Layer:** Layer 2 (Data Link)
+    * **Address Used:** MAC Address (the physical address of the device)
+
+    * **Routing** is the process of forwarding data packets **between different networks**.
+    * **Device:** Router
+    * **OSI Layer:** Layer 3 (Network)
+    * **Address Used:** IP Address (the logical address of the device)
+
+    **Marking Scheme:**
+
+    * [1 Mark] - For correctly defining the function of switching (within a LAN).
+    * [1 Mark] - For correctly defining the function of routing (between networks).
+    * [1 Mark] - For correctly identifying the device, layer, and address for switching.
+    * [1 Mark] - For correctly identifying the device, layer, and address for routing.
+    * [2 Marks] - For overall clarity and correctness in the comparison.
+
+</details>
+
+(b) A new secondary school in Curepipe is setting up its first computer lab with 30 PCs. All PCs need to be able to communicate with each other and print to a local network printer.
+
+i. To allow all 30 PCs and the printer to communicate with each other *within the lab*, what is the essential networking device you would need? Justify your answer.
+[3]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    * **Device:** A **Switch**.
+    * **Justification:** All the devices are on the same local network (the lab). A switch is a Layer 2 device designed specifically to forward traffic efficiently between devices on the same LAN using MAC addresses. A router is not needed for this internal communication.
+
+    **Marking Scheme:**
+
+    * [1 Mark] - For correctly identifying a Switch.
+    * [2 Marks] - For the correct justification (single LAN, Layer 2 communication, use of MAC addresses).
+
+</details>
+
+ii. The school then gets a fiber internet connection from Mauritius Telecom. What additional device is required to connect the entire computer lab network to the internet? Explain its role.
+[3]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    * **Device:** A **Router**.
+    * **Role:** The router's role is to act as a gateway between the school's private local network (LAN) and the public network of the internet (the WAN). It will take traffic from the lab, use its public IP address provided by the ISP, and forward it towards the internet. It performs routing, which is communication between different networks.
+
+    **Marking Scheme:**
+
+    * [1 Mark] - For correctly identifying a Router.
+    * [2 Marks] - For correctly explaining its role as a gateway between the LAN and the WAN (internet).
+
+</details>
+
+(c) After configuring Router-A in the Week 1 lab, you issue the command `show ip route`. The output includes the following lines:
+```
+      10.0.0.0/30 is variably subnetted, 2 subnets, 2 masks
+C        10.0.0.0/30 is directly connected, Serial0/0/0
+L        10.0.0.1/32 is directly connected, Serial0/0/0
+      192.168.1.0/24 is variably subnetted, 2 subnets, 2 masks
+C        192.168.1.0/24 is directly connected, GigabitEthernet0/0
+L        192.168.1.1/32 is directly connected, GigabitEthernet0/0
+```
+i. What does the code 'C' signify in this output?
+[2]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+    The code 'C' signifies that the route is a **Directly Connected** network. This means the router has an interface that is physically plugged into that network and has an IP address within that network's range.
+
+    **Marking Scheme:**
+    * [2 Marks] - For a clear and correct definition of 'C' as a directly connected network.
+
+</details>
+
+ii. The network for the Port Louis office (`192.168.2.0/24`) is missing from this table. Briefly explain why it is not present.
+[3]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+    The `192.168.2.0/24` network is not present because Router-A has no direct physical connection to it, nor has it been told how to reach it. A router only automatically knows about the networks its own interfaces are a part of. To learn about remote networks like `192.168.2.0/24`, it must be configured with either a static route or a dynamic routing protocol.
+
+    **Marking Scheme:**
+    * [1 Mark] - For stating it's not directly connected.
+    * [2 Marks] - For explaining that a route (static or dynamic) has not yet been configured to teach the router about this remote network.
+
+</details>
+
+(d) The OSI model is a 7-layer conceptual framework.
+i. List the 7 layers in order from Layer 7 to Layer 1.
+[4]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+    * Layer 7: **Application**
+    * Layer 6: **Presentation**
+    * Layer 5: **Session**
+    * Layer 4: **Transport**
+    * Layer 3: **Network**
+    * Layer 2: **Data Link**
+    * Layer 1: **Physical**
+
+    **Marking Scheme:**
+    * [4 Marks] - 0.5 marks for each correctly named and placed layer. Deduct marks for incorrect order.
+
+</details>
+
+ii. What is the primary function of the Transport Layer (Layer 4)? Name one protocol that operates at this layer.
+[4]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+    * **Function:** The primary function of the Transport Layer is to provide **end-to-end communication services** between host applications. This includes segmenting data from the upper layers, establishing connections, providing reliable delivery through error checking and flow control (TCP), or providing simple, fast, unreliable delivery (UDP).
+    * **Protocol:** TCP (Transmission Control Protocol) OR UDP (User Datagram Protocol).
+
+    **Marking Scheme:**
+    * [2 Marks] - For a clear explanation of the Transport Layer's function (segmentation, reliability, flow control, etc.).
+    * [2 Marks] - For correctly naming either TCP or UDP as a protocol.
+
+</details>

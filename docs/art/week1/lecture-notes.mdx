@@ -1,0 +1,97 @@
+---
+id: lecture-notes
+title: Lecture Notes
+hide_title: true
+sidebar_position: 1
+sidebar_label:  OSI vs TCP Models
+sidebar_class_name: icon-lecture
+---
+import ModuleBanner from '@site/src/components/art/art-banner';
+
+<ModuleBanner />
+
+##  Foundational Models: OSI and TCP/IP (CLO 1)
+
+To build complex networks, we first need to understand the blueprint. These models provide a framework for how data is prepared, addressed, and transmitted across a network.
+
+### The OSI Model (Open Systems Interconnection)
+
+The OSI model is a **7-layer conceptual framework** that standardizes the functions of a telecommunication or computing system. Think of it as a detailed, step-by-step guide for network communication.
+
+<details>
+    <summary>Analogy: The Postal Service 📬</summary>
+    <div>
+        Imagine sending a detailed report from your office in Ebène to a client in Port Louis.
+        <br/><br/>
+        - **Layer 7 (Application):** You write the report (the data).
+        - **Layer 6 (Presentation):** You ensure it's in a language (e.g., French, English) and format (PDF) the client can read.
+        - **Layer 5 (Session):** You open a line of communication, perhaps by calling the client to let them know the report is on its way.
+        - **Layer 4 (Transport):** You break the large report into smaller, numbered pages (segments) and decide if you need delivery confirmation (TCP).
+        - **Layer 3 (Network):** You write the full office address (Source IP) and the client's address (Destination IP) on the main envelope (packet).
+        - **Layer 2 (Data Link):** You give the envelope to your building's internal mail clerk, who puts it in a pouch for the specific mail van on today's route (MAC address).
+        - **Layer 1 (Physical):** The mail van (the physical medium) drives the report across the roads (cables/airwaves) to the destination.
+        <br/><br/>
+        The receiving client performs these steps in reverse order.
+    </div>
+</details>
+
+**The 7 Layers:**
+
+| **OSI Layer**              | **Description**                                                                                                  | **Examples / Key Points**                                  |
+|----------------------------|------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------|
+| **Layer 7: Application**   | The interface for the user's application.                                                                        | Web browsers, Email clients                                |
+| **Layer 6: Presentation**  | Handles data formatting, encryption, and compression.                                                            | SSL/TLS encryption, JPEG, MP3 compression                  |
+| **Layer 5: Session**       | Manages the connection (session) between two computers.                                                          | Session establishment, maintenance, termination            |
+| **Layer 4: Transport**     | Provides reliable (TCP) or unreliable (UDP) data delivery. Manages segmentation and flow control.                 | TCP, UDP                                                   |
+| **Layer 3: Network**       | Responsible for logical addressing and routing between different networks.                                       | IP addresses, Routing protocols                            |
+| **Layer 2: Data Link**     | Responsible for physical addressing and switching within the same local network.                                 | MAC addresses, Ethernet switching                          |
+| **Layer 1: Physical**      | The actual hardware that transmits the signal.                                                                   | Cables, Fiber optics, Wi-Fi                                |
+
+
+### The TCP/IP Model
+
+The TCP/IP model is a more practical, four-layer model that is the basis for the modern internet. It's less theoretical and maps more directly to real-world protocols.
+
+| TCP/IP Layer         | Corresponding OSI Layers                  | Key Protocols         |
+| -------------------- | ----------------------------------------- | --------------------- |
+| **Application** | Application, Presentation, Session        | HTTP, FTP, DNS, SMTP  |
+| **Transport** | Transport                                 | TCP, UDP              |
+| **Internet** | Network                                   | IP, ICMP              |
+| **Network Interface** | Data Link, Physical                       | Ethernet, Wi-Fi       |
+
+**For this course, our primary focus will be on the Internet (Layer 3) and Transport (Layer 4) layers.**
+
+---
+
+## 3. The Core of Networking: Routing vs. Switching
+
+While often used together, routing and switching are fundamentally different operations that occur at different layers of the OSI model.
+
+### What is Switching? (Layer 2)
+
+-   **Purpose:** To forward data frames **within a single Local Area Network (LAN)**.
+-   **Decision Based On:** **MAC Address** (the physical, hard-coded address of a device's network card).
+-   **Device:** A Switch.
+-   **How it works:** A switch maintains a MAC address table that maps physical device addresses to the switch's physical ports. When a frame arrives, the switch looks at the destination MAC address and forwards the frame *only* to the port connected to that device.
+-   **Analogy:** A smart receptionist in an office building. They know every employee's name (MAC address) and which office number (port) they are in. They deliver mail directly to the correct office, not to everyone.
+
+### What is Routing? (Layer 3)
+
+-   **Purpose:** To forward data packets **between different networks**.
+-   **Decision Based On:** **IP Address** (a logical address assigned to a device).
+-   **Device:** A Router.
+-   **How it works:** A router maintains a routing table that contains a list of known networks and the best path to reach them. When a packet arrives, the router examines the destination IP address, consults its routing table, and forwards the packet to the next router on the best path toward the destination network.
+-   **Analogy:** The national postal service sorting office. They don't know every single person, but they know which city (network) a letter needs to go to. They forward the letter to the sorting office in the destination city, which then handles local delivery.
+
+### Key Differences Summarized
+
+| Feature             | Switching                                | Routing                               |
+| ------------------- | ---------------------------------------- | ------------------------------------- |
+| **OSI Layer** | Layer 2 (Data Link)                      | Layer 3 (Network)                     |
+| **Addressing** | MAC Address (Physical)                   | IP Address (Logical)                  |
+| **Function** | Forwarding frames within a LAN           | Forwarding packets between networks   |
+| **Primary Device** | Switch                                   | Router                                |
+| **Decision Table** | MAC Address Table                        | Routing Table                         |
+| **Scope** | Local Network (e.g., your home Wi-Fi)    | Internetwork (e.g., your home to Google)|
+
+Understanding this distinction is the most critical first step in mastering advanced networking. The rest of this course will focus almost exclusively on the world of **routing**.

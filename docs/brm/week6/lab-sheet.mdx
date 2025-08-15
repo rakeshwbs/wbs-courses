@@ -1,0 +1,76 @@
+---
+id: lab-sheet6
+title: Lab sheet 6
+hide_title: true
+sidebar_position: 2
+sidebar_label: Reliability Test
+sidebar_class_name: icon-lab
+---
+import ModuleBanner from '@site/src/components/brm/brm-banner';
+
+<ModuleBanner />
+
+
+---
+## Lab 6: Assessing Scale Reliability with Cronbach's Alpha
+
+### Objective
+To learn how to calculate and interpret **Cronbach's Alpha ($\alpha$)** in SPSS to measure the internal consistency of a multi-item scale.
+
+### Part A: The Scenario and Data
+
+Imagine we have designed a short, 4-item scale to measure the construct of "Job Satisfaction." All questions were answered on a 5-point scale, where `1` = Strongly Disagree and `5` = Strongly Agree.
+
+The four items are:
+* **JS1:** "I feel enthusiastic about my job."
+* **JS2:** "I am proud of the work that I do."
+* **JS3:** "My job is enjoyable."
+* **JS4:** "I find my work fulfilling."
+
+We now need to check if these four items reliably measure the same underlying construct.
+
+### Part B: Data Entry and Analysis
+
+1.  **Open SPSS** and create a new, blank dataset.
+2.  In the **Variable View**, create five variables: `Participant_ID`, `JS1`, `JS2`, `JS3`, and `JS4`. Set the `Measure` for the four JS items to **Scale**.
+3.  Click on the **Data View** tab and enter the following data from 10 respondents:
+
+| Participant_ID | JS1 | JS2 | JS3 | JS4 |
+|:--------------:|:---:|:---:|:---:|:---:|
+| 1 | 4 | 5 | 4 | 4 |
+| 2 | 2 | 2 | 1 | 2 |
+| 3 | 5 | 5 | 5 | 5 |
+| 4 | 4 | 4 | 5 | 4 |
+| 5 | 1 | 2 | 2 | 1 |
+| 6 | 5 | 4 | 4 | 5 |
+| 7 | 4 | 4 | 3 | 4 |
+| 8 | 2 | 3 | 2 | 2 |
+| 9 | 5 | 5 | 4 | 4 |
+| 10 | 4 | 3 | 4 | 3 |
+
+4.  Once the data is entered, go to the menu: **Analyze -> Scale -> Reliability Analysis...**
+5.  In the "Reliability Analysis" window, move the four scale items (`JS1`, `JS2`, `JS3`, `JS4`) from the left box into the right **'Items:'** box.
+* **Do NOT** include `Participant_ID`.
+6.  Make sure the 'Model' dropdown is set to **Alpha**.
+7.  Click the **Statistics...** button on the right side.
+8.  In the 'Descriptives for' section, check the box for **Scale if item deleted**. This is a very important option.
+9.  Click **Continue**, and then click **OK**.
+
+### Part C: Interpreting the SPSS Output
+
+The SPSS Output window will appear with your results. There are two tables you need to focus on.
+
+#### 1. The "Reliability Statistics" Table
+This table gives you the overall reliability for your scale.
+
+* **Look for:** The "Cronbach's Alpha" value. For this dataset, it should be **.924**.
+* **Interpretation:** The rule of thumb states that an alpha value greater than **0.70** is considered acceptable or good. Since our alpha of .924 is well above 0.70, we can conclude that our 4-item "Job Satisfaction" scale has **excellent** internal consistency reliability.
+
+#### 2. The "Item-Total Statistics" Table
+This table helps you determine if any individual item is hurting the scale's reliability.
+
+* **Look for:** The far-right column, "**Cronbach's Alpha if Item Deleted**." This shows what the overall alpha would become if you were to remove that one item.
+* **Interpretation:**
+  * If you look at the value for JS1, it might say ".905". This means if you remove JS1 from the scale, the overall alpha would drop from .924 to .905.
+  * **Your Goal:** Scan this column. If removing any item would cause the overall Alpha to **increase**, that item is a poor fit and a candidate for deletion.
+  * **Our Result:** In this case, removing any of the four items would *lower* the overall Cronbach's Alpha. This tells us that all four items are working well together and are contributing positively to the reliability of the scale. We should keep all of them.

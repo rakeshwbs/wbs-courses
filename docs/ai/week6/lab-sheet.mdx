@@ -1,0 +1,134 @@
+---
+id: lab-sheet
+title: Labsheet
+sidebar_position: 2
+hide_title: true
+sidebar_label: Sentiment Analysis
+sidebar_class_name: icon-lab
+
+---
+import ModuleBanner from '@site/src/components/ai/ai-banner';
+
+<ModuleBanner />
+#### **4.0 Introduction to the Lab**
+
+In today's lab, you will perform one of the most classic and useful NLP tasks: **sentiment analysis**. You will act as a data scientist for a tourism board, tasked with automatically classifying hotel reviews as either positive or negative. You will implement the full NLP pipeline, from cleaning the text to vectorizing it using the powerful **TF-IDF** technique. Finally, you will feed these numerical features into a classification model you already know, like Logistic Regression, to build your sentiment predictor.
+
+-----
+
+
+### **Lab Guide**
+
+**Lab 06: The Language Enigma - Sentiment Analysis**
+
+**Objective:** By the end of this lab, you will have built an end-to-end NLP model that can classify the sentiment of text reviews. You will gain hands-on experience with text preprocessing and TF-IDF vectorization.
+
+**Scenario:** You are a data scientist for the Mauritius Tourism Promotion Authority. To quickly gauge public opinion, you want to build a model that can automatically analyze thousands of online hotel reviews and classify them as positive or negative.
+
+#### **Part A: Data Loading and Preprocessing**
+
+**1. Import Libraries**
+
+```python
+import pandas as pd
+import re
+from sklearn.model_selection import train_test_split
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import classification_report, confusion_matrix, ConfusionMatrixDisplay
+import matplotlib.pyplot as plt
+```
+
+**2. Load the Dataset**
+We will use a dataset of Yelp reviews, which conveniently includes a star rating we can use as our label.
+
+```python
+# Load just a subset for speed
+df = pd.read_csv('https://raw.githubusercontent.com/justmarkham/pycon-2016-tutorial/master/data/yelp.csv').sample(10000, random_state=42)
+
+# Create a binary sentiment column: 1 for positive (4-5 stars), 0 for negative (1-3 stars)
+df['sentiment'] = df['stars'].apply(lambda x: 1 if x >= 4 else 0)
+
+# Select only the text and our new sentiment column
+df = df[['text', 'sentiment']]
+
+print("Dataset loaded. Here is a sample review:")
+print(df.head())
+```
+
+**3. Text Cleaning**
+Let's create a simple function to clean up the text.
+
+```python
+def clean_text(text):
+    text = text.lower()  # Convert to lowercase
+    text = re.sub(r'[^a-z\s]', '', text)  # Remove punctuation and numbers
+    return text
+
+df['cleaned_text'] = df['text'].apply(clean_text)
+print("\nSample of cleaned text:")
+print(df.head())
+```
+
+**4. Define Features (X) and Target (y) and Split**
+
+```python
+X = df['cleaned_text']
+y = df['sentiment']
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42, stratify=y)
+```
+
+#### **Part B: Vectorization with TF-IDF**
+
+Now we convert our cleaned text into a numerical matrix.
+
+```python
+# 1. Instantiate TfidfVectorizer
+# We'll use English stop words and limit to the top 5000 features.
+tfidf = TfidfVectorizer(stop_words='english', max_features=5000)
+
+# 2. Fit and transform the TRAINING data
+X_train_tfidf = tfidf.fit_transform(X_train)
+
+# 3. ONLY transform the TESTING data
+X_test_tfidf = tfidf.transform(X_test)
+
+print("\nShape of the TF-IDF training matrix:", X_train_tfidf.shape)
+```
+
+#### **Part C: Training a Classification Model**
+
+With our text now represented as numbers, we can use any classifier. Logistic Regression is fast and effective for this task.
+
+```python
+# 1. Instantiate the model
+log_reg = LogisticRegression(random_state=42, max_iter=1000)
+
+# 2. Fit the model on the TF-IDF transformed training data
+log_reg.fit(X_train_tfidf, y_train)
+```
+
+#### **Part D: Evaluation**
+
+Let's see how well our sentiment analyzer performs\!
+
+```python
+# 1. Make predictions on the transformed test data
+y_pred = log_reg.predict(X_test_tfidf)
+
+# 2. Generate and print the classification report
+report = classification_report(y_test, y_pred, target_names=['Negative', 'Positive'])
+print("\n--- Classification Report ---")
+print(report)
+
+# 3. Visualize the confusion matrix
+cm = confusion_matrix(y_test, y_pred)
+disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=['Negative', 'Positive'])
+disp.plot()
+plt.title('Sentiment Analysis Confusion Matrix')
+plt.show()
+```
+
+**Conclusion:**
+Examine your classification report. You have successfully built a model that can "read" thousands of reviews and determine their sentiment with a reasonable degree of accuracy. This powerful technique can be applied to analyze social media feeds, customer support tickets, and much more.

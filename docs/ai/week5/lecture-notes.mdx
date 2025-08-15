@@ -1,0 +1,90 @@
+---
+id: lecture-notes 
+title: Lecture Notes
+hide_title: true
+sidebar_position: 1
+sidebar_label: Support Vector Machines
+sidebar_class_name: icon-lecture
+---
+import ModuleBanner from '@site/src/components/ai/ai-banner';
+
+<ModuleBanner />
+### **AFI-373: The AI Architect's Journey - Lecture & Lab Notes**
+
+**Week 5: Advanced Classification & Robust Evaluation**
+**Date:** Saturday, 25 October 2025
+
+-----
+
+### **Lecture Notes**
+
+#### **1.0 Recap and Today's Two Missions**
+
+Good morning. Over the last few weeks, we've built a solid foundation. We started with simple linear models, then explored the intuitive, flowchart-like logic of Decision Trees, and finally saw how to create a powerful predictor by building an ensemble of trees in a Random Forest.
+
+Today, we have two important missions that will significantly advance your capabilities as an AI Architect:
+
+1.  **Mission 1:** We will learn about a powerful and elegant classification model called the **Support Vector Machine (SVM)**, which takes a unique geometric approach to solving problems.
+2.  **Mission 2:** We will learn how to evaluate our classification models like a professional. We will move beyond simple accuracy and learn the nuanced metrics that tell the true story of a model's performance.
+
+#### **2.0 Support Vector Machines (SVM): The Maximum Margin Classifier**
+
+**2.1 The Core Idea**
+A Support Vector Machine is a supervised learning model used for classification (and regression). For classification, its core idea is to find the "best" possible line or hyperplane that separates the data points of different classes.
+
+* **Analogy:** Imagine a street separating two different neighbourhoods (our two classes). You could draw a simple line down the middle. But an SVM is more ambitious. It doesn't just find *a* separating line; it finds the **widest possible street** (the **maximum margin**) that it can fit between the closest houses (data points) of each neighbourhood. This wide margin makes the classification more robust and confident.
+
+**2.2 Key Terminology**
+
+* **Hyperplane:** This is the decision boundary the SVM finds. In a 2D space (with 2 features), it's a line. In 3D, it's a flat plane. In spaces with more than 3 features, it's called a hyperplane.
+* **Margin:** This is the distance from the hyperplane to the closest data points on either side. SVMs work by maximizing this margin.
+* **Support Vectors:** These are the data points that lie closest to the margin. They are the critical points that "support" the hyperplane. If you were to move a support vector, the hyperplane would move too. If you were to move any other data point, the hyperplane would stay in the same place. This makes SVMs very memory-efficient.
+
+**2.3 The Kernel Trick: Handling Non-linear Data**
+A linear SVM can only work if the data can be separated by a straight line. But what if the data is more complex?
+
+* **Example:** Imagine data points for one class are in a circle, and points for the other class surround them. You cannot draw a single straight line to separate them.
+* **The Solution: The Kernel Trick.** This is a clever mathematical technique that allows SVMs to create complex, non-linear decision boundaries.
+* **Conceptual Idea:** The Kernel Trick works by projecting the data into a higher dimension where it *can* be separated by a simple hyperplane. Imagine our 2D circular data. If we project it into a 3D space, we could easily "slice" through it with a flat plane to separate the inner and outer points. The kernel does this transformation efficiently without the massive computational cost of actually creating those new dimensions.
+* Common kernels you'll see in practice are `'linear'`, `'poly'` (polynomial), and `'rbf'` (Radial Basis Function), which can create very complex decision boundaries.
+
+#### **3.0 Robust Model Evaluation: Beyond Accuracy**
+
+**3.1 The Problem with Accuracy: The Imbalance Problem**
+Until now, we have mainly used **accuracy** (the percentage of correct predictions) to evaluate our models. While intuitive, accuracy can be dangerously misleading, especially with **imbalanced datasets**.
+
+* **Analogy:** Imagine we are building an AI model to detect a rare but serious disease that affects only 1 in every 1000 people in Mauritius. A lazy model that simply predicts "No Disease" every single time would be **99.9% accurate\!** It would feel like a great model, but it would be completely useless because it would never identify the one person who actually needs critical medical help. We need better metrics.
+
+**3.2 The Confusion Matrix: The Foundation of Evaluation**
+The Confusion Matrix is a table that gives us a complete picture of how our classification model performed. It breaks down the predictions into four categories:
+
+* **True Positives (TP):** The model correctly predicted the positive class. (e.g., correctly identified a patient with the disease).
+* **True Negatives (TN):** The model correctly predicted the negative class. (e.g., correctly identified a healthy patient).
+* **False Positives (FP) - Type I Error:** The model incorrectly predicted the positive class. (e.g., told a healthy patient they have the disease, causing unnecessary worry).
+* **False Negatives (FN) - Type II Error:** The model incorrectly predicted the negative class. (e.g., told a sick patient they are healthy, which is often the most dangerous error).
+
+**3.3 Key Metrics Derived from the Confusion Matrix**
+From the four values in the confusion matrix, we can calculate more nuanced metrics:
+
+* **Precision:** *Of all the times the model predicted positive, how often was it correct?*
+
+    * Formula: $TP / (TP + FP)$
+    * High precision means a low false positive rate. It measures the *quality* of the positive predictions.
+
+* **Recall (or Sensitivity):** *Of all the actual positive cases, how many did the model correctly identify?*
+
+    * Formula: $TP / (TP + FN)$
+    * High recall means a low false negative rate. It measures the *quantity* or *completeness* of the positive predictions.
+
+* **F1-Score:** The **harmonic mean** of Precision and Recall. It provides a single score that balances both metrics. It's very useful when you need a balance between Precision and Recall and there's an uneven class distribution.
+
+    * Formula: $2 \* (Precision \* Recall) / (Precision + Recall)$
+
+**3.4 The ROC Curve and AUC**
+
+* **ROC (Receiver Operating Characteristic) Curve:** This is a graph that shows the performance of a classification model at all classification thresholds. It plots the True Positive Rate (Recall) against the False Positive Rate.
+* **AUC (Area Under the Curve):** This is the single number that summarizes the ROC curve.
+    * An AUC of 1.0 represents a perfect model.
+    * An AUC of 0.5 represents a model that is no better than random guessing.
+      It's a very useful metric for comparing different models.
+

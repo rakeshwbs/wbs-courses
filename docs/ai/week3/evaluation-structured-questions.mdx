@@ -1,0 +1,225 @@
+---
+id: evaluation-structured-questions
+title: Exam-type Questions
+hide_title: true
+sidebar_position: 4
+sidebar_label: Exam-type Questions
+sidebar_class_name: icon-exam
+---
+import ModuleBanner from '@site/src/components/ai/ai-banner';
+
+<ModuleBanner />
+### **AFI-373: Artificial Intelligence**
+
+**Sample Examination Questions & Answers - Week 3 Concepts**
+
+**QUESTION 1 [25 MARKS]**
+
+(a) Explain the fundamental difference between **Clustering** and **Classification**. In your answer, state clearly which one is a supervised learning task and which one is unsupervised.
+[6]
+
+<details>
+<summary>Click to see the answer and marking scheme</summary>
+
+**Answer:**
+
+The fundamental difference lies in the data they use and their ultimate goal.
+
+* **Classification** is a **supervised learning** task. The goal is to predict a discrete, pre-defined label or category. The algorithm learns from a dataset that already has "correct answers" (labels) for each data point. For example, learning to classify emails as `spam` or `not spam` using a dataset of already labeled emails.
+* **Clustering** is an **unsupervised learning** task. The goal is to discover natural groupings or structures in data that has no pre-defined labels. The algorithm identifies these groups based on the inherent similarities between data points. For example, grouping customers into segments based on their purchasing behavior without knowing what the segments are beforehand.
+
+**Marking Scheme:**
+
+* [2 Marks] - Correctly identifies Classification as supervised and Clustering as unsupervised.
+* [2 Marks] - Clearly explains the goal of Classification (predicting known labels).
+* [2 Marks] - Clearly explains the goal of Clustering (discovering unknown groups).
+
+</details>
+
+(b) The K-Means algorithm is an iterative process. Briefly describe the three main steps that are repeated until the clusters stabilize.
+
+i. **Step 1:** Initialization
+[6]
+
+<details>
+<summary>Click to see the answer and marking scheme</summary>
+
+**Answer:**
+
+The three repeated steps are:
+
+1.  **Assignment Step:** Each data point is assigned to the cluster whose centroid is the closest to it (based on a distance measure like Euclidean distance).
+2.  **Update Step:** The position of each cluster's centroid is recalculated. The centroid moves to the mean (average) position of all the data points that were assigned to its cluster in the previous step.
+3.  **Repeat:** The Assignment and Update steps are repeated iteratively. The algorithm has converged and the clusters are stable when, after an update step, no data points change their cluster assignment, and the centroids no longer move.
+
+**Marking Scheme:**
+
+* [2 Marks] - For a correct description of the Assignment Step.
+* [2 Marks] - For a correct description of the Update Step.
+* [2 Marks] - For explaining that these steps are repeated until convergence/stability.
+  *(Note: The question asks for the repeated steps, so Initialization is not part of the credited answer here, but the student must understand the iterative loop).*
+
+</details>
+
+(c) A data scientist wants to use K-Means but is unsure how many clusters (K) to choose. They use the **Elbow Method**.
+
+i. What metric does the Elbow Method plot against the number of clusters (K)?
+[2]
+
+<details>
+<summary>Click to see the answer and marking scheme</summary>
+
+**Answer:**
+The Elbow Method plots the **Inertia** (or Within-Cluster Sum of Squares) against the number of clusters (K).
+
+**Marking Scheme:**
+
+* [2 Marks] - For correctly identifying Inertia or WCSS.
+
+</details>
+
+ii. With the help of a simple sketch, explain how you would identify the optimal 'K' from this plot.
+[4]
+
+<details>
+<summary>Click to see the answer and marking scheme</summary>
+
+**Answer:**
+
+To identify the optimal K, you would look for the "elbow" point on the plot—the point where the rate of decrease in inertia sharply slows down. This point represents a trade-off where adding another cluster does not give a much better fit to the data.
+
+**Sketch:**
+*(The sketch should show a graph with 'Number of Clusters (K)' on the x-axis and 'Inertia' on the y-axis. The line should start high and decrease sharply, then flatten out. The "elbow" should be circled or pointed to at the bend).*
+
+**Marking Scheme:**
+
+* [2 Marks] - For the explanation that you look for the "elbow" or the point of diminishing returns.
+* [2 Marks] - For a correctly drawn and labeled sketch showing the elbow point.
+
+</details>
+
+(d) A supermarket in Mauritius wants to group its thousands of products into logical categories for better inventory management. They have data for each product, such as `average_weekly_sales`, `price`, and `shelf_life_days`.
+
+i. Which unsupervised learning technique would be most suitable for this task? Justify your choice.
+[3]
+
+<details>
+<summary>Click to see the answer and marking scheme</summary>
+
+**Answer:**
+
+* **Technique:** K-Means Clustering.
+* **Justification:** The goal is to automatically group products into categories without any pre-existing labels. Clustering is the ideal technique for discovering these natural groupings based on the products' features.
+
+**Marking Scheme:**
+
+* [1 Mark] - For identifying K-Means Clustering.
+* [2 Marks] - For justifying why clustering is appropriate (discovering unknown groups in unlabeled data).
+
+</details>
+
+-----
+
+**QUESTION 2 [25 MARKS]**
+
+(a) Explain the concept of the **"Curse of Dimensionality"** in the context of machine learning.
+[5]
+
+<details>
+<summary>Click to see the answer and marking scheme</summary>
+
+**Answer:**
+The "Curse of Dimensionality" refers to a set of problems that arise when working with high-dimensional data (datasets with a very large number of features or dimensions). As the number of dimensions increases, the volume of the feature space grows exponentially. This causes the available data to become very sparse, meaning the distance between data points grows larger. This sparsity makes it significantly harder for machine learning algorithms to find statistically significant patterns, leading to decreased model performance and an increased risk of overfitting. It also makes data visualization impossible.
+
+**Marking Scheme:**
+
+* [2 Marks] - For linking it to a high number of features/dimensions.
+* [2 Marks] - For explaining the consequence (data becomes sparse, patterns harder to find).
+* [1 Mark] - For mentioning a related issue like overfitting or difficulty in visualization.
+
+</details>
+
+(b) How does **Principal Component Analysis (PCA)** help to mitigate the "Curse of Dimensionality"?
+[4]
+
+<details>
+<summary>Click to see the answer and marking scheme</summary>
+
+**Answer:**
+PCA is a dimensionality reduction technique that mitigates the curse by transforming a large set of features into a smaller, new set of features called principal components. It does this while preserving the maximum possible amount of variance (information) from the original data. By reducing the number of dimensions, PCA makes the data less sparse, easier to visualize, and allows machine learning models to learn patterns more effectively and with less computational cost.
+
+**Marking Scheme:**
+
+* [2 Marks] - For explaining that PCA reduces the number of features/dimensions.
+* [2 Marks] - For mentioning the key goal of preserving the maximum possible variance/information.
+
+</details>
+
+(c) A data scientist has a dataset with 100 features. After applying PCA, they are left with two principal components, PC1 and PC2.
+
+i. What do PC1 and PC2 represent?
+[4]
+
+<details>
+<summary>Click to see the answer and marking scheme</summary>
+
+**Answer:**
+
+* **PC1 (First Principal Component):** Represents the direction in the original 100-dimensional space along which the data varies the most. It is the single new axis that captures the maximum possible information (variance) from the dataset.
+* **PC2 (Second Principal Component):** Represents the second direction of maximum variance, with the condition that it must be orthogonal (at a right angle) to PC1. It captures the next highest amount of remaining variance.
+
+**Marking Scheme:**
+
+* [2 Marks] - For a correct explanation of PC1 (direction of maximum variance).
+* [2 Marks] - For a correct explanation of PC2 (second direction of max variance, orthogonal to PC1).
+
+</details>
+
+(d) Consider the simple 2D dataset plotted below containing 6 data points (A-F). A K-Means algorithm is initialized with **K=2**, and the initial centroids are placed at `C1 = (3, 7)` and `C2 = (6, 3)`.
+
+i. Perform the **first Assignment Step** of the algorithm. List which data points (A-F) get assigned to Cluster 1 (C1) and which get assigned to Cluster 2 (C2).
+[6]
+
+<details>
+<summary>Click to see the answer and marking scheme</summary>
+
+**Answer:**
+We visually inspect the distance of each point from C1(3,7) and C2(6,3).
+
+* **Points A(2,6) and B(4,8):** Are clearly closer to C1.
+* **Point C(3,5):** Is closer to C1 than C2.
+* **Points D(7,2), E(8,4), and F(5,1):** Are clearly closer to C2.
+
+Therefore:
+
+* **Cluster 1 (assigned to C1):** A, B, C
+* **Cluster 2 (assigned to C2):** D, E, F
+
+**Marking Scheme:**
+
+* [1 Mark] for each correctly assigned point (total of 6 marks).
+
+</details>
+
+ii. After this first assignment, where would the new centroid for Cluster 2 (`C2_new`) be moved to in the **Update Step**? (You must show your calculation).
+[6]
+
+<details>
+<summary>Click to see the answer and marking scheme</summary>
+
+**Answer:**
+The new centroid is the mean of the points in its cluster (D, E, F).
+The points in Cluster 2 are D(7,2), E(8,4), and F(5,1).
+
+* **Calculate mean of X-coordinates:** (7 + 8 + 5) / 3 = 20 / 3 = 6.67
+* **Calculate mean of Y-coordinates:** (2 + 4 + 1) / 3 = 7 / 3 = 2.33
+
+The new centroid `C2_new` would move to approximately **(6.67, 2.33)**.
+
+**Marking Scheme:**
+
+* [2 Marks] - For correctly identifying the points in Cluster 2 (D, E, F).
+* [2 Marks] - For showing the correct calculation for the new x-coordinate.
+* [2 Marks] - For showing the correct calculation for the new y-coordinate.
+
+</details>

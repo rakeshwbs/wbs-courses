@@ -1,0 +1,187 @@
+---
+id: evaluation-structured-questions
+title: Exam-type Questions
+hide_title: true
+sidebar_position: 4
+sidebar_label: Exam-type Questions
+sidebar_class_name: icon-exam
+---
+import ModuleBanner from '@site/src/components/dsa/dsa-banner';
+
+<ModuleBanner />
+
+
+### **Sample Examination Questions & Answers - Week 7 Concepts**
+
+**QUESTION 1 \[25 MARKS]**
+
+(a) Differentiate between a **Stack** and a **Queue**. For each data structure, describe its operating principle (e.g., LIFO/FIFO) and provide a clear, real-world analogy that highlights this principle.
+\[10]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    The fundamental difference lies in the order that elements are accessed.
+
+    * **Stack:** Operates on the **LIFO (Last-In, First-Out)** principle. The most recently added item is the first one to be removed.
+
+    * **Analogy:** A web browser's "back" button history. Each new page you visit is added to the top of the history. When you press "back", the last page you visited (the top of the stack) is the one you return to first.
+
+    * **Queue:** Operates on the **FIFO (First-In, First-Out)** principle. The first item added to the collection is the first one to be removed.
+
+    * **Analogy:** A queue of people at a bus stop in Port Louis. The first person to arrive and join the line is the first person to get on the bus when it arrives.
+
+    **Marking Scheme:**
+
+    * \[2 Marks] - Correctly identifies Stack as LIFO.
+    * \[2 Marks] - Provides a suitable analogy for a Stack.
+    * \[2 Marks] - Correctly identifies Queue as FIFO.
+    * \[2 Marks] - Provides a suitable analogy for a Queue.
+    * \[2 Marks] - For overall clarity in differentiating the two.
+
+</details>
+
+(b) You are given an empty queue of integers. Trace the following sequence of operations, showing the state of the queue (from front to rear) after each operation.
+
+1. `enqueue(15)`
+2. `enqueue(25)`
+3. `enqueue(35)`
+4. `dequeue()`
+5. `enqueue(45)`
+6. `frontValue()`
+
+What is the final state of the queue, and what value is returned by `dequeue()` and `frontValue()`?
+\[9]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    **Trace:**
+
+    1. `enqueue(15)` → Queue: `[15]`
+    2. `enqueue(25)` → Queue: `[15, 25]`
+    3. `enqueue(35)` → Queue: `[15, 25, 35]`
+    4. `dequeue()`    → Returns **15**. Queue: `[25, 35]`
+    5. `enqueue(45)` → Queue: `[25, 35, 45]`
+    6. `frontValue()` → Returns **25**. Queue state is unchanged.
+
+    * Value returned by `dequeue()`: **15**
+    * Value returned by `frontValue()`: **25**
+    * Final state of the queue: **\[25, 35, 45]**
+
+    **Marking Scheme:**
+
+    * \[5 Marks] - For correctly showing the state of the queue after each of the 5 state-changing operations.
+    * \[2 Marks] - For correctly identifying the value returned by `dequeue()`.
+    * \[2 Marks] - For correctly identifying the value returned by `frontValue()`.
+
+</details>
+
+(c) In a linked-list implementation of a queue, explain the role of the `front` and `rear` pointers and why having both is essential for efficiency.
+\[6]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    * **Role of `front` pointer:** It points to the head of the linked list. This is the "front" of the queue, where elements are removed from (`dequeue`).
+    * **Role of `rear` pointer:** It points to the tail (the last node) of the linked list. This is the "back" of the queue, where new elements are added (`enqueue`).
+
+    **Essential for Efficiency:** Having both pointers allows the primary queue operations to be performed in **O(1) or constant time**.
+
+    * Without a `rear` pointer, adding a new element (`enqueue`) would require traversing the entire list from the `front` to find the end, making it an inefficient O(n) operation. The `rear` pointer provides immediate access to the end for O(1) insertions.
+    * The `front` pointer provides immediate access to the start for O(1) removals.
+
+    **Marking Scheme:**
+
+    * \[2 Marks] - For correctly explaining the role of `front`.
+    * \[2 Marks] - For correctly explaining the role of `rear`.
+    * \[2 Marks] - For explaining that together they enable O(1) `enqueue` and `dequeue` operations.
+
+</details>
+
+---
+
+**QUESTION 2 \[25 MARKS]**
+
+(a) Write the complete C++ code for the `enqueue(int value)` method for a **linked queue**. Your implementation must correctly handle adding a node to both an empty and a non-empty queue. Assume `Node`, `front`, and `rear` are defined.
+\[9]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    ```cpp
+    // Assuming 'Node' class is defined elsewhere
+    // Assuming 'Queue' class has 'private: Node* front; Node* rear;'
+
+    void Queue::enqueue(int value) {
+    // 1. Create the new node
+    Node* newNode = new Node(value);
+
+    // 2. Handle the case of an empty queue
+    if (isEmpty()) { // or if (front == nullptr)
+    front = newNode;
+    rear = newNode;
+} else {
+    // 3. Handle a non-empty queue
+    rear->next = newNode; // Link the old rear to the new node
+    rear = newNode;       // Update the rear pointer to be the new node
+}
+}
+    ```
+
+    **Marking Scheme:**
+
+    * \[2 Marks] - For correctly allocating a new `Node`.
+    * \[3 Marks] - For correctly handling the empty queue case (setting both `front` and `rear`).
+    * \[4 Marks] - For correctly handling the non-empty queue case (linking `rear->next` and updating `rear`).
+
+</details>
+
+(b) Explain the problem that a **circular queue** is designed to solve when implementing a queue with an array. How does the **modulo (`%`) operator** help achieve this?
+\[10]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    **The Problem:** In a simple array-based queue, as elements are dequeued, the `front` index moves forward. This leaves empty, unusable slots at the beginning of the array. The queue can appear "full" from the perspective of the `rear` index reaching the end of the array, even though there is plenty of free space at the beginning. This is a highly inefficient use of a fixed block of memory.
+
+    **The Solution with Modulo:** A circular queue solves this by treating the array as if it were a circle. The modulo operator (`%`) is the key to this behavior. To find the next index position after `i`, instead of simply doing `i + 1`, we use the expression `(i + 1) % MAX_SIZE`. This makes the index "wrap around" from the end of the array back to the beginning. For example, if `MAX_SIZE` is 10 and `i` is 9, `(9 + 1) % 10` evaluates to `10 % 10`, which is `0`, effectively moving the index from the last position back to the first. This allows the queue to reuse the empty space at the front.
+
+    **Marking Scheme:**
+
+    * \[4 Marks] - For clearly explaining the problem of wasted space in a simple array queue.
+    * \[2 Marks] - For identifying that a circular queue solves this by reusing space.
+    * \[4 Marks] - For a clear explanation of how the modulo operator achieves the "wrap-around" behavior.
+
+</details>
+
+(c) In a linked queue `dequeue` method, after you remove the last remaining element, the `front` pointer becomes `nullptr`. What else must be done in this specific scenario and why is it critical?
+\[6]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    **What must be done:** You must also set the **`rear` pointer to `nullptr`**.
+
+    **Why it is critical:** When the last element is removed, the `front` pointer correctly becomes null. However, the `rear` pointer would still be pointing to the memory location of the node that was just deallocated. This makes `rear` a **dangling pointer**. If you were to then `enqueue` a new item, the code would try to access `rear->next`, dereferencing an invalid pointer. This would lead to undefined behavior and most likely crash the program. Setting `rear` to `nullptr` ensures the queue is in a consistent "empty" state.
+
+    **Marking Scheme:**
+
+    * \[2 Marks] - For correctly identifying that the `rear` pointer must be set to `nullptr`.
+    * \[4 Marks] - For explaining why (to avoid a dangling pointer and prevent crashes on the next `enqueue`).
+
+</details>
+
+---

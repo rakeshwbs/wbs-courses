@@ -1,0 +1,196 @@
+---
+id: evaluation-structured-questions
+title: Exam-type Questions
+hide_title: true
+sidebar_position: 4
+sidebar_label: Exam-type Questions
+sidebar_class_name: icon-exam
+
+---
+import ModuleBanner from '@site/src/components/dsa/dsa-banner';
+
+<ModuleBanner />
+
+
+## **Sample Examination Questions & Answers - Week 11 Concepts**
+
+---
+
+### **QUESTION 1 \[25 MARKS]**
+
+**(a)** Explain the two primary ways to represent a graph in memory: **Adjacency Matrix** and **Adjacency List**. For each method, state one key advantage.
+\[10]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    1. **Adjacency Matrix:**
+    A 2D array (V × V grid, where V is the number of vertices). A value at `matrix[i][j]` is set to 1 (or a weight) if there is an edge from vertex `i` to vertex `j`, and 0 otherwise.
+
+    * **Advantage:** Extremely fast to check for the existence of an edge between any two vertices (**O(1)** time).
+
+    2. **Adjacency List:**
+    An array of linked lists. The entry at index `i` of the array contains a linked list of all the vertices that are adjacent to vertex `i`.
+
+    * **Advantage:** Very memory-efficient for **sparse graphs**, as it only stores existing connections.
+
+    **Marking Scheme:**
+
+    * \[3 Marks] – Correct explanation of Adjacency Matrix.
+    * \[2 Marks] – Advantage (O(1) lookup).
+    * \[3 Marks] – Correct explanation of Adjacency List.
+    * \[2 Marks] – Advantage (memory-efficient for sparse graphs).
+
+</details>
+
+---
+
+**(b)** You are given the following undirected graph. Starting from **Vertex 0**, trace the **Breadth-First Search (BFS)** traversal. Show the state of the **Queue** and the final **Output** sequence.
+
+* **Edges:** (0, 1), (0, 2), (1, 3), (1, 4), (2, 5)
+\[10]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Trace:**
+
+    1. **Start:** `Queue: []`. Start at 0. Mark 0 as visited. Enqueue 0.
+
+    * `Queue: [0]`
+    2. **Step 1:** Dequeue 0. Print 0. Enqueue unvisited neighbors (1, 2). Mark 1, 2 as visited.
+
+    * Output: `0`
+    * Queue: `[1, 2]`
+    3. **Step 2:** Dequeue 1. Print 1. Enqueue unvisited neighbors (3, 4). Mark 3, 4 as visited.
+
+    * Output: `0, 1`
+    * Queue: `[2, 3, 4]`
+    4. **Step 3:** Dequeue 2. Print 2. Enqueue unvisited neighbor (5). Mark 5 as visited.
+
+    * Output: `0, 1, 2`
+    * Queue: `[3, 4, 5]`
+    5. **Step 4:** Dequeue 3. Print 3. No unvisited neighbors.
+
+    * Output: `0, 1, 2, 3`
+    * Queue: `[4, 5]`
+    6. **Step 5:** Dequeue 4. Print 4. No unvisited neighbors.
+
+    * Output: `0, 1, 2, 3, 4`
+    * Queue: `[5]`
+    7. **Step 6:** Dequeue 5. Print 5. No unvisited neighbors.
+
+    * Output: `0, 1, 2, 3, 4, 5`
+    * Queue: `[]` → Loop terminates.
+
+    **Final Output Sequence:** `0 1 2 3 4 5`
+
+    **Marking Scheme:**
+
+    * \[7 Marks] – Correct queue trace.
+    * \[3 Marks] – Correct final output.
+
+</details>
+
+---
+
+**(c)** Describe a practical application where BFS is the ideal traversal algorithm and briefly explain why.
+\[5]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Application:** Finding the shortest path between two people in a social network (e.g., degrees of separation).
+
+    **Why BFS is ideal:** BFS explores in layers, visiting all nodes at a given distance before moving further. The first time it reaches the target, it guarantees the minimum number of edges in the path.
+
+    **Marking Scheme:**
+
+    * \[2 Marks] – Suitable application.
+    * \[3 Marks] – Correct explanation.
+
+</details>
+
+---
+
+### **QUESTION 2 \[25 MARKS]**
+
+**(a)** Write the complete C++ code for an `addEdge(int u, int v)` method for a `Graph` class that uses an adjacency list to represent an **undirected** graph.
+\[7]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    ```cpp
+    // Assuming part of the Graph class
+    void Graph::addEdge(int u, int v) {
+    // Add an edge from u to v
+    adj[u].push_back(v);
+
+    // Since undirected, also add v to u
+    adj[v].push_back(u);
+}
+    ```
+
+    **Marking Scheme:**
+
+    * \[3 Marks] – Add v to u's list.
+    * \[4 Marks] – Add u to v's list.
+
+</details>
+
+---
+
+**(b)** Using the same graph from Question 1(b), trace the **Depth-First Search (DFS)** traversal starting from **Vertex 0**.
+\[10]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Recursive Call Trace (One possible order):**
+
+    1. `DFS(0)` – Print 0 → Visit 1.
+    2. `DFS(1)` – Print 1 → Visit 3.
+    3. `DFS(3)` – Print 3 → Return.
+    4. Back to `DFS(1)` → Visit 4.
+    5. `DFS(4)` – Print 4 → Return.
+    6. Back to `DFS(0)` → Visit 2.
+    7. `DFS(2)` – Print 2 → Visit 5.
+    8. `DFS(5)` – Print 5 → Return.
+
+    **Final Output Sequence:** `0 1 3 4 2 5`
+
+    **Marking Scheme:**
+
+    * \[7 Marks] – Correct recursive/backtracking trace.
+    * \[3 Marks] – Correct final output.
+
+</details>
+
+---
+
+**(c)** Describe the fundamental difference in exploration between BFS and DFS.
+\[8]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    * **BFS:** Explores level-by-level, visiting all neighbors before moving deeper.
+
+    * Analogy: Ripples from a stone in water.
+
+    * **DFS:** Explores one path deeply before backtracking.
+
+    * Analogy: Exploring one corridor of a maze until the end.
+
+    **Marking Scheme:**
+
+    * \[4 Marks] – BFS explanation.
+    * \[4 Marks] – DFS explanation.
+
+</details>
+
+---
+

@@ -1,0 +1,119 @@
+---
+id: evaluation-structured-questions
+title: Exam-type Questions
+hide_title: true
+sidebar_position: 4
+sidebar_label:  Exam-type Questions
+---
+import ModuleBanner from '@site/src/components/art/art-banner';
+
+<ModuleBanner />
+**QUESTION 1 [25 MARKS]**
+
+(a) A company has two offices, one in Triolet and one in Mahebourg. The two offices are connected via a leased line. The network is configured as follows:
+- The Triolet LAN is `192.168.10.0/24`. The Triolet router's serial interface IP is `10.1.1.1/30`.
+- The Mahebourg LAN is `192.168.20.0/24`. The Mahebourg router's serial interface IP is `10.1.1.2/30`.
+
+Write the **exact** `ip route` commands needed to enable full connectivity between the two LANs. You must provide the command for the Triolet router and the Mahebourg router.
+[6]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    To enable full connectivity, a static route is needed on each router pointing to the remote LAN.
+
+    * **On the Triolet Router:**
+    ```bash
+    ip route 192.168.20.0 255.255.255.0 10.1.1.2
+    ```
+
+    * **On the Mahebourg Router:**
+    ```bash
+    ip route 192.168.10.0 255.255.255.0 10.1.1.1
+    ```
+
+    **Marking Scheme:**
+
+    * [3 Marks] - For the correct command on the Triolet router (1 for correct destination network, 1 for correct mask, 1 for correct next-hop).
+    * [3 Marks] - For the correct command on the Mahebourg router (1 for correct destination network, 1 for correct mask, 1 for correct next-hop).
+
+</details>
+
+(b) Explain the concept of **Administrative Distance (AD)** in the context of routing. If a router learns about the destination network `172.16.50.0/24` from both a static route and an OSPF routing update, which route will be installed in the routing table and why?
+[5]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    * **Concept of AD:** Administrative Distance is a value from 0 to 255 that a router uses to rate the trustworthiness of a routing information source. It is not a measure of distance, but of believability. When a router learns multiple paths to the same destination from different sources, it will prefer the route with the **lowest** Administrative Distance.
+
+    * **Route Chosen:** The router will install the **static route** in its routing table.
+
+    * **Reason:** A static route has a default AD of **1**, while OSPF has a default AD of **110**. Since 1 is lower than 110, the router considers the static route to be a more trustworthy or believable source of information and will therefore prefer it over the route learned via OSPF.
+
+    **Marking Scheme:**
+
+    * [2 Marks] - For a clear explanation of Administrative Distance (trustworthiness, lower is better).
+    * [1 Mark] - For correctly identifying that the static route will be chosen.
+    * [2 Marks] - For correctly explaining why (AD of 1 for static vs. 110 for OSPF).
+
+</details>
+
+(c) A junior network administrator is trying to ping from PC-1 (`10.10.10.10`) to PC-2 (`10.10.20.10`). The ping fails. You are shown the routing table for the router R1.
+
+**R1 Routing Table:**
+```
+C   10.10.10.0/24 is directly connected, GigabitEthernet0/0
+S   10.10.20.0/24 [1/0] via 192.168.0.2
+```
+
+The administrator insists the configuration on R1 is correct. What is the most likely reason for the ping failure? Describe the journey of the ping request and the ping reply to support your diagnosis.
+[6]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    * **Most Likely Reason:** The most likely reason for the failure is that the remote router (R2, at 192.168.0.2) is missing a **return route** back to the `10.10.10.0/24` network.
+
+    * **Packet Journey:**
+    1.  **Ping Request:** PC-1 sends the ping to its gateway, R1. R1 looks in its routing table, finds the static route for `10.10.20.0/24`, and successfully forwards the packet to R2. The request packet **reaches PC-2**.
+    2.  **Ping Reply:** PC-2 generates a reply and sends it to its gateway, R2. R2 receives the reply packet, which is destined for `10.10.10.10`. However, since R2 does not have a route to the `10.10.10.0/24` network in its routing table, it does not know where to send the packet. Therefore, R2 **drops the reply packet**.
+
+    The ping fails because the reply never makes it back to the source.
+
+    **Marking Scheme:**
+    * [2 Marks] - For correctly identifying the problem (missing return route on R2).
+    * [2 Marks] - For correctly describing the successful path of the ping request.
+    * [2 Marks] - For correctly describing the failure path of the ping reply (dropped at R2).
+
+</details>
+
+(d) What is a "default static route" and what is its primary purpose? Provide the full command to configure a default route that forwards all unknown traffic to a next-hop IP of `8.8.8.8`.
+[8]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    * **DefinitionBox and Purpose:** A default static route, also known as a "quad-zero" route, is a special type of static route that acts as a **gateway of last resort**. Its purpose is to match any destination IP address for which the router does not have a more specific entry in its routing table. It is commonly used on edge or stub routers (e.g., in a branch office) to direct all internet-bound or unknown traffic towards a single upstream router or ISP, simplifying the routing table immensely.
+
+    * **Command:**
+    ```bash
+    ip route 0.0.0.0 0.0.0.0 8.8.8.8
+    ```
+
+    **Marking Scheme:**
+
+    * [3 Marks] - For a clear definition of a default route (gateway of last resort / catch-all).
+    * [3 Marks] - For a clear explanation of its purpose (directing unknown traffic, simplifying configuration).
+    * [2 Marks] - For the exact, correct command syntax.
+
+</details>
+

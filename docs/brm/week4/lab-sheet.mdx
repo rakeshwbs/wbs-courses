@@ -1,0 +1,72 @@
+---
+id: lab-sheet4
+title: Lab sheet 4
+hide_title: true
+sidebar_position: 2
+sidebar_label: Import Data
+sidebar_class_name: icon-lab
+---
+import ModuleBanner from '@site/src/components/brm/brm-banner';
+
+<ModuleBanner />
+
+## Lab 4: Importing Data and Understanding Structure
+
+### Objective
+To learn how to import data from a Microsoft Excel file into SPSS and to understand how data for an experimental design is typically structured.
+
+### Part A: Creating the Source Data in Excel
+
+In the real world, you rarely enter data manually into SPSS. More often, you'll collect it using survey tools that export to formats like CSV or Excel. Let's simulate this.
+
+1.  Open a spreadsheet program (like Microsoft Excel, Google Sheets, or LibreOffice Calc).
+2.  Create a new blank sheet.
+3.  **Crucial Step:** In the very first row (Row 1), enter your variable names. In the rows below, enter the corresponding data. Replicate this table exactly:
+
+| | A | B | C |
+| :--- | :--- | :--- | :--- |
+| **1**| Participant_ID | Study_Group | Quiz_Score |
+| **2**| 1 | 1 | 18 |
+| **3**| 2 | 1 | 16 |
+| **4**| 3 | 1 | 19 |
+| **5**| 4 | 1 | 17 |
+| **6**| 5 | 1 | 15 |
+| **7**| 6 | 2 | 12 |
+| **8**| 7 | 2 | 14 |
+| **9**| 8 | 2 | 11 |
+| **10**| 9 | 2 | 15 |
+| **11**| 10 | 2 | 13 |
+
+* For `Study_Group`, `1` represents a "Classical Music" group and `2` represents a "No Music" control group.
+* `Quiz_Score` is the score out of 20.
+
+4.  Save this file on your computer as **`StudyData.xlsx`**.
+
+### Part B: Importing the Excel File into SPSS
+
+Now we'll bring that data into our statistics software.
+
+1.  Open SPSS.
+2.  Go to the main menu: **File -> Open -> Data...**
+3.  An 'Open Data' dialog box will appear. At the bottom, there is a dropdown menu called **'Files of type:'**. Click it and change the selection from "SPSS Statistics (*.sav)" to **"Excel (*.xls, *.xlsx, *.xlsm)"**.
+4.  Navigate to where you saved your `StudyData.xlsx` file and select it. Click **Open**.
+5.  A new window called "Opening Excel Data Source" will appear. There is a very important checkbox at the top: **"Read variable names from the first row of data."** Make sure this is checked. This tells SPSS to use Row 1 from our spreadsheet as the variable names.
+6.  Click **OK**.
+
+### Part C: Verifying and Defining the Data
+
+Your data should now be visible in the SPSS Data Editor, but we need to define it properly.
+
+1.  Click on the **Variable View** tab at the bottom.
+2.  Clean up the variables just as you did in Lab 2:
+* For `Study_Group`:
+  * **Label:** `Experimental Condition`
+  * **Values:** Click the `...` button and define the values: `1` = "Classical Music", `2` = "No Music".
+  * **Measure:** `Nominal`
+* For `Quiz_Score`:
+  * **Label:** `Score on Memory Quiz`
+  * **Measure:** `Scale`
+3.  **Note the Structure:** Look at your data in the Data View. You have one column that identifies which group a participant belongs to (the IV) and another column that contains their score (the DV). This is a standard way to structure data for experimental designs in SPSS.
+4.  **Save Your Work:** Go to **File -> Save As...** and save the file as **`Week4_Lab.sav`**.
+
+---

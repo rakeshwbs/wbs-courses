@@ -1,0 +1,72 @@
+/* src/components/KeyPoints.css */
+
+/* Base tokenized palette (inherits Docusaurus theme colors) */
+.key-points {
+    /* You can tweak these or override per variant below */
+    --kp-accent: var(--ifm-color-primary);
+    --kp-border: var(--ifm-color-emphasis-300);
+    --kp-bg: var(--ifm-background-surface-color);
+    --kp-title: var(--ifm-font-color-base);
+    --kp-text: var(--ifm-font-color-secondary);
+    margin: 1rem 0;
+    padding: 0;
+}
+
+/* Dark theme subtle boost if desired */
+[data-theme='dark'] .key-points {
+    --kp-border: var(--ifm-color-emphasis-200);
+    --kp-text: var(--ifm-font-color-base);
+}
+
+/* Variants (optional) */
+.key-points--primary { --kp-accent: var(--ifm-color-primary); }
+.key-points--success { --kp-accent: var(--ifm-color-success); }
+.key-points--warning { --kp-accent: var(--ifm-color-warning-dark); }
+.key-points--info    { --kp-accent: var(--ifm-color-info); }
+
+/* Title (dt) */
+.key-points__title {
+    position: relative;
+    font-weight: 700;
+    color: var(--kp-title);
+    margin: 0;
+    margin-top: 1rem;
+    padding: 0.65rem 0.75rem 0.3rem 2.25rem;
+    line-height: 1.25;
+    background: var(--kp-bg);
+    border: 1px solid var(--kp-border);
+    border-bottom: none;
+    border-top-left-radius: 0.75rem;
+    border-top-right-radius: 0.75rem;
+    box-shadow: 0 1px 2px rgba(0,0,0,.04);
+}
+
+.key-points__title::before {
+    content: attr(data-icon);
+}
+
+/* Use the icon provided on the container so all items share it */
+.key-points .key-points__title::before {
+    content: attr(data-icon);
+    position: absolute;
+    left: 0.75rem;
+    top: 0.68rem;
+    font-size: 0.9rem;
+    color: var(--kp-accent);
+    opacity: 0.95;
+}
+
+/* Content (dd) */
+.key-points__content {
+    margin: 0;
+    padding: 0.8rem 0.9rem 0.95rem 2.25rem;
+    border: 1px solid var(--kp-border);
+    border-top: none;
+    border-bottom-left-radius: 0.75rem;
+    border-bottom-right-radius: 0.75rem;
+    background: color-mix(in srgb, var(--kp-accent) 6%, transparent);
+    color: var(--kp-text);
+}
+
+/* Compact spacing inside documentation markdown only (optional) */
+.theme-doc-markdown .key-points__title { margin-top: 0.85rem; }

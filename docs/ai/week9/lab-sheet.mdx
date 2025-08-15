@@ -1,0 +1,122 @@
+---
+id: lab-sheet
+title: Labsheet
+sidebar_position: 2
+hide_title: true
+sidebar_label: Genesis Engine
+sidebar_class_name: icon-lab
+
+---
+import ModuleBanner from '@site/src/components/ai/ai-banner';
+
+<ModuleBanner />
+#### **4.0 Introduction to the Lab**
+
+Training a GAN or an LLM from scratch is a monumental task, often taking weeks and millions of dollars in compute power. Therefore, in today's lab, we will do what most real-world AI developers do: use a **pre-trained model**.
+
+We will be using the **Hugging Face** platform, which is like a "GitHub for machine learning." It gives us access to thousands of pre-trained models. We will use their `transformers` library to download and interact with a real language model, focusing on the practical skill of **prompt engineering** to guide the AI's creative process.
+
+-----
+
+-----
+
+### **Lab Guide**
+
+**Lab 09: The Genesis Engine - Your First Generative AI**
+
+**Objective:** By the end of this lab, you will have used the Hugging Face `transformers` library to load a pre-trained Large Language Model (LLM) and generate various kinds of creative text from different prompts.
+
+**Scenario:** You are an AI developer tasked with exploring the creative and practical capabilities of modern language models. Your goal is to use a pre-trained model to generate different kinds of text, from stories to code, and understand how to guide its output through prompt engineering.
+
+#### **Part A: Setup and Installation**
+
+The Hugging Face library makes using state-of-the-art models incredibly simple. First, we need to install it. Run the following command in a code cell in your Jupyter Notebook (or in your terminal).
+
+```python
+# The '!' allows us to run shell commands from a Jupyter cell
+!pip install transformers torch
+```
+
+*Note: Depending on your setup, you may need to restart the kernel after installation.*
+
+#### **Part B: Loading a Pre-trained Model with `pipeline`**
+
+The easiest way to use a model for a standard task is with the `pipeline` function. It handles all the complex steps of loading the model and its tokenizer for you.
+
+```python
+from transformers import pipeline
+
+# This one line of code downloads the GPT-2 model and configures it for text generation.
+# The first time you run this, it will take a few minutes to download the model files.
+generator = pipeline('text-generation', model='gpt2')
+
+print("GPT-2 model loaded successfully!")
+```
+
+#### **Part C: Generating Text (Prompt Engineering)**
+
+Now for the fun part. Let's give our model a prompt and see what it creates.
+
+**1. First Generation: A Simple Story Starter**
+The text we provide is called the **prompt**. The model will continue writing from where we leave off.
+
+```python
+# Define our prompt
+prompt = "In a small fishing village on the coast of Mauritius,"
+
+# Generate text. We can control the length and number of outputs.
+generated_text = generator(prompt, max_length=75, num_return_sequences=1)
+
+# Print the result
+print(generated_text[0]['generated_text'])
+```
+
+**2. Creative Writing**
+Let's give it a more imaginative prompt.
+
+```python
+creative_prompt = "The old fisherman pulled the glowing object from his nets. It pulsed with a soft, blue light, unlike anything he had ever seen in the waters near Le Morne. He felt an urge to"
+
+# The 'do_sample=True' and 'temperature' parameters encourage more creative, less repetitive text.
+generated_story = generator(creative_prompt, max_length=100, num_return_sequences=1, do_sample=True, temperature=0.9)
+
+print(generated_story[0]['generated_text'])
+```
+
+**3. Code Generation (A Test of Versatility)**
+LLMs are trained on code as well as text. Let's see if it can help us.
+
+```python
+code_prompt = """
+# Python function to calculate the factorial of a number
+def factorial(n):
+"""
+
+generated_code = generator(code_prompt, max_length=100, num_return_sequences=1)
+
+print(generated_code[0]['generated_text'])
+```
+
+*Note: GPT-2 is an older model and may not generate perfect code, but more modern models are excellent at this. This demonstrates the model's versatility.*
+
+**4. The Power of the Prompt**
+The way you phrase your prompt drastically changes the output. This skill is called **prompt engineering**.
+
+```python
+# Compare the output of two different prompts
+problem_prompt = "The biggest problem with renewable energy in Mauritius is"
+solution_prompt = "The most promising solution for renewable energy in Mauritius is"
+
+problem_output = generator(problem_prompt, max_length=50)
+solution_output = generator(solution_prompt, max_length=50)
+
+print("\n--- Problem Framing ---")
+print(problem_output[0]['generated_text'])
+
+print("\n--- Solution Framing ---")
+print(solution_output[0]['generated_text'])
+```
+
+**Conclusion:**
+Congratulations\! You have now commanded a state-of-the-art Generative AI. You've seen how easy it can be to use massive, pre-trained models with libraries like Hugging Face. In the modern AI world, knowing how to effectively use and guide these powerful tools through prompt engineering is a critical skill for any AI Architect. As you can imagine, this technology also comes with significant ethical responsibilities regarding potential misuse, which we will discuss later in the course.
+

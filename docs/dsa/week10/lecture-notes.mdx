@@ -1,0 +1,68 @@
+---
+id: lecture-notes
+title: Lecture Notes
+hide_title: true
+sidebar_position: 1
+sidebar_label: Hashing
+sidebar_class_name: icon-lecture
+---
+import ModuleBanner from '@site/src/components/dsa/dsa-banner';
+
+<ModuleBanner />
+
+## **Week 10: Dictionaries & Hashing**
+
+While a Binary Search Tree can store key-value pairs and provide O(log n) search times, we can often do even better. Hashing provides a way to directly calculate where an item should be in memory, leading to near-instantaneous access.
+
+### **The Dictionary ADT (Map)**
+A **Dictionary** (also known as a Map or Associative Array) is an abstract data type that stores a collection of (key, value) pairs, such that each possible key appears at most once in the collection.
+
+* **Core Operations**:
+  * `insert(key, value)`: Adds a new key-value pair.
+  * `search(key)`: Retrieves the value associated with a given key.
+  * `delete(key)`: Removes the key-value pair.
+* **Analogy**: A phone's contact list is a perfect dictionary. The person's name is the unique **key**, and their phone number is the **value**. You use the key (name) to look up the value (number).
+
+### **Hashing: The Core Idea**
+Instead of searching through a structure, what if we could instantly compute the array index where an item should be stored, just by looking at its key? This is the core idea of hashing.
+
+We use a special **hash function** to convert a key (like the string "John Smith") into an integer. This integer is then used as an index in an array (called a **hash table**).
+
+
+
+### **Hash Functions**
+A **hash function** is any function that can be used to map data of arbitrary size to fixed-size values. For a hash table, this means mapping our key to an array index.
+
+A good hash function should be:
+1.  **Fast to Compute**: It shouldn't be a bottleneck.
+2.  **Deterministic**: The same key must *always* produce the same hash index.
+3.  **Uniformly Distributing**: It should spread keys evenly across all possible indices to avoid clustering.
+
+A simple hash function for a string might be to sum the ASCII values of its characters and then use the modulo operator to fit it within the array size: `hash_index = (sum_of_ascii_values) % array_size;`.
+
+### **The Collision Problem**
+What happens if two different keys produce the same hash index? This is called a **collision**.
+
+* **Analogy**: Think of birthdays. With enough people in a room, it's very likely that two people will share the same birthday. Similarly, with enough keys, two are bound to hash to the same index.
+
+Collisions are unavoidable, so we need strategies to manage them.
+
+### **Collision Resolution Techniques**
+
+#### **1. Separate Chaining**
+This is the most common and intuitive technique. Instead of storing the value directly in the array, each array slot holds a pointer to a **linked list**.
+
+* **How it works**: If a collision occurs (multiple keys hash to the same index), their key-value pairs are simply added as nodes to the linked list at that index.
+* **Operations**:
+  * `insert`: Hash the key to find the index, then append the new key-value pair to the linked list at that index.
+  * `search`: Hash the key, go to that index, and then perform a simple search on the (usually short) linked list.
+
+
+
+#### **2. Open Addressing (Briefly)**
+In this method, all key-value pairs are stored within the array itself.
+* **How it works**: If a key hashes to index `i` but `array[i]` is already occupied, the algorithm "probes" for the next available empty slot.
+* **Linear Probing**: The simplest probing method. If `array[i]` is full, try `array[i+1]`, then `array[i+2]`, and so on, wrapping around if necessary.
+
+***
+

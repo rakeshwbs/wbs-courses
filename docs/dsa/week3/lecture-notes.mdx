@@ -1,0 +1,108 @@
+---
+id: lecture-notes
+title: Lecture Notes
+hide_title: true
+sidebar_position: 1
+sidebar_label: Linked List Operations
+sidebar_class_name: icon-lecture
+---
+import ModuleBanner from '@site/src/components/dsa/dsa-banner';
+
+<ModuleBanner />
+
+## **Week 3: Mastering Linked List Operations**
+
+Last week, we built the skeleton of our `LinkedList` class. This week, we'll give it a brain and limbs by implementing the core operations that make it a truly useful data structure. We'll learn how to add, remove, find, and display nodes.
+
+### **1. Displaying the List: Our First Traversal**
+
+Before we can test our other methods, we need a way to see what's inside our list. This requires a **traversal**—visiting each node in sequence from beginning to end.
+
+**The Logic:**
+
+1.  Start with a temporary pointer, let's call it `current`, and point it to `head`.
+2.  Use a `while` loop that continues as long as `current` is not `nullptr`.
+3.  Inside the loop:
+  * Print the `data` from the `current` node.
+  * Advance the pointer to the next node: `current = current->next;`.
+
+<!-- end list -->
+
+```cpp
+void LinkedList::displayList() {
+    Node* current = head;
+    while (current != nullptr) {
+        std::cout << current->data << " -> ";
+        current = current->next;
+    }
+    std::cout << "nullptr" << std::endl;
+}
+```
+
+### **2. Insertion Operations ➕**
+
+There are three key places to insert a node: at the beginning, at the end, and somewhere in the middle.
+
+#### **a) Prepending (Inserting at the Head)**
+
+This is the fastest insertion operation for a linked list, taking constant time, or $O(1)$.
+
+**The Logic:**
+
+1.  Create your new node.
+2.  Set the new node's `next` pointer to point to the current `head` of the list.
+3.  Update the list's `head` pointer to point to your new node.
+
+<!-- end list -->
+
+```cpp
+void LinkedList::prependNode(int value) {
+    Node* newNode = new Node(value);
+    newNode->next = head; // New node points to the old head
+    head = newNode;       // Head now points to the new node
+}
+```
+
+#### **b) Appending (Inserting at the End)**
+
+We implemented this in last week's lab. It's a review of an $O(n)$ operation, as it requires traversing the entire list to find the last node.
+
+#### **c) Inserting at a Specific Position**
+
+This is the most general case. To insert a node, you must change the `next` pointer of the node *before* it. This "pointer surgery" is the essence of linked list manipulation.
+
+**The Logic:**
+
+1.  Create the new node.
+2.  Traverse the list until you find the node just **before** your desired insertion point. Let's call this `previousNode`.
+3.  Set the new node's `next` pointer to whatever `previousNode` was pointing to (`previousNode->next`).
+4.  Update `previousNode`'s `next` pointer to point to your new node.
+
+This operation has a time complexity of $O(n)$ because you might have to traverse a significant portion of the list to find the insertion point.
+
+### **3. Deletion Operations ➖**
+
+Deleting a node also requires finding the node *before* the target to re-wire the pointers.
+
+**The Logic:**
+
+1.  Find the node you want to delete (`targetNode`) and the node right before it (`previousNode`).
+2.  Set `previousNode->next` to point to `targetNode->next`. This effectively "bypasses" or unlinks the target node from the chain.
+3.  Crucially, you must call `delete targetNode;` to free the memory occupied by the unlinked node and prevent a memory leak.
+
+**Edge Case:** Deleting the head node is special. You don't have a `previousNode`. You simply update the `head` pointer to `head->next` and then delete the old head node. Like insertion, deletion is an $O(n)$ operation due to the initial search.
+
+### **4. Searching for a Value 🔎**
+
+Searching is a straightforward traversal, similar to our `displayList` method.
+
+**The Logic:**
+
+1.  Create a temporary pointer `current` that starts at the `head`.
+2.  Loop while `current` is not `nullptr`.
+3.  Inside the loop, check if `current->data` is equal to the value you're looking for.
+4.  If you find it, you can return `true` or a pointer to that node.
+5.  If the loop finishes without finding the value, it's not in the list, so you return `false` or `nullptr`.
+
+This operation has a time complexity of $O(n)$ in the worst case (the element is at the end or not in the list).
+

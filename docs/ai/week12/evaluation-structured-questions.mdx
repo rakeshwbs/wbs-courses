@@ -1,0 +1,370 @@
+---
+id: evaluation-structured-questions
+title: Exam-type Questions
+hide_title: true
+sidebar_position: 4
+sidebar_label: Exam-type Questions
+sidebar_class_name: icon-exam
+---
+import ModuleBanner from '@site/src/components/ai/ai-banner';
+
+<ModuleBanner />
+
+
+### **Final Comprehensive Examination – 12-Week AI Module**
+
+Each question is worth **25 marks**, for a total of **100 marks**.
+
+---
+
+### **QUESTION 1: Foundations & The ML Workflow \[25 MARKS]**
+
+---
+
+#### (a) Let's start with the basics. 🧠
+
+Differentiate between **Supervised Learning** and **Unsupervised Learning**. Provide one clear example of a task for each.
+**\[6 Marks]**
+
+<details>
+<summary>Click to see the answer and marking scheme</summary>
+
+### Answer
+
+**Supervised Learning** is a paradigm where the model learns from **labeled data**. The dataset contains both input features (X) and the correct output labels (y), and the model's goal is to learn the mapping function between them.
+
+* **Example:** Predicting a house price (the label) based on its features (size, location).
+
+**Unsupervised Learning** involves learning from **unlabeled data**. The model is given only the input features (X) and its goal is to find hidden patterns or intrinsic structures within the data.
+
+* **Example:** Segmenting customers into different groups based on their purchasing behavior.
+
+**Marking Scheme:**
+
+* \[2 Marks] – For clearly stating labeled vs. unlabeled data.
+* \[2 Marks] – For a suitable supervised learning example.
+* \[2 Marks] – For a suitable unsupervised learning example.
+
+</details>
+
+---
+
+#### (b) A bank in Mauritius wants to use AI to analyze its customer data.
+
+Propose **one supervised learning task** and **one unsupervised learning task**. For each, state its goal and name a suitable algorithm.
+**\[9 Marks]**
+
+<details>
+<summary>Click to see the answer and marking scheme</summary>
+
+### Answer
+
+**Supervised Task:**
+
+* **Goal:** Predict whether a loan applicant will **default** on their loan.
+* **Algorithm:** `Logistic Regression`, `Decision Tree`, or `Random Forest`.
+
+**Unsupervised Task:**
+
+* **Goal:** Segment customers based on transaction and demographic data for marketing.
+* **Algorithm:** `K-Means Clustering`.
+
+**Marking Scheme:**
+
+* \[2 Marks] – Valid supervised learning goal.
+* \[2 Marks] – Suitable supervised algorithm.
+* \[2 Marks] – Valid unsupervised goal.
+* \[3 Marks] – Suitable unsupervised algorithm.
+
+</details>
+
+---
+
+#### (c) The "Golden Rule" is a core principle in machine learning.
+
+Explain this rule and list the four key steps in a supervised learning workflow.
+**\[10 Marks]**
+
+<details>
+<summary>Click to see the answer and marking scheme</summary>
+
+### Answer
+
+The **Golden Rule** is: **Never evaluate your model on the same data it was trained on.**
+This prevents overfitting and gives an honest estimate of real-world performance.
+
+**Workflow Steps:**
+
+1. **Prepare Data:** Clean, split into train/test sets.
+2. **Choose Model:** Select a suitable algorithm.
+3. **Train Model:** Fit on training data.
+4. **Evaluate Model:** Predict on test data and assess performance.
+
+**Marking Scheme:**
+
+* \[2 Marks] – Golden Rule statement.
+* \[3 Marks] – Explanation of importance (e.g., prevents overfitting).
+* \[5 Marks] – 1 mark for each correct workflow step.
+
+</details>
+
+---
+
+### **QUESTION 2: Core Models & Evaluation \[25 MARKS]**
+
+---
+
+#### (a) Let's talk about trees. 🌳
+
+Explain **overfitting** in a Decision Tree and how a **Random Forest** helps mitigate it.
+**\[7 Marks]**
+
+<details>
+<summary>Click to see the answer and marking scheme</summary>
+
+### Answer
+
+A Decision Tree may overfit by memorizing noise in the training data, especially if it grows too deep. It gets perfect training accuracy but performs poorly on new data.
+
+**Random Forest** solves this by training multiple trees on random data and features. It averages their predictions, smoothing errors and improving generalization.
+
+**Marking Scheme:**
+
+* \[3 Marks] – Overfitting explanation.
+* \[4 Marks] – Random Forest and ensemble mechanism.
+
+</details>
+
+---
+
+#### (b) An SVM is all about geometry.
+
+Explain the **Maximum Margin Classifier** principle used in Support Vector Machines.
+**\[6 Marks]**
+
+<details>
+<summary>Click to see the answer and marking scheme</summary>
+
+### Answer
+
+SVMs find a hyperplane that separates classes with the **maximum margin** — the greatest distance between the decision boundary and the closest points (support vectors). Maximizing the margin increases robustness.
+
+**Marking Scheme:**
+
+* \[3 Marks] – Explains margin principle.
+* \[3 Marks] – Identifies support vectors and role of hyperplane.
+
+</details>
+
+---
+
+#### (c) A spam filter was tested on 1,000 emails.
+
+|                      | Predicted: Not Spam | Predicted: Spam |
+| -------------------- | ------------------- | --------------- |
+| **Actual: Not Spam** | TN = 880            | FP = 20         |
+| **Actual: Spam**     | FN = 30             | TP = 70         |
+
+**i.** Calculate **Accuracy**
+**\[3 Marks]**
+
+**ii.** Calculate **Precision** and **Recall**
+**\[4 Marks]**
+
+**iii.** What does low **Precision** mean for the user?
+**\[5 Marks]**
+
+<details>
+<summary>Click to see the answer and marking scheme</summary>
+
+### Answer
+
+**i. Accuracy = (TP + TN) / Total = (70 + 880) / 1000 = 95%**
+
+**ii.**
+
+* Precision = 70 / (70 + 20) = **77.8%**
+* Recall = 70 / (70 + 30) = **70%**
+
+**iii.**
+Low precision means many emails flagged as spam are actually **not spam**. For users, this means legitimate emails are lost in the spam folder, causing frustration or missed messages.
+
+**Marking Scheme:**
+
+* \[3 Marks] – Correct accuracy.
+* \[2 Marks] – Correct precision.
+* \[2 Marks] – Correct recall.
+* \[5 Marks] – Impact of low precision explained.
+
+</details>
+
+---
+
+### **QUESTION 3: Deep Learning \[25 MARKS]**
+
+---
+
+#### (a) Let's build a brain. 🧠
+
+Describe the roles of the **Input**, **Hidden**, and **Output** layers in an MLP. Also, explain the importance of non-linear activations like **ReLU**.
+**\[8 Marks]**
+
+<details>
+<summary>Click to see the answer and marking scheme</summary>
+
+### Answer
+
+* **Input Layer:** Accepts raw features, passes data to next layer.
+* **Hidden Layers:** Learn internal representations of patterns.
+* **Output Layer:** Gives final prediction (class/regression).
+* **ReLU:** Adds non-linearity, enabling learning of complex patterns.
+
+**Marking Scheme:**
+
+* \[2 Marks] – Input Layer
+* \[2 Marks] – Hidden Layers
+* \[2 Marks] – Output Layer
+* \[2 Marks] – ReLU and non-linearity importance
+
+</details>
+
+---
+
+#### (b) Now let’s teach it to see.
+
+Why is a **CNN** better than an MLP for image tasks? Describe the function of a **Convolutional Layer** and a **Max Pooling Layer**.
+**\[9 Marks]**
+
+<details>
+<summary>Click to see the answer and marking scheme</summary>
+
+### Answer
+
+**CNNs** preserve pixel relationships, unlike MLPs which flatten the image.
+
+* **Convolutional Layer:** Slides filters to detect local patterns (edges, textures).
+* **Max Pooling Layer:** Reduces size and computation, improves invariance to position.
+
+**Marking Scheme:**
+
+* \[3 Marks] – CNN vs MLP
+* \[3 Marks] – Convolutional Layer
+* \[3 Marks] – Max Pooling Layer
+
+</details>
+
+---
+
+#### (c) How does a neural network actually learn? ⚙️
+
+Use the terms: **Forward Propagation**, **Loss Function**, **Backpropagation**, **Optimizer**.
+**\[8 Marks]**
+
+<details>
+<summary>Click to see the answer and marking scheme</summary>
+
+### Answer
+
+1. **Forward Propagation:** Passes input through layers to produce prediction.
+2. **Loss Function:** Measures error between prediction and actual output.
+3. **Backpropagation:** Calculates gradient of loss w\.r.t each weight.
+4. **Optimizer:** Adjusts weights to minimize the loss using gradients.
+
+**Marking Scheme:**
+
+* \[2 Marks] – Forward Propagation
+* \[2 Marks] – Loss Function
+* \[2 Marks] – Backpropagation
+* \[2 Marks] – Optimizer
+
+</details>
+
+---
+
+### **QUESTION 4: The Generative & Ethical Frontier \[25 MARKS]**
+
+---
+
+#### (a) What kind of AI is it?
+
+Differentiate **Discriminative** vs **Generative AI**. Give one algorithm for each.
+**\[7 Marks]**
+
+<details>
+<summary>Click to see the answer and marking scheme</summary>
+
+### Answer
+
+* **Discriminative AI:** Learns decision boundaries to classify inputs.
+
+    * **Example:** `SVM`, `Random Forest`
+
+* **Generative AI:** Learns data distribution to generate new samples.
+
+    * **Example:** `GAN`, `Diffusion Model`
+
+**Marking Scheme:**
+
+* \[2 Marks] – Discriminative definition
+* \[1 Mark] – Discriminative algorithm
+* \[2 Marks] – Generative definition
+* \[2 Marks] – Generative algorithm
+
+</details>
+
+---
+
+#### (b) Let’s create an image from nothing. 🎨
+
+Explain the **Forward (noising)** and **Reverse (denoising)** process in a Diffusion Model.
+**\[8 Marks]**
+
+<details>
+<summary>Click to see the answer and marking scheme</summary>
+
+### Answer
+
+* **Forward:** Adds Gaussian noise to an image step-by-step until it becomes pure noise.
+* **Reverse:** The model learns to remove the noise step-by-step by predicting the noise and subtracting it, eventually generating a clean image.
+
+**Marking Scheme:**
+
+* \[4 Marks] – Forward process explained
+* \[4 Marks] – Reverse process explained
+
+</details>
+
+---
+
+#### (c) With great power comes great responsibility. 🤔
+
+An AI model helps courts with sentencing, trained on biased data.
+
+**i.** Identify and explain the primary ethical risk.
+**\[4 Marks]**
+
+**ii.** Explain the remaining two principles of the **FAT** framework in this context.
+**\[6 Marks]**
+
+<details>
+<summary>Click to see the answer and marking scheme</summary>
+
+### Answer
+
+**i. Fairness** – Biased training data may lead to unfair sentencing across demographic groups.
+
+**ii.**
+
+* **Accountability:** Determine who is responsible if model recommendations are biased or harmful.
+* **Transparency:** Ensure model reasoning is explainable for legal scrutiny and user trust (XAI).
+
+**Marking Scheme:**
+
+* \[4 Marks] – Fairness risk explained
+* \[3 Marks] – Accountability in context
+* \[3 Marks] – Transparency in context
+
+</details>
+
+---
+

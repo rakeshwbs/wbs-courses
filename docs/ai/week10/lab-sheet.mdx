@@ -1,0 +1,121 @@
+---
+id: lab-sheet
+title: Labsheet
+sidebar_position: 2
+hide_title: true
+sidebar_label: Image Generation
+sidebar_class_name: icon-lab
+
+---
+import ModuleBanner from '@site/src/components/ai/ai-banner';
+
+<ModuleBanner />
+#### **Introduction to the Lab**
+
+Training a diffusion model is an even more monumental task than training an LLM and is far beyond the scope of this course. Therefore, our lab will once again focus on the practical skill of **inference** using a world-class, open-source, pre-trained model: **Stable Diffusion**.
+
+We will use the `diffusers` library from Hugging Face, which makes this powerful technology incredibly accessible. Your goal today is to become an "AI Artist," learning how to write effective text prompts to guide the AI in creating specific and imaginative artwork.
+
+-----
+
+### **Lab Guide**
+
+**Lab 10: The AI Artist - Image Generation with Stable Diffusion**
+
+**Objective:** By the end of this lab, you will have used the Hugging Face `diffusers` library to load the pre-trained Stable Diffusion model and generate original images from text prompts.
+
+**Scenario:** You are a digital artist and creative technologist. Your task is to explore the capabilities of Stable Diffusion to create a series of artistic images inspired by Mauritian culture and landscapes.
+
+**⚠️ Important Note:** Running this model is computationally intensive and requires a powerful GPU. If you do not have a local NVIDIA GPU, it is highly recommended to run this lab in **Google Colab**, which provides free access to GPUs.
+
+#### **Part A: Setup and Installation**
+
+First, we need to install the necessary libraries from Hugging Face.
+
+```python
+# The '!' allows us to run shell commands from a Jupyter cell
+!pip install diffusers transformers accelerate scipy
+```
+
+*Note: You will likely need to restart your runtime or kernel after this installation.*
+
+#### **Part B: Loading the Stable Diffusion Pipeline**
+
+The `diffusers` library makes it easy to load all the components of Stable Diffusion (the text encoder, the denoising network, etc.) in a single object called a `pipeline`.
+
+```python
+from diffusers import StableDiffusionPipeline
+import torch
+
+# Define the model checkpoint we want to use
+model_id = "runwayml/stable-diffusion-v1-5"
+
+# Load the pipeline. This will download several gigabytes of model weights the first time you run it.
+# torch_dtype=torch.float16 uses less GPU memory.
+pipe = StableDiffusionPipeline.from_pretrained(model_id, torch_dtype=torch.float16)
+
+# IMPORTANT: Move the pipeline to the GPU for fast inference
+pipe = pipe.to("cuda")
+
+print("Stable Diffusion pipeline loaded successfully!")
+```
+
+#### **Part C: Generating Your First Image**
+
+Let's start with a simple prompt and generate an image.
+
+```python
+# 1. Define your prompt
+prompt = "a photorealistic image of a dolphin jumping in front of Le Morne Brabant mountain"
+
+# 2. Generate the image. This will take a few seconds on a GPU.
+# The result is an object, and the image itself is in the .images list.
+result = pipe(prompt)
+image = result.images[0]
+
+# 3. Display the image
+image
+```
+
+#### **Part D: Prompt Engineering for Artists**
+
+The key to getting great results from diffusion models is **prompt engineering**. Small changes to the prompt can have a huge impact on the final image.
+
+**1. Adding Style and Quality Modifiers**
+Let's make our images more artistic by adding keywords that influence the style.
+
+```python
+# A more advanced prompt with style modifiers
+style_prompt = "A majestic dodo bird, portrait, cinematic lighting, hyperrealistic, octane render, 8k, detailed"
+
+styled_image = pipe(style_prompt).images[0]
+styled_image
+```
+
+**2. Using Negative Prompts**
+You can also tell the model what you *don't* want to see using a `negative_prompt`. This is very powerful for improving quality.
+
+```python
+negative_prompt = "cartoon, blurry, ugly, distorted, low quality, jpeg artifacts"
+
+# Generate the image again, but this time using the negative prompt
+image_with_neg = pipe(style_prompt, negative_prompt=negative_prompt).images[0]
+image_with_neg
+```
+
+*Compare this image to the previous one. The negative prompt often helps clean up common issues.*
+
+**3. Creative Challenge: Combining Content and Style**
+Now, try to create something truly unique.
+
+```python
+# Your creative challenge prompt
+challenge_prompt = "A traditional Mauritian Sega dancer on the beach at sunset, in the vibrant, swirling style of Van Gogh's Starry Night"
+
+# Generate the art
+art_image = pipe(challenge_prompt, negative_prompt=negative_prompt).images[0]
+art_image
+```
+
+**Conclusion:**
+Congratulations\! You have now used a state-of-the-art text-to-image model to create original art. You've learned that **prompt engineering** is a new kind of creative skill, blending language and artistic vision. This technology is rapidly evolving and has profound implications for art, design, and creativity. It also raises important ethical questions about copyright, deepfakes, and the future of creative work, which are crucial for any AI Architect to consider.

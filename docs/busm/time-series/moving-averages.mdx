@@ -1,0 +1,444 @@
+---
+id: moving-averages
+title: Finding Moving Averages
+hide_title: true
+sidebar_position: 1
+sidebar_label: Moving Averages
+---
+import ModuleBanner from '@site/src/components/busm/busm-banner';
+
+<ModuleBanner />
+
+### **Concept: Moving Averages** 📈
+
+A **moving average** is a technique used in business to analyze a set of data points collected over time (a time series). Its main purpose is to **smooth out short-term fluctuations** (or "noise") in the data to make it easier to see the underlying, long-term trend.
+
+The "n-point" part (e.g., 5-point, 4-point, 3-point) tells you how many consecutive data points to average together at each step. The calculation then "moves" along the dataset, dropping the oldest data point and adding the newest one for each subsequent average.
+
+* A **3-point** moving average looks at 3 data points at a time.
+* A **4-point** moving average is often used for quarterly data to smooth out seasonal variations over a year.
+* A **5-point** moving average looks at 5 data points, which might be used to see the trend in data collected over a 5-day work week.
+
+---
+### **Worked Examples from Past Papers**
+
+:::danger 19th November 2024, Section A, Question 11
+Calculate the first THREE (3) 5-point moving averages for the following data: 322, 451, 375, 482, 469, 327, 354
+:::
+:::success Answer
+419.8, 420.8, 402.4 ✔️
+:::note Explanation
+1.  **First 5-point Average:**
+$$\frac{322 + 451 + 375 + 482 + 469}{5} = \frac{2099}{5} = 419.8$$
+2.  **Second 5-point Average:** (Drop 322, add 327)
+$$\frac{451 + 375 + 482 + 469 + 327}{5} = \frac{2104}{5} = 420.8$$
+3.  **Third 5-point Average:** (Drop 451, add 354)
+$$\frac{375 + 482 + 469 + 327 + 354}{5} = \frac{2007}{5} = 402.4$$
+:::
+
+---
+:::danger 10 September 2024, Section A, Question 17
+Calculate the first THREE (3) 2-point moving averages for the following data: 35, 46, 52, 27
+:::
+:::success Answer
+40.5, 49, 39.5 ✔️
+:::note Explanation
+1.  **First 2-point Average:**
+$$\frac{35 + 46}{2} = \frac{81}{2} = 40.5$$
+2.  **Second 2-point Average:**
+$$\frac{46 + 52}{2} = \frac{98}{2} = 49$$
+3.  **Third 2-point Average:**
+$$\frac{52 + 27}{2} = \frac{79}{2} = 39.5$$
+:::
+
+---
+:::danger 4 June 2024, Section A, Question 12
+Calculate the first THREE (3) FIVE (5)-point moving averages for the following data: 32, 41, 38, 42, 46, 37, 35
+:::
+:::success Answer
+39.8, 40.8, 39.6 ✔️
+:::note Explanation
+1.  **First 5-point Average:**
+$$\frac{32 + 41 + 38 + 42 + 46}{5} = \frac{199}{5} = 39.8$$
+2.  **Second 5-point Average:** (Drop 32, add 37)
+$$\frac{41 + 38 + 42 + 46 + 37}{5} = \frac{204}{5} = 40.8$$
+3.  **Third 5-point Average:** (Drop 41, add 35)
+$$\frac{38 + 42 + 46 + 37 + 35}{5} = \frac{198}{5} = 39.6$$
+:::
+
+---
+:::danger 7 March 2024, Section A, Question 18
+Calculate the first THREE (3)-point moving averages for the following data: 237, 255, 168, 225, 189
+:::
+:::success Answer
+220, 216, 194 ✔️
+:::note Explanation
+1.  **First 3-point Average:**
+$$\frac{237 + 255 + 168}{3} = \frac{660}{3} = 220$$
+2.  **Second 3-point Average:**
+$$\frac{255 + 168 + 225}{3} = \frac{648}{3} = 216$$
+3.  **Third 3-point Average:**
+$$\frac{168 + 225 + 189}{3} = \frac{582}{3} = 194$$
+:::
+
+---
+:::danger 21 November 2023, Section A, Question 20
+Calculate the first THREE (3) 5-point moving averages for the following data: 41, 45, 47, 42, 48, 47, 43
+:::
+:::success Answer
+44.6, 45.8, 45.4 ✔️
+:::note Explanation
+1.  **First 5-point Average:**
+$$\frac{41 + 45 + 47 + 42 + 48}{5} = \frac{223}{5} = 44.6$$
+2.  **Second 5-point Average:** (Drop 41, add 47)
+$$\frac{45 + 47 + 42 + 48 + 47}{5} = \frac{229}{5} = 45.8$$
+3.  **Third 5-point Average:** (Drop 45, add 43)
+$$\frac{47 + 42 + 48 + 47 + 43}{5} = \frac{227}{5} = 45.4$$
+:::
+
+---
+:::danger 12 September 2023, Section A, Question 15
+Calculate the first THREE (3) 3-point moving averages for the following data: 328, 415, 427, 412, 418
+:::
+:::success Answer
+390, 418, 419 ✔️
+:::note Explanation
+1.  **First 3-point Average:**
+$$\frac{328 + 415 + 427}{3} = \frac{1170}{3} = 390$$
+2.  **Second 3-point Average:**
+$$\frac{415 + 427 + 412}{3} = \frac{1254}{3} = 418$$
+3.  **Third 3-point Average:**
+$$\frac{427 + 412 + 418}{3} = \frac{1257}{3} = 419$$
+:::
+
+---
+:::danger 13 June 2023, Section A, Question 14
+Calculate the THREE (3) 5-point moving averages for the following data: 25, 36, 48, 41, 47, 51, 27
+:::
+:::success Answer
+39.4, 44.6, 42.8 ✔️
+:::note Explanation
+1.  **First 5-point Average:**
+$$\frac{25 + 36 + 48 + 41 + 47}{5} = \frac{197}{5} = 39.4$$
+2.  **Second 5-point Average:**
+$$\frac{36 + 48 + 41 + 47 + 51}{5} = \frac{223}{5} = 44.6$$
+3.  **Third 5-point Average:**
+$$\frac{48 + 41 + 47 + 51 + 27}{5} = \frac{214}{5} = 42.8$$
+:::
+
+---
+:::danger 14 March 2023, Section A, Question 19
+Calculate the first three 4-point moving averages for the following data: 511, 505, 509, 525, 514, 528
+:::
+:::success Answer
+512.5, 513.25, 519 ✔️
+:::note Explanation
+1.  **First 4-point Average:**
+$$\frac{511 + 505 + 509 + 525}{4} = \frac{2050}{4} = 512.5$$
+2.  **Second 4-point Average:**
+$$\frac{505 + 509 + 525 + 514}{4} = \frac{2053}{4} = 513.25$$
+3.  **Third 4-point Average:**
+$$\frac{509 + 525 + 514 + 528}{4} = \frac{2076}{4} = 519$$
+:::
+
+---
+:::danger 08 March 2022, Section A, Question 13
+Calculate the first THREE (3) 5-point moving averages for the following data: 212, 235, 228, 252, 241, 228, 250
+:::
+:::success Answer
+233.6, 236.8, 239.8 ✔️
+:::note Explanation
+1.  **First 5-point Average:**
+$$\frac{212 + 235 + 228 + 252 + 241}{5} = \frac{1168}{5} = 233.6$$
+2.  **Second 5-point Average:**
+$$\frac{235 + 228 + 252 + 241 + 228}{5} = \frac{1184}{5} = 236.8$$
+3.  **Third 5-point Average:**
+$$\frac{228 + 252 + 241 + 228 + 250}{5} = \frac{1199}{5} = 239.8$$
+:::
+
+---
+:::danger 07 September 2021, Section A, Question 19
+Calculate the first THREE (3) 5-point moving averages for the following data: 18, 25, 21, 32, 15, 17, 29
+:::
+:::success Answer
+22.2, 22, 22.8 ✔️
+:::note Explanation
+1.  **First 5-point Average:**
+$$\frac{18 + 25 + 21 + 32 + 15}{5} = \frac{111}{5} = 22.2$$
+2.  **Second 5-point Average:**
+$$\frac{25 + 21 + 32 + 15 + 17}{5} = \frac{110}{5} = 22$$
+3.  **Third 5-point Average:**
+$$\frac{21 + 32 + 15 + 17 + 29}{5} = \frac{114}{5} = 22.8$$
+:::
+
+---
+:::danger 9 March 2021, Section A, Question 11
+Calculate the THREE (3) 4-point moving averages for the following data: 101, 152, 147, 136, 104, 124
+:::
+:::success Answer
+134, 134.75, 127.75 ✔️
+:::note Explanation
+1.  **First 4-point Average:**
+$$\frac{101 + 152 + 147 + 136}{4} = \frac{536}{4} = 134$$
+2.  **Second 4-point Average:**
+$$\frac{152 + 147 + 136 + 104}{4} = \frac{539}{4} = 134.75$$
+3.  **Third 4-point Average:**
+$$\frac{147 + 136 + 104 + 124}{4} = \frac{511}{4} = 127.75$$
+:::
+
+---
+:::danger 03 March 2020, Section A, Question 14
+Calculate the first THREE (3) 5-point moving averages for the following data: 12, 15, 13, 14, 17, 11, 14
+:::
+:::success Answer
+14.2, 14, 13.8 ✔️
+:::note Explanation
+1.  **First 5-point Average:**
+$$\frac{12 + 15 + 13 + 14 + 17}{5} = \frac{71}{5} = 14.2$$
+2.  **Second 5-point Average:**
+$$\frac{15 + 13 + 14 + 17 + 11}{5} = \frac{70}{5} = 14$$
+3.  **Third 5-point Average:**
+$$\frac{13 + 14 + 17 + 11 + 14}{5} = \frac{69}{5} = 13.8$$
+:::
+
+---
+:::danger 26 November 2019, Section A, Question 12
+Calculate the first three 4-point moving averages for the following data: 32, 25, 30, 39, 26, 32
+:::
+:::success Answer
+31.5, 30, 31.75 ✔️
+:::note Explanation
+1.  **First 4-point Average:**
+$$\frac{32 + 25 + 30 + 39}{4} = \frac{126}{4} = 31.5$$
+2.  **Second 4-point Average:**
+$$\frac{25 + 30 + 39 + 26}{4} = \frac{120}{4} = 30$$
+3.  **Third 4-point Average:**
+$$\frac{30 + 39 + 26 + 32}{4} = \frac{127}{4} = 31.75$$
+:::
+
+---
+:::danger 3 September 2019, Section A, Question 11
+Calculate the first three 3-point moving averages for the following data: 5, 8, 11, 14, 11
+:::
+:::success Answer
+8, 11, 12 ✔️
+:::note Explanation
+1.  **First 3-point Average:**
+$$\frac{5 + 8 + 11}{3} = \frac{24}{3} = 8$$
+2.  **Second 3-point Average:**
+$$\frac{8 + 11 + 14}{3} = \frac{33}{3} = 11$$
+3.  **Third 3-point Average:**
+$$\frac{11 + 14 + 11}{3} = \frac{36}{3} = 12$$
+:::
+
+---
+:::danger 28 May 2019, Section A, Question 12
+Calculate the first three 4-point moving averages for the following data: 11, 15, 14, 15, 12, 13
+:::
+:::success Answer
+13.75, 14, 13.5 ✔️
+:::note Explanation
+1.  **First 4-point Average:**
+$$\frac{11 + 15 + 14 + 15}{4} = \frac{55}{4} = 13.75$$
+2.  **Second 4-point Average:**
+$$\frac{15 + 14 + 15 + 12}{4} = \frac{56}{4} = 14$$
+3.  **Third 4-point Average:**
+$$\frac{14 + 15 + 12 + 13}{4} = \frac{54}{4} = 13.5$$
+:::
+
+---
+:::danger 05 March 2019, Section A, Question 14
+Calculate the first three 5-point moving averages for the following data: 53, 51, 50, 55, 58, 60, 59
+:::
+:::success Answer
+53.4, 54.8, 56.4 ✔️
+:::note Explanation
+1.  **First 5-point Average:**
+$$\frac{53 + 51 + 50 + 55 + 58}{5} = \frac{267}{5} = 53.4$$
+2.  **Second 5-point Average:**
+$$\frac{51 + 50 + 55 + 58 + 60}{5} = \frac{274}{5} = 54.8$$
+3.  **Third 5-point Average:**
+$$\frac{50 + 55 + 58 + 60 + 59}{5} = \frac{282}{5} = 56.4$$
+:::
+
+---
+:::danger 27 November 2018, Section A, Question 12
+Calculate the first THREE (3) 4-point moving averages for the following data: 211, 205, 209, 225, 214, 228
+:::
+:::success Answer
+212.5, 213.25, 219 ✔️
+:::note Explanation
+1.  **First 4-point Average:**
+$$\frac{211 + 205 + 209 + 225}{4} = \frac{850}{4} = 212.5$$
+2.  **Second 4-point Average:**
+$$\frac{205 + 209 + 225 + 214}{4} = \frac{853}{4} = 213.25$$
+3.  **Third 4-point Average:**
+$$\frac{209 + 225 + 214 + 228}{4} = \frac{876}{4} = 219$$
+:::
+
+---
+:::danger 6 March 2018, Section A, Question 14
+Calculate the first three 3-point moving averages for the following data: 231, 250, 148, 205, 186
+:::
+:::success Answer
+209.7, 201, 179.7 ✔️
+:::note Explanation
+(Rounding to one decimal place)
+1.  **First 3-point Average:**
+$$\frac{231 + 250 + 148}{3} = \frac{629}{3} \approx 209.7$$
+2.  **Second 3-point Average:**
+$$\frac{250 + 148 + 205}{3} = \frac{603}{3} = 201$$
+3.  **Third 3-point Average:**
+$$\frac{148 + 205 + 186}{3} = \frac{539}{3} \approx 179.7$$
+:::
+
+---
+:::danger 28 November 2017, Section A, Question 19
+Calculate the first three 4-point moving averages for the following data: 58, 61, 73, 59, 66, 57. Give your answer to one decimal place.
+:::
+:::success Answer
+62.8, 64.8, 63.8 ✔️
+:::note Explanation
+1.  **First 4-point Average:**
+$$\frac{58 + 61 + 73 + 59}{4} = \frac{251}{4} = 62.75 \approx 62.8$$
+2.  **Second 4-point Average:**
+$$\frac{61 + 73 + 59 + 66}{4} = \frac{259}{4} = 64.75 \approx 64.8$$
+3.  **Third 4-point Average:**
+$$\frac{73 + 59 + 66 + 57}{4} = \frac{255}{4} = 63.75 \approx 63.8$$
+:::
+
+---
+:::danger 5 September 2017, Section A, Question 13
+Calculate the first three 3-point moving averages for the following data: 12.2, 16.5, 14.2, 15.2, 19.5
+:::
+:::success Answer
+14.3, 15.3, 16.3 ✔️
+:::note Explanation
+(Rounding to one decimal place)
+1.  **First 3-point Average:**
+$$\frac{12.2 + 16.5 + 14.2}{3} = \frac{42.9}{3} = 14.3$$
+2.  **Second 3-point Average:**
+$$\frac{16.5 + 14.2 + 15.2}{3} = \frac{45.9}{3} = 15.3$$
+3.  **Third 3-point Average:**
+$$\frac{14.2 + 15.2 + 19.5}{3} = \frac{48.9}{3} = 16.3$$
+:::
+
+---
+:::danger 2 June 2015, Section A, Question 13
+Calculate the first THREE (3) four-point moving averages for the following data. 34, 41, 39, 44, 47, 38
+:::
+:::success Answer
+39.5, 42.75, 42 ✔️
+:::note Explanation
+1.  **First 4-point Average:**
+$$\frac{34 + 41 + 39 + 44}{4} = \frac{158}{4} = 39.5$$
+2.  **Second 4-point Average:**
+$$\frac{41 + 39 + 44 + 47}{4} = \frac{171}{4} = 42.75$$
+3.  **Third 4-point Average:**
+$$\frac{39 + 44 + 47 + 38}{4} = \frac{168}{4} = 42$$
+:::
+
+---
+:::danger 1 March 2016, Section A, Question 13
+Calculate the first three 3-point moving averages for the following data: 632, 714, 682, 698, 708
+:::
+:::success Answer
+676, 698, 696 ✔️
+:::note Explanation
+1.  **First 3-point Average:**
+$$\frac{632 + 714 + 682}{3} = \frac{2028}{3} = 676$$
+2.  **Second 3-point Average:**
+$$\frac{714 + 682 + 698}{3} = \frac{2094}{3} = 698$$
+3.  **Third 3-point Average:**
+$$\frac{682 + 698 + 708}{3} = \frac{2088}{3} = 696$$
+:::
+
+---
+:::danger 3 March 2015, Section A, Question 11
+Calculate the first THREE (3) three-point moving averages for the following data. 270, 309, 312, 300, 294
+:::
+:::success Answer
+297, 307, 302 ✔️
+:::note Explanation
+1.  **First 3-point Average:**
+$$\frac{270 + 309 + 312}{3} = \frac{891}{3} = 297$$
+2.  **Second 3-point Average:**
+$$\frac{309 + 312 + 300}{3} = \frac{921}{3} = 307$$
+3.  **Third 3-point Average:**
+$$\frac{312 + 300 + 294}{3} = \frac{906}{3} = 302$$
+:::
+
+---
+:::danger 25 November 2014, Section A, Question 12
+Calculate the first THREE (3) four-point moving averages for the following data. 1003, 1124, 1078, 1082, 1093, 1131
+:::
+:::success Answer
+1071.75, 1094.25, 1096.5 ✔️
+:::note Explanation
+1.  **First 4-point Average:**
+$$\frac{1003 + 1124 + 1078 + 1082}{4} = \frac{4287}{4} = 1071.75$$
+2.  **Second 4-point Average:**
+$$\frac{1124 + 1078 + 1082 + 1093}{4} = \frac{4377}{4} = 1094.25$$
+3.  **Third 4-point Average:**
+$$\frac{1078 + 1082 + 1093 + 1131}{4} = \frac{4384}{4} = 1096.5$$
+:::
+
+---
+:::danger 2 September 2014, Section A, Question 11
+Calculate the first THREE (3) three-point moving averages for the following data. 257, 341, 298, 281, 321, 317. Round your answer to 1 decimal place.
+:::
+:::success Answer
+298.7, 306.7, 300 ✔️
+:::note Explanation
+1.  **First 3-point Average:**
+$$\frac{257 + 341 + 298}{3} = \frac{896}{3} \approx 298.7$$
+2.  **Second 3-point Average:**
+$$\frac{341 + 298 + 281}{3} = \frac{920}{3} \approx 306.7$$
+3.  **Third 3-point Average:**
+$$\frac{298 + 281 + 321}{3} = \frac{900}{3} = 300$$
+:::
+
+---
+:::danger 3 June 2014, Section A, Question 11
+Calculate the first THREE (3) four-point moving averages for the following data. 11, 18, 7, 9, 21, 16
+:::
+:::success Answer
+11.25, 13.75, 13.25 ✔️
+:::note Explanation
+1.  **First 4-point Average:**
+$$\frac{11 + 18 + 7 + 9}{4} = \frac{45}{4} = 11.25$$
+2.  **Second 4-point Average:**
+$$\frac{18 + 7 + 9 + 21}{4} = \frac{55}{4} = 13.75$$
+3.  **Third 4-point Average:**
+$$\frac{7 + 9 + 21 + 16}{4} = \frac{53}{4} = 13.25$$
+:::
+
+---
+:::danger 3 June 2014, Section A, Question 12
+A factory producing radios had the following monthly sales figures (in thousands). Jan: 14, Feb: 12, Mar: 13, Apr: 11, May: 15, Jun: 15, Jul: 17. Calculate the first THREE (3) three-point moving averages.
+:::
+:::success Answer
+13, 12, 13 ✔️
+:::note Explanation
+1.  **First 3-point Average (Feb):**
+$$\frac{14 + 12 + 13}{3} = \frac{39}{3} = 13$$
+2.  **Second 3-point Average (Mar):**
+$$\frac{12 + 13 + 11}{3} = \frac{36}{3} = 12$$
+3.  **Third 3-point Average (Apr):**
+$$\frac{13 + 11 + 15}{3} = \frac{39}{3} = 13$$
+:::
+
+---
+:::danger 4 March 2014, Section A, Question 12
+Calculate the first THREE (3) five-point moving averages for the following data: 31, 28, 17, 29, 22, 18, 23
+:::
+:::success Answer
+25.4, 22.8, 21.8 ✔️
+:::note Explanation
+1.  **First 5-point Average:**
+$$\frac{31 + 28 + 17 + 29 + 22}{5} = \frac{127}{5} = 25.4$$
+2.  **Second 5-point Average:**
+$$\frac{28 + 17 + 29 + 22 + 18}{5} = \frac{114}{5} = 22.8$$
+3.  **Third 5-point Average:**
+$$\frac{17 + 29 + 22 + 18 + 23}{5} = \frac{109}{5} = 21.8$$
+:::

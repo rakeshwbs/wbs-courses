@@ -1,0 +1,83 @@
+---
+id: lecture-notes
+title: Lecture Notes
+hide_title: true
+sidebar_position: 1
+sidebar_label: Linked Lists
+sidebar_class_name: icon-lecture
+---
+import ModuleBanner from '@site/src/components/dsa/dsa-banner';
+
+<ModuleBanner />
+
+
+## **Week 2: Introduction to Linked Lists**
+
+Last week we built our foundation. This week, we use those C++ concepts to build our very first dynamic data structure. We'll explore why arrays sometimes fall short and how linked lists provide an elegant solution.
+
+### **1. The Limitations of Arrays**
+
+Arrays are powerful, but they have two main drawbacks:
+
+  * **Fixed Size:** A standard array's size is set at compile time. Even if we allocate an array dynamically (e.g., `new int[50]`), its size is fixed once it's created. If we need more space, we have to create a new, larger array and copy all the old elements over—an expensive operation.
+  * **Inefficient Insertions/Deletions:** If you have a sorted array and want to insert an element in the middle, you must shift all subsequent elements one position to the right. Similarly, deleting an element requires shifting all subsequent elements to the left. For large arrays, this is very slow.
+
+### **2. The Linked List Concept 🔗**
+
+A **linked list** is a linear data structure, like an array, but its elements are not stored in contiguous memory locations. Instead, each element (called a **node**) contains a **pointer** that "links" to the next element in the sequence.
+
+  * **Analogy: A Treasure Hunt** 🗺️
+Imagine a treasure hunt. You are given the first clue (`head`). This clue contains some information (the `data`) and the location of the next clue (the `next` pointer). You follow it to find the second clue, which in turn points to the third, and so on, until you reach the final clue, which tells you the hunt is over (`nullptr`). You can easily add a new clue anywhere in the middle by just changing where a previous clue points.
+
+### **3. Anatomy of a Linked List**
+
+A linked list is made of two key components:
+
+1.  **The Node:** This is the building block of the list. Each node contains:
+
+  * **Data:** The actual value being stored (e.g., an `int`, `string`, or a more complex object).
+  * **Next Pointer:** A pointer that stores the memory address of the next node in the list. The very last node's `next` pointer is set to `nullptr` to signify the end of the list.
+
+2.  **The Head Pointer:** This is a special pointer that doesn't store data. Its only job is to hold the memory address of the very first node. If `head` points to `nullptr`, the list is empty. By knowing the `head`, we can traverse the entire list.
+
+### **4. Beginning the C++ OOP Implementation**
+
+We will now use Object-Oriented Programming to model this structure. We'll create two classes: one for the `Node` and one for the `LinkedList` itself, which will manage the nodes.
+
+**The `Node` Class:** This is a simple container.
+
+```cpp
+class Node {
+public:
+    int data;    // The data stored in the node
+    Node* next;  // A pointer to the next node in the list
+
+    // A constructor for convenience to create a new node
+    Node(int value) {
+        data = value;
+        next = nullptr; // A new node initially points to nothing
+    }
+};
+```
+
+**The `LinkedList` Class:** This class encapsulates the logic for the entire list. The outside world will interact with this class, not directly with the nodes.
+
+```cpp
+class LinkedList {
+private:
+    Node* head; // The private head pointer. This is all we need to find the list.
+
+public:
+    // The constructor creates an empty list
+    LinkedList() {
+        head = nullptr;
+    }
+
+    // We will add methods like append(), delete(), etc., here in the next lecture.
+};
+```
+
+This is a perfect example of **encapsulation**. The `head` pointer is `private`, hidden from the outside world. All operations on the list will be handled through clean, `public` methods.
+
+-----
+

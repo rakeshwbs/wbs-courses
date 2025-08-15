@@ -1,0 +1,110 @@
+---
+id: lab-sheet
+title: Labsheet
+sidebar_position: 2
+hide_title: true
+sidebar_label: 💻 Route Redistribution
+---
+import ModuleBanner from '@site/src/components/art/art-banner';
+
+<ModuleBanner />
+
+
+# Week 9 Lab: Route Redistribution
+
+## Objective
+
+This lab will give you hands-on experience with the complex but critical skill of route redistribution. You will build a network with two separate routing protocol domains (EIGRP and OSPF) and configure a single router to act as an Autonomous System Boundary Router (ASBR) to share routes between them. You will learn the importance of seed metrics and the `subnets` keyword, and finally, you will use a distribute-list to control which routes are shared.
+
+## Required Software
+
+- Cisco Packet Tracer
+
+## Network Topology
+
+We will create a topology where Router-B serves as the border router between an EIGRP domain and an OSPF domain.
+
+```text
+  (EIGRP AS 100 DOMAIN)               (OSPF Area 0 DOMAIN)
+(Lo0: 1.1.1.1/24)                                    (Lo0: 3.3.3.3/24)
+     |                                                    |
++----------+      10.1.12.0/30      +----------+      10.1.23.0/30      +----------+
+| Router-A |------------------------| Router-B |------------------------| Router-C |
+|  (EIGRP) |        (ASBR)        |  (OSPF)  |
++----------+                        +----------+                        +----------+
+```
+
+---
+
+## Lab Tasks
+
+### Task 1: Build and Configure Separate Routing Domains
+
+1. Build the topology, configure all IP addresses, and enable the interfaces.
+2. **Configure the EIGRP Domain:**
+- On **Router-A** and **Router-B**, configure `eigrp 100`.
+- Router-A: `router eigrp 100`, `network 1.1.1.0 0.0.0.255`, `network 10.1.12.0 0.0.0.3`
+- Router-B: `router eigrp 100`, `network 10.1.12.0 0.0.0.3`
+3. **Configure the OSPF Domain:**
+- On **Router-B** and **Router-C**, configure `ospf 1`.
+- Router-B: `router ospf 1`, `router-id 2.2.2.2`, `network 10.1.23.0 0.0.0.3 area 0`
+- Router-C: `router ospf 1`, `router-id 3.3.3.3`, `network 3.3.3.0 0.0.0.255 area 0`, `network 10.1.23.0 0.0.0.3 area 0`
+4. **Initial Verification:**
+- Check `show ip route` on **Router-A**. It should see its own networks and the link to Router-B, but NOT Router-C's loopback.
+- Check `show ip route` on **Router-C**. It should see its own networks and the link to Router-B, but NOT Router-A's loopback.
+
+### Task 2: Configure Two-Way Redistribution on Router-B
+
+Router-B must translate routes from OSPF into EIGRP, and from EIGRP into OSPF.
+
+1. **Redistribute OSPF into EIGRP:** Enter EIGRP configuration mode on Router-B. You **must** provide a seed metric.
+```bash
+router eigrp 100
+redistribute ospf 1 metric 10000 100 255 1 1500
+   ```
+2. **Redistribute EIGRP into OSPF:** Enter OSPF configuration mode on Router-B. You **must** use the `subnets` keyword.
+```bash
+router ospf 1
+redistribute eigrp 100 subnets
+   ```
+
+### Task 3: Verify Redistribution
+
+1. On **Router-A**, check the routing table: `show ip route`.
+- **Analysis:** You should now see a route to `3.3.3.0/24`. It will be marked as `D EX`, meaning it's an EIGRP External route. Note its Administrative Distance is 170.
+2. On **Router-C**, check the routing table: `show ip route`.
+- **Analysis:** You should now see a route to `1.1.1.0/24`. It will be marked as `O E2`, meaning it's an OSPF External Type 2 route. Note its default metric is 20.
+3. **Confirm Connectivity:** From Router-A, ping Router-C's loopback.
+```bash
+ping 3.3.3.3 source 1.1.1.1
+   ```
+The ping should now be **SUCCESSFUL**.
+
+### Task 4: Control Redistribution with a Distribute-List
+
+**Goal:** Prevent Router-A's loopback network (`1.1.1.0/24`) from being advertised into the OSPF domain, while still allowing other EIGRP routes (if they existed) to be redistributed.
+
+1. On **Router-B**, create a standard ACL to identify the network we want to block.
+```bash
+configure terminal
+access-list 1 deny 1.1.1.0 0.0.0.255
+access-list 1 permit any
+   ```
+*(Remember: ACLs have an implicit deny, so we must explicitly permit everything else we want to allow).*
+2. Apply this ACL as a **distribute-list** within the OSPF process on Router-B. This filters routes that are being redistributed *out* of OSPF from another protocol.
+```bash
+router ospf 1
+distribute-list 1 out eigrp 100
+   ```
+3. **Verification:**
+- Go to **Router-C** and run `show ip route`. Wait a minute for the OSPF updates to time out.
+- The route to `1.1.1.0/24` should now be **gone** from Router-C's routing table. You have successfully filtered the redistribution.
+
+---
+
+## Exploration Questions
+
+1. In Task 3, what was the administrative distance for the `O E2` route on Router-C? What was the AD for the `D EX` route on Router-A? Why are these AD values higher than their internal counterparts (`O`=110, `D`=90)?
+2. When redistributing into EIGRP, you had to manually define a seed metric. When redistributing into OSPF, you did not. Why? What default metric did OSPF assign to the redistributed EIGRP route?
+3. What would have happened in Task 2 if you had forgotten the `subnets` keyword when redistributing EIGRP into OSPF?
+4. A distribute-list is a simple filtering method. What more advanced tool, discussed in the lecture, could you use to not only filter routes but also change their metric or other attributes as they are being redistributed?

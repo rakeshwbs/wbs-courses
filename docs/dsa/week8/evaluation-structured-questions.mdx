@@ -1,0 +1,179 @@
+---
+id: evaluation-structured-questions
+title: Exam-type Questions
+hide_title: true
+sidebar_position: 4
+sidebar_label: Exam-type Questions
+sidebar_class_name: icon-exam
+---
+import ModuleBanner from '@site/src/components/dsa/dsa-banner';
+
+<ModuleBanner />
+
+
+
+### **Sample Examination Questions & Answers - Week 8 Concepts**
+
+**QUESTION 1 \[25 MARKS]**
+
+(a) Every valid recursive function is built upon two fundamental components. Name and define these two components. What is the consequence if the main stopping component is missing?
+\[9]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    The two fundamental components are:
+
+    1. **Base Case:** This is the simplest version of the problem that can be solved directly without further recursion. It acts as the stopping condition for the function.
+    2. **Recursive Step:** This is the part of the function that breaks the current problem down into a smaller, self-similar subproblem and calls itself to solve that subproblem. It must make progress toward the base case.
+
+    **Consequence:** If the **base case** is missing or is never reached, the function will call itself infinitely. Each call consumes memory on the **call stack**. Eventually, the call stack will run out of space, leading to a fatal runtime error known as a **stack overflow**.
+
+    **Marking Scheme:**
+
+    * \[3 Marks] - For correctly defining the Base Case.
+    * \[3 Marks] - For correctly defining the Recursive Step.
+    * \[3 Marks] - For explaining that a missing base case leads to infinite recursion and a stack overflow error.
+
+</details>
+
+(b) Trace the execution of the recursive function call `factorial(4)`. Show the sequence of recursive calls made and the sequence of return values that are multiplied to get the final result.
+\[8]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    **Sequence of Calls:**
+
+    1. `factorial(4)` is called. It needs to compute `4 * factorial(3)`.
+    2. `factorial(3)` is called. It needs to compute `3 * factorial(2)`.
+    3. `factorial(2)` is called. It needs to compute `2 * factorial(1)`.
+    4. `factorial(1)` is called. It needs to compute `1 * factorial(0)`.
+    5. `factorial(0)` is called. It hits the base case and returns `1`.
+
+    **Sequence of Returns and Multiplications:**
+
+    1. `factorial(0)` returns `1`.
+    2. The `factorial(1)` call receives `1`, calculates `1 * 1`, and returns `1`.
+    3. The `factorial(2)` call receives `1`, calculates `2 * 1`, and returns `2`.
+    4. The `factorial(3)` call receives `2`, calculates `3 * 2`, and returns `6`.
+    5. The original `factorial(4)` call receives `6`, calculates `4 * 6`, and returns the final result: **24**.
+
+    **Marking Scheme:**
+
+    * \[4 Marks] - For correctly showing the sequence of calls down to the base case.
+    * \[4 Marks] - For correctly showing the "unwinding" process of returns and multiplications to arrive at the final answer.
+
+</details>
+
+(c) Explain how the **Call Stack** data structure enables recursion to work. How does it "remember" the state of previous function calls?
+\[8]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    The Call Stack is a stack data structure that a program uses to keep track of the currently executing functions.
+
+    **How it enables recursion:**
+
+    1. **Pushing Frames:** Each time a function is called (recursively or not), a new **stack frame** is created and pushed onto the top of the call stack.
+    2. **Storing State:** This stack frame contains all the information needed for that specific call, including its parameters and local variables. For a recursive call like `factorial(3)`, its frame (with `n=3`) is separate from the next frame for `factorial(2)` (with `n=2`).
+    3. **Popping Frames:** When a function call finishes (i.e., hits a `return` statement), its stack frame is popped off the top of the stack, and control returns to the function in the frame now at the top.
+
+    This mechanism allows the program to "remember" where it was and what the values of its variables were in the previous call. It can suspend the execution of `factorial(3)`, execute `factorial(2)`, and then resume `factorial(3)` with its original value of `n` intact because that value was saved in its own stack frame.
+
+    **Marking Scheme:**
+
+    * \[3 Marks] - For explaining that a new stack frame is pushed for each call.
+    * \[3 Marks] - For explaining that this frame stores the local state (parameters/variables) for that specific call.
+    * \[2 Marks] - For explaining that returning from a function pops the frame, restoring the previous state.
+
+</details>
+
+---
+
+**QUESTION 2 \[25 MARKS]**
+
+(a) Write the complete C++ code for the recursive `fibonacci(int n)` function. The function should return the nth number in the sequence (where `fib(0)` is 0). Your implementation must include the necessary base cases.
+\[9]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    ```cpp
+    int fibonacci(int n) {
+    // Base Case 1: for n=0
+    if (n == 0) {
+    return 0;
+}
+    // Base Case 2: for n=1
+    if (n == 1) {
+    return 1;
+}
+
+    // Recursive Step
+    // Note: An 'if (n <= 1) { return n; }' would combine the base cases.
+    else {
+    return fibonacci(n - 1) + fibonacci(n - 2);
+}
+}
+    ```
+
+    **Marking Scheme:**
+
+    * \[4 Marks] - For correctly implementing the two necessary base cases for `n=0` and `n=1`. (A single `if (n <= 1)` check is also correct).
+    * \[5 Marks] - For correctly implementing the recursive step `fibonacci(n - 1) + fibonacci(n - 2)`.
+
+</details>
+
+(b) The Towers of Hanoi is a classic recursive problem. Describe, in plain English or pseudocode, the three high-level steps required to solve the puzzle for `n` disks, moving them from a `source` rod to a `destination` rod using an `auxiliary` rod.
+\[9]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    The three steps to move `n` disks from `source` to `destination` are:
+
+    1. **Move `n-1` disks from the `source` rod to the `auxiliary` rod.** You use the `destination` rod as the temporary helper for this step. (This is the first recursive call).
+    2. **Move the single largest disk (disk `n`) from the `source` rod to the `destination` rod.** (This is the base operation performed at the current level of recursion).
+    3. **Move the `n-1` disks from the `auxiliary` rod to the `destination` rod.** You use the original `source` rod as the temporary helper for this step. (This is the second recursive call).
+
+    **Marking Scheme:**
+
+    * \[3 Marks] - For correctly describing the first recursive step (moving n-1 disks to auxiliary).
+    * \[3 Marks] - For correctly describing the base move (moving the largest disk to destination).
+    * \[3 Marks] - For correctly describing the second recursive step (moving n-1 disks from auxiliary).
+
+</details>
+
+(c) Briefly explain why the simple recursive implementation of the Fibonacci function is considered very inefficient for calculating larger values of `n` (e.g., `n > 40`).
+\[7]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    The simple recursive implementation is highly inefficient due to a massive number of **redundant calculations**. The function re-calculates the same Fibonacci numbers over and over again.
+
+    For example, to compute `fib(5)`, the function tree calls `fib(4)` and `fib(3)`. The call to `fib(4)` will, in turn, compute `fib(3)` again. The value for `fib(3)` is calculated from scratch twice. This problem grows exponentially. `fib(2)` is calculated three times, and so on. This leads to an exponential time complexity (approximately \$O(2^n)\$), which is impractically slow for even moderately large values of `n`.
+
+    **Marking Scheme:**
+
+    * \[4 Marks] - For correctly identifying the problem as "redundant" or "overlapping" calculations.
+    * \[3 Marks] - For providing a simple example (`fib(5)` calls `fib(3)` twice) or explaining that the number of calls grows exponentially.
+
+</details>
+
+---
+

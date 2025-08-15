@@ -1,0 +1,188 @@
+---
+id: evaluation-structured-questions
+title: Exam-type Questions
+hide_title: true
+sidebar_position: 4
+sidebar_label: Exam-type Questions
+sidebar_class_name: icon-exam
+---
+import ModuleBanner from '@site/src/components/ai/ai-banner';
+
+<ModuleBanner />
+
+### **AFI-373: The AI Architect's Journey**
+
+**Sample Examination Questions & Answers - Week 2 Concepts**
+
+**QUESTION 1 [25 MARKS]**
+
+(a) Explain the core principle of **Supervised Machine Learning**. In your answer, clearly differentiate between a **regression** task and a **classification** task, providing one clear, real-world example for each.
+[6]
+
+<details>
+<summary>Click to see the answer and marking scheme</summary>
+
+**Answer:**
+
+The core principle of **Supervised Machine Learning** is to learn a mapping function from input variables (features) to an output variable (target) based on a set of example input-output pairs. It is called "supervised" because the training data includes the "correct answers" or labels, which supervise the learning process.
+
+The differentiation is as follows:
+
+* **Regression:** This is used when the target variable is a continuous, numerical value. The goal is to predict "how much" or "how many".
+    * **Example:** Predicting the price of a flight ticket in Mauritian Rupees based on factors like the date of booking, destination, and airline.
+* **Classification:** This is used when the target variable is a discrete category or class. The goal is to predict "which one" or "what type".
+    * **Example:** Analyzing a patient's medical data to predict whether they have diabetes (`Yes` or `No`).
+
+**Marking Scheme:**
+
+* [2 Marks] - For a clear explanation of Supervised Learning (learning from labeled data).
+* [1 Mark] - For correctly defining a regression task (predicting continuous values).
+* [1 Mark] - For a suitable example of regression.
+* [1 Mark] - For correctly defining a classification task (predicting discrete categories).
+* [1 Mark] - For a suitable example of classification.
+
+</details>
+
+(b) A Mauritian telecommunications company wants to build a model to predict which of its mobile customers are likely to switch to a competitor in the next month. They have a dataset of past customer behavior (e.g., average monthly data usage, number of dropped calls, contract type) and whether they ultimately 'churned' (left the company) or 'stayed'.
+
+i. Is this a regression or classification problem? Justify your answer.
+[2]
+
+<details>
+<summary>Click to see the answer and marking scheme</summary>
+
+**Answer:**
+
+This is a **classification** problem.
+
+* **Justification:** The model's goal is to predict a discrete, categorical outcome: whether a customer will belong to the class 'churn' or the class 'stay'. It is not predicting a continuous numerical value.
+
+**Marking Scheme:**
+
+* [1 Mark] - For correctly identifying it as a classification problem.
+* [1 Mark] - For the correct justification (predicting a discrete category).
+
+</details>
+
+ii. Identify one potential **feature (X)** and the specific **target (y)** for this model.
+[2]
+
+<details>
+<summary>Click to see the answer and marking scheme</summary>
+
+**Answer:**
+
+* **Potential Feature (X):** Any one of: average monthly data usage, number of dropped calls, contract type, customer age, etc.
+* **Target (y):** The 'churn' status (a variable with two values: 'churn' or 'stay').
+
+**Marking Scheme:**
+
+* [1 Mark] - For identifying a reasonable feature from the scenario.
+* [1 Mark] - For correctly identifying the target variable.
+
+</details>
+
+(c) The company decides to build the model. Explain the importance of splitting the dataset into a **training set** and a **testing set** *before* training the model. What is the main risk of not doing this?
+[5]
+
+<details>
+<summary>Click to see the answer and marking scheme</summary>
+
+**Answer:**
+
+It is critically important to split the data into a training set and a testing set to get an **unbiased evaluation** of the model's performance on new, unseen data. The model learns the patterns from the training set only. The testing set is kept completely separate and is used at the end to simulate how the model would perform in the real world.
+
+The main risk of not doing this (i.e., testing the model on the same data it was trained on) is **overfitting**. The model might simply "memorize" the answers for the training data, resulting in a misleadingly high performance score. This "overfitted" model would have learned the noise and specific quirks of the training data rather than the true underlying pattern, and would likely perform very poorly when deployed to make predictions on actual new customers.
+
+**Marking Scheme:**
+
+* [2 Marks] - For explaining the need for an unbiased evaluation on unseen data.
+* [2 Marks] - For identifying and explaining the risk of overfitting or memorization.
+* [1 Mark] - For overall clarity and structure of the explanation.
+
+</details>
+
+(d) The following Python code snippet outlines the core steps of training a model using `scikit-learn`.
+
+```python
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error
+
+# Assume 'X' (features) and 'y' (target) are pre-loaded from a dataset
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=101)
+
+# Line 8
+my_model = LinearRegression()
+
+# Line 11
+my_model.fit(X_train, y_train)
+
+# Line 14
+test_predictions = my_model.predict(X_test)
+
+mse = mean_squared_error(y_test, test_predictions)
+```
+
+Answer the following questions based on the code:
+
+i. What percentage of the data is used for the testing set according to the code?
+[1]
+
+<details>
+<summary>Click to see the answer</summary>
+
+**Answer:** 30%
+
+**Marking Scheme:** [1 Mark] for the correct percentage, derived from `test_size=0.3`.
+
+</details>
+
+ii. Explain the purpose of **Line 11** and **Line 14** in the workflow.
+[4]
+
+<details>
+<summary>Click to see the answer and marking scheme</summary>
+
+**Answer:**
+
+* **Line 11 (`my_model.fit(X_train, y_train)`):** This is the **training step**. The `.fit()` method takes the training features (`X_train`) and training labels (`y_train`) and makes the `my_model` object learn the mathematical relationship between them.
+* **Line 14 (`my_model.predict(X_test)`):** This is the **prediction/inference step**. After the model has been trained, this line uses the trained `my_model` to make predictions on the testing features (`X_test`), which the model has never seen before.
+
+**Marking Scheme:** [2 Marks] for a clear explanation of Line 11 (training). [2 Marks] for a clear explanation of Line 14 (prediction on test data).
+
+</details>
+
+iii. If the calculated `mse` value is very high, what does this indicate about the model's performance on the test data?
+[2]
+
+<details>
+<summary>Click to see the answer and marking scheme</summary>
+
+**Answer:**
+A very high Mean Squared Error (MSE) indicates that the model's performance is **poor**. It means there is a large average difference between the model's predicted values and the actual true values in the test set.
+
+**Marking Scheme:** [2 Marks] for a correct interpretation (poor performance / large difference between predicted and actual values).
+
+</details>
+
+iv. After training, you want to visualize the results. Describe what you would plot to compare the model's predictions against the actual values for the test set.
+[3]
+
+<details>
+<summary>Click to see the answer and marking scheme</summary>
+
+**Answer:**
+To visualize the results, you would create a **scatter plot**.
+
+* The x-axis would represent the feature from the test set (`X_test`).
+* The y-axis would represent the actual target values from the test set (`y_test`). This would show the "ground truth" data points.
+* On top of this scatter plot, you would plot a **line** representing the model's predictions (`test_predictions`) against the test features (`X_test`). This line shows the relationship the model has learned.
+
+**Marking Scheme:**
+
+* [1 Mark] - For suggesting a scatter plot.
+* [1 Mark] - For correctly identifying the axes for the actual data points (X\_test vs y\_test).
+* [1 Mark] - For correctly identifying what the regression line represents (X\_test vs predictions).
+
+</details>

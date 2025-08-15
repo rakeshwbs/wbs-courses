@@ -1,0 +1,109 @@
+---
+id: lecture-notes 
+title: Lecture Notes
+hide_title: true
+sidebar_position: 1
+sidebar_label: Dynamic Routing
+sidebar_class_name: icon-lecture
+---
+import ModuleBanner from '@site/src/components/art/art-banner';
+
+<ModuleBanner />
+
+# Week 3: Dynamic Routing & RIP
+
+In Week 2, we solved our connectivity problem with static routes. However, we also identified their major weaknesses: they don't scale well and can't automatically adapt if a link fails. Imagine managing static routes for a network with 100 routers! This week, we introduce a much smarter solution: **dynamic routing**.
+
+---
+
+## 1. Why We Need Dynamic Routing
+
+Static routing works for small, stable networks, but it fails in large, complex environments. Dynamic routing protocols were created to solve these problems.
+
+- **Scalability:** Routers automatically share routing information with each other. An administrator doesn't need to manually configure routes on every single router.
+- **Adaptability (Fault Tolerance):** If a link goes down, dynamic routing protocols can detect the change and automatically calculate a new best path around the failure. The network can heal itself.
+- **Simplicity (in large networks):** While the protocols themselves are complex, they simplify the administrator's job. You just enable the protocol, and the routers handle the rest.
+
+There are two main families of dynamic routing protocols:
+1.  **Distance Vector:** (Our focus this week) Simple logic, routers know about networks from their neighbors' perspective.
+2.  **Link-State:** More complex logic, every router builds a complete map of the entire network. (We will cover this later).
+
+---
+
+## 2. Distance-Vector Logic: Routing by Rumor
+
+The logic of a distance-vector protocol is simple and can be described as **"routing by rumor."** Each router knows very little about the full network topology. It only knows:
+1.  A list of destination networks.
+2.  The "distance" to get there (a metric).
+3.  The "direction" to go (the next-hop router or vector).
+
+A router running a distance-vector protocol periodically sends its routing table to its directly connected neighbors. The neighbors then add this information to their own tables, modifying the distance value, and pass it on. No router ever has a complete map of the network; it simply trusts the information its neighbor tells it.
+
+---
+
+## 3. RIPv1 (Routing Information Protocol v1)
+
+RIP is one of the oldest and simplest distance-vector protocols. While outdated, it is an excellent tool for understanding the fundamentals.
+
+### Key Characteristics of RIPv1
+
+-   **Metric = Hop Count:** RIP's only measure of "distance" is the number of routers (hops) a packet must cross to reach the destination. The path with the fewest hops is always considered the best path, even if a path with more hops is actually faster (e.g., has more bandwidth). The maximum hop count is **15**. A hop count of **16** is considered infinite, meaning the destination is unreachable.
+-   **Updates:** RIP sends its entire routing table to all neighbors every **30 seconds**.
+-   **Classful Protocol (Major Limitation):** RIPv1 is a **classful** routing protocol. This means it does **not** send the subnet mask along with the network address in its updates. Because of this, all interfaces in the network must use the same subnet mask (it doesn't support VLSM). It also cannot handle discontiguous networks.
+-   **Broadcast Updates:** RIPv1 uses broadcast messages (`255.255.255.255`) to send its updates.
+
+---
+
+## 4. RIP Timers and Routing Loops
+
+Slow convergence in distance-vector protocols can lead to **routing loops**. A routing loop is a condition where a packet is continuously routed between two or more routers in a circle, never reaching its destination.
+
+### Loop Prevention Mechanisms
+
+RIP uses several mechanisms to prevent and break these loops.
+
+1.  **Maximum Hop Count (15):** A routing loop isn't permanent. As the packet loops, the hop count metric increases with each pass. Once it reaches 16, the routers consider the network unreachable and drop the packet. This is a failsafe, not a primary prevention method.
+
+2.  **Split Horizon:** This is a fundamental rule: **A router will not advertise a route back out of the same interface through which it learned the route.** If R2 learns about Network A from R1, it will not tell R1 that it knows how to get to Network A. This prevents simple two-router loops.
+
+3.  **Route Poisoning & Poison Reverse:** This is a more proactive way to break loops. When a network fails, instead of just stop advertising it, the router immediately advertises that network as unreachable by giving it an infinite metric (hop count of 16). This is **route poisoning**. When a neighboring router receives this "poisoned" route, it sends an update back to the original router confirming the bad news. This is **poison reverse**. This ensures the bad news spreads quickly.
+
+### RIP Timers
+
+-   **Update timer (30s):** Time between routing updates.
+-   **Invalid timer (180s):** How long a router waits without hearing an update for a specific route before marking it as invalid.
+-   **Hold-down timer (180s):** When a route is marked invalid, the router starts a hold-down timer. During this time, it will not accept any new information about that route that has a worse metric than the original, preventing it from accepting old, bad information.
+-   **Flush timer (240s):** How long after being marked invalid a route will be completely removed from the routing table.
+
+---
+
+## 5. Configuration & Troubleshooting
+
+### Basic Configuration
+
+Configuring RIPv1 is very simple.
+
+1.  Enter router configuration mode: `router rip`
+2.  Tell the router which of your networks to advertise and listen on: `network [classful-network-address]`
+
+For our lab topology:
+-   On Router-A:
+    ```bash
+    router rip
+    network 192.168.1.0
+    network 10.0.0.0
+    ```
+-   On Router-B:
+    ```bash
+    router rip
+    network 192.168.2.0
+    network 10.0.0.0
+    ```
+Note: You use the classful network address. The router is smart enough to know which of its interfaces fall into that classful range.
+
+### Troubleshooting Commands
+
+-   `show ip route`: The best way to see if the router has learned a route via RIP (it will be marked with an 'R').
+-   `show ip protocols`: Shows which routing protocols are running, what timers are set, and which networks are being advertised. Extremely useful.
+-   `debug ip rip`: A powerful but dangerous command. It displays RIP routing updates as they are sent and received in real-time. Use it only in a lab environment, as it can overwhelm a router's CPU. Use `no debug all` or `undebug all` to turn it off.
+

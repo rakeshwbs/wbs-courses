@@ -1,0 +1,122 @@
+---
+id: evaluation-structured-questions
+title: Exam-type Questions
+hide_title: true
+sidebar_position: 4
+sidebar_label: ✍️ Exam-type Questions
+---
+import ModuleBanner from '@site/src/components/art/art-banner';
+
+<ModuleBanner />
+
+**QUESTION 1 \[25 MARKS]**
+
+(a) Name and describe the three main types of Network Address Translation (NAT). For each type, provide one clear, real-world use case.
+\[9]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    1. **Static NAT:**
+
+    * *Description:* Creates a permanent, one-to-one mapping between a single private (Inside Local) IP address and a single public (Inside Global) IP address.
+    * *Use Case:* Making an internal server, such as a company's public web server or email server, accessible from the internet.
+
+    2. **Dynamic NAT:**
+
+    * *Description:* Maps a private IP address to an IP address from a pool of available public addresses on a first-come, first-served basis. The mapping is temporary.
+    * *Use Case:* Providing internet access to a group of internal users where the number of simultaneous users will not exceed the number of available public IPs in the pool. This is less common today.
+
+    3. **Port Address Translation (PAT) / NAT Overload:**
+
+    * *Description:* Maps multiple private IP addresses to a single public IP address by using different source port numbers to distinguish between conversations.
+    * *Use Case:* This is the most common type of NAT, used in virtually all home and small business routers to allow all internal devices to share a single public IP address provided by an ISP.
+
+    **Marking Scheme:**
+
+    * \[3 Marks] - For correctly identifying and describing Static NAT and its use case.
+    * \[3 Marks] - For correctly identifying and describing Dynamic NAT and its use case.
+    * \[3 Marks] - For correctly identifying and describing PAT and its use case.
+
+</details>
+
+---
+
+(b) Explain in detail how Port Address Translation (PAT) allows a large number of devices on a private network (e.g., `192.168.1.0/24`) to simultaneously access the internet using only a single public IP address.
+\[6]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    PAT, or NAT Overload, works by extending the translation process to include Layer 4 port numbers. When an internal device sends a packet to the internet, the NAT router modifies both the source IP address and the source port number.
+
+    1. It replaces the private source IP (e.g., `192.168.1.10`) with its single public IP (e.g., `203.0.113.5`).
+    2. It replaces the original source port (e.g., `50000`) with a unique, randomly chosen high-numbered port (e.g., `62015`).
+    3. The router then records this mapping (`192.168.1.10:50000` \<\-\> `203.0.113.5:62015`) in its NAT translation table.
+
+    When another internal device sends a packet, the router repeats th process, assigning a different unique port (`62016`). When return traffic comes back to the public IP address, the router inspects the **destination port number**. By looking up this port in its translation table, it knows exactly which internal private IP address to forward the packet to. This allows a single public IP to handle thousands of unique, simultaneous conversations.
+
+    **Marking Scheme:**
+
+    * \[2 Marks] - For explaining that PAT uses port numbers to track conversations.
+    * \[2 Marks] - For describing the process of creating a unique mapping in the translation table.
+    * \[2 Marks] - For explaining that the router uses the return packet's destination port to find the correct internal host.
+
+</details>
+
+---
+
+(c) An administrator has entered the following commands on a router. Analyze the configuration and answer the questions below.
+
+```
+ip nat pool COMPANY_WEB 203.0.113.100 203.0.113.110 netmask 255.255.255.0
+access-list 1 permit 10.1.0.0 0.0.255.255
+ip nat inside source list 1 pool COMPANY_WEB
+```
+
+i. What specific type of NAT is being configured? \[1]
+ii. What is the purpose of `access-list 1`? \[2]
+iii. How many public IP addresses are available for translation in the pool? \[2]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    i. This is a **Dynamic NAT** configuration. (It maps an ACL to a pool of addresses without the `overload` keyword).
+    ii. The purpose of `access-list 1` is to identify the source traffic that is allowed to be translated. In this case, it permits any device with a source IP address in the `10.1.0.0/16` range.
+    iii. There are **11** public IP addresses available (from .100 to .110, inclusive).
+
+    **Marking Scheme:**
+
+    * \[1 Mark] - For correctly identifying Dynamic NAT.
+    * \[2 Marks] - For correctly explaining the purpose of the ACL.
+    * \[2 Marks] - For correctly calculating the number of addresses in the pool.
+
+</details>
+
+---
+
+(d) Using the example of your home computer at `192.168.1.50` browse the UoM website, whose public IP is `196.41.68.8`, define the four main NAT terms.
+\[4]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    1. **Inside Local:** `192.168.1.50` (The private IP of your computer).
+    2. **Inside Global:** Your home's public IP address provided by your ISP (e.g., MyT or Emtel).
+    3. **Outside Global:** `196.41.68.8` (The true, public IP of the UoM web server).
+    4. **Outside Local:** `196.41.68.8` (The IP of the UoM server as it appears to your internal network; usually the same as Outside Global).
+
+    **Marking Scheme:**
+
+    * \[1 Mark] - For each correctly defined term with its corresponding example. Total of 4 marks.
+
+</details>
+

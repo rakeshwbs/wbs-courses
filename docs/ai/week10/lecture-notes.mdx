@@ -1,0 +1,64 @@
+---
+id: lecture-notes 
+title: Lecture Notes
+hide_title: true
+sidebar_position: 1
+sidebar_label: GANs
+sidebar_class_name: icon-lecture
+---
+import ModuleBanner from '@site/src/components/ai/ai-banner';
+
+<ModuleBanner />
+## **Week 10: The AI Artist - Generative Vision**
+**Date:** Saturday, 29 November 2025
+
+-----
+
+### **Lecture Notes**
+
+#### **1.0 Recap and Today's Mission: Teaching Machines to Dream**
+
+Good morning. Our AI journey has taken us through some incredible territory. We've taught models to predict outcomes with supervised learning, find hidden patterns with unsupervised learning, and even to "see" and classify images with Convolutional Neural Networks. Last week, we made a major leap into **Generative AI**, learning how Large Language Models can write stories and code.
+
+Today, we combine these ideas. We will explore how AI models can *create* novel, complex, and often beautiful images from nothing more than a text prompt. We are going to learn how machines "dream."
+
+#### **2.0 A Quick Revisit: Generative Adversarial Networks (GANs)**
+
+As we discussed last week, **GANs** were the reigning champions of image generation for many years. They operate on the "art forger and art critic" principle, where a **Generator** network tries to create realistic images to fool a **Discriminator** network.
+
+* **Successes:** GANs, especially later versions like StyleGAN, became incredibly good at producing photorealistic images, particularly human faces.
+* **Limitations:**
+    * **Training Instability:** GANs are notoriously difficult and unstable to train. The two networks often fail to find the perfect balance.
+    * **Lack of Control:** While they could generate amazing random images from a category (e.g., "a cat"), it was very difficult to control the output with specific details (e.g., "a cat wearing a pirate hat sitting on a beach").
+
+A new architecture was needed to overcome these challenges, leading to the current state-of-the-art: **Diffusion Models**.
+
+#### **3.0 The New Wave: Diffusion Models**
+
+The technology behind stunning AI image generators like DALL-E 2, Midjourney, and Stable Diffusion is a class of models called **Diffusion Models**. Their approach to creating images is both counter-intuitive and brilliant.
+
+**3.1 The Core Idea: A Two-Step Process of Destruction and Creation**
+
+* **Analogy:** Imagine you have a beautiful, crystal-clear photograph of a Mauritian beach. Now, imagine you slowly add a tiny bit of static ("noise") to it in a series of small steps. You repeat this hundreds of times until the original photo is completely unrecognizable, lost in a sea of random static. A diffusion model learns to reverse this process perfectly.
+
+**Step 1: The Forward Process (Destroying the Image)**
+
+* This happens during the training phase. The model takes a real image from the training dataset (e.g., a photo of a cat).
+* It then systematically adds a small amount of random noise to the image over hundreds or thousands of steps.
+* The model carefully observes this process, learning the statistical properties of how an image dissolves into pure noise.
+
+**Step 2: The Reverse Process (Creating the Image)**
+
+* This is the magical part. The model is trained to learn how to **reverse** the process. It's a denoising network. Its job is, given a noisy image at a certain step, to predict and remove just the right amount of noise to get back to the previous, slightly less noisy step.
+
+**How Generation Works:**
+To generate a completely new image, we start with a canvas of pure random noise. We then ask the trained denoising network to take its first step backward, removing a tiny bit of noise. This might reveal a faint, abstract blob. We take this slightly less noisy image and feed it back into the network, which removes a little more noise. We repeat this process hundreds of times. Step by step, a coherent, complex, and entirely new image emerges from the static, like a sculpture being carved from a block of marble. .
+
+#### **4.0 Guiding the Dream: From Unconditional to Text-to-Image**
+
+The basic diffusion process would just create a random image (e.g., a random cat if trained on cats). The real breakthrough was learning how to guide this denoising process with text.
+
+* **Text Conditioning:** This is how we control what the model generates.
+    1.  **Text Encoder:** Your text prompt (e.g., "a dodo bird on a beach in Flic en Flac") is first passed through a powerful text encoder model (like CLIP) which converts the words into a meaningful numerical representation (a vector embedding). This embedding captures the semantic meaning of your prompt.
+    2.  **Guiding the Denoising:** This text embedding is then fed into the denoising network at each step of the reverse process. It acts as a guide, telling the model *what* it should be "seeing" in the noise. The model isn't just removing noise; it's removing noise in a way that steers the final result towards the concepts described in your prompt.
+

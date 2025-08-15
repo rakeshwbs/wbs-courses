@@ -1,0 +1,58 @@
+---
+id: lecture-notes
+title: Lecture Notes
+hide_title: true
+sidebar_position: 1
+sidebar_label: Descriptive Statistics
+sidebar_class_name: icon-lecture
+
+---
+import ModuleBanner from '@site/src/components/brm/brm-banner';
+
+<ModuleBanner />
+
+---
+
+Of course. Let's begin Week 8.
+
+We are now officially moving from data collection and preparation into data analysis. The first and most fundamental step is to summarize and understand the data you've collected.
+
+---
+## Week 8: Describing Your Data (Descriptive Statistics)
+
+Before you can test hypotheses, you need to get to know your data. **Descriptive Statistics** are used to summarize and describe the main features of a dataset. They don't make inferences about the whole population; they simply describe the sample you have. It's about turning a large spreadsheet of numbers into a few meaningful summaries and graphs. 📊
+
+There are two main types of descriptive statistics: measures of central tendency and measures of dispersion.
+
+### Measures of Central Tendency (The "Center")
+
+These measures describe a "typical" or "central" value in your dataset.
+
+* **Mean:** This is the most common measure, calculated by summing all the values and dividing by the count of values. We usually just call it the **average**. The mean is powerful but can be heavily influenced by **outliers** (extremely high or low values).
+  * *Analogy:* The mean is the balancing point of a seesaw. A single very heavy person on one end can dramatically shift the balance point.
+
+* **Median:** This is the middle value in a dataset that has been ordered from smallest to largest. It's resistant to outliers. If you have an even number of values, it's the average of the two middle numbers.
+  * *Analogy:* The median is the physical middle person in a line of people ordered by height. An extremely tall or short person at the end of the line doesn't change who is in the middle.
+
+* **Mode:** This is simply the value that appears most frequently in the dataset. It's the only measure of central tendency that can be used for **nominal** (categorical) data.
+  * *Example:* In the dataset `{Sales, HR, Sales, IT, Sales}`, the mode is `Sales`.
+
+### Measures of Dispersion (The "Spread")
+
+These measures describe how spread out or varied your data points are.
+
+* **Range:** The simplest measure of spread. It's the difference between the highest and lowest value. It's easy to calculate but only uses two data points, so it can be misleading.
+
+* **Standard Deviation ($\sigma$ or $s$):** This is the most important measure of spread. It tells you the **average distance of each data point from the mean**.
+  * A **low** standard deviation means the data points are tightly clustered around the mean (the data is consistent).
+  * A **high** standard deviation means the data points are spread out over a wider range of values.
+
+* **Variance ($\sigma^2$ or $s^2$):** This is simply the standard deviation squared. While crucial for many statistical formulas, it's less intuitive because its units are squared (e.g., "dollars squared"). We typically report the standard deviation for easier interpretation.
+
+### Visualizing Your Data
+
+Graphs are a vital part of descriptive statistics.
+* **Histograms** are used to visualize the distribution of a single continuous (Scale) variable, like age or income. They help you see the shape of your data and identify potential outliers.
+* **Bar Charts** are used to compare different categories (Nominal or Ordinal variables), such as showing the number of people in each department or the average satisfaction score for different groups.
+
+---

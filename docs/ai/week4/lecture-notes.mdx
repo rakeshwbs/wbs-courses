@@ -1,0 +1,100 @@
+---
+id: lecture-notes 
+title: Lecture Notes
+hide_title: true
+sidebar_position: 1
+sidebar_label: Decision Trees
+sidebar_class_name: icon-lecture
+---
+import ModuleBanner from '@site/src/components/ai/ai-banner';
+
+<ModuleBanner />
+### **AFI-373: Artificial Intelligence - Lecture Notes
+
+**Week 4: Non-linear Models: Trees and Ensembles**  
+**Date:** Saturday, 11 October 2025
+
+-----
+
+### **Lecture Notes**
+
+#### **1.0 Recap and Today's Objective: Beyond the Straight Line**
+
+Good morning. So far on our journey, we have explored the two main paradigms of learning: Supervised (Week 2) and Unsupervised (Week 3). In our first supervised learning lab, we used Linear Regression, a model that learns a straight-line relationship in the data.
+
+But most real-world problems aren't that simple. The relationship between a patient's symptoms and a diagnosis, for example, is far more complex than a straight line. Today, our objective is to learn how to build models that can capture these complex, **non-linear** patterns. We will do this by exploring one of the most intuitive models, the **Decision Tree**, and then see how we can make it dramatically more powerful using **Ensemble Learning**.
+
+#### **2.0 Decision Trees: The Intuitive Model**
+
+**2.1 The Core Idea**
+A Decision Tree is a supervised learning model that is highly intuitive because it mimics human decision-making. It is essentially a flowchart of `if-then-else` questions that the model learns automatically from the data. It can be used for both classification and regression tasks.
+
+* **Analogy:** Imagine a doctor diagnosing a patient. Their thought process is a series of questions:
+    * *Q1: "Does the patient have a fever?"* -\> Yes.
+    * *Q2: "Do they also have a cough?"* -\> No.
+    * *Q3: "Is there a rash?"* -\> Yes.
+    * *Conclusion: "The patient might have measles."*
+      A Decision Tree formalizes this process. The questions are called **nodes**, the connections are **branches**, and the conclusions are the **leaf nodes**.
+
+**2.2 How a Tree "Learns": The Splitting Process**
+How does the tree know which questions to ask and in what order? It learns by finding the best feature and threshold to split the data at each node.
+
+A "best" split is one that results in the two subsequent groups being as "pure" as possible. Purity means the groups are dominated by a single class. For example, a perfect split would result in one group of `100% Yes` and another group of `100% No`.
+
+To measure this, algorithms use mathematical concepts like:
+
+* **Gini Impurity:** A measure of how often a randomly chosen element from the set would be incorrectly labeled if it was randomly labeled according to the distribution of labels in the subset. A Gini score of 0 is perfect purity.
+* **Information Gain:** A measure based on **Entropy** (a concept from information theory that measures disorder or impurity). The tree always chooses the split that provides the highest information gain—the biggest drop in entropy.
+
+You don't need to calculate these by hand, but you should understand that they are the engine that allows the tree to intelligently choose its questions.
+
+#### **3.0 The Great Challenge: Overfitting**
+
+**3.1 Defining Overfitting**
+Overfitting is one of the most fundamental challenges in all of machine learning.
+
+* **DefinitionBox:** Overfitting occurs when a model learns the training data *too well*. It becomes so complex that it memorizes not only the true underlying patterns in the data but also the **noise** and random fluctuations specific to that training set.
+* **The Consequence:** An overfit model will have extremely high accuracy on the data it was trained on, but it will fail to **generalize** and will perform poorly on new, unseen test data.
+
+***Demonstration Idea:*** *Visualize two plots. Both show the same scatter of data points. The first plot shows a simple, smooth curve that captures the general trend—this is a good fit. The second plot shows a highly complex, squiggly line that passes through every single training point perfectly. This squiggly line is the overfit model. It's clear that it would be a terrible predictor for any new point not on the line.*
+
+**3.2 Why Decision Trees are Prone to Overfitting**
+If left to grow without any constraints, a Decision Tree will continue splitting the data until every single data point is in its own pure leaf node. It will create a unique path for every sample in the training set, achieving 100% accuracy on that set. But this complex tree has just memorized the noise and will not generalize well.
+
+**3.3 Pruning: The Solution to Overfitting in Trees**
+To prevent overfitting, we must control the tree's complexity. This is called **pruning**. Common techniques include:
+
+* `max_depth`: Limiting the maximum number of levels (questions) in the tree.
+* `min_samples_leaf`: Requiring that each leaf node must have a minimum number of samples.
+* `max_leaf_nodes`: Limiting the total number of leaf nodes.
+
+#### **4.0 Ensemble Learning: The Wisdom of the Crowd**
+
+**4.1 The Core Idea**
+While pruning helps, an even more powerful solution to overfitting is **Ensemble Learning**. The core idea is that by combining many different, simple, and slightly inaccurate models (called "weak learners"), we can create a single, highly accurate, and robust model (a "strong learner").
+
+* **Analogy:** If you ask one "expert" for their opinion on a complex topic, they might be biased or wrong. But if you ask a diverse crowd of 100 people and aggregate their opinions, the collective answer is often remarkably accurate. This is the "wisdom of the crowd."
+
+**4.2 Random Forests: A Powerful Ensemble**
+A Random Forest is the most popular ensemble method based on Decision Trees. It uses the "wisdom of the crowd" principle to overcome the overfitting problem of a single tree.
+
+Here's how it works conceptually:
+
+1.  **Create a "Forest" of Trees:** It builds hundreds (or thousands) of individual Decision Trees.
+2.  **Random Data Samples:** Each tree in the forest is trained on a different, random sample of the training data (this technique is called **bootstrap aggregating** or **bagging**).
+3.  **Random Feature Subsets:** This is the key innovation. At each split point in each tree, the algorithm is only allowed to consider a small, random subset of the total features. This prevents any single feature from dominating and ensures the trees in the forest are diverse and decorrelated.
+
+**How does it make a prediction?** For a new data point, every tree in the forest makes its own prediction. The Random Forest then aggregates these predictions. For a classification task, it takes a majority vote. For a regression task, it takes the average. This process of averaging out the predictions of many diverse trees dramatically reduces variance and leads to a much more robust and accurate model.
+
+#### **5.0 Introduction to the Lab**
+
+In today's lab, you will see these concepts in action. You will be working as a health data analyst, building a model to predict the presence of heart disease.
+
+1.  First, you will build a single Decision Tree and visualize its structure.
+2.  Next, you will demonstrate overfitting by growing a tree to its maximum depth.
+3.  Finally, you will build a Random Forest model and compare its performance, seeing firsthand how the ensemble approach leads to a better, more generalizable model.
+
+-----
+
+
+

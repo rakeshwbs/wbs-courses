@@ -1,0 +1,101 @@
+---
+id: lab-sheet10
+title: Lab sheet 10
+hide_title: true
+sidebar_position: 2
+sidebar_label: ANOVA & LR
+sidebar_class_name: icon-lab
+---
+import ModuleBanner from '@site/src/components/brm/brm-banner';
+
+<ModuleBanner />
+
+## Lab 10: ANOVA and Simple Linear Regression
+
+### Objective
+To learn how to perform a One-Way ANOVA to compare the means of multiple groups and a Simple Linear Regression to predict an outcome.
+
+---
+### **Part A: One-Way ANOVA**
+
+**Scenario:** A researcher tests a new drug to see its effect on patient recovery time. They have three groups: Group 1 gets a placebo, Group 2 gets a low dose, and Group 3 gets a high dose. The dependent variable is `Recovery_Days`.
+
+**Hypotheses:**
+* **$H_0$:** The mean recovery time is the same across all three groups.
+* **$H_1$:** At least one group has a different mean recovery time.
+
+**Instructions:**
+
+1.  Create a **new data file** and enter the following data for 15 patients. Remember to set up value labels for the `Group` variable (1=Placebo, 2=Low Dose, 3=High Dose).
+
+| Group | Recovery_Days |
+|:---:|:---:|
+| 1 | 9 |
+| 1 | 8 |
+| 1 | 10|
+| 1 | 9 |
+| 1 | 11|
+| 2 | 7 |
+| 2 | 6 |
+| 2 | 8 |
+| 2 | 7 |
+| 2 | 7 |
+| 3 | 4 |
+| 3 | 5 |
+| 3 | 3 |
+| 3 | 5 |
+| 3 | 4 |
+
+2.  From the menu, go to: **Analyze -> Compare Means -> One-Way ANOVA...**
+3.  Move `Recovery_Days` into the **'Dependent List:'** box.
+4.  Move `Group` into the **'Factor:'** box.
+5.  Click the **'Post Hoc...'** button. Check the box for **Tukey**. Click **Continue**.
+6.  Click the **'Options...'** button. Check the box for **Descriptive**. Click **Continue**.
+7.  Click **OK**.
+
+**Interpreting the Output:**
+1.  **ANOVA Table:** Look at the main ANOVA table and find the **"Sig."** column. This is the p-value for the overall test. If p ≤ .05, there is a significant difference somewhere between the groups.
+2.  **Post Hoc Tests Table:** **Only if your ANOVA was significant**, look at the "Multiple Comparisons" table. This table compares each group to every other group. Look for p-values (in the "Sig." column) that are ≤ .05 to see which specific groups are significantly different from each other.
+3.  **Conclusion:** You would write up the results like this: "A one-way ANOVA revealed a significant effect of the drug on recovery time, F(2, 12) = [your F-value], p < .001. Post-hoc tests showed that the high dose group (M=[mean]) had significantly faster recovery times than both the low dose (p=[p-value]) and placebo (p=[p-value]) groups."
+
+---
+### **Part B: Simple Linear Regression**
+
+**Scenario:** A manager wants to know if the number of hours an employee was trained can predict their job performance score.
+
+**Hypotheses:**
+* **$H_0$:** Training hours does not significantly predict job performance score.
+* **$H_1$:** Training hours significantly predicts job performance score.
+
+**Instructions:**
+
+1.  Create a **new data file** and enter the following data for 10 employees:
+
+| Training_Hours | Performance_Score |
+|:---:|:---:|
+| 5 | 45 |
+| 8 | 55 |
+| 10 | 62 |
+| 12 | 68 |
+| 15 | 75 |
+| 16 | 74 |
+| 20 | 85 |
+| 22 | 88 |
+| 25 | 92 |
+| 28 | 95 |
+
+2.  From the menu, go to: **Analyze -> Regression -> Linear...**
+3.  Move `Performance_Score` into the **'Dependent:'** box.
+4.  Move `Training_Hours` into the **'Independent(s):'** box.
+5.  Click **OK**.
+
+**Interpreting the Output:**
+You will get several tables. Here's what to look for:
+1.  **Model Summary Table:** Look at the **"R Square"** value. This tells you the percentage of variance in the DV that is explained by the IV. For example, an R Square of .976 means that 97.6% of the variation in performance scores can be explained by training hours.
+2.  **ANOVA Table:** Look at the **"Sig."** column here. This tells you if your overall regression model is statistically significant. If p ≤ .05, your model is a good fit for the data.
+3.  **Coefficients Table:** This is the most important table.
+* In the row for `Training_Hours`, look at the **"Sig."** column. This is the p-value that tells you if your IV is a significant predictor.
+* Look at the **"Unstandardized Coefficients (B)"** column. The value for `(Constant)` is your **intercept ($b_0$)**. The value for `Training_Hours` is your **slope ($b_1$)**.
+* **Conclusion:** You can now write the regression equation ($Y = b_0 + b_1X$) and a summary sentence: "Simple linear regression showed that training hours significantly predicted performance scores, F(1, 8) = [your F-value], p < .001, and accounted for 97.6% of the variance in performance. The regression equation was: Performance Score = 35.15 + 2.15 * Training Hours."
+
+---

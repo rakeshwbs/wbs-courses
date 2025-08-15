@@ -1,0 +1,174 @@
+---
+id: grouped-data-std-deviation
+title: Find Standard deviation for Grouped Data
+hide_title: true
+sidebar_position: 2
+sidebar_label: Grouped Data
+---
+import ModuleBanner from '@site/src/components/busm/busm-banner';
+
+<ModuleBanner />
+---
+### **Concept: Grouped Frequency Tables**
+
+A **grouped frequency table** is used to summarize large sets of data by organizing the data into groups, or **class intervals**. This makes it easier to see the distribution and general patterns.
+
+**Key Characteristics:**
+* **Class Intervals:** These are the ranges the data is sorted into (e.g., `10 ≤ t < 25`).
+* **Frequency:** This is a count of how many data values fall within each class interval.
+* **Loss of Precision:** The main feature of a grouped table is that you lose the original, exact data values. You know *how many* values are in an interval, but not their specific values.
+* **Estimates:** Because the exact data is lost, any calculations for measures like the mean or standard deviation are **estimates**. These estimates are made by assuming all values in an interval can be represented by its **midpoint**.
+
+**Common Calculations:**
+* **Estimated Mean:** Calculated as $$\frac{\sum (f \times m)}{\sum f}$$, where `f` is the frequency and `m` is the midpoint of the class.
+* **Modal Class:** The class interval with the highest frequency.
+* **Median Class:** The class interval which contains the middle value of the dataset.
+
+---
+### **Worked Examples from Past Papers**
+
+:::danger 19th November 2024, Section B, Question 21
+The daily commute time for workers in a large UK city is recorded in the table below. Calculate an estimate of the sample mean length of the commute time.
+
+| Commute time, *t* (minutes) | Frequency |
+| :--- | :---: |
+| 0 ≤ *t* < 10 | 6 |
+| 10 ≤ *t* < 25 | 33 |
+| 25 ≤ *t* < 45 | 50 |
+| 45 ≤ *t* < 65 | 72 |
+| 65 ≤ *t* < 90 | 55 |
+| 90 ≤ *t* < 120 | 24 |
+:::
+:::success Answer
+Estimated Mean ≈ 54.58 minutes ✔️
+:::note Explanation
+| Commute time, *t* (minutes) | Frequency (*f*) | Midpoint (*m*) | Frequency × Midpoint (*f × m*) |
+| :--- | :---: | :---: | :---: |
+| 0 ≤ *t* < 10 | 6 | 5 | 30 |
+| 10 ≤ *t* < 25 | 33 | 17.5| 577.5 |
+| 25 ≤ *t* < 45 | 50 | 35 | 1750 |
+| 45 ≤ *t* < 65 | 72 | 55 | 3960 |
+| 65 ≤ *t* < 90 | 55 | 77.5| 4262.5 |
+| 90 ≤ *t* < 120 | 24 | 105| 2520 |
+| **Total** | **Σf = 240** | | **Σ(f × m) = 13100**|
+
+$$\text{Estimated Mean} = \frac{\sum (f \times m)}{\sum f} = \frac{13100}{240} \approx 54.58$$
+:::
+
+
+---
+:::danger 7 March 2024, Section B, Question 21
+The ages of visitors to the zoo on ONE (1) day are shown in the table below. Calculate an estimate of the sample mean and the sample standard deviation.
+
+| Age, a (years) | Frequency |
+| :--- | :---: |
+| 0 ≤ a < 15 | 1810 |
+| 15 ≤ a < 30 | 920 |
+| 30 ≤ a < 45 | 1020 |
+| 45 ≤ a < 60 | 840 |
+| 60 ≤ a < 75 | 710 |
+| 75 ≤ a < 90 | 158 |
+:::
+:::success Answer
+Estimated Mean ≈ 32.53 years, Standard Deviation ≈ 22.82 years ✔️
+:::note Explanation
+| Age, a (years) | *f* | Midpoint (*m*) | *f × m* | *m²* | *f × m²* |
+| :--- | :---: | :---: | :---: | :---: | :---: |
+| 0 ≤ a < 15 | 1810 | 7.5 | 13575 | 56.25 | 101812.5 |
+| 15 ≤ a < 30 | 920 | 22.5 | 20700 | 506.25 | 465750 |
+| 30 ≤ a < 45 | 1020 | 37.5 | 38250 | 1406.25| 1434375 |
+| 45 ≤ a < 60 | 840 | 52.5 | 44100 | 2756.25| 2315250 |
+| 60 ≤ a < 75 | 710 | 67.5 | 47925 | 4556.25| 3234937.5|
+| 75 ≤ a < 90 | 158 | 82.5 | 13035 | 6806.25| 1075387.5|
+| **Total** | **Σf = 5458** | |**Σfm = 177585**| |**Σfm² = 8627512.5**|
+
+**Estimated Mean:**
+$$\text{Mean} = \frac{\sum fm}{\sum f} = \frac{177585}{5458} \approx 32.53$$
+
+**Sample Standard Deviation (s):**$$s = \sqrt{\frac{1}{(\sum f) - 1} \left[ \sum fm^2 - \frac{(\sum fm)^2}{(\sum f)} \right]}$$
+
+$$s = \sqrt{\frac{1}{5457} \left[ 8627512.5 - \frac{(177585)^2}{5458} \right]}$$
+
+$$s = \sqrt{\frac{1}{5457} \left[ 8627512.5 - 5786489.96 \right]}$$
+
+$$s = \sqrt{\frac{2841022.54}{5457}} \approx \sqrt{520.61} \approx 22.82$$
+:::
+
+
+---
+:::danger 14 March 2023, Section B, Question 21
+The bakery records the amount of money each customer spends on ONE (1) particular day. Calculate an estimate of the sample mean and the sample standard deviation of the data.
+
+| Amount of money, t(£) | Frequency |
+| :--- | :---: |
+| 0 ≤ t < 3 | 2 |
+| 3 ≤ t < 6 | 15 |
+| 6 ≤ t < 9 | 17 |
+| 9 ≤ t < 12 | 19 |
+| 12 ≤ t < 15 | 21 |
+| 15 ≤ t < 18 | 11 |
+:::
+:::success Answer
+Estimated Mean ≈ £10.15, Standard Deviation ≈ £4.16 ✔️
+:::note Explanation
+| Amount (£) | *f* | Midpoint (*m*) | *f × m* | *m²* | *f × m²* |
+| :--- | :---: | :---: | :---: | :---: | :---: |
+| 0 ≤ t < 3 | 2 | 1.5 | 3 | 2.25 | 4.5 |
+| 3 ≤ t < 6 | 15 | 4.5 | 67.5 | 20.25 | 303.75 |
+| 6 ≤ t < 9 | 17 | 7.5 | 127.5 | 56.25 | 956.25 |
+| 9 ≤ t < 12 | 19 | 10.5 | 199.5 | 110.25 | 2094.75 |
+| 12 ≤ t < 15 | 21 | 13.5 | 283.5 | 182.25 | 3827.25 |
+| 15 ≤ t < 18 | 11 | 16.5 | 181.5 | 272.25 | 2994.75 |
+| **Total** | **Σf = 85** | |**Σfm = 862.5**| |**Σfm² = 10181.25**|
+
+**Estimated Mean:**
+
+$$\text{Mean} = \frac{\sum fm}{\sum f} = \frac{862.5}{85} \approx 10.15$$
+
+**Sample Standard Deviation (s):**
+
+$$s = \sqrt{\frac{1}{84} \left[ 10181.25 - \frac{(862.5)^2}{85} \right]}$$
+
+$$s = \sqrt{\frac{1}{84} \left[ 10181.25 - 8730.15 \right]}$$
+
+$$s = \sqrt{\frac{1451.1}{84}} \approx \sqrt{17.275} \approx 4.16$$
+:::
+
+
+---
+:::danger 1 September 2015, Section B, Question 24
+The length of telephone calls made by Dominic during July is shown in the table below. Calculate an estimate of the mean and the standard deviation for this data.
+
+| Time, *t* (seconds) | Number of calls |
+| :--- | :---: |
+| 0 ≤ *t* < 120 | 39 |
+| 120 ≤ *t* < 240 | 25 |
+| 240 ≤ *t* < 360 | 17 |
+| 360 ≤ *t* < 480 | 10 |
+| 480 ≤ *t* < 600 | 6 |
+| 600 ≤ *t* < 720 | 3 |
+:::
+:::success Answer
+Estimated Mean ≈ 243.64 seconds, Standard Deviation ≈ 166.31 seconds ✔️
+:::note Explanation
+| Time (s) | *f* | Midpoint (*m*) | *f × m* | *m²* | *f × m²* |
+| :--- | :---: | :---: | :---: | :---: | :---: |
+| 0 ≤ t < 120 | 39 | 60 | 2340 | 3600 | 140400 |
+| 120 ≤ t < 240 | 25 | 180 | 4500 | 32400 | 810000 |
+| 240 ≤ t < 360 | 17 | 300 | 5100 | 90000 | 1530000 |
+| 360 ≤ t < 480 | 10 | 420 | 4200 | 176400 | 1764000 |
+| 480 ≤ t < 600 | 6 | 540 | 3240 | 291600 | 1749600 |
+| 600 ≤ t < 720 | 3 | 660 | 1980 | 435600 | 1306800 |
+| **Total** | **Σf = 100** | |**Σfm = 21360**| |**Σfm² = 7300800**|
+
+**Estimated Mean:**
+$$\text{Mean} = \frac{\sum fm}{\sum f} = \frac{21360}{100} = 213.6$$
+
+**Sample Standard Deviation (s):**
+
+$$s = \sqrt{\frac{1}{99} \left[ 7300800 - \frac{(21360)^2}{100} \right]}$$
+
+$$s = \sqrt{\frac{1}{99} \left[ 7300800 - 4562496 \right]}$$
+
+$$s = \sqrt{\frac{2738304}{99}} \approx \sqrt{27659.6} \approx 166.31$$
+:::

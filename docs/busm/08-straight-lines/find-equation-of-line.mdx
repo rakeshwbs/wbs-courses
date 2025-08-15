@@ -1,0 +1,126 @@
+---
+id: find-equation-of-line
+title: Find Equation of a Line
+hide_title: true
+sidebar_position: 3
+sidebar_label: Equation of Line
+---
+import ModuleBanner from '@site/src/components/busm/busm-banner';
+
+<ModuleBanner />
+
+---
+### Find Equation of a Line
+---
+### CASE I - **Finding the Equation from Two Points**
+
+When you are given two points but not the gradient, you must first calculate the gradient using the two points. The process involves three main steps.
+
+#### **Step 1: Calculate the Gradient (m)**
+
+Use the two points, $(x_1, y_1)$ and $(x_2, y_2)$, in the gradient formula:
+$$m = \frac{y_2 - y_1}{x_2 - x_1}$$
+
+#### **Step 2: Find the Y-Intercept (c)**
+
+Now that you have the gradient, you can use it along with **either one** of the two points to find the y-intercept.
+
+1.  Start with the general equation: `y = mx + c`.
+2.  Substitute the gradient (`m`) you just calculated.
+3.  Substitute the `x` and `y` values from one of the points.
+4.  Solve the equation to find `c`.
+
+#### **Step 3: Write the Final Equation**
+
+Combine the gradient (`m`) from Step 1 and the y-intercept (`c`) from Step 2 to write the final equation in the form `y = mx + c`.
+
+---
+### **Worked Example**
+
+Find the equation of the line that passes through the points **(-1, 3)** and **(3, 5)**.
+
+* **Step 1: Calculate the Gradient (m)**
+Let $(x_1, y_1) = (-1, 3)$ and $(x_2, y_2) = (3, 5)$.
+
+$$m = \frac{5 - 3}{3 - (-1)} = \frac{2}{4} = \frac{1}{2}$$
+
+The gradient of the line is **$$\frac{1}{2}$$**.
+
+* **Step 2: Find the Y-Intercept (c)**
+Start with $$y = \frac{1}{2}x + c$$
+
+Now, use one of the points (we'll use (3, 5)) to find `c`.
+
+
+$$5 = \frac{1}{2}(3) + c$$
+
+$$5 = \frac{3}{2}+ c$$
+
+$$c = 5 - 1.5 = 3.5$$
+
+The y-intercept is **3.5**.
+
+**Step 3: Write the Final Equation**
+
+    Now that we have $$m = \frac{1}{2}$$ and `c = 3.5`, the final equation is:
+    $$y = \frac{1}{2}x + 3.5$$
+
+---
+### CASE II - **Given the Gradient and a Point**
+
+To find the equation of a line, you need to determine its gradient (**m**) and its y-intercept (**c**)
+and put them into the standard form **`y = mx + c`**.
+
+The general method involves these steps:
+1.  **Substitute the Gradient (m):** Place the given gradient value into the equation `y = mx + c`.
+2.  **Substitute the Point (x, y):** Use the coordinates of the given point to replace `x` and `y` in the equation.
+3.  **Solve for the Y-Intercept (c):** Rearrange the equation to find the value of `c`.
+4.  **Write the Final Equation:** Combine the gradient and the newly found y-intercept.
+
+---
+### Example 1: Given the Gradient and the Y-Intercept (where x=0)
+
+This is the most straightforward case. When the given point has an x-coordinate of 0, its y-coordinate is the y-intercept (`c`).
+
+**Problem:** Find the equation of a line with a gradient of **-3** that passes through the point **(0, 5)**.
+
+**Solution:**
+* We are given the gradient **`m = -3`**.
+* Because the line passes through (0, 5), it crosses the y-axis at 5. Therefore, the y-intercept **`c = 5`**.
+* Substituting these values directly into `y = mx + c`, we get:
+
+    * $$y = -3x + 5$$
+
+---
+### Example 2: Given the Gradient and Any Point (where x≠0)
+
+This method requires a few algebraic steps to find the y-intercept.
+
+**Problem:** Find the equation of a line with a gradient of **2** that passes through the point **(3, 10)**.
+
+**Solution:**
+1.  **Substitute the gradient (m):**
+
+Start with `y = mx + c` and substitute `m=2`:
+
+$$y = 2x + c$$
+
+2.  **Substitute the point (x, y):**
+
+Use the coordinates `x=3` and `y=10` in the equation:
+
+$$10 = 2(3) + c$$
+
+3.  **Solve for the y-intercept (c):**
+
+$$10 = 6 + c$$
+
+$$c = 10 - 6$$
+
+$$c = 4$$
+
+4.  **Write the final equation:**
+
+Now that we know `m=2` and `c=4`, the final equation is:
+
+$$y = 2x + 4$$

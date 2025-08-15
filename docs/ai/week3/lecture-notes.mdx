@@ -1,0 +1,528 @@
+---
+id: lecture-notes
+title: Lecture Notes
+hide_title: true
+sidebar_position: 1
+sidebar_label: ML Workflow
+sidebar_class_name: icon-lecture
+---
+
+import ModuleBanner from '@site/src/components/ai/ai-banner';
+import DefinitionBox from '@site/src/components/custom-admonitions/DefinitionBox';
+import {
+  KeyPoints,
+  KP,
+} from '@site/src/components/custom-admonitions/KeyPoints';
+
+<ModuleBanner />
+
+# Welcome to the AI Module
+
+Here is your first interactive Python block!
+
+## Week 3: From Idea to Impact: A Practical Guide to the ML Workflow
+
+#### Date: Saturday, 27 September 2025
+
+---
+
+<section class="ai-card intro-card">
+  <h3>Introduction: The Project Blueprint</h3>
+  <p>
+    The goal of this introductory segment is to frame the entire lecture and
+    motivate the students by explaining why a structured workflow is the key
+    differentiator between academic exercises and successful, real-world machine
+    learning systems.
+  </p>
+  <p>
+    We begin by addressing a common misconception. Many people new to the field
+    imagine that a data scientist's job is focused almost exclusively on
+    building and tuning complex models. The reality is quite different. The work
+    of a data scientist is often compared to an iceberg: the small, visible tip
+    is the model itself, but the massive, hidden foundation beneath the surface
+    is the less glamorous but essential work of defining the problem, gathering
+    data, cleaning it, and engineering features. This lecture is about
+    understanding the entire iceberg, not just the tip.
+  </p>
+  <KeyPoints variant="primary" icon="❖">
+    <KP term="Case Study">
+      A telecommunications company is losing customers to competitors, a problem
+      known as customer churn. It costs far more to acquire a new customer than
+      to retain an existing one, so they have hired us to build a system that
+      can predict which of their current customers are at high risk of churning
+      in the next month. This will allow their marketing team to proactively
+      offer these specific customers special promotions to convince them to
+      stay.
+    </KP>
+  </KeyPoints>
+</section>
+
+## Stage 1 - Data Collection
+
+<section class="ai-card stage-card">
+  <h3>What is it?</h3>
+
+The very first stage of any real-world project is **Data Collection**. This is where data scientists act as detectives to identify and acquire all the data needed to solve the problem. In a corporate environment, this is a complex process involving writing sophisticated database queries, connecting to third-party APIs, and navigating crucial legal and privacy requirements to ensure compliance.
+
+This stage alone can take weeks or months and is a deep topic, often falling under the specialized field of Data Engineering.
+
+For our lecture today, to ensure we can focus on the core machine learning skills, we are going to bypass the complexities of live data collection. Instead, we will work with a classic, pre-collected, and publicly available dataset that is perfect for learning how to predict customer churn.
+
+The dataset is called the **'Telco Customer Churn'** dataset, and you can access and download it from Kaggle at the following link:
+
+**Link:** `https://www.kaggle.com/datasets/blastchar/telco-customer-churn`
+
+</section>
+## Stage 2 - Data Cleaning
+<section class="ai-card stage-card">
+  <h3>What is it?</h3>
+  <DefinitionBox term="Data Cleaning Explained!">
+    Data cleaning is the process of identifying and correcting—or
+    removing—errors and inconsistencies from a dataset to improve its quality.
+  </DefinitionBox>
+</section>
+<KeyPoints variant="primary" icon="❖">
+  <KP term="Dirty Data">
+    "Dirty data" is just a casual term for data that has problems. If you're
+    building a house, you can't use crooked beams, cracked bricks, or the wrong
+    kind of cement. It's the same with Machine Learning.
+  </KP>
+</KeyPoints>
+Here are the most common types of "dirt" you'll find:
+
+<article className="cap-card">
+  <h4>Missing Values</h4>
+  <p>
+    Empty cells where data should be. Imagine a survey where someone didn't
+    answer their age.
+  </p>
+</article>
+<article className="cap-card">
+  <h4>Incorrect Data Types</h4>
+  <p>
+    A number stored as text (like "10" instead of 10) or a date stored as a
+    random string.
+  </p>
+</article>
+<article className="cap-card">
+  <h4>Duplicates</h4>
+  <p>The exact same piece of information recorded more than once.</p>
+</article>
+<article className="cap-card">
+  <h4>Outliers</h4>
+  <p>
+    A value that is wildly different from the others. For example, in a dataset
+    of house prices in a neighborhood, an entry for $50 billion would be an
+    outlier.
+  </p>
+</article>
+<article className="cap-card">
+  <h4>Inconsistent Formatting</h4>
+  <p>
+    "California," "CA," and "Calif." all mean the same thing, but a computer
+    treats them as different.
+  </p>
+</article>
+
+---
+
+### Handling Missing Data
+
+Missing data simply means you have empty spots or gaps in your dataset.
+
+<KeyPoints variant="primary" icon="❖">
+  <KP term="Example">
+    <p> Imagine you have a dataset about people for a health study, but some participants didn't fill in their weight.</p>
+
+    It might look something like this:
+    | Name    | Age | Weight (kg) | Height (cm) |
+    |---------|----:|------------:|------------:|
+    | Alice   |  28 |          65 |         168 |
+    | Bob     |  35 |          NA |         175 |
+    | Charlie |  42 |          82 |          NA |
+    | Diana   |  29 |          70 |         171 |
+
+    The "NA" (Not Available) values for Bob's weight and Charlie's height are missing data.
+    Leaving them as they are can cause errors or lead to incorrect analysis because many machine learning algorithms don't know how to handle them.
+
+    You generally have two main choices when you find missing values:
+    1. <strong>Remove Them:</strong> You could delete the entire row for Bob and Charlie.
+
+    2. <strong>Fill Them In (Imputation):</strong> You could make an educated guess about what the missing values might be.
+
+  </KP>
+</KeyPoints>
+
+<section className="ml-tabs" aria-label="Model families">
+  {/* Radios must be siblings of BOTH .segmented and .panels */}
+  <input type="radio" name="mltab" id="t-nn" defaultChecked />
+  <input type="radio" name="mltab" id="t-tree" />
+
+<div className="segmented" role="tablist" aria-label="Families">
+  <label role="tab" htmlFor="t-nn">
+    Strategy 1 - Deletion
+  </label>
+  <label role="tab" htmlFor="t-tree">
+    Strategy 2: Imputation (Filling In)
+  </label>
+</div>
+
+  <div class="panels">
+    <section id="p-nn" role="tabpanel" aria-labelledby="t-nn" class="panel">
+      <h3>Deletion</h3>
+      <p><strong>What is it?</strong></p>
+      <ul>
+        <li> Simply deleting any row that contains a missing value. </li>
+      </ul>
+      <p><strong>Pros:</strong></p>
+      <ul>
+        <li> It's quick and easy.</li>
+      </ul>
+
+      <p><strong>Cons:</strong></p>
+      <ul>
+        <li>Just as you said, you can lose a lot of valuable data, especially if many different rows have missing values. </li>
+        <li>This can lead to a biased model that doesn't represent the real world accurately.</li>
+      </ul>
+
+      <p><strong>Best for:</strong></p>
+      <ul>
+        <li>Very large datasets where losing a few rows doesn't make a difference.</li>
+      </ul>
+
+    </section>
+
+    <section id="p-tree" role="tabpanel" aria-labelledby="t-tree" class="panel">
+      <h3>Imputation (Filling In)</h3>
+      <p>This is a much more common and generally better approach. The goal is to fill the gap with a reasonable
+        estimate. Here are the three simplest ways to do it:</p>
+      <p><strong>Mean Imputation:</strong></p>
+      <ul>
+
+<li>
+  Fill the missing spot with the average of all the other values in that column.
+</li>
+
+  <li>Example: For Bob's weight, we'd calculate the average of Alice (65kg) and Diana (70kg), which is 67.5kg. So we
+    could fill in 67.5kg for Bob.</li>
+        <li>Best for: Numerical data that is fairly symmetrical (doesn't have extreme outliers).</li>
+      </ul>
+
+      <p><strong>Median Imputation:</strong></p>
+      <ul>
+        <li>Typically the best-performing architecture for structured (tabular) data.</li>
+        <li>Relatively fast and efficient to train compared to deep learning.</li>
+        <li>Can provide "feature importance" scores, offering some level of interpretability.</li>
+      </ul>
+
+      <p><strong>Mode Imputation:</strong></p>
+      <ul>
+
+        <li>Fill the missing spot with the most frequent value in the column.</li>
+
+        <li>Example: If you had a Shirt Color column with values [Blue, Red, NA, Red, Green, Red], you would fill the
+          missing value with 'Red' because it appears most often.</li>
+
+        <li>Best for: Categorical data (non-numerical data like colors, cities, or types).</li>
+      </ul>
+    </section>
+
+  </div>
+</section>
+
+---
+
+### Fixing Inconsistent Data and Formatting
+
+<section class="dq-card" aria-label="Data Quality Pitfalls">
+  <h3>Why the same thing can look different in your data?</h3>
+  <p>This is a very common and sometimes sneaky problem. It happens when data that means the same thing is recorded in different ways. A computer is very literal, so it sees "USA" and "U.S.A." as two completely different countries.</p>
+
+<p>Here are the usual suspects:</p>
+
+  <ul class="dq-list">
+    <li>
+      <strong>Inconsistent Categories:</strong>
+      <ul class="dq-sub">
+        <li><code>State</code> column has "California", "california", "CA", and "Calif."</li>
+        <li><code>Gender</code> column has "Male", "M", and "male".</li>
+      </ul>
+    </li>
+
+    <li>
+      <strong>Structural Errors:</strong>
+      <ul class="dq-sub">
+        <li><strong>Extra whitespace:</strong> <code>" apple"</code> instead of <code>"apple"</code>. This is almost invisible to the human eye!</li>
+        <li><strong>Weird date formats:</strong> "01-25-2023", "25/01/2023", and "Jan 25, 2023".</li>
+      </ul>
+    </li>
+
+    <li>
+      <strong>Incorrect Data Types:</strong>
+      <ul class="dq-sub">
+        <li>A price stored as text: <code>"$9.99"</code> (a string) instead of <code>9.99</code> (a number). You can't do math on the text version!</li>
+      </ul>
+    </li>
+
+  </ul>
+
+  <p>Fixing these usually involves writing code to standardize the values—like converting everything to lowercase, trimming whitespace, and choosing one single format for categories (e.g., making all state entries the two-letter abbreviation).</p>
+</section>
+<KeyPoints variant="primary" icon="❖">
+  <KP term="Example">
+    | Product_ID | Category | Price | In_Stock |
+    |----------:|---------|------:|---------|
+    | 101 | " Phone" | $999  | True  |
+    | 102 | "Tablet" | $450  | TRUE  |
+    | 103 | "phone"  | $1200 | False |
+    | 104 | "Laptop" | "850" | True  |
+  </KP>
+</KeyPoints>
+
+### Dealing with Duplicate Data
+
+This one is pretty straightforward. Duplicate data means having the exact same row appear more than once in your dataset.
+
+|    ID | Name    |   Order   |
+| ----: | ------- | :-------: |
+|     1 | Alice   |   Pizza   |
+|     2 | Bob     |   Salad   |
+|     3 | Charlie |   Pizza   |
+| **2** | **Bob** | **Salad** |
+
+That last row for Bob is a complete duplicate of the second row.
+
+<KeyPoints variant="primary" icon="❖">
+  <KP term="What is this a problem?">
+    <p>Imagine you're training a machine learning model. If Bob's order is in your data twice, the model will learn from his preference for "Salad" two times. This gives Bob's choice more importance than it should have, which can bias your model's predictions. It's like letting one person vote twice in an election. The fix is simple: you find and remove the duplicate rows, keeping only one unique entry.</p>
+
+  </KP>
+</KeyPoints>
+
+### Managing Outliers
+
+An outlier is a data point that is significantly different from other observations. It's a value that lies an abnormal distance from other values in a random sample from a population.
+
+Remember our example of the CEO's salary being much higher than everyone else's? That salary was an outlier.
+
+<KeyPoints variant="primary" icon="❖">
+  <KP term="What are they a problem?">
+    Just like with the CEO's salary skewing the mean, outliers can pull a whole machine learning model off course. Imagine you're trying to find the relationship between the number of hours a student studies and their exam score.
+
+    Look at the chart above. Most data points show a clear trend: study more, get a higher score. But look at that one point in the bottom right—a student who studied for 10 hours but got a score of 20. That's an outlier. It could be a data entry error, or maybe something unusual happened to that student.
+
+    If you include that outlier when training your model, it might create a line of best fit that is "pulled down" by that one strange point, making it less accurate for all the other students.
+
+  </KP>
+</KeyPoints>
+
+<KeyPoints variant="primary" icon="❖">
+  <KP term="When should we keep the outlier?">
+    One huge reason to keep an outlier is if it represents a real and important
+    event. Think about fraud detection. Most transactions are normal, but the
+    few fraudulent ones are, by definition, outliers. In that case, the outlier
+    is the most important piece of data in your whole dataset!
+  </KP>
+</KeyPoints>
+
+So, what can you do if you don't want to delete it?
+
+<div className="cap-grid-3x2">
+  <article className="cap-card">
+    <h4>Transformation</h4>
+    <p>
+      You can apply a mathematical function (like a logarithm) to the data. This
+      can pull the extreme values closer to the rest of the data, reducing their
+      skewing effect without deleting them.
+    </p>
+  </article>
+  <article className="cap-card">
+    <h4>Capping (or Winsorizing)</h4>
+    <p>
+      You can "cap" the outliers. For example, you might decide that any salary
+      above `$250,000` will be treated as if it were `$250,000`. This preserves
+      the record but limits the outlier's influence.
+    </p>
+  </article>
+  <article className="cap-card">
+    <h4>Investigate</h4>
+    <p>
+      Sometimes an outlier is just a data entry error (e.g., someone's age is
+      listed as 200 instead of 20). If you can, you should correct it.
+    </p>
+  </article>
+</div>
+
+## Stage 3: Exploratory Data Analysis (EDA)
+
+<section class="eda-hero" aria-label="Exploratory Data Analysis (EDA)">
+  <header class="eda-head">
+    <h3 class="eda-title">Exploratory Data Analysis (EDA)</h3>
+    <p class="eda-sub">Initial investigation on a freshly cleaned dataset</p>
+  </header>
+
+<p>
+  At its heart, <strong>Exploratory Data Analysis (EDA)</strong> is the process
+  of using summary statistics and visualizations to understand a dataset's main
+  characteristics. It is the stage where the data scientist studies the data
+  before modeling.
+</p>
+
+<p>
+  Consider the approach of a careful investigator. Before solving the case, the
+  investigator first surveys the situation:
+</p>
+
+<ul class="eda-bullets eda-bullets--scene">
+  <li>They measure distances and take notes.</li>
+  <li>They photograph the scene from different angles.</li>
+  <li>They identify key pieces of evidence.</li>
+  <li>They start forming theories about what might have happened.</li>
+</ul>
+
+<p>
+  That mirrors EDA. You are not building a predictive model yet; you are
+  examining and understanding.
+</p>
+
+<p class="eda-lead">The main goals are:</p>
+
+  <ul class="eda-bullets eda-bullets--goals">
+    <li><strong>Discover patterns:</strong> Is there a trend of sales increasing in the summer?</li>
+    <li><strong>Spot anomalies:</strong> Are there any outliers we missed during cleaning?</li>
+    <li><strong>Check assumptions:</strong> Does our data follow a distribution that some models require?</li>
+    <li><strong>Formulate hypotheses:</strong> Based on what we see, we might guess that age is a key factor in customer purchases; EDA helps form this initial guess for later testing.</li>
+  </ul>
+</section>
+
+<section className="uni-card" aria-label="Univariate Analysis: Looking at One Variable">
+  <header className="uni-head">
+    <h3>Univariate Analysis: Looking at One Variable</h3>
+    <p className="uni-kicker">Start by understanding each feature on its own before studying interactions.</p>
+  </header>
+
+<p>
+  The simplest way to start exploring is to look at your variables{' '}
+  <strong>one at a time</strong>. This is called{' '}
+  <strong>univariate analysis</strong> (“uni” means one). It helps you
+  understand the characteristics of each individual feature before you look at
+  how they interact.
+</p>
+
+<p>
+  Let’s start with <strong>categorical variables</strong>. These are variables
+  that represent distinct groups or categories, like car brands, city names, or
+  T-shirt colors.
+</p>
+
+<p>
+  The best way to analyze a single categorical variable is with a{' '}
+  <strong>bar chart</strong> (also called a count plot). It shows you how many
+  times each category appears in your data.
+</p>
+
+<p>
+  For example, if you had a dataset of T-shirt sales, you could make a bar chart
+  of the <em>Color</em>
+  column to quickly see which color is the most popular. This simple chart
+  instantly tells you that blue is the best-selling color and green is the least
+  popular—a basic but powerful first insight.
+</p>
+
+{/* ---- Animated CSS-only bar chart demo ---- */}
+
+  <figure className="uni-demo" aria-label="Example bar chart for a single categorical variable">
+    <figcaption>Example: T-Shirt Color Counts</figcaption>
+    <div className="bars">
+      <div className="bar blue"  data-label="Blue"  data-value="82%" style={{ '--h': 82 }} />
+      <div className="bar red"   data-label="Red"   data-value="64%" style={{ '--h': 64 }} />
+      <div className="bar black" data-label="Black" data-value="48%" style={{ '--h': 48 }} />
+      <div className="bar green" data-label="Green" data-value="21%" style={{ '--h': 21 }} />
+    </div>
+  </figure>
+</section>
+
+<section className="numviz-card" aria-label="Analyzing a Single Numerical Variable">
+  <header className="nv-head">
+    <h3>Analyzing a Single Numerical Variable</h3>
+    <p className="nv-kicker">Understand the distribution, center, spread, and potential outliers.</p>
+  </header>
+
+<p>
+  For numerical variables (age, temperature, price), we want to understand their{' '}
+  <strong>distribution</strong>: Where is the center? How spread out is it? Are
+  there outliers?
+</p>
+<p>
+  Two essential tools are the <strong>histogram</strong> and the{' '}
+  <strong>box plot</strong>.
+</p>
+
+  <div className="nv-grid">
+    {/* ================= Histogram ================= */}
+    <article className="nv-card">
+      <h4>Histograms</h4>
+      <p>A histogram groups numeric values into bins and plots the count in each bin—ideal for seeing the shape of your data.</p>
+
+      <figure className="nv-hist">
+        <figcaption>Example: Ages (synthetic)</figcaption>
+        <div className="nv-bars">
+          <div className="bar" data-label="10–20" data-value="6"  style={{ '--h': 25 }} />
+          <div className="bar" data-label="20–30" data-value="14" style={{ '--h': 58 }} />
+          <div className="bar" data-label="30–40" data-value="22" style={{ '--h': 90 }} />
+          <div className="bar" data-label="40–50" data-value="17" style={{ '--h': 70 }} />
+          <div className="bar" data-label="50–60" data-value="9"  style={{ '--h': 38 }} />
+          <div className="bar" data-label="60–70" data-value="3"  style={{ '--h': 15 }} />
+        </div>
+      </figure>
+      <p className="nv-note">The tallest bin suggests the most common ages cluster around the mid-30s to mid-40s.</p>
+    </article>
+
+    {/* ================= Box Plot ================= */}
+    <article className="nv-card">
+      <h4>Box Plots</h4>
+      <p>A box plot summarizes the data with five numbers—min, Q1, median, Q3, max—making spread and outliers easy to see.</p>
+
+      {/* Single horizontal box plot driven by CSS variables */}
+      <figure className="nv-boxplot">
+        <figcaption>Example: Ages (five-number summary)</figcaption>
+
+        {/* Configure the summary via CSS variables (percent scale 0–100) */}
+        <div
+          className="bx-axis"
+          style={{ '--min': 8, '--q1': 30, '--med': 52, '--q3': 74, '--max': 92 }}
+        >
+          <div className="bx-track" />
+
+          {/* whisker rods */}
+          <div className="bx-rod left"  style={{ '--start': 8,  '--end': 30 }} />
+          <div className="bx-rod right" style={{ '--start': 74, '--end': 92 }} />
+
+          {/* endpoints */}
+          <div className="bx-cap min" style={{ '--pos': 8  }} />
+          <div className="bx-cap max" style={{ '--pos': 92 }} />
+
+          {/* box and median */}
+          <div className="bx-box"   />
+          <div className="bx-med"   />
+
+          {/* chips */}
+          <span className="bx-chip" style={{ '--pos': 8  }}>Min</span>
+          <span className="bx-chip" style={{ '--pos': 30 }}>Q1</span>
+          <span className="bx-chip" style={{ '--pos': 52 }}>Median</span>
+          <span className="bx-chip" style={{ '--pos': 74 }}>Q3</span>
+          <span className="bx-chip" style={{ '--pos': 92 }}>Max</span>
+        </div>
+      </figure>
+
+      <ul className="nv-legend">
+        <li><strong>Median</strong>: middle value.</li>
+        <li><strong>Box</strong>: middle 50% (Q1–Q3).</li>
+        <li><strong>Whiskers</strong>: span from quartiles to min/max.</li>
+        <li><strong>Outliers</strong>: points beyond whiskers (not shown here).</li>
+      </ul>
+    </article>
+
+  </div>
+</section>
+```

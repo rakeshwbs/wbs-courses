@@ -1,0 +1,225 @@
+---
+id: evaluation-structured-questions
+title: Exam-type Questions
+hide_title: true
+sidebar_position: 4
+sidebar_label: Exam-type Questions
+sidebar_class_name: icon-exam
+---
+import ModuleBanner from '@site/src/components/dsa/dsa-banner';
+
+<ModuleBanner />
+
+
+### **Sample Examination Questions & Answers - Week 3 Concepts**
+
+**QUESTION 1 \[25 MARKS]**
+
+(a) The process of inserting a new node into the middle of a linked list is often called "pointer surgery". Describe the two crucial pointer assignments that must be made to insert a `newNode` immediately after a `previousNode`. Explain why the order of these two assignments is critical.
+\[9]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    Let's assume the list is `... -> previousNode -> nextNode -> ...` and we want to insert `newNode` between them.
+
+    The two crucial pointer assignments are:
+
+    1. **`newNode->next = previousNode->next;`**
+    This step links the new node to the rest of the list. It takes the address that `previousNode` was pointing to (the address of `nextNode`) and stores it in the `next` pointer of the `newNode`.
+    2. **`previousNode->next = newNode;`**
+    This step redirects the `previousNode` to point to the `newNode`, officially inserting it into the chain.
+
+    **Order is Critical:** The order must be **Step 1 then Step 2**. If you perform Step 2 first (`previousNode->next = newNode;`), you will overwrite the `previousNode`'s original `next` pointer, which was the only link to the rest of the list. The address of `nextNode` and all subsequent nodes would be lost, effectively truncating the list and causing a massive memory leak.
+
+    **Marking Scheme:**
+
+    * \[3 Marks] - For correctly identifying the first assignment (`newNode->next = ...`).
+    * \[3 Marks] - For correctly identifying the second assignment (`previousNode->next = ...`).
+    * \[3 Marks] - For clearly explaining that reversing the order would lose the pointer to the rest of the list.
+
+</details>
+
+(b) You are given a linked list containing the values: `100 -> 200 -> 300 -> 400`. Trace the key steps involved in executing `deleteNode(300)`. Describe the state of your main pointers (`previous` and `current`) just before the deletion and the pointer assignment that unlinks the node.
+\[8]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    **Trace:**
+
+    1. Start traversal. `previous` is `nullptr`, `current` points to the node with data `100`. `100 != 300`.
+    2. Advance pointers. `previous` points to node `100`, `current` points to node `200`. `200 != 300`.
+    3. Advance pointers. `previous` points to node `200`, `current` points to node `300`. `300 == 300`. The loop stops.
+
+    **State before deletion:**
+
+    * The `previous` pointer is pointing to the node containing `200`.
+    * The `current` pointer is pointing to the node containing `300` (the node to be deleted).
+
+    **Pointer Assignment:**
+
+    * The unlinking happens with the statement: **`previous->next = current->next;`**
+    * This takes the `next` value from the node being deleted (which is the address of the `400` node) and assigns it to the `next` pointer of the `previous` node (the `200` node). The list is now logically `100 -> 200 -> 400`. The final step would be to `delete current;`.
+
+    **Marking Scheme:**
+
+    * \[4 Marks] - For a correct trace showing how the pointers arrive at the correct position.
+    * \[2 Marks] - For correctly identifying the final state of the `previous` and `current` pointers.
+    * \[2 Marks] - For correctly stating the pointer assignment (`previous->next = current->next;`) that performs the unlinking.
+
+</details>
+
+(c) State the Big O time complexity for the following linked list operations and provide a brief justification for each.
+i. `prependNode()` (insert at head)
+ii. `appendNode()` (insert at end)
+iii. `search(value)`
+\[8]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    i. **`prependNode()`: \$O(1)\$ - Constant Time**
+
+    * **Justification:** This operation does not depend on the size of the list. It involves a fixed number of steps (create node, update two pointers) regardless of whether the list has 0 or 1 million nodes.
+
+    ii. **`appendNode()`: \$O(n)\$ - Linear Time**
+
+    * **Justification:** To add a node at the end, the algorithm must first find the last node. This requires traversing the entire list from the `head`, visiting each of the `n` nodes once in the worst case.
+
+    iii. **`search(value)`: \$O(n)\$ - Linear Time**
+
+    * **Justification:** In the worst-case scenario, the value being searched for is either the last element in the list or not in the list at all. This requires traversing all `n` nodes to confirm its location or absence.
+
+    **Marking Scheme:**
+
+    * \[1 Mark] - For correct complexity of prepend. \[1 Mark] for justification.
+    * \[1 Mark] - For correct complexity of append. \[2 Marks] for justification.
+    * \[1 Mark] - For correct complexity of search. \[2 Marks] for justification.
+
+</details>
+
+---
+
+**QUESTION 2 \[25 MARKS]**
+
+(a) Write the complete C++ code for the `displayList()` method for the `LinkedList` class. It should traverse the list and print its contents in a clear, arrow-separated format, ending with `nullptr`.
+\[7]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    ```cpp
+    #include <iostream> // Needed for std::cout
+
+    // Assuming Node class and LinkedList class structure are defined
+
+    void LinkedList::displayList() {
+        Node* current = head; // 1. Start at the head
+
+        while (current != nullptr) { // 2. Loop until the end of the list
+        std::cout << current->data << " -> "; // 3. Print data
+        current = current->next; // 4. Move to the next node
+    }
+
+        std::cout << "nullptr" << std::endl; // 5. Print the end marker
+    }
+    ```
+
+    **Marking Scheme:**
+
+    * \[2 Marks] - For correctly initializing a temporary `Node*` to `head`.
+    * \[2 Marks] - For the correct `while (current != nullptr)` loop condition.
+    * \[2 Marks] - For correctly printing the data and advancing the pointer inside the loop.
+    * \[1 Mark] - For printing the final `nullptr` to indicate the end.
+
+</details>
+
+(b) Write a complete C++ implementation for the `prependNode(int value)` method. Your implementation should correctly handle adding a node to both an empty list and a non-empty list.
+\[8]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    ```cpp
+    // Assuming Node class and LinkedList class structure are defined
+
+    void LinkedList::prependNode(int value) {
+    // Step 1: Create the new node on the heap
+    Node* newNode = new Node(value);
+
+    // Step 2: Set the new node's next pointer to the current head.
+    newNode->next = head;
+
+    // Step 3: Update the head pointer to point to the new node.
+    head = newNode;
+}
+    ```
+
+    **Marking Scheme:**
+
+    * \[2 Marks] - For correctly allocating a new `Node` on the heap.
+    * \[3 Marks] - For correctly setting the `newNode`'s `next` pointer to the old `head`.
+    * \[3 Marks] - For correctly updating the `head` pointer to be the `newNode`.
+
+</details>
+
+(c) A junior developer has written the following code to delete the head of a linked list. Identify the critical bug in their logic and explain what would happen if this code were run. Provide the corrected lines of code.
+
+```cpp
+// Flawed Code Snippet for deleting the head
+void LinkedList::deleteHead() {
+if (head == nullptr) {
+    return; // Correctly handles empty list
+}
+
+delete head;          // BUG IS HERE
+head = head->next;    // And here!
+}
+```
+
+\[10]
+
+<details>
+    <summary>Click to see the answer and marking scheme</summary>
+
+    **Answer:**
+
+    **The Bug:** The code deletes the `head` node *before* trying to access its `next` member.
+
+    **What Happens:**
+
+    1. `delete head;` deallocates the memory that `head` was pointing to.
+    2. `head = head->next;` then attempts to access `head->next`. This is accessing freed memory — undefined behavior, which often results in a crash (segmentation fault).
+
+    **Corrected Code:**
+
+    ```cpp
+    void LinkedList::deleteHead() {
+    if (head == nullptr) {
+    return;
+}
+
+    Node* temp = head;     // Save current head
+    head = head->next;     // Move head to next node
+    delete temp;           // Delete old head
+}
+    ```
+
+    **Marking Scheme:**
+
+    * \[4 Marks] - For correctly identifying the bug: deleting memory before accessing it.
+    * \[3 Marks] - For correctly explaining the consequence: undefined behavior, dangling pointer, likely crash.
+    * \[3 Marks] - For providing the correct code with proper pointer order.
+
+</details>

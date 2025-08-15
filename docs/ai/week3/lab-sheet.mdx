@@ -1,0 +1,139 @@
+---
+id: lab-sheet
+title: Labsheet
+sidebar_position: 2
+hide_title: true
+sidebar_label: Data Segmentation
+sidebar_class_name: icon-lab
+---
+import ModuleBanner from '@site/src/components/ai/ai-banner';
+
+<ModuleBanner />
+## **Introduction to the Lab**
+
+In today's lab, you will act as a data strategist for a shopping mall in Mauritius. You will be given a dataset of customer information and your task will be to discover hidden groups within this data. You will use the **Elbow Method** to find the optimal number of customer segments, apply **K-Means** to create these segments, and finally use **PCA** if needed to visualize your findings.
+
+-----
+
+### **Lab Guide**
+
+**Lab 03: The Retail Strategist - Customer Segmentation**
+
+**Objective:** By the end of this lab, you will have applied K-Means clustering to segment data, used the Elbow Method to determine an optimal number of clusters, and visualized the results.
+
+**Scenario:** You are a data strategist for a large shopping mall in Mauritius. You have a dataset containing customers' annual income and a "spending score" (from 1-100) assigned by the mall based on their purchasing behavior. Your goal is to identify distinct customer groups for a targeted marketing campaign.
+
+#### **Part A: Data Preparation & Exploration**
+
+**1. Import Libraries**
+
+```python
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.cluster import KMeans
+
+# We will create our own data for this exercise
+from sklearn.datasets import make_blobs 
+```
+
+**2. Generate and Load the Dataset**
+To ensure we have clear clusters to find, we'll generate a synthetic dataset. This is a common practice when learning algorithms.
+
+```python
+# Generate synthetic data with 4 distinct clusters
+X, y_true = make_blobs(n_samples=300, centers=4,
+                       cluster_std=0.80, random_state=42)
+
+# For the purpose of our scenario, let's put this into a Pandas DataFrame
+# In a real project, you would load a CSV here.
+df = pd.DataFrame(X, columns=['Annual_Income_kMUR', 'Spending_Score'])
+
+print("Sample of our customer data:")
+print(df.head())
+```
+
+**3. Explore the Raw Data**
+Let's visualize the data before we do any clustering. It should look like a scatter of points with no labels.
+
+```python
+plt.figure(figsize=(10, 6))
+plt.scatter(df['Annual_Income_kMUR'], df['Spending_Score'], s=50)
+plt.title('Raw Customer Data')
+plt.xlabel('Annual Income (in thousands of MUR)')
+plt.ylabel('Spending Score (1-100)')
+plt.grid(True)
+plt.show()
+```
+
+#### **Part B: Finding the Optimal K with the Elbow Method**
+
+How many clusters should we look for? Let's use the Elbow Method to decide.
+
+```python
+# We will test K values from 1 to 10
+inertia = []
+K = range(1, 11)
+
+for k in K:
+    # Create a KMeans instance with k clusters
+    kmeans_model = KMeans(n_clusters=k, random_state=42, n_init='auto')
+    
+    # Fit the model to the data
+    kmeans_model.fit(X)
+    
+    # Append the inertia to our list
+    inertia.append(kmeans_model.inertia_)
+
+# Plot the Elbow graph
+plt.figure(figsize=(10, 6))
+plt.plot(K, inertia, 'bo-')
+plt.xlabel('Number of Clusters (K)')
+plt.ylabel('Inertia')
+plt.title('The Elbow Method for Optimal K')
+plt.grid(True)
+plt.show()
+```
+
+*Look at the plot. Where does the "elbow" seem to be? This is our optimal K.* You should see a distinct bend at **K=4**.
+
+#### **Part C: Running K-Means and Visualizing Segments**
+
+Now that we know the best K, let's run the final model and visualize the segments.
+
+```python
+# Create the final KMeans model with our optimal K
+optimal_k = 4
+final_kmeans_model = KMeans(n_clusters=optimal_k, random_state=42, n_init='auto')
+
+# Fit the model and get the cluster labels for each data point
+y_kmeans = final_kmeans_model.fit_predict(X)
+
+# Get the coordinates of the cluster centers (centroids)
+centroids = final_kmeans_model.cluster_centers_
+
+# Visualize the clusters
+plt.figure(figsize=(12, 8))
+# Plot the data points, colored by their assigned cluster label
+plt.scatter(X[:, 0], X[:, 1], c=y_kmeans, s=50, cmap='viridis')
+
+# Plot the centroids on top
+plt.scatter(centroids[:, 0], centroids[:, 1], c='red', s=200, alpha=0.75, marker='X', label='Centroids')
+
+plt.title('Customer Segments')
+plt.xlabel('Annual Income (in thousands of MUR)')
+plt.ylabel('Spending Score (1-100)')
+plt.legend()
+plt.grid(True)
+plt.show()
+```
+
+**Conclusion and Business Interpretation:**
+You have successfully used K-Means to identify 4 distinct customer segments\! A marketing team could now use this information:
+
+* One cluster might be "High Income, High Spenders" (target with luxury brands).
+* Another might be "Low Income, High Spenders" (target with discounts and sales).
+* And so on...
+
+This is a powerful example of how Unsupervised Learning can provide valuable business insights from unlabeled data.
+
+

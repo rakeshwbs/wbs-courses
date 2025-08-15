@@ -1,0 +1,84 @@
+---
+id: lecture-notes
+title: Lecture Notes
+hide_title: true
+sidebar_position: 1
+sidebar_label: Stacks
+sidebar_class_name: icon-lecture
+---
+import ModuleBanner from '@site/src/components/dsa/dsa-banner';
+
+<ModuleBanner />
+
+## **Week 5: Introduction to Stacks**
+
+So far, we've dealt with linked lists, which allow for flexible insertion and deletion anywhere. Now, we'll shift our focus to data structures that impose specific rules on how we access data. The first and most fundamental of these is the **Stack**.
+
+### **The Stack ADT (LIFO)**
+
+A **Stack** is a linear data structure that follows a particular order in which operations are performed. The order is **LIFO (Last-In, First-Out)**.
+
+  * **Analogy:** The best way to visualize a stack is to think of a stack of plates. You can only add a new plate to the top of the stack, and you can only remove a plate from the top. The last plate you put on the stack is always the first one you take off.
+
+This principle makes stacks incredibly useful for a variety of problems, such as managing function calls in a program, parsing expressions, and implementing "undo" features.
+
+-----
+
+### **Core Stack Operations**
+
+A Stack ADT is defined by a few core operations:
+
+  * **`push(value)`:** Adds a new item to the **top** of the stack.
+  * **`pop()`:** Removes and returns the item currently at the **top** of the stack.
+  * **`peek()`** (sometimes called `top()`): Returns the item at the top without removing it. This is useful for checking the top value before deciding whether to pop it.
+  * **`isEmpty()`:** A boolean function that returns `true` if the stack contains no elements.
+  * **`isFull()`:** A boolean function that returns `true` if the stack has reached its maximum capacity (this is mainly relevant for array-based implementations).
+
+-----
+
+### **Array-Based Implementation**
+
+The simplest way to implement a stack is by using an array. This is a **contiguous** representation, as all elements will be stored next to each other in memory.
+
+To do this, our `Stack` class needs three things:
+
+1.  An **array** to hold the data (e.g., `int stackArray[MAX_SIZE];`).
+2.  A constant `MAX_SIZE` to define the fixed capacity of the stack.
+3.  An integer variable, typically called **`top`**, which acts as an index to keep track of the topmost element.
+
+We initialize `top` to **-1** to indicate that the stack is initially empty.
+
+  * When we **`push`**, we first increment `top`, then place the new element at the index `stackArray[top]`.
+  * When we **`pop`**, we first retrieve the element from `stackArray[top]`, then decrement `top`.
+
+#### **Handling Errors**
+
+  * **Stack Overflow:** Before pushing an element, we must check if `top == MAX_SIZE - 1`. If it is, the stack is full, and we cannot add more items.
+  * **Stack Underflow:** Before popping or peeking, we must check if `top == -1`. If it is, the stack is empty, and there is nothing to remove or view.
+
+-----
+
+### **C++ Class Structure**
+
+Here is what the C++ class structure for an array-based stack looks like. Notice how it encapsulates the array and `top` index, hiding the implementation details from the user.
+
+```cpp
+#define MAX_SIZE 100
+
+class Stack {
+private:
+    int arr[MAX_SIZE];
+    int top;
+
+public:
+    // Constructor to initialize the stack
+    Stack() {
+        top = -1; // Indicates an empty stack
+    }
+
+    void push(int value);
+    int pop();
+    int peek();
+    bool isEmpty();
+    bool isFull();
+};

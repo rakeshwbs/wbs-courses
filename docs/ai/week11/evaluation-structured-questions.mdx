@@ -1,0 +1,122 @@
+---
+id: evaluation-structured-questions
+title: Exam-type Questions
+hide_title: true
+sidebar_position: 4
+sidebar_label: Exam-type Questions
+sidebar_class_name: icon-exam
+---
+import ModuleBanner from '@site/src/components/ai/ai-banner';
+
+<ModuleBanner />
+
+
+
+## 📘 **Sample Examination Questions & Answers – Week 11 Concepts**
+
+---
+
+### **QUESTION 1 \[25 MARKS]**
+
+---
+
+#### (a) Explain what **algorithmic bias** is and describe its primary cause. Provide a real-world example to illustrate your explanation.
+
+**\[8 Marks]**
+
+<details>
+<summary>Click to see the answer and marking scheme</summary>
+
+**Answer:**
+
+**Algorithmic bias** refers to systematic and repeatable errors in an AI system that result in unfair, prejudiced, or discriminatory outcomes against certain groups or individuals.
+
+The **primary cause** of this bias is not a flaw in the algorithm itself, but rather the **data on which the model was trained**. AI models learn the patterns from the data they are given. If this data reflects existing historical, societal, or sampling biases, the model will learn these biases as valid patterns and will replicate and often amplify them in its predictions.
+
+**Example:**
+An AI recruiting tool trained on a company's historical hiring data might learn to favor male candidates over equally qualified female candidates if the company has a history of hiring more men for senior roles. The AI learns that being male is a feature of a successful hire, leading to a biased outcome.
+
+**Marking Scheme:**
+
+* \[3 Marks] – For a clear definition of algorithmic bias (systematic, unfair outcomes).
+* \[3 Marks] – For correctly identifying biased training data as the primary cause.
+* \[2 Marks] – For a clear and relevant real-world example.
+
+</details>
+
+---
+
+#### (b) The "FAT" framework is a cornerstone of responsible AI. List what each letter in the acronym **F-A-T** stands for and briefly explain the concept of **Transparency**.
+
+**\[7 Marks]**
+
+<details>
+<summary>Click to see the answer and marking scheme</summary>
+
+**Answer:**
+
+The acronym **FAT** stands for:
+
+* **F** – Fairness
+* **A** – Accountability
+* **T** – Transparency
+
+**Transparency**, in the context of AI, is the principle that the decisions and processes of an AI model should be understandable and accessible. For complex "black box" models like deep neural networks, this involves a sub-field called **Explainable AI (XAI)**, which aims to create techniques to interpret *why* a model made a specific decision. This is crucial for debugging, building user trust, and auditing for fairness.
+
+**Marking Scheme:**
+
+* \[3 Marks] – For correctly listing Fairness, Accountability, and Transparency (1 mark each).
+* \[4 Marks] – For a clear explanation of Transparency, including the concept of "black box" models and XAI.
+
+</details>
+
+---
+
+#### (c) Generative AI models present unique ethical challenges not as prominent in discriminative models. Describe two of these unique challenges.
+
+**\[6 Marks]**
+
+<details>
+<summary>Click to see the answer and marking scheme</summary>
+
+**Answer:**
+
+Two unique ethical challenges of Generative AI are:
+
+1. **Misinformation and Deepfakes:**
+   The ability to generate highly realistic but entirely fake text, images, and videos at scale poses a significant threat. This technology can be used to create convincing "deepfakes" for political propaganda, scams, or personal harassment, making it difficult for the public to distinguish between real and fabricated content.
+
+2. **Copyright and Intellectual Property:**
+   Generative models are trained on vast amounts of data scraped from the internet, which often includes copyrighted material like artwork and photographs. This raises complex legal and ethical questions about who owns the AI-generated output and whether the original creators whose work was used for training should be compensated or credited.
+
+**Marking Scheme:**
+
+* \[3 Marks] – For a clear description of the first challenge (e.g., misinformation/deepfakes).
+* \[3 Marks] – For a clear description of the second challenge (e.g., copyright/data provenance).
+
+</details>
+
+---
+
+#### (d) For your final project, you decide to build a model to predict if a loan application should be approved or denied. What is the main ethical consideration you must address, and what is one step you could take to mitigate it?
+
+**\[4 Marks]**
+
+<details>
+<summary>Click to see the answer and marking scheme</summary>
+
+**Answer:**
+
+The main ethical consideration is **Fairness**. The model must not learn to be biased against applicants based on protected attributes like their gender, ethnicity, or neighborhood, which might be implicitly present in the training data (e.g., through postcodes).
+
+One step to mitigate this would be to **carefully audit the training data** before building the model. This involves analyzing the data to ensure it is representative of all demographic groups and checking for historical biases. If biases are found, techniques like re-sampling the data (e.g., oversampling underrepresented groups) can be used to create a more balanced and fair dataset.
+
+**Marking Scheme:**
+
+* \[2 Marks] – For identifying Fairness as the main ethical consideration.
+* \[2 Marks] – For suggesting a reasonable mitigation step, such as auditing or re-sampling the data.
+
+</details>
+
+---
+

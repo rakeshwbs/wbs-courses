@@ -1,0 +1,56 @@
+---
+id: lab-sheet
+title: Lab sheet 1
+hide_title: true
+sidebar_position: 2
+sidebar_label: Using Recursion
+sidebar_class_name: icon-lab
+---
+import ModuleBanner from '@site/src/components/dsa/dsa-banner';
+
+<ModuleBanner />
+
+
+## **Lab 8: Thinking Recursively**
+
+**Objective:** To gain practical experience writing recursive functions by implementing solutions to classic recursive problems. For each task, the main goal is to correctly identify the **base case** and the **recursive step**.
+
+### **Task 1: The Factorial Function**
+Your goal is to write a C++ function `int factorial(int n)` that calculates `n!` using recursion.
+
+1.  **Identify the Base Case**: What is the simplest possible input whose factorial is known without calculation? This will be your stopping condition.
+2.  **Identify the Recursive Step**: How can you express the factorial of `n` in terms of the factorial of a smaller number? (e.g., `5!` in terms of `4!`).
+3.  **Implement the Function**: Combine the base case and recursive step into an `if/else` structure within your function.
+4.  **Test**: In your `main()` function, call `factorial(5)` and verify that the output is 120. Also test the base case `factorial(0)`.
+
+***
+
+### **Task 2: The Fibonacci Function**
+Your goal is to write a C++ function `int fibonacci(int n)` that returns the nth number in the Fibonacci sequence (`0, 1, 1, 2, 3, 5, ...`).
+
+1.  **Identify the Base Cases**: This problem needs two base cases to properly terminate. What are the first two numbers in the sequence that are defined by rule, not by adding previous numbers?
+2.  **Identify the Recursive Step**: How is any given Fibonacci number defined in terms of the two numbers that came before it?
+3.  **Implement the Function**: Write the C++ code that reflects this logic.
+4.  **Test**: In `main()`, test your function with `fibonacci(7)`. The expected output is 13.
+
+***
+
+### **Task 3: The Challenge - Towers of Hanoi**
+Your goal is to write a C++ function that prints the sequence of moves to solve the Towers of Hanoi puzzle.
+
+
+**Function Signature**:
+`void towersOfHanoi(int numDisks, char sourceRod, char destinationRod, char auxiliaryRod);`
+
+**Recursive Logic**:
+To move `n` disks from Source to Destination:
+1.  Move `n-1` disks from **Source** to **Auxiliary**. (This is a recursive call).
+2.  Move the single, largest disk from **Source** to **Destination**. (This is a `std::cout` statement).
+3.  Move the `n-1` disks from **Auxiliary** to **Destination**. (This is another recursive call).
+
+**Implementation**:
+1.  **Base Case**: The simplest case is when you only have to move `numDisks = 1`. In this case, you just print the single move from the source to the destination.
+2.  **Recursive Step**: For `numDisks > 1`, implement the three-step logic described above.
+3.  **Test**: In `main()`, call your function with 3 disks: `towersOfHanoi(3, 'A', 'C', 'B');`. This should print the 7 moves required to solve the puzzle.
+
+***

@@ -1,0 +1,75 @@
+---
+id: lab-sheet
+title: Lab sheet 1
+hide_title: true
+sidebar_position: 2
+sidebar_label: Implement Sorting Algo
+sidebar_class_name: icon-lab
+---
+import ModuleBanner from '@site/src/components/dsa/dsa-banner';
+
+<ModuleBanner />
+
+## **Lab 12: Implementing and Comparing Simple Sorting Algorithms**
+
+**Objective:** To implement two fundamental sorting algorithms, Bubble Sort and Insertion Sort. The main goal is to gain a practical understanding of how an $O(n^2)$ algorithm's performance is affected by the size of the input data by timing their execution on a large dataset.
+
+### **Task 1: Helper `printArray` Function**
+
+Before you start, write a simple utility function to print the contents of an array. This will help you verify that your sorting algorithms are working correctly.
+`void printArray(int arr[], int size);`
+
+-----
+
+### **Task 2: Implement Bubble Sort**
+
+Write a C++ function that implements the Bubble Sort algorithm.
+
+1.  **Function Signature**: `void bubbleSort(int arr[], int size);`
+2.  **Implementation**:
+  * Use a nested `for` loop structure.
+  * The outer loop will control the number of passes.
+  * The inner loop will step through the array, comparing adjacent elements (`arr[j]` and `arr[j+1]`) and swapping them if they are in the wrong order.
+
+-----
+
+### **Task 3: Implement Insertion Sort**
+
+Write a C++ function that implements the Insertion Sort algorithm.
+
+1.  **Function Signature**: `void insertionSort(int arr[], int size);`
+2.  **Implementation**:
+  * The outer loop will iterate from the second element (`i = 1`) to the end of the array.
+  * Inside the loop, store the current element as a `key`.
+  * Use an inner `while` loop to find the correct position for the `key` in the already sorted part of the array, shifting larger elements one position to the right to make space.
+  * Place the `key` into its correct sorted position.
+
+-----
+
+### **Task 4: Performance Comparison and Analysis**
+
+This is the most important part of the lab. You will see the theory of $O(n^2)$ in action. You'll need to `#include <chrono>` and `#include <cstdlib>` (for random numbers).
+
+1.  **Create Test Data**: In `main()`, create two identical arrays of a large size (e.g., 10,000 or 20,000). Fill them with the same set of random numbers.
+```cpp
+const int SIZE = 20000;
+int arr1[SIZE];
+int arr2[SIZE];
+for(int i = 0; i < SIZE; i++) {
+    arr1[i] = rand();
+    arr2[i] = arr1[i]; // Ensure both arrays are identical
+}
+```
+2.  **Time Bubble Sort**: Use the `<chrono>` library to time the execution.
+```cpp
+auto start = std::chrono::high_resolution_clock::now();
+bubbleSort(arr1, SIZE);
+auto stop = std::chrono::high_resolution_clock::now();
+auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(stop - start);
+std::cout << "Bubble Sort took: " << duration.count() << " milliseconds." << std::endl;
+```
+3.  **Time Insertion Sort**: Repeat the timing process for `insertionSort` using `arr2`.
+4.  **Analyze**: Compare the two execution times. Write a comment in your code answering: Which was faster? Does this match your expectation? Now, try changing `SIZE` to be much smaller (e.g., 50) and much larger (e.g., 40,000) and observe how the run times change dramatically.
+
+-----
+

@@ -1,0 +1,160 @@
+---
+id: lab-sheet
+title: Labsheet
+sidebar_position: 2
+hide_title: true
+sidebar_label: Apply SVM Model
+sidebar_class_name: icon-lab
+
+---
+import ModuleBanner from '@site/src/components/ai/ai-banner';
+
+<ModuleBanner />
+## **4.0 Introduction to the Lab**
+
+In today's lab, you will put these concepts into practice. You will be working as a data analyst for a bank, building a model to predict if a client will subscribe to a product. You will:
+
+1.  Build and train a Support Vector Machine model.
+2.  Generate a confusion matrix to see the breakdown of your model's predictions.
+3.  Calculate and, most importantly, *interpret* the precision, recall, and F1-score to understand the true business impact of your model's performance.
+
+-----
+
+
+### **Lab Guide**
+
+**Lab 05: Maximum Margins and Meaningful Metrics**
+
+**Objective:** By the end of this lab, you will have applied an SVM model and, more importantly, learned how to generate and interpret a confusion matrix and a full classification report.
+
+**Scenario:** You are working with a bank in Mauritius to build a model that predicts whether a client will subscribe to a new investment product based on their profile, helping to target marketing efforts more effectively.
+
+#### **Part A: Data Preparation**
+
+**1. Import Libraries**
+
+```python
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.svm import SVC
+from sklearn.metrics import accuracy_score, confusion_matrix, classification_report, ConfusionMatrixDisplay
+from sklearn.preprocessing import StandardScaler
+import matplotlib.pyplot as plt
+```
+
+**2. Load the Dataset**
+We will use a "Bank Marketing" dataset from a public URL.
+
+```python
+# Load the dataset from a URL
+url = 'https://archive.ics.uci.edu/ml/machine-learning-databases/00222/bank-additional-full.csv'
+df = pd.read_csv(url, sep=';')
+
+# For simplicity, let's select a few numerical features and the target
+df_subset = df[['age', 'duration', 'campaign', 'pdays', 'previous', 'y']].copy()
+# Convert target 'y' to binary (1 for 'yes', 0 for 'no')
+df_subset['y'] = df_subset['y'].apply(lambda x: 1 if x == 'yes' else 0)
+# Drop rows where 'pdays' is 999 (a special value for 'not previously contacted')
+df_subset = df_subset[df_subset['pdays'] != 999]
+
+print("Dataset loaded and preprocessed. Here is the first 5 rows:")
+print(df_subset.head())
+```
+
+**3. Define Features (X) and Target (y)**
+
+```python
+X = df_subset.drop('y', axis=1)
+y = df_subset['y']
+```
+
+**4. Split the Data**
+
+```python
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42, stratify=y)
+```
+
+**5. Scale the Features**
+SVMs are sensitive to the scale of the features. We need to scale them.
+
+```python
+scaler = StandardScaler()
+
+# Fit the scaler on the training data ONLY
+scaler.fit(X_train)
+
+# Transform both training and testing data
+X_train_scaled = scaler.transform(X_train)
+X_test_scaled = scaler.transform(X_test)
+```
+
+#### **Part B: Building and Training an SVM Model**
+
+```python
+# 1. Instantiate the Support Vector Classifier
+# We'll start with a linear kernel
+svm_model = SVC(kernel='linear', random_state=42)
+
+# 2. Fit the model on the SCALED training data
+svm_model.fit(X_train_scaled, y_train)
+
+# 3. Make predictions on the SCALED test data
+y_pred = svm_model.predict(X_test_scaled)
+```
+
+#### **Part C: Comprehensive Model Evaluation**
+
+**1. Simple Accuracy**
+First, let's check the simple accuracy score we're used to.
+
+```python
+accuracy = accuracy_score(y_test, y_pred)
+print(f"Simple Accuracy Score: {accuracy:.4f}")
+```
+
+*Note: This dataset is imbalanced, so accuracy alone can be misleading\!*
+
+**2. The Confusion Matrix**
+Let's get the full picture.
+
+```python
+# Generate the confusion matrix
+cm = confusion_matrix(y_test, y_pred)
+
+# Visualize the confusion matrix
+disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=['No Subscription', 'Subscription'])
+disp.plot()
+plt.title('Confusion Matrix')
+plt.show()
+
+print("\n--- Confusion Matrix Breakdown ---")
+print(f"True Negatives (TN): {cm[0, 0]} - Correctly predicted 'No Subscription'")
+print(f"False Positives (FP): {cm[0, 1]} - Incorrectly predicted 'Subscription'")
+print(f"False Negatives (FN): {cm[1, 0]} - Incorrectly predicted 'No Subscription' (a missed opportunity!)")
+print(f"True Positives (TP): {cm[1, 1]} - Correctly predicted 'Subscription'")
+```
+
+**3. The Classification Report**
+This is the most efficient way to see all the key metrics at once.
+
+```python
+# Generate and print the classification report
+report = classification_report(y_test, y_pred, target_names=['No Subscription', 'Subscription'])
+
+print("\n--- Classification Report ---")
+print(report)
+```
+
+#### **Part D: Interpretation and Business Impact**
+
+Let's interpret the report you just generated.
+
+* Look at the row for **"Subscription" (the positive class)**.
+* **Precision:** What does this number tell you? *Of all the clients we predicted would subscribe, this percentage actually did. A high precision means our marketing team isn't wasting money on uninterested clients.*
+* **Recall:** What does this number tell you? *Of all the clients who actually would have subscribed, this is the percentage we successfully identified. A high recall means we are not missing out on many potential sales.*
+* **F1-Score:** This gives you a single number to balance the trade-off between precision and recall.
+
+**Business Question:** For the bank, which might be more costly? A False Positive (marketing to someone who won't buy) or a False Negative (failing to market to someone who would have bought)? The answer determines whether you want to optimize for higher precision or higher recall.
+
+**Conclusion:** You have now moved beyond simple accuracy and can evaluate a model's performance with the nuance of a professional data scientist, connecting metrics directly to business impact.
+

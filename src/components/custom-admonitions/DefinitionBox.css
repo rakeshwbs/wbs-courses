@@ -1,0 +1,86 @@
+/* ========= 1) PALETTE HOOKS (override once, used everywhere) ========= */
+/* If you want to force a specific green, set --def-accent at :root.     */
+/* Example: :root { --def-accent: #2E7D32; }  (Material Green 800)       */
+:root {
+    /* Fallback to Docusaurus success if no custom hex is provided */
+    --def-accent: var(--rs-def-accent, var(--ifm-color-success));
+}
+
+/* Optional: tune accent for dark mode (slightly lighter for contrast) */
+html[data-theme='dark'] {
+    --def-accent: var(--rs-def-accent-dark, var(--ifm-color-success));
+}
+
+/* ========= 2) TOKENIZATION FOR THE COMPONENT ========================= */
+.definition-box {
+    /* Derive tones from the single accent */
+    --def-accent-strong: color-mix(in srgb, var(--def-accent) 92%, black);
+    --def-accent-soft:   color-mix(in srgb, var(--def-accent) 16%, var(--ifm-background-surface-color));
+    --def-border:        color-mix(in srgb, var(--def-accent) 48%, transparent);
+    --def-title:         color-mix(in srgb, var(--def-accent) 85%, black);
+    --def-text:          var(--ifm-font-color-base);
+}
+
+/* ========= 3) CONTAINER ============================================= */
+.definition-box {
+    border-left: 4px solid var(--def-accent);
+    border-radius: 12px;
+    margin: 1.5rem 0;
+    background-color: var(--def-accent-soft);
+    box-shadow: var(--ifm-global-shadow-lw);
+    transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease, background-color .25s ease;
+    border: 1px solid var(--def-border);
+}
+
+.definition-box:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--ifm-global-shadow-md);
+    /* Lift the tint slightly on hover (no hard-coded colors) */
+    background-color: color-mix(in srgb, var(--def-accent) 20%, var(--ifm-background-surface-color));
+    border-color: var(--def-accent);
+}
+
+/* ========= 4) TITLE ================================================== */
+.definition-box-title {
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+    padding: .9rem 1.25rem .6rem 1.25rem;
+    color: var(--def-title);
+    font-weight: 800;
+    font-size: 1.1rem;
+    letter-spacing: .02em;
+}
+
+.definition-box-icon {
+    fill: var(--def-accent);
+    height: 1.6em;
+    width: 1.6em;
+}
+
+/* ========= 5) CONTENT ================================================ */
+.definition-box-content {
+    padding: 0 1.25rem 1rem 1.25rem;
+    color: var(--def-text);
+    line-height: 1.7;
+}
+
+/* ========= 6) “Example” panel inside the box ======================== */
+/* Works with your existing .example-box markup; tinted from accent.    */
+.definition-box .example-box {
+    margin-top: .75rem;
+    padding: .85rem 1rem;
+    border-radius: .8rem;
+    background: color-mix(in srgb, var(--def-accent) 22%, var(--ifm-background-surface-color));
+    border: 1px solid color-mix(in srgb, var(--def-accent) 38%, transparent);
+    box-shadow: var(--ifm-global-shadow-sm);
+}
+.definition-box .example-box strong::before {
+    content: "📌 ";
+}
+
+/* ========= 7) Dark-mode balance ===================================== */
+html[data-theme='dark'] .definition-box {
+    /* Slightly stronger tint in dark for readability */
+    background-color: color-mix(in srgb, var(--def-accent) 24%, var(--ifm-background-surface-color));
+}

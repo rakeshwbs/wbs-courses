@@ -1,0 +1,137 @@
+---
+id: lab-sheet
+title: Labsheet
+sidebar_position: 2
+hide_title: true
+sidebar_label: 💻 Configuring NAT
+---
+import ModuleBanner from '@site/src/components/art/art-banner';
+
+<ModuleBanner />
+---
+
+# Week 6 Lab: Configuring NAT
+
+## Objective
+
+In this lab, you will configure all three types of NAT to understand their distinct use cases and verification commands.
+
+You will configure Static NAT to make an internal server public, Dynamic NAT to translate a group of users to a pool of addresses, and finally PAT (Overload) to allow many users to share a single public IP, which is the most common real-world scenario.
+
+## Required Software
+
+* Cisco Packet Tracer
+
+## Network Topology
+
+We will use a topology that simulates a private internal network connecting to a public "Internet" router.
+
+```text
+(INSIDE/PRIVATE NETWORK)                           (OUTSIDE/PUBLIC "INTERNET")
+
++-----------+     +----------+ S0/0/0       S0/0/0 +------------+ --G0/0-- (Lo0: 8.8.8.8/8)
+| PC-Inside |-----| R-Inside |--------------------| R-Outside  |
++-----------+     +----------+      .1       .2    +------------+
+192.168.1.10         G0/0       200.200.200.0/30       |
+   |              192.168.1.1                           |
++-----------+                                       +------------+
+|Srv-Inside |                                       | PC-Outside |
++-----------+                                       +------------+
+192.168.1.50                                        203.0.113.10/24
+```
+
+### Base Configuration
+
+1. Build the topology above. Use switches where appropriate on the LANs. `R-Outside`'s Loopback0 simulates an internet server (like Google).
+2. Configure all IP addresses as shown.
+3. **Configure Routing:**
+
+* On `R-Inside`, add a default static route pointing to `R-Outside`: `ip route 0.0.0.0 0.0.0.0 200.200.200.2`.
+* On `R-Outside`, add a static route back to the public link: `ip route 200.200.200.0 255.255.255.252 Serial0/0/0`.
+* **IMPORTANT:** Do NOT create a route on `R-Outside` for the private `192.168.1.0/24` network. The "Internet" should have no knowledge of our private IP space.
+4. Verify that `R-Inside` can ping `R-Outside`. A ping from `PC-Inside` to `8.8.8.8` should **fail**.
+
+---
+
+## Lab Tasks
+
+### Task 1: Configure Static NAT
+
+**Goal:** Make our internal web server (`192.168.1.50`) accessible from the internet via the public IP `200.200.200.1`.
+
+1. On `R-Inside`, configure the static one-to-one mapping.
+
+```bash
+configure terminal
+ip nat inside source static 192.168.1.50 200.200.200.1
+```
+2. Define the NAT interfaces on `R-Inside`.
+
+```bash
+interface GigabitEthernet0/0
+ ip nat inside
+!
+interface Serial0/0/0
+ ip nat outside
+```
+3. **Verification:**
+
+* From `PC-Outside`, ping the server's public address: `ping 200.200.200.1`. The ping should **succeed**.
+* On `R-Inside`, view the NAT table: `show ip nat translations`. You should see a permanent static entry.
+
+### Task 2: Configure Dynamic NAT
+
+**Goal:** Allow internal clients from `192.168.1.0/24` to be translated to a pool of public addresses.
+
+1. First, remove the static NAT configuration from `R-Inside`: `no ip nat inside source static 192.168.1.50 200.200.200.1`.
+2. Define a **NAT pool** of public addresses. (We'll use two imaginary IPs for this example).
+
+```bash
+ip nat pool MY_PUBLIC_POOL 200.200.200.5 200.200.200.6 netmask 255.255.255.252
+```
+3. Define an **ACL** to identify the internal traffic that is permitted to use the pool.
+
+```bash
+access-list 1 permit 192.168.1.0 0.0.0.255
+```
+4. Tie the ACL to the NAT pool.
+
+```bash
+ip nat inside source list 1 pool MY_PUBLIC_POOL
+```
+5. **Verification:**
+
+* From `PC-Inside`, ping the internet server: `ping 8.8.8.8`. It should **succeed**.
+* Immediately on `R-Inside`, run `show ip nat translations`. You will see a temporary dynamic entry mapping `192.168.1.10` to one of the IPs from your pool.
+
+### Task 3: Configure PAT (NAT Overload) - The Most Common Method
+
+**Goal:** Allow all internal clients to share the single public IP address of the router's outside interface.
+
+1. First, remove the dynamic NAT configuration from `R-Inside`.
+
+```bash
+no ip nat inside source list 1 pool MY_PUBLIC_POOL
+no ip nat pool MY_PUBLIC_POOL
+```
+
+*(You can leave the ACL as we will reuse it).*
+2. Configure PAT to use the `Serial0/0/0` interface's IP address and **overload** it.
+
+```bash
+ip nat inside source list 1 interface Serial0/0/0 overload
+```
+3. **Verification:**
+
+* From `PC-Inside`, ping `8.8.8.8`. It should **succeed**.
+* From `Srv-Inside`, also ping `8.8.8.8`. It should also **succeed**.
+* On `R-Inside`, run `show ip nat translations`. You will now see two entries. Notice that the **Inside Global** address is the same for both (`200.200.200.1`), but the port numbers are different. This is PAT in action!
+
+---
+
+## Exploration Questions
+
+1. What is the primary real-world scenario where you would choose Static NAT instead of PAT?
+2. What is the main limitation of Dynamic NAT that PAT is designed to solve?
+3. If you configure PAT but forget to add the `overload` keyword at the end of the command, what type of NAT will the router perform instead? What would be the consequence?
+4. What is the purpose of the ACL in a Dynamic NAT or PAT configuration?

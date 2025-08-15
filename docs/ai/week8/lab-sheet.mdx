@@ -1,0 +1,158 @@
+---
+id: lab-sheet
+title: Labsheet
+sidebar_position: 2
+hide_title: true
+sidebar_label: Build CNN Model
+sidebar_class_name: icon-lab
+
+---
+import ModuleBanner from '@site/src/components/ai/ai-banner';
+
+<ModuleBanner />
+### **Introduction to the Lab**
+
+In today's lab, you will graduate from the simple, grayscale Fashion MNIST dataset to a more challenging, real-world dataset of color images called **CIFAR-10**. You will use Keras to build a CNN from scratch, stacking `Conv2D` and `MaxPooling2D` layers to create a powerful image classifier. You will see firsthand how this specialized architecture dramatically outperforms a simple MLP for computer vision tasks.
+
+-----
+
+### **Lab Guide**
+
+**Lab 08: Deep Learning for Vision - Building a CNN**
+
+**Objective:** By the end of this lab, you will have built, trained, and evaluated a Convolutional Neural Network (CNN) using Keras to classify a dataset of real-world color images.
+
+**Scenario:** Your previous MLP model for Fashion MNIST worked well, but today you've been tasked with a more challenging problem: classifying 10 different types of objects (airplanes, cars, birds, cats, etc.) from small, 32x32 pixel color images from the **CIFAR-10** dataset.
+
+#### **Part A: Data Loading and Preparation**
+
+**1. Import Libraries**
+
+```python
+import tensorflow as tf
+from tensorflow import keras
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+```
+
+**2. Load the CIFAR-10 Dataset**
+
+```python
+cifar10 = keras.datasets.cifar10
+(X_train_full, y_train_full), (X_test, y_test) = cifar10.load_data()
+
+# Normalize the pixel values to be between 0 and 1
+X_train, X_test = X_train_full / 255.0, X_test / 255.0
+
+# Define the class names
+class_names = ["airplane", "automobile", "bird", "cat", "deer",
+               "dog", "frog", "horse", "ship", "truck"]
+
+print("Shape of training data:", X_train.shape)
+print("Shape of test data:", X_test.shape)
+# Note the shape: (num_samples, 32, 32, 3). The '3' is for the RGB color channels.
+```
+
+**3. Explore the Data**
+Let's see what these images look like.
+
+```python
+plt.figure(figsize=(10,10))
+for i in range(25):
+    plt.subplot(5,5,i+1)
+    plt.xticks([])
+    plt.yticks([])
+    plt.grid(False)
+    plt.imshow(X_train[i])
+    plt.xlabel(class_names[y_train[i][0]])
+plt.show()
+```
+
+#### **Part B: Building the Convolutional Neural Network (CNN)**
+
+We will now build our `Sequential` model by stacking convolutional and pooling layers.
+
+```python
+# Set a random seed for reproducibility
+np.random.seed(42)
+tf.random.set_seed(42)
+
+model = keras.models.Sequential([
+    # === CONVOLUTIONAL BASE ===
+    # First Conv layer: 32 filters, 3x3 kernel size, ReLU activation.
+    # We must specify the input_shape for the first layer.
+    keras.layers.Conv2D(32, (3, 3), activation='relu', input_shape=(32, 32, 3)),
+    keras.layers.MaxPooling2D((2, 2)),
+
+    # Second Conv layer
+    keras.layers.Conv2D(64, (3, 3), activation='relu'),
+    keras.layers.MaxPooling2D((2, 2)),
+
+    # Third Conv layer
+    keras.layers.Conv2D(64, (3, 3), activation='relu'),
+
+    # === CLASSIFIER HEAD ===
+    # Flatten the 3D feature maps into a 1D vector
+    keras.layers.Flatten(),
+
+    # Add a Dense layer for classification
+    keras.layers.Dense(64, activation='relu'),
+
+    # Add the final output layer
+    keras.layers.Dense(10, activation='softmax')
+])
+
+# Print the model's architecture
+model.summary()
+```
+
+*Pay close attention to the `model.summary()` output. See how the width and height of the feature maps decrease after each pooling layer.*
+
+#### **Part C: Compiling, Training, and Evaluating**
+
+This process is the same as it was for our MLP.
+
+**1. Compile the Model**
+
+```python
+model.compile(optimizer='adam',
+              loss='sparse_categorical_crossentropy',
+              metrics=['accuracy'])
+```
+
+**2. Train the Model**
+Training a CNN takes longer than an MLP, as the computations are more intensive. This might take a few minutes.
+
+```python
+history = model.fit(X_train, y_train, epochs=10, 
+                    validation_data=(X_test, y_test))
+```
+
+**3. Plot Learning Curves and Evaluate**
+
+```python
+pd.DataFrame(history.history).plot(figsize=(8, 5))
+plt.grid(True)
+plt.gca().set_ylim(0, 2) # Adjust ylim for better viewing of loss
+plt.title("Model Training History")
+plt.show()
+
+# Evaluate the final model on the test set
+test_loss, test_acc = model.evaluate(X_test, y_test)
+print(f"\nFinal Test Accuracy: {test_acc:.4f}")
+```
+
+#### **Part D: Reflection**
+
+1.  **Why is a CNN better for this task than the MLP we built last week?**
+
+    * Think about the `Flatten` layer. Where did we put it in the MLP vs. where did we put it in the CNN? What does this tell you about how each model processes spatial information?
+
+2.  **Examine the `model.summary()` output.**
+
+    * Notice how the number of parameters is much higher in the Dense layers at the end than in the Convolutional layers at the beginning. This highlights the power of **parameter sharing** in convolutional layers, making them highly efficient.
+
+**Conclusion:** Congratulations\! You have successfully built a true Convolutional Neural Network, the state-of-the-art architecture for virtually all computer vision tasks today. You have graduated from simple image classification to building a powerful, hierarchical feature extractor.
+
+

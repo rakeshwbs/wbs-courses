@@ -1,0 +1,102 @@
+---
+id: median-class-interval
+title: Find Class Interval with the Median
+hide_title: true
+sidebar_position: 2
+sidebar_label: Class Interval
+---
+import ModuleBanner from '@site/src/components/busm/busm-banner';
+
+<ModuleBanner />
+
+### **Concept: Finding the Median's Class Interval**
+
+When data is presented in a grouped frequency table, you cannot find the exact median value. However, you can determine the **class interval** that contains the median. The median is the middle value in the dataset.
+
+**The Method:**
+1.  **Find the Total Frequency (n):** First, add up all the frequencies to find the total number of data points (`n = Σf`).
+2.  **Find the Median Position:** The position of the middle value is found by calculating:
+$$\text{Median Position} = \frac{n}{2}$$
+3.  **Use Cumulative Frequency:** Create a cumulative frequency column. This is a running total of the frequencies.
+4.  **Locate the Interval:** Find the first class interval where the cumulative frequency is **greater than or equal to** the median position. This is the interval containing the median.
+
+---
+### **Worked Examples from Past Papers**
+
+:::danger 19th November 2024, Section B, Question 21
+The daily commute time for workers is recorded in the table below. State the class interval in which the median length of the commute time lies.
+
+| Commute time, t (minutes) | Frequency |
+| :--- | :---: |
+| 0 ≤ t < 10 | 6 |
+| 10 ≤ t < 25 | 33 |
+| 25 ≤ t < 45 | 50 |
+| 45 ≤ t < 65 | 72 |
+| 65 ≤ t < 90 | 55 |
+| 90 ≤ t < 120 | 24 |
+:::
+:::success Answer
+The median lies in the **$45 \le t < 65$** class interval. ✔️
+:::note Explanation
+1.  **Total Frequency (n):** $6+33+50+72+55+24 = 240$.
+2.  **Median Position:** $\frac{240}{2} = 120$. We are looking for the 120th value.
+3.  **Cumulative Frequency:**
+* $0 \le t < 10$: 6
+* $10 \le t < 25$: $6 + 33 = 39$
+* $25 \le t < 45$: $39 + 50 = 89$
+* $45 \le t < 65$: $89 + 72 = 161$
+4.  **Locate the Interval:** The cumulative frequency of 161 is the first to be greater than the median position of 120. Therefore, the median is in this interval.
+:::
+:::
+
+---
+:::danger 4 June 2024, Section B, Question 21
+An airport records the amount of time flights are delayed. State the class interval in which the median time delay lies.
+
+| Amount of delay, t (minutes) | Frequency |
+| :--- | :---: |
+| 0 ≤ t < 2 | 146 |
+| 2 ≤ t < 5 | 96 |
+| 5 ≤ t < 10 | 60 |
+| 10 ≤ t < 20 | 25 |
+| 20 ≤ t < 50 | 45 |
+| 50 ≤ t < 90 | 20 |
+:::
+:::success Answer
+The median lies in the **$2 \le t < 5$** class interval. ✔️
+:::note Explanation
+1.  **Total Frequency (n):** $146+96+60+25+45+20 = 392$.
+2.  **Median Position:** $\frac{392}{2} = 196$. We are looking for the 196th value.
+3.  **Cumulative Frequency:**
+* $0 \le t < 2$: 146
+* $2 \le t < 5$: $146 + 96 = 242$
+4.  **Locate the Interval:** The cumulative frequency of 242 is the first to be greater than the median position of 196. Therefore, the median is in this interval.
+:::
+:::
+
+---
+:::danger 12 September 2023, Section B, Question 24
+The waiting times of a sample of customers at a branch of a bank are recorded. State the class interval in which the median waiting time lies.
+
+| Waiting times, t (minutes) | Frequency |
+| :--- | :---: |
+| 0 ≤ t < 2 | 8 |
+| 2 ≤ t < 3 | 14 |
+| 3 ≤ t < 4 | 17 |
+| 4 ≤ t < 6 | 25 |
+| 6 ≤ t < 9 | 21 |
+| 9 ≤ t < 10 | 7 |
+:::
+:::success Answer
+The median lies in the **$4 \le t < 6$** class interval. ✔️
+:::note Explanation
+1.  **Total Frequency (n):** $8+14+17+25+21+7 = 92$.
+2.  **Median Position:** $\frac{92}{2} = 46$. We are looking for the 46th value.
+3.  **Cumulative Frequency:**
+* $0 \le t < 2$: 8
+* $2 \le t < 3$: $8 + 14 = 22$
+* $3 \le t < 4$: $22 + 17 = 39$
+* $4 \le t < 6$: $39 + 25 = 64$
+4.  **Locate the Interval:** The cumulative frequency of 64 is the first to be greater than the median position of 46. Therefore, the median is in this interval.
+:::
+:::
