@@ -179,6 +179,7 @@ const config = {
         autoCollapseCategories: true,
       },
     },
+    plugins: ['@datalayer/jupyter-docusaurus-plugin'],
     //other items go here for theme
   },
 };

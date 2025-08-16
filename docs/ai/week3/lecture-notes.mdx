@@ -6,19 +6,17 @@ sidebar_position: 1
 sidebar_label: ML Workflow
 sidebar_class_name: icon-lecture
 ---
-
 import ModuleBanner from '@site/src/components/ai/ai-banner';
 import DefinitionBox from '@site/src/components/custom-admonitions/DefinitionBox';
+import CenteredImage from '@site/src/components/image-changer/CenteredImage';
 import {
-  KeyPoints,
-  KP,
+    KeyPoints,
+    KP,
 } from '@site/src/components/custom-admonitions/KeyPoints';
 
 <ModuleBanner />
 
-# Welcome to the AI Module
 
-Here is your first interactive Python block!
 
 ## Week 3: From Idea to Impact: A Practical Guide to the ML Workflow
 
@@ -56,7 +54,7 @@ Here is your first interactive Python block!
     </KP>
   </KeyPoints>
 </section>
-
+# Part I - Data Foundations
 ## Stage 1 - Data Collection
 
 <section class="ai-card stage-card">
@@ -232,52 +230,6 @@ Missing data simply means you have empty spots or gaps in your dataset.
 
 ---
 
-### Fixing Inconsistent Data and Formatting
-
-<section class="dq-card" aria-label="Data Quality Pitfalls">
-  <h3>Why the same thing can look different in your data?</h3>
-  <p>This is a very common and sometimes sneaky problem. It happens when data that means the same thing is recorded in different ways. A computer is very literal, so it sees "USA" and "U.S.A." as two completely different countries.</p>
-
-<p>Here are the usual suspects:</p>
-
-  <ul class="dq-list">
-    <li>
-      <strong>Inconsistent Categories:</strong>
-      <ul class="dq-sub">
-        <li><code>State</code> column has "California", "california", "CA", and "Calif."</li>
-        <li><code>Gender</code> column has "Male", "M", and "male".</li>
-      </ul>
-    </li>
-
-    <li>
-      <strong>Structural Errors:</strong>
-      <ul class="dq-sub">
-        <li><strong>Extra whitespace:</strong> <code>" apple"</code> instead of <code>"apple"</code>. This is almost invisible to the human eye!</li>
-        <li><strong>Weird date formats:</strong> "01-25-2023", "25/01/2023", and "Jan 25, 2023".</li>
-      </ul>
-    </li>
-
-    <li>
-      <strong>Incorrect Data Types:</strong>
-      <ul class="dq-sub">
-        <li>A price stored as text: <code>"$9.99"</code> (a string) instead of <code>9.99</code> (a number). You can't do math on the text version!</li>
-      </ul>
-    </li>
-
-  </ul>
-
-  <p>Fixing these usually involves writing code to standardize the values—like converting everything to lowercase, trimming whitespace, and choosing one single format for categories (e.g., making all state entries the two-letter abbreviation).</p>
-</section>
-<KeyPoints variant="primary" icon="❖">
-  <KP term="Example">
-    | Product_ID | Category | Price | In_Stock |
-    |----------:|---------|------:|---------|
-    | 101 | " Phone" | $999  | True  |
-    | 102 | "Tablet" | $450  | TRUE  |
-    | 103 | "phone"  | $1200 | False |
-    | 104 | "Laptop" | "850" | True  |
-  </KP>
-</KeyPoints>
 
 ### Dealing with Duplicate Data
 
@@ -353,176 +305,442 @@ So, what can you do if you don't want to delete it?
   </article>
 </div>
 
+
+[//]: # (# Week 3 Lab: Hello World)
+
+[//]: # ()
+[//]: # (To work on this week's exercise, please open the notebook in Google Colab by clicking the badge below.)
+
+[//]: # ()
+[//]: # (<a)
+
+[//]: # (    href="https://colab.research.google.com/github/rakeshwbs/wbs-courses/blob/main/static/notebooks/hello_world.ipynb")
+
+[//]: # (    target="_blank")
+
+[//]: # (>)
+
+[//]: # (    <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>)
+
+[//]: # (</a>)
+### Fixing Inconsistent Data and Formatting
+
+<section class="dq-card" aria-label="Data Quality Pitfalls">
+    <h3>Why the same thing can look different in your data?</h3>
+    <p>This is a very common and sometimes sneaky problem. It happens when data that means the same thing is recorded in different ways. A computer is very literal, so it sees "USA" and "U.S.A." as two completely different countries.</p>
+
+    <p>Here are the usual suspects:</p>
+
+    <ul class="dq-list">
+        <li>
+            <strong>Inconsistent Categories:</strong>
+            <ul class="dq-sub">
+                <li><code>State</code> column has "California", "california", "CA", and "Calif."</li>
+                <li><code>Gender</code> column has "Male", "M", and "male".</li>
+            </ul>
+        </li>
+
+        <li>
+            <strong>Structural Errors:</strong>
+            <ul class="dq-sub">
+                <li><strong>Extra whitespace:</strong> <code>" apple"</code> instead of <code>"apple"</code>. This is almost invisible to the human eye!</li>
+                <li><strong>Weird date formats:</strong> "01-25-2023", "25/01/2023", and "Jan 25, 2023".</li>
+            </ul>
+        </li>
+
+        <li>
+            <strong>Incorrect Data Types:</strong>
+            <ul class="dq-sub">
+                <li>A price stored as text: <code>"$9.99"</code> (a string) instead of <code>9.99</code> (a number). You can't do math on the text version!</li>
+            </ul>
+        </li>
+
+    </ul>
+
+    <p>Fixing these usually involves writing code to standardize the values—like converting everything to lowercase, trimming whitespace, and choosing one single format for categories (e.g., making all state entries the two-letter abbreviation).</p>
+</section>
+<KeyPoints variant="primary" icon="❖">
+    <KP term="Example">
+        | Product_ID | Category | Price | In_Stock |
+        |----------:|---------|------:|---------|
+        | 101 | " Phone" | $999  | True  |
+        | 102 | "Tablet" | $450  | TRUE  |
+        | 103 | "phone"  | $1200 | False |
+        | 104 | "Laptop" | "850" | True  |
+    </KP>
+</KeyPoints>
+
 ## Stage 3: Exploratory Data Analysis (EDA)
 
 <section class="eda-hero" aria-label="Exploratory Data Analysis (EDA)">
-  <header class="eda-head">
-    <h3 class="eda-title">Exploratory Data Analysis (EDA)</h3>
-    <p class="eda-sub">Initial investigation on a freshly cleaned dataset</p>
-  </header>
+    <header class="eda-head">
+        <h3 class="eda-title">Exploratory Data Analysis (EDA)</h3>
+        <p class="eda-sub">Initial investigation on a freshly cleaned dataset</p>
+    </header>
 
-<p>
-  At its heart, <strong>Exploratory Data Analysis (EDA)</strong> is the process
-  of using summary statistics and visualizations to understand a dataset's main
-  characteristics. It is the stage where the data scientist studies the data
-  before modeling.
-</p>
+    <p>
+        At its heart, <strong>Exploratory Data Analysis (EDA)</strong> is the process
+        of using summary statistics and visualizations to understand a dataset's main
+        characteristics. It is the stage where the data scientist studies the data
+        before modeling.
+    </p>
 
-<p>
-  Consider the approach of a careful investigator. Before solving the case, the
-  investigator first surveys the situation:
-</p>
+    <p>
+        Consider the approach of a careful investigator. Before solving the case, the
+        investigator first surveys the situation:
+    </p>
 
-<ul class="eda-bullets eda-bullets--scene">
-  <li>They measure distances and take notes.</li>
-  <li>They photograph the scene from different angles.</li>
-  <li>They identify key pieces of evidence.</li>
-  <li>They start forming theories about what might have happened.</li>
-</ul>
+    <ul class="eda-bullets eda-bullets--scene">
+        <li>They measure distances and take notes.</li>
+        <li>They photograph the scene from different angles.</li>
+        <li>They identify key pieces of evidence.</li>
+        <li>They start forming theories about what might have happened.</li>
+    </ul>
 
-<p>
-  That mirrors EDA. You are not building a predictive model yet; you are
-  examining and understanding.
-</p>
+    <p>
+        That mirrors EDA. You are not building a predictive model yet; you are
+        examining and understanding.
+    </p>
 
-<p class="eda-lead">The main goals are:</p>
+    <p class="eda-lead">The main goals are:</p>
 
-  <ul class="eda-bullets eda-bullets--goals">
-    <li><strong>Discover patterns:</strong> Is there a trend of sales increasing in the summer?</li>
-    <li><strong>Spot anomalies:</strong> Are there any outliers we missed during cleaning?</li>
-    <li><strong>Check assumptions:</strong> Does our data follow a distribution that some models require?</li>
-    <li><strong>Formulate hypotheses:</strong> Based on what we see, we might guess that age is a key factor in customer purchases; EDA helps form this initial guess for later testing.</li>
-  </ul>
+    <ul class="eda-bullets eda-bullets--goals">
+        <li><strong>Discover patterns:</strong> Is there a trend of sales increasing in the summer?</li>
+        <li><strong>Spot anomalies:</strong> Are there any outliers we missed during cleaning?</li>
+        <li><strong>Check assumptions:</strong> Does our data follow a distribution that some models require?</li>
+        <li><strong>Formulate hypotheses:</strong> Based on what we see, we might guess that age is a key factor in customer purchases; EDA helps form this initial guess for later testing.</li>
+    </ul>
 </section>
 
 <section className="uni-card" aria-label="Univariate Analysis: Looking at One Variable">
-  <header className="uni-head">
-    <h3>Univariate Analysis: Looking at One Variable</h3>
-    <p className="uni-kicker">Start by understanding each feature on its own before studying interactions.</p>
-  </header>
+    <header className="uni-head">
+        <h3>Univariate Analysis: Looking at One Variable</h3>
+        <p className="uni-kicker">Start by understanding each feature on its own before studying interactions.</p>
+    </header>
 
-<p>
-  The simplest way to start exploring is to look at your variables{' '}
-  <strong>one at a time</strong>. This is called{' '}
-  <strong>univariate analysis</strong> (“uni” means one). It helps you
-  understand the characteristics of each individual feature before you look at
-  how they interact.
-</p>
+    <p>
+        The simplest way to start exploring is to look at your variables{' '}
+        <strong>one at a time</strong>. This is called{' '}
+        <strong>univariate analysis</strong> (“uni” means one). It helps you
+        understand the characteristics of each individual feature before you look at
+        how they interact.
+    </p>
 
-<p>
-  Let’s start with <strong>categorical variables</strong>. These are variables
-  that represent distinct groups or categories, like car brands, city names, or
-  T-shirt colors.
-</p>
+    <p>
+        Let’s start with <strong>categorical variables</strong>. These are variables
+        that represent distinct groups or categories, like car brands, city names, or
+        T-shirt colors.
+    </p>
 
-<p>
-  The best way to analyze a single categorical variable is with a{' '}
-  <strong>bar chart</strong> (also called a count plot). It shows you how many
-  times each category appears in your data.
-</p>
+    <p>
+        The best way to analyze a single categorical variable is with a{' '}
+        <strong>bar chart</strong> (also called a count plot). It shows you how many
+        times each category appears in your data.
+    </p>
 
-<p>
-  For example, if you had a dataset of T-shirt sales, you could make a bar chart
-  of the <em>Color</em>
-  column to quickly see which color is the most popular. This simple chart
-  instantly tells you that blue is the best-selling color and green is the least
-  popular—a basic but powerful first insight.
-</p>
+    <p>
+        For example, if you had a dataset of T-shirt sales, you could make a bar chart
+        of the <em>Color</em>
+        column to quickly see which color is the most popular. This simple chart
+        instantly tells you that blue is the best-selling color and green is the least
+        popular—a basic but powerful first insight.
+    </p>
 
-{/* ---- Animated CSS-only bar chart demo ---- */}
+    {/* ---- Animated CSS-only bar chart demo ---- */}
 
-  <figure className="uni-demo" aria-label="Example bar chart for a single categorical variable">
-    <figcaption>Example: T-Shirt Color Counts</figcaption>
-    <div className="bars">
-      <div className="bar blue"  data-label="Blue"  data-value="82%" style={{ '--h': 82 }} />
-      <div className="bar red"   data-label="Red"   data-value="64%" style={{ '--h': 64 }} />
-      <div className="bar black" data-label="Black" data-value="48%" style={{ '--h': 48 }} />
-      <div className="bar green" data-label="Green" data-value="21%" style={{ '--h': 21 }} />
-    </div>
-  </figure>
+    <figure className="uni-demo" aria-label="Example bar chart for a single categorical variable">
+        <figcaption>Example: T-Shirt Color Counts</figcaption>
+        <div className="bars">
+            <div className="bar blue"  data-label="Blue"  data-value="82%" style={{ '--h': 82 }} />
+            <div className="bar red"   data-label="Red"   data-value="64%" style={{ '--h': 64 }} />
+            <div className="bar black" data-label="Black" data-value="48%" style={{ '--h': 48 }} />
+            <div className="bar green" data-label="Green" data-value="21%" style={{ '--h': 21 }} />
+        </div>
+    </figure>
 </section>
 
 <section className="numviz-card" aria-label="Analyzing a Single Numerical Variable">
-  <header className="nv-head">
-    <h3>Analyzing a Single Numerical Variable</h3>
-    <p className="nv-kicker">Understand the distribution, center, spread, and potential outliers.</p>
-  </header>
+    <header className="nv-head">
+        <h3>Analyzing a Single Numerical Variable</h3>
+        <p className="nv-kicker">Understand the distribution, center, spread, and potential outliers.</p>
+    </header>
 
-<p>
-  For numerical variables (age, temperature, price), we want to understand their{' '}
-  <strong>distribution</strong>: Where is the center? How spread out is it? Are
-  there outliers?
-</p>
-<p>
-  Two essential tools are the <strong>histogram</strong> and the{' '}
-  <strong>box plot</strong>.
-</p>
+    <p>
+        For numerical variables (age, temperature, price), we want to understand their{' '}
+        <strong>distribution</strong>: Where is the center? How spread out is it? Are
+        there outliers?
+    </p>
+    <p>
+        Two essential tools are the <strong>histogram</strong> and the{' '}
+        <strong>box plot</strong>.
+    </p>
 
-  <div className="nv-grid">
-    {/* ================= Histogram ================= */}
-    <article className="nv-card">
-      <h4>Histograms</h4>
-      <p>A histogram groups numeric values into bins and plots the count in each bin—ideal for seeing the shape of your data.</p>
+    <div className="nv-grid">
+        {/* ================= Histogram ================= */}
+        <article className="nv-card">
+            <h4>Histograms</h4>
+            <p>A histogram groups numeric values into bins and plots the count in each bin—ideal for seeing the shape of your data.</p>
 
-      <figure className="nv-hist">
-        <figcaption>Example: Ages (synthetic)</figcaption>
-        <div className="nv-bars">
-          <div className="bar" data-label="10–20" data-value="6"  style={{ '--h': 25 }} />
-          <div className="bar" data-label="20–30" data-value="14" style={{ '--h': 58 }} />
-          <div className="bar" data-label="30–40" data-value="22" style={{ '--h': 90 }} />
-          <div className="bar" data-label="40–50" data-value="17" style={{ '--h': 70 }} />
-          <div className="bar" data-label="50–60" data-value="9"  style={{ '--h': 38 }} />
-          <div className="bar" data-label="60–70" data-value="3"  style={{ '--h': 15 }} />
-        </div>
-      </figure>
-      <p className="nv-note">The tallest bin suggests the most common ages cluster around the mid-30s to mid-40s.</p>
-    </article>
+            <figure className="nv-hist">
+                <figcaption>Example: Ages (synthetic)</figcaption>
+                <div className="nv-bars">
+                    <div className="bar" data-label="10–20" data-value="6"  style={{ '--h': 25 }} />
+                    <div className="bar" data-label="20–30" data-value="14" style={{ '--h': 58 }} />
+                    <div className="bar" data-label="30–40" data-value="22" style={{ '--h': 90 }} />
+                    <div className="bar" data-label="40–50" data-value="17" style={{ '--h': 70 }} />
+                    <div className="bar" data-label="50–60" data-value="9"  style={{ '--h': 38 }} />
+                    <div className="bar" data-label="60–70" data-value="3"  style={{ '--h': 15 }} />
+                </div>
+            </figure>
+            <p className="nv-note">The tallest bin suggests the most common ages cluster around the mid-30s to mid-40s.</p>
+        </article>
 
-    {/* ================= Box Plot ================= */}
-    <article className="nv-card">
-      <h4>Box Plots</h4>
-      <p>A box plot summarizes the data with five numbers—min, Q1, median, Q3, max—making spread and outliers easy to see.</p>
+        {/* ================= Box Plot ================= */}
+        <article className="nv-card">
+            <h4>Box Plots</h4>
+            <p>A box plot summarizes the data with five numbers—min, Q1, median, Q3, max—making spread and outliers easy to see.</p>
 
-      {/* Single horizontal box plot driven by CSS variables */}
-      <figure className="nv-boxplot">
-        <figcaption>Example: Ages (five-number summary)</figcaption>
+            {/* Single horizontal box plot driven by CSS variables */}
+            <figure className="nv-boxplot">
+                <figcaption>Example: Ages (five-number summary)</figcaption>
 
-        {/* Configure the summary via CSS variables (percent scale 0–100) */}
-        <div
-          className="bx-axis"
-          style={{ '--min': 8, '--q1': 30, '--med': 52, '--q3': 74, '--max': 92 }}
-        >
-          <div className="bx-track" />
+                {/* Configure the summary via CSS variables (percent scale 0–100) */}
+                <div
+                    className="bx-axis"
+                    style={{ '--min': 8, '--q1': 30, '--med': 52, '--q3': 74, '--max': 92 }}
+                >
+                    <div className="bx-track" />
 
-          {/* whisker rods */}
-          <div className="bx-rod left"  style={{ '--start': 8,  '--end': 30 }} />
-          <div className="bx-rod right" style={{ '--start': 74, '--end': 92 }} />
+                    {/* whisker rods */}
+                    <div className="bx-rod left"  style={{ '--start': 8,  '--end': 30 }} />
+                    <div className="bx-rod right" style={{ '--start': 74, '--end': 92 }} />
 
-          {/* endpoints */}
-          <div className="bx-cap min" style={{ '--pos': 8  }} />
-          <div className="bx-cap max" style={{ '--pos': 92 }} />
+                    {/* endpoints */}
+                    <div className="bx-cap min" style={{ '--pos': 8  }} />
+                    <div className="bx-cap max" style={{ '--pos': 92 }} />
 
-          {/* box and median */}
-          <div className="bx-box"   />
-          <div className="bx-med"   />
+                    {/* box and median */}
+                    <div className="bx-box"   />
+                    <div className="bx-med"   />
 
-          {/* chips */}
-          <span className="bx-chip" style={{ '--pos': 8  }}>Min</span>
-          <span className="bx-chip" style={{ '--pos': 30 }}>Q1</span>
-          <span className="bx-chip" style={{ '--pos': 52 }}>Median</span>
-          <span className="bx-chip" style={{ '--pos': 74 }}>Q3</span>
-          <span className="bx-chip" style={{ '--pos': 92 }}>Max</span>
-        </div>
-      </figure>
+                    {/* chips */}
+                    <span className="bx-chip" style={{ '--pos': 8  }}>Min</span>
+                    <span className="bx-chip" style={{ '--pos': 30 }}>Q1</span>
+                    <span className="bx-chip" style={{ '--pos': 52 }}>Median</span>
+                    <span className="bx-chip" style={{ '--pos': 74 }}>Q3</span>
+                    <span className="bx-chip" style={{ '--pos': 92 }}>Max</span>
+                </div>
+            </figure>
 
-      <ul className="nv-legend">
-        <li><strong>Median</strong>: middle value.</li>
-        <li><strong>Box</strong>: middle 50% (Q1–Q3).</li>
-        <li><strong>Whiskers</strong>: span from quartiles to min/max.</li>
-        <li><strong>Outliers</strong>: points beyond whiskers (not shown here).</li>
-      </ul>
-    </article>
+            <ul className="nv-legend">
+                <li><strong>Median</strong>: middle value.</li>
+                <li><strong>Box</strong>: middle 50% (Q1–Q3).</li>
+                <li><strong>Whiskers</strong>: span from quartiles to min/max.</li>
+                <li><strong>Outliers</strong>: points beyond whiskers (not shown here).</li>
+            </ul>
+        </article>
 
-  </div>
+    </div>
 </section>
-```
+# Part 2: Modeling and Evaluation
+
+## Stage 4: Feature Engineering
+<section className="fe-block" aria-label="Feature Engineering">
+    <header className="fe-head">
+        <h2 className="fe-title">Feature Engineering</h2>
+        <p className="fe-lead">
+            Feature engineering is the process of using your domain knowledge to transform raw data into informative features
+            that better represent the underlying problem for your machine learning model.
+        </p>
+        <p className="fe-text">
+            It's often considered the most creative part of the workflow and is one of the biggest drivers of a model's
+            success. Even the most powerful algorithm will fail if it's given poor features.
+        </p>
+        <p className="fe-text">
+            Analogy: Think of your raw data as basic ingredients (flour, eggs, sugar). A model can't do much with them
+            separately. Feature engineering is the "recipe"—it's how you combine and transform those ingredients into a
+            prepared cake batter that the "oven" (the model) can actually work with.
+        </p>
+    </header>
+
+    <h3 className="fe-h3">Key Topics to Cover</h3>
+    <p className="fe-text">This stage typically involves three main activities:</p>
+
+    <div className="fe-grid">
+        <article className="fe-card reveal">
+            <div className="fe-badge" aria-hidden="true">1</div>
+            <h4 className="fe-card-title">Encoding Categorical Variables</h4>
+            <p className="fe-card-text">
+                How to convert non-numeric data (like "red", "green", "blue") into numbers that a model can understand.
+            </p>
+            <div className="fe-tags" aria-hidden="true">
+                <span className="tag">One-Hot</span><span className="tag">Ordinal</span><span className="tag">Target</span>
+            </div>
+        </article>
+
+        <article className="fe-card reveal">
+            <div className="fe-badge" aria-hidden="true">2</div>
+            <h4 className="fe-card-title">Scaling Numerical Variables</h4>
+            <p className="fe-card-text">
+                How to put all numeric features onto a similar scale to prevent some features from unfairly dominating others.
+            </p>
+            <div className="fe-meter" role="img" aria-label="Scaling illustration">
+                <span style={{'--w': '72%'}} />
+            </div>
+            <div className="fe-tags" aria-hidden="true">
+                <span className="tag">Standardize</span><span className="tag">Min-Max</span><span className="tag">Robust</span>
+            </div>
+        </article>
+
+        <article className="fe-card reveal">
+            <div className="fe-badge" aria-hidden="true">3</div>
+            <h4 className="fe-card-title">Creating New Features</h4>
+            <p className="fe-card-text">
+                How to combine or extract information from existing columns to create new, more insightful features (e.g.,
+                creating a day_of_the_week feature from a date column).
+            </p>
+            <ul className="fe-list">
+                <li>Aggregations (counts, ratios, lags)</li>
+                <li>Date/time extracts (hour, weekday, season)</li>
+                <li>Domain compositions (price per unit, density)</li>
+            </ul>
+        </article>
+    </div>
+</section>
+<section className="enc-block" aria-label="Encoding Categorical Variables">
+    <header className="enc-head">
+        <h2 className="enc-title">Encoding Categorical Variables 🔢</h2>
+        <p className="enc-text">
+            <strong>Categorical encoding</strong> is the process of converting text-based categorical labels into numbers so that a
+            machine learning algorithm can understand and work with them. Most algorithms are built on mathematical equations and
+            simply can't process text like <code>"red"</code> or <code>"France"</code>.
+        </p>
+        <p className="enc-text">
+            Before choosing an encoding method, you must first identify the type of categorical data you have.
+        </p>
+    </header>
+
+    <h3 className="enc-h3">Two Types of Categorical Data</h3>
+    <ol className="enc-types reveal">
+        <li>
+            <strong>Nominal Data:</strong> These are categories that have <strong>no natural order or rank</strong>. For example, a
+            <code> Color</code> column with values like <code>"Red"</code>, <code>"Green"</code>, and <code>"Blue"</code>. There's no
+            inherent sense in which "Green" is greater than or less than "Red".
+        </li>
+        <li>
+            <strong>Ordinal Data:</strong> These are categories that have a <strong>meaningful, intrinsic order</strong>. For example,
+            a <code>T-Shirt Size</code> column with values like <code>"Small"</code>, <code>"Medium"</code>, and <code>"Large"</code>.
+            Here, we know that <code>Large &gt; Medium &gt; Small</code>.
+        </li>
+    </ol>
+    <p className="enc-note">The type of data you have determines the best encoding strategy to use.</p>
+
+    <hr className="enc-rule" />
+
+    ### Common Encoding Techniques
+
+    <p className="enc-text">Here are the two most fundamental techniques every data scientist must know.</p>
+
+    <div className="enc-grid">
+        {/* ================= One-Hot ================= */}
+        <article className="enc-card reveal" aria-label="One-Hot Encoding">
+            <div className="enc-badge" aria-hidden="true">1</div>
+            <h3 className="enc-card-title">1. One-Hot Encoding</h3>
+            <p className="enc-card-lead">This technique is the standard and best approach for <strong>nominal data</strong> (categories with no order).</p>
+
+            <p><strong>How it works:</strong> It creates a new binary (0 or 1) column for each unique category in the original column.</p>
+
+            <p><strong>Example:</strong> Imagine a <code>Color</code> column.</p>
+
+            <figure className="enc-table">
+                <figcaption>Input</figcaption>
+                <table>
+                    <thead><tr><th>Color</th></tr></thead>
+                    <tbody>
+                    <tr><td>Red</td></tr>
+                    <tr><td>Blue</td></tr>
+                    <tr><td>Green</td></tr>
+                    <tr><td>Blue</td></tr>
+                    </tbody>
+                </table>
+            </figure>
+
+            <figure className="enc-table enc-out">
+                <figcaption>After One-Hot Encoding</figcaption>
+                <table>
+                    <thead>
+                    <tr><th>Color_Red</th><th>Color_Blue</th><th>Color_Green</th></tr>
+                    </thead>
+                    <tbody>
+                    <tr><td>1</td><td>0</td><td>0</td></tr>
+                    <tr><td>0</td><td>1</td><td>0</td></tr>
+                    <tr><td>0</td><td>0</td><td>1</td></tr>
+                    <tr><td>0</td><td>1</td><td>0</td></tr>
+                    </tbody>
+                </table>
+            </figure>
+
+            <ul className="enc-procon">
+                <li><strong>Pro:</strong> It's effective because it doesn't create a false sense of order between categories.</li>
+                <li><strong>Con:</strong> It can add a large number of new columns to your dataset if a feature has many unique categories (e.g., a <em>City</em> column with hundreds of cities).</li>
+            </ul>
+        </article>
+
+        {/* ================= Label / Ordinal ================= */}
+        <article className="enc-card reveal" aria-label="Label Encoding">
+            <div className="enc-badge" aria-hidden="true">2</div>
+            <h3 className="enc-card-title">2. Label Encoding (or Ordinal Encoding)</h3>
+            <p className="enc-card-lead">This technique is best used for <strong>ordinal data</strong> (categories with a clear rank).</p>
+
+            <p><strong>How it works:</strong> It assigns a unique integer to each category based on its order.</p>
+
+            <p><strong>Example:</strong> Imagine a <code>Size</code> column.</p>
+
+            <figure className="enc-table">
+                <figcaption>Input</figcaption>
+                <table>
+                    <thead><tr><th>Size</th></tr></thead>
+                    <tbody>
+                    <tr><td>Small</td></tr>
+                    <tr><td>Large</td></tr>
+                    <tr><td>Medium</td></tr>
+                    <tr><td>Small</td></tr>
+                    </tbody>
+                </table>
+            </figure>
+
+            <figure className="enc-table enc-out">
+                <figcaption>After Label Encoding</figcaption>
+                <table>
+                    <thead><tr><th>Size_Encoded</th></tr></thead>
+                    <tbody>
+                    <tr><td>0</td></tr>
+                    <tr><td>2</td></tr>
+                    <tr><td>1</td></tr>
+                    <tr><td>0</td></tr>
+                    </tbody>
+                </table>
+                <figcaption className="enc-foot">
+                    (Here we assume the order <code>Small &lt; Medium &lt; Large</code>)
+                </figcaption>
+            </figure>
+
+            <ul className="enc-procon">
+                <li><strong>Pro:</strong> It's simple and doesn't increase the number of columns.</li>
+                <li><strong>Con (Important Warning):</strong> You should <strong>avoid</strong> using Label Encoding on nominal data. If you were to encode <code>"USA"</code> as <code>0</code>, <code>"France"</code> as <code>1</code>, and <code>"Germany"</code> as <code>2</code>, the model might incorrectly learn that <code>Germany &gt; France</code>, which is meaningless and can harm your model's performance.</li>
+            </ul>
+        </article>
+    </div>
+</section>
+
+## Stage 6 Model Training
+### Understanding Data Splits
+Data should be split to ensure that a machine learning model is trained, tuned, and evaluated fairly without bias or overfitting.
+
+- Training set: Used to teach the model patterns from the data.
+
+- Validation set: Used to tune hyperparameters and check performance during training to avoid overfitting.
+
+- Test set: Used only after training to measure the model’s ability to generalize to unseen data.
+
+This separation prevents data leakage and ensures the evaluation reflects real-world performance.

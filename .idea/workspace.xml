@@ -4,7 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0c34d040-4f4a-41b4-862d-6e1d9cd81257" name="Changes" comment="" />
+    <list default="true" id="0c34d040-4f4a-41b4-862d-6e1d9cd81257" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/ai/week3/lecture-notes.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/docs/ai/week3/lecture-notes.mdx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docusaurus.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/docusaurus.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/css/custom.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/custom.css" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -55,6 +61,8 @@
       <workItem from="1755242785335" duration="803000" />
       <workItem from="1755243634818" duration="136000" />
       <workItem from="1755244162240" duration="2000" />
+      <workItem from="1755244189032" duration="3665000" />
+      <workItem from="1755256430901" duration="7553000" />
     </task>
     <servers />
   </component>
