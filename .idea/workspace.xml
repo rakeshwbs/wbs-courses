@@ -5,23 +5,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0c34d040-4f4a-41b4-862d-6e1d9cd81257" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/components/VideoPlayer.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/VideoPlayer.module.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/ai/week2/lecture-notes.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/docs/ai/week2/lecture-notes.mdx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/busm/02-numbers/bodmas.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/docs/busm/02-numbers/bodmas.mdx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/busm/02-numbers/significant-numbers.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/docs/busm/02-numbers/significant-numbers.mdx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/busm/02-numbers/standard-form.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/docs/busm/02-numbers/standard-form.mdx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/busm/05-expressions-and-formulae/subject-of-formula.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/docs/busm/05-expressions-and-formulae/subject-of-formula.mdx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/busm/06-quadratics/completing-the-square.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/docs/busm/06-quadratics/completing-the-square.mdx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/busm/06-quadratics/factorisation.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/docs/busm/06-quadratics/factorisation.mdx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/busm/06-quadratics/using-quadratic-formula.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/docs/busm/06-quadratics/using-quadratic-formula.mdx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/busm/07-simultaneous-equations/solved-algebraically.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/docs/busm/07-simultaneous-equations/solved-algebraically.mdx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/css/custom.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/custom.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+        <option value="CSS File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -41,11 +45,13 @@
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "main",
     "junie.onboarding.icon.badge.shown": "true",
+    "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "prettierjs.PrettierConfiguration.Package": "C:\\Users\\Rakesh Sonea\\AppData\\Roaming\\npm\\node_modules\\prettier",
     "settings.editor.selected.configurable": "CodeWithMe",
     "ts.external.directory.path": "C:\\Program Files\\JetBrains\\WebStorm 2025.1.4.1\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
     "vue.rearranger.settings.migration": "true"
@@ -71,7 +77,7 @@
       <workItem from="1755244162240" duration="2000" />
       <workItem from="1755244189032" duration="3665000" />
       <workItem from="1755256430901" duration="7553000" />
-      <workItem from="1755351441236" duration="4157000" />
+      <workItem from="1755351441236" duration="8951000" />
     </task>
     <servers />
   </component>
