@@ -1945,4 +1945,11 @@ html[data-theme='dark'] .ml-splits {
 @media (prefers-reduced-motion: reduce) {
   .ml-splits * { animation: none !important; transition: none !important; transform: none !important; }
 }
+/*88888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888*/
 
+/* CORRECTED SELECTOR */
+iframe.rpsive {
+  width: 100%;
+  aspect-ratio: 16 / 9; /* This is standard CSS syntax */
+  height: auto; /* Ensure height adjusts automatically */
+}

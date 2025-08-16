@@ -6,9 +6,16 @@
   <component name="ChangeListManager">
     <list default="true" id="0c34d040-4f4a-41b4-862d-6e1d9cd81257" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/ai/week3/lecture-notes.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/docs/ai/week3/lecture-notes.mdx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docusaurus.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/docusaurus.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/ai/week2/lecture-notes.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/docs/ai/week2/lecture-notes.mdx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/busm/02-numbers/bodmas.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/docs/busm/02-numbers/bodmas.mdx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/busm/02-numbers/significant-numbers.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/docs/busm/02-numbers/significant-numbers.mdx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/busm/02-numbers/standard-form.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/docs/busm/02-numbers/standard-form.mdx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/busm/05-expressions-and-formulae/subject-of-formula.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/docs/busm/05-expressions-and-formulae/subject-of-formula.mdx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/busm/06-quadratics/factorisation.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/docs/busm/06-quadratics/factorisation.mdx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/busm/06-quadratics/using-quadratic-formula.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/docs/busm/06-quadratics/using-quadratic-formula.mdx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/busm/07-simultaneous-equations/solved-algebraically.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/docs/busm/07-simultaneous-equations/solved-algebraically.mdx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/css/custom.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/custom.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -27,22 +34,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;CodeWithMe&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "junie.onboarding.icon.badge.shown": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "CodeWithMe",
+    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\WebStorm 2025.1.4.1\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -63,6 +71,7 @@
       <workItem from="1755244162240" duration="2000" />
       <workItem from="1755244189032" duration="3665000" />
       <workItem from="1755256430901" duration="7553000" />
+      <workItem from="1755351441236" duration="4157000" />
     </task>
     <servers />
   </component>
