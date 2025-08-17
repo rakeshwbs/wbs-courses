@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0c34d040-4f4a-41b4-862d-6e1d9cd81257" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/docs/ai/week3/lecture-notes.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/docs/ai/week3/lecture-notes.mdx" afterDir="false" />
-    </list>
+    <list default="true" id="0c34d040-4f4a-41b4-862d-6e1d9cd81257" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -71,7 +69,7 @@
       <workItem from="1755244189032" duration="3665000" />
       <workItem from="1755256430901" duration="7553000" />
       <workItem from="1755351441236" duration="8951000" />
-      <workItem from="1755426422198" duration="6905000" />
+      <workItem from="1755426422198" duration="7506000" />
     </task>
     <servers />
   </component>
