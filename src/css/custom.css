@@ -1953,3 +1953,31 @@ iframe.rpsive {
   aspect-ratio: 16 / 9; /* This is standard CSS syntax */
   height: auto; /* Ensure height adjusts automatically */
 }
+/* =================================================================== */
+/* ====== FIX for NEW UNIQUE TABS ====== */
+/* =================================================================== */
+
+/* --- Active label styles for BOTH new tab components --- */
+#t-reg-L1L2:checked ~ .segmented label[for="t-reg-L1L2"],
+#t-reg-dropout:checked ~ .segmented label[for="t-reg-dropout"],
+#t-reg-earlystop:checked ~ .segmented label[for="t-reg-earlystop"],
+#t-imp-deletion:checked ~ .segmented label[for="t-imp-deletion"],
+#t-imp-imputation:checked ~ .segmented label[for="t-imp-imputation"] {
+  color: var(--ifm-color-emphasis-100, #fff);
+  background: linear-gradient(135deg, color-mix(in srgb, var(--ifm-color-primary, #4f46e5) 85%, #ffffff 0%), var(--ifm-color-primary, #4f46e5));
+  border-color: color-mix(in srgb, var(--ifm-color-primary, #4f46e5) 50%, var(--ifm-color-emphasis-200, #e5e7eb));
+  box-shadow: 0 10px 24px color-mix(in srgb, var(--ifm-color-primary, #4f46e5) 25%, transparent);
+}
+
+/* --- Show the correct panel for the Regularization tabs --- */
+#t-reg-L1L2:checked ~ .panels #p-reg-L1L2,
+#t-reg-dropout:checked ~ .panels #p-reg-dropout,
+#t-reg-earlystop:checked ~ .panels #p-reg-earlystop {
+  display: block;
+}
+
+/* --- Show the correct panel for the Imputation tabs --- */
+#t-imp-deletion:checked ~ .panels #p-imp-deletion,
+#t-imp-imputation:checked ~ .panels #p-imp-imputation {
+  display: block;
+}

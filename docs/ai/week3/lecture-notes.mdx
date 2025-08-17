@@ -9,6 +9,11 @@ sidebar_class_name: icon-lecture
 import ModuleBanner from '@site/src/components/ai/ai-banner';
 import DefinitionBox from '@site/src/components/custom-admonitions/DefinitionBox';
 import CenteredImage from '@site/src/components/image-changer/CenteredImage';
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+
 import {
     KeyPoints,
     KP,
@@ -306,23 +311,7 @@ So, what can you do if you don't want to delete it?
 </div>
 
 
-[//]: # (# Week 3 Lab: Hello World)
 
-[//]: # ()
-[//]: # (To work on this week's exercise, please open the notebook in Google Colab by clicking the badge below.)
-
-[//]: # ()
-[//]: # (<a)
-
-[//]: # (    href="https://colab.research.google.com/github/rakeshwbs/wbs-courses/blob/main/static/notebooks/hello_world.ipynb")
-
-[//]: # (    target="_blank")
-
-[//]: # (>)
-
-[//]: # (    <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>)
-
-[//]: # (</a>)
 ### Fixing Inconsistent Data and Formatting
 
 <section class="dq-card" aria-label="Data Quality Pitfalls">
@@ -734,13 +723,529 @@ So, what can you do if you don't want to delete it?
 </section>
 
 ## Stage 6 Model Training
-### Understanding Data Splits
-Data should be split to ensure that a machine learning model is trained, tuned, and evaluated fairly without bias or overfitting.
 
-- Training set: Used to teach the model patterns from the data.
+<div className="eda-hero">
+    <div className="eda-head">
+        <h2 className="eda-title">The Heart of Machine Learning: Model Training</h2>
+    </div>
+    <p className="eda-sub">
+        Model training is where the magic happens. It's the process of teaching a machine learning model to recognize patterns by showing it a vast amount of data. Think of it as a student studying for an exam; the more examples and practice problems they see, the better they'll perform.
+    </p>
+    <p className="eda-lead">
+        In this section, we'll dive deep into the mechanics of how a model goes from being an uninformed set of parameters to a powerful prediction engine.
+    </p>
+</div>
 
-- Validation set: Used to tune hyperparameters and check performance during training to avoid overfitting.
+---
 
-- Test set: Used only after training to measure the model’s ability to generalize to unseen data.
+## The Training Loop: A Step-by-Step Journey
 
-This separation prevents data leakage and ensures the evaluation reflects real-world performance.
+At its core, training is an iterative process often called the **"Training Loop."** The model makes a guess, gets feedback on how wrong it was, and adjusts itself to make a better guess next time. This cycle repeats thousands, or even millions, of times.
+
+<div className="mlp">
+    <h3 className="mlp-title">The Iterative Training Process</h3>
+    <ol className="mlp-steps">
+        <li className="mlp-card">
+            <h3>Step 1: Initialization</h3>
+            <p>The model's parameters (weights and biases) are initialized with small random values. At this stage, the model is "ignorant" and its predictions are completely random.</p>
+        </li>
+        <li className="mlp-card">
+            <h3>Step 2: Forward Pass</h3>
+            <p>A batch of data is fed into the model. The model processes this data and makes a prediction ($\hat{y}$). This is called the forward pass.</p>
+        </li>
+        <li className="mlp-card">
+            <h3>Step 3: Calculate Loss</h3>
+            <p>The model's prediction ($\hat{y}$) is compared to the actual true label ($y$) using a <strong>Loss Function</strong>. The result is a single number, the "loss," which quantifies how wrong the model was.</p>
+        </li>
+        <li className="mlp-card">
+            <h3>Step 4: Backward Pass (Backpropagation)</h3>
+            <p>Calculus comes into play! The gradients (derivatives) of the loss with respect to each model parameter are calculated. This tells us how much each parameter contributed to the error.</p>
+        </li>
+        <li className="mlp-card">
+            <h3>Step 5: Update Parameters</h3>
+            <p>An <strong>Optimizer</strong> uses the gradients to update the model's parameters. It nudges them in the direction that will decrease the loss. A key parameter here is the <strong>learning rate</strong>.</p>
+        </li>
+        <li className="mlp-card">
+            <h3>Step 6: Repeat</h3>
+            <p>The entire process repeats from Step 2 with a new batch of data. With each iteration, the model's parameters are fine-tuned, and its predictions become progressively more accurate.</p>
+        </li>
+    </ol>
+</div>
+
+---
+
+## Core Components of Training
+
+Two critical components govern the training loop: the **Loss Function** and the **Optimizer**.
+
+<div className="fe-block">
+    <div className="fe-head">
+        <h2 className="fe-title">Loss Functions & Optimizers</h2>
+        <p className="fe-lead">The Guide and The Driver of Learning</p>
+        <p className="fe-text">The Loss Function acts as a guide, telling the model how far it is from the goal. The Optimizer is the driver, using this guidance to steer the model's parameters in the right direction.</p>
+    </div>
+    <div className="fe-grid">
+        <div className="fe-card reveal">
+            <span className="fe-badge">1</span>
+            <h3 className="fe-card-title">Loss Functions (Cost Functions)</h3>
+            <p className="fe-card-text">Measures the "error" or "badness" of a model's prediction.</p>
+            <ul className="fe-list">
+                <li><strong>Mean Squared Error (MSE):</strong> Commonly used for regression tasks. It penalizes larger errors more heavily. Formula: $ \frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2 $</li>
+                <li><strong>Cross-Entropy Loss:</strong> The standard for classification tasks. It measures the divergence between the predicted probability distribution and the true one.</li>
+            </ul>
+        </div>
+        <div className="fe-card reveal">
+            <span className="fe-badge">2</span>
+            <h3 className="fe-card-title">Optimizers</h3>
+            <p className="fe-card-text">Algorithms that update the model's parameters to minimize the loss function.</p>
+            <ul className="fe-list">
+                <li><strong>Stochastic Gradient Descent (SGD):</strong> The classic, simple optimizer. Updates parameters based on the gradient of a single data sample or a small batch.</li>
+                <li><strong>Adam (Adaptive Moment Estimation):</strong> A very popular and effective optimizer that adapts the learning rate for each parameter, often leading to faster convergence.</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+---
+
+## The Engine: Gradient Descent
+
+How does the optimizer *know* how to update the weights? The answer is **Gradient Descent**.
+
+<div class="q-card">
+    <p>Imagine you're lost on a mountain in a thick fog, and you want to get to the lowest valley. You can't see the valley, but you can feel the slope of the ground beneath your feet. The most logical strategy is to take a step in the steepest downhill direction. You repeat this process, and eventually, you'll reach the bottom. This is exactly what Gradient Descent does.</p>
+</div>
+
+- **The Mountain**: The "loss landscape," where height represents the loss value for a given set of weights.
+- **Your Position**: The current values of the model's weights.
+- **The Steepest Downhill Direction**: The negative of the gradient ($-\nabla L$).
+- **The Size of Your Step**: The **learning rate ($\alpha$)**.
+
+The update rule is simple yet powerful:
+
+$$\text{New Weight} = \text{Old Weight} - \alpha \times \text{Gradient}$$
+
+<div className="image-card">
+
+    <figcaption className="image-card__caption">Visualization of Gradient Descent finding the minimum of a loss function.</figcaption>
+</div>
+
+---
+
+## Training Terminology
+
+You'll frequently encounter these terms when discussing model training.
+
+<div className="cap-grid-3x2">
+    <div className="cap-card">
+        <h4>Epoch</h4>
+        <p>One complete pass through the <strong>entire</strong> training dataset. A model typically trains for multiple epochs.</p>
+    </div>
+    <div className="cap-card">
+        <h4>Batch Size</h4>
+        <p>The number of training examples utilized in one iteration. Instead of processing the entire dataset at once, we break it into smaller batches.</p>
+    </div>
+    <div className="cap-card">
+        <h4>Iteration</h4>
+        <p>A single update of the model's parameters. It corresponds to processing one batch of data. If your dataset has 1000 examples and your batch size is 100, one epoch will have 10 iterations.</p>
+    </div>
+</div>
+
+<div className="uni-card">
+    <div className="uni-head">
+        <h3>Visualizing Training Progress</h3>
+        <p className="uni-kicker">Typically, the model's loss decreases as it trains over multiple epochs.</p>
+    </div>
+    <div className="uni-demo">
+        <figcaption>Model Loss per Epoch</figcaption>
+        <div className="bars">
+            <div className="bar" style={{"--h": 90}} data-label="Epoch 1" data-value="0.85"></div>
+            <div className="bar" style={{"--h": 65}} data-label="Epoch 2" data-value="0.52"></div>
+            <div className="bar" style={{"--h": 40}} data-label="Epoch 3" data-value="0.28"></div>
+            <div className="bar" style={{"--h": 25}} data-label="Epoch 4" data-value="0.15"></div>
+        </div>
+    </div>
+</div>
+
+---
+
+## Common Pitfalls: Overfitting & Underfitting
+
+The goal of training is not just to perform well on the data it has seen, but to **generalize** to new, unseen data. Two common failures prevent this.
+
+<div className="dq-card">
+    <h3>The Generalization Challenge</h3>
+    <p>A model's true performance is measured on data it has never encountered before. This is why we split our data into training, validation, and test sets.</p>
+    <ul className="dq-list">
+        <li className="reveal">
+            <strong>Underfitting (High Bias)</strong>
+            <ul className="dq-sub">
+                <li>The model is too simple to capture the underlying patterns in the data.</li>
+                <li>It performs poorly on both the training data and the test data.</li>
+                <li><strong>Analogy:</strong> A student who didn't study at all and fails the exam.</li>
+            </ul>
+        </li>
+        <li className="reveal">
+            <strong>Overfitting (High Variance)</strong>
+            <ul className="dq-sub">
+                <li>The model learns the training data too well, including its noise and random fluctuations.</li>
+                <li>It performs exceptionally well on the training data but fails miserably on new, unseen data.</li>
+                <li><strong>Analogy:</strong> A student who memorizes the answers to the practice questions but doesn't understand the concepts, so they fail the actual exam.</li>
+            </ul>
+        </li>
+    </ul>
+</div>
+
+
+
+---
+
+## Solutions: Regularization Techniques
+
+---
+sidebar_label: 'Model Training'
+title: 'The Core of Learning: Model Training'
+---
+
+<div className="eda-hero">
+    <div className="eda-head">
+        <h2 className="eda-title">The Heart of Machine Learning: Model Training</h2>
+    </div>
+    <p className="eda-sub">
+        Model training is where the magic happens. It's the process of teaching a machine learning model to recognize patterns by showing it a vast amount of data. Think of it as a student studying for an exam; the more examples and practice problems they see, the better they'll perform.
+    </p>
+    <p className="eda-lead">
+        In this section, we'll dive deep into the mechanics of how a model goes from being an uninformed set of parameters to a powerful prediction engine.
+    </p>
+</div>
+
+---
+
+## The Training Loop: A Step-by-Step Journey
+
+At its core, training is an iterative process often called the **"Training Loop."** The model makes a guess, gets feedback on how wrong it was, and adjusts itself to make a better guess next time. This cycle repeats thousands, or even millions, of times.
+
+<div className="mlp">
+    <h3 className="mlp-title">The Iterative Training Process</h3>
+    <ol className="mlp-steps">
+        <li className="mlp-card">
+            <h3>Step 1: Initialization</h3>
+            <p>The model's parameters (weights and biases) are initialized with small random values. At this stage, the model is "ignorant" and its predictions are completely random.</p>
+        </li>
+        <li className="mlp-card">
+            <h3>Step 2: Forward Pass</h3>
+            <p>A batch of data is fed into the model. The model processes this data and makes a prediction ($\hat{y}$). This is called the forward pass.</p>
+        </li>
+        <li className="mlp-card">
+            <h3>Step 3: Calculate Loss</h3>
+            <p>The model's prediction ($\hat{y}$) is compared to the actual true label ($y$) using a <strong>Loss Function</strong>. The result is a single number, the "loss," which quantifies how wrong the model was.</p>
+        </li>
+        <li className="mlp-card">
+            <h3>Step 4: Backward Pass (Backpropagation)</h3>
+            <p>Calculus comes into play! The gradients (derivatives) of the loss with respect to each model parameter are calculated. This tells us how much each parameter contributed to the error.</p>
+        </li>
+        <li className="mlp-card">
+            <h3>Step 5: Update Parameters</h3>
+            <p>An <strong>Optimizer</strong> uses the gradients to update the model's parameters. It nudges them in the direction that will decrease the loss. A key parameter here is the <strong>learning rate</strong>.</p>
+        </li>
+        <li className="mlp-card">
+            <h3>Step 6: Repeat</h3>
+            <p>The entire process repeats from Step 2 with a new batch of data. With each iteration, the model's parameters are fine-tuned, and its predictions become progressively more accurate.</p>
+        </li>
+    </ol>
+</div>
+
+---
+
+## Core Components of Training
+
+Two critical components govern the training loop: the **Loss Function** and the **Optimizer**.
+
+<div className="fe-block">
+    <div className="fe-head">
+        <h2 className="fe-title">Loss Functions & Optimizers</h2>
+        <p className="fe-lead">The Guide and The Driver of Learning</p>
+        <p className="fe-text">The Loss Function acts as a guide, telling the model how far it is from the goal. The Optimizer is the driver, using this guidance to steer the model's parameters in the right direction.</p>
+    </div>
+    <div className="fe-grid">
+        <div className="fe-card reveal">
+            <span className="fe-badge">1</span>
+            <h3 className="fe-card-title">Loss Functions (Cost Functions)</h3>
+            <p className="fe-card-text">Measures the "error" or "badness" of a model's prediction.</p>
+            <ul className="fe-list">
+                <li><strong>Mean Squared Error (MSE):</strong> Commonly used for regression tasks. It penalizes larger errors more heavily. Formula: $ \frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2 $</li>
+                <li><strong>Cross-Entropy Loss:</strong> The standard for classification tasks. It measures the divergence between the predicted probability distribution and the true one.</li>
+            </ul>
+        </div>
+        <div className="fe-card reveal">
+            <span className="fe-badge">2</span>
+            <h3 className="fe-card-title">Optimizers</h3>
+            <p className="fe-card-text">Algorithms that update the model's parameters to minimize the loss function.</p>
+            <ul className="fe-list">
+                <li><strong>Stochastic Gradient Descent (SGD):</strong> The classic, simple optimizer. Updates parameters based on the gradient of a single data sample or a small batch.</li>
+                <li><strong>Adam (Adaptive Moment Estimation):</strong> A very popular and effective optimizer that adapts the learning rate for each parameter, often leading to faster convergence.</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+---
+
+## The Engine: Gradient Descent
+
+How does the optimizer *know* how to update the weights? The answer is **Gradient Descent**.
+
+<div class="q-card">
+    <p>Imagine you're lost on a mountain in a thick fog, and you want to get to the lowest valley. You can't see the valley, but you can feel the slope of the ground beneath your feet. The most logical strategy is to take a step in the steepest downhill direction. You repeat this process, and eventually, you'll reach the bottom. This is exactly what Gradient Descent does.</p>
+</div>
+
+- **The Mountain**: The "loss landscape," where height represents the loss value for a given set of weights.
+- **Your Position**: The current values of the model's weights.
+- **The Steepest Downhill Direction**: The negative of the gradient ($-\nabla L$).
+- **The Size of Your Step**: The **learning rate ($\alpha$)**.
+
+The update rule is simple yet powerful:
+
+$$\text{New Weight} = \text{Old Weight} - \alpha \times \text{Gradient}$$
+
+<div className="image-card">
+
+    <figcaption className="image-card__caption">Visualization of Gradient Descent finding the minimum of a loss function.</figcaption>
+</div>
+
+---
+
+## Training Terminology
+
+You'll frequently encounter these terms when discussing model training.
+
+<div className="cap-grid-3x2">
+    <div className="cap-card">
+        <h4>Epoch</h4>
+        <p>One complete pass through the <strong>entire</strong> training dataset. A model typically trains for multiple epochs.</p>
+    </div>
+    <div className="cap-card">
+        <h4>Batch Size</h4>
+        <p>The number of training examples utilized in one iteration. Instead of processing the entire dataset at once, we break it into smaller batches.</p>
+    </div>
+    <div className="cap-card">
+        <h4>Iteration</h4>
+        <p>A single update of the model's parameters. It corresponds to processing one batch of data. If your dataset has 1000 examples and your batch size is 100, one epoch will have 10 iterations.</p>
+    </div>
+</div>
+
+<div className="uni-card">
+    <div className="uni-head">
+        <h3>Visualizing Training Progress</h3>
+        <p className="uni-kicker">Typically, the model's loss decreases as it trains over multiple epochs.</p>
+    </div>
+    <div className="uni-demo">
+        <figcaption>Model Loss per Epoch</figcaption>
+        <div className="bars">
+            <div className="bar" style={{"--h": 90}} data-label="Epoch 1" data-value="0.85"></div>
+            <div className="bar" style={{"--h": 65}} data-label="Epoch 2" data-value="0.52"></div>
+            <div className="bar" style={{"--h": 40}} data-label="Epoch 3" data-value="0.28"></div>
+            <div className="bar" style={{"--h": 25}} data-label="Epoch 4" data-value="0.15"></div>
+        </div>
+    </div>
+</div>
+
+---
+
+## Common Pitfalls: Overfitting & Underfitting
+
+The goal of training is not just to perform well on the data it has seen, but to **generalize** to new, unseen data. Two common failures prevent this.
+
+<div className="dq-card">
+    <h3>The Generalization Challenge</h3>
+    <p>A model's true performance is measured on data it has never encountered before. This is why we split our data into training, validation, and test sets.</p>
+    <ul className="dq-list">
+        <li className="reveal">
+            <strong>Underfitting (High Bias)</strong>
+            <ul className="dq-sub">
+                <li>The model is too simple to capture the underlying patterns in the data.</li>
+                <li>It performs poorly on both the training data and the test data.</li>
+                <li><strong>Analogy:</strong> A student who didn't study at all and fails the exam.</li>
+            </ul>
+        </li>
+        <li className="reveal">
+            <strong>Overfitting (High Variance)</strong>
+            <ul className="dq-sub">
+                <li>The model learns the training data too well, including its noise and random fluctuations.</li>
+                <li>It performs exceptionally well on the training data but fails miserably on new, unseen data.</li>
+                <li><strong>Analogy:</strong> A student who memorizes the answers to the practice questions but doesn't understand the concepts, so they fail the actual exam.</li>
+            </ul>
+        </li>
+    </ul>
+</div>
+
+
+
+---
+
+## Solutions: Regularization Techniques
+
+**Regularization** refers to a set of techniques used to prevent overfitting by discouraging the model from becoming too complex.
+
+<div className="ml-tabs">
+    <input type="radio" id="t-reg-L1L2" name="regularization-group" defaultChecked />
+    <input type="radio" id="t-reg-dropout" name="regularization-group" />
+    <input type="radio" id="t-reg-earlystop" name="regularization-group" />
+
+    <div className="segmented">
+        <label htmlFor="t-reg-L1L2">L1 & L2 Regularization</label>
+        <label htmlFor="t-reg-dropout">Dropout</label>
+        <label htmlFor="t-reg-earlystop">Early Stopping</label>
+    </div>
+
+    <div className="panels">
+        <div id="p-reg-L1L2" className="panel">
+            <h3>L1 (Lasso) & L2 (Ridge) Regularization</h3>
+            <p>These techniques add a penalty term to the loss function based on the magnitude of the model's weights, discouraging overly complex models.</p>
+            <ul>
+                <li><strong>L2 Regularization (Ridge):</strong> Adds a penalty proportional to the <em>square</em> of the weights' magnitude ($\lambda \sum w_i^2$). It forces weights toward zero but rarely makes them exactly zero. This is the most common form of regularization.</li>
+                <li><strong>L1 Regularization (Lasso):</strong> Adds a penalty proportional to the <em>absolute value</em> of the weights' magnitude ($\lambda \sum |w_i|$). This can shrink some weights to be exactly zero, which makes it useful for feature selection.</li>
+            </ul>
+        </div>
+        <div id="p-reg-dropout" className="panel">
+            <h3>Dropout</h3>
+            <p>A technique used primarily in neural networks. During each training iteration, a random fraction of neurons are temporarily "dropped out" or ignored.</p>
+            <ul>
+                <li>This forces the network to learn more robust and redundant features, as it cannot rely on any single neuron.</li>
+                <li>It's like making a team work on a project where, on any given day, some members might be absent. Everyone has to become more capable and less reliant on others.</li>
+                <li>During testing or inference, the full network is used, but the weights are scaled down to account for the dropout during training.</li>
+            </ul>
+        </div>
+        <div id="p-reg-earlystop" className="panel">
+            <h3>Early Stopping</h3>
+            <p>A simple but highly effective form of regularization. We monitor the model's performance on a separate validation dataset during the training process.</p>
+            <ul>
+                <li>Training is halted as soon as the performance on the validation set stops improving and begins to degrade, even if the training loss is still decreasing.</li>
+                <li>This effectively stops the training process right before the model starts to overfit.</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+---
+
+## Hyperparameter Tuning: Finding the Right Settings ⚙️
+
+Before training begins, we must set several "dials" or configurations that control the learning process itself. These are called **hyperparameters**. Unlike model parameters (the weights), they are not learned from the data. Finding the optimal set of hyperparameters is crucial for training a high-performing model.
+
+<div className="fe-block">
+    <div className="fe-head">
+        <h2 className="fe-title">Key Hyperparameters & Tuning Strategies</h2>
+        <p className="fe-lead">Common hyperparameters include the learning rate ($\alpha$), the regularization strength ($\lambda$), the number of epochs, and the batch size.</p>
+    </div>
+    <div className="fe-grid">
+        <div className="fe-card reveal">
+            <span className="fe-badge">1</span>
+            <h3 className="fe-card-title">Grid Search</h3>
+            <p className="fe-card-text">Systematically trains a model for every possible combination of a predefined set of hyperparameter values. It's exhaustive but can be very slow.</p>
+            <ul className="fe-list">
+                <li><strong>Example:</strong> Try learning rates of [0.1, 0.01, 0.001] and batch sizes of [32, 64]. Grid search will train 3x2 = 6 models.</li>
+            </ul>
+        </div>
+        <div className="fe-card reveal">
+            <span className="fe-badge">2</span>
+            <h3 className="fe-card-title">Random Search</h3>
+            <p className="fe-card-text">Instead of trying every combination, it randomly samples a fixed number of combinations from the hyperparameter space. It is often more efficient than grid search.</p>
+            <ul className="fe-list">
+                <li>It's surprisingly effective because often only a few hyperparameters truly matter for model performance.</li>
+            </ul>
+        </div>
+        <div className="fe-card reveal">
+            <span className="fe-badge">3</span>
+            <h3 className="fe-card-title">Advanced Methods</h3>
+            <p className="fe-card-text">More sophisticated techniques like Bayesian Optimization build a probabilistic model to intelligently choose the next best set of hyperparameters to try.</p>
+            <ul className="fe-list">
+                <li>These methods can find better results in fewer iterations than grid or random search.</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+---
+
+## Validation and Cross-Validation 📊
+
+How do we tune hyperparameters without biasing our final evaluation? We can't use the test set, as that would be "cheating." The solution is to create a **validation set**.
+
+<div class="ml-splits" style={{"--ml-accent": "#00d3a7", "--ml-accent-2": "#6aa9ff"}}>
+    <h2 class="ml-title">The Three-Way Data Split</h2>
+    <div class="ml-grid">
+        <div class="ml-card">
+            <h4 class="kicker">Training Set (~70%)</h4>
+            <p>The bulk of the data. The model learns the underlying patterns by training exclusively on this set.</p>
+        </div>
+        <div class="ml-card">
+            <h4 class="kicker">Validation Set (~15%)</h4>
+            <p>Used to evaluate the model during hyperparameter tuning and for checks like Early Stopping. The model doesn't train on this data.</p>
+        </div>
+        <div class="ml-card">
+            <h4 class="kicker">Test Set (~15%)</h4>
+            <p>Held back until the very end. It provides the final, unbiased evaluation of how well the trained model generalizes to new, unseen data.</p>
+        </div>
+    </div>
+</div>
+
+### K-Fold Cross-Validation
+
+When you have a smaller dataset, splitting it three ways can leave you with too little data for training. **K-Fold Cross-Validation** is a more robust technique.
+
+<div className="dq-card">
+    <h3>The K-Fold Process</h3>
+    <p>This method ensures that every data point gets to be in a validation set exactly once.</p>
+    <ul className="dq-list">
+        <li className="reveal">
+            <strong>Split:</strong> The training data is split into 'K' equal-sized folds (e.g., K=5 or K=10).
+        </li>
+        <li className="reveal">
+            <strong>Iterate:</strong> A loop runs K times. In each iteration, one fold is used as the validation set, and the remaining K-1 folds are used for training.
+        </li>
+        <li className="reveal">
+            <strong>Average:</strong> The performance metric from each of the K iterations is averaged to produce a single, more reliable performance estimate.
+        </li>
+    </ul>
+</div>
+---
+## Evaluation Metrics: Measuring Success ✅
+
+While the model trains to minimize a **loss function**, we typically use more intuitive **evaluation metrics** to judge its real-world performance. The best metric depends on the type of problem you are solving.
+
+<div className="concept-card">
+    <h3>Classification Metrics (Is it A or B?)</h3>
+</div>
+
+| Metric | Formula | Best for... |
+| :--- | :--- | :--- |
+| **Accuracy** | `(TP + TN) / Total` | Balanced datasets where all classes are equally important. |
+| **Precision** | `TP / (TP + FP)` | Minimizing False Positives. (e.g., spam detection). |
+| **Recall** | `TP / (TP + FN)` | Minimizing False Negatives. (e.g., medical diagnosis). |
+| **F1-Score**| `2 * (Prec * Rec) / (Prec + Rec)` | Finding a balance between Precision and Recall. |
+
+*Where TP=True Positive, TN=True Negative, FP=False Positive, FN=False Negative.*
+
+<br/>
+<div className="concept-card">
+    <h3>Regression Metrics (How much/many?)</h3>
+</div>
+
+| Metric | Formula | Interpretation |
+| :--- | :--- | :--- |
+| **MAE** | $\frac{1}{n} \sum y_i - \hat{y}_i$ | The average absolute error, in the original units of the target. |
+| **MSE** | $\frac{1}{n} \sum (y_i - \hat{y}_i)^2$ | Average squared error. Punishes large errors more heavily. |
+| **R² Score** | $1 - \frac{\sum (y_i - \hat{y}_i)^2}{\sum (y_i - \bar{y})^2}$ | Proportion of variance in the target that is predictable from the features. A value of 1.0 is a perfect prediction. |
+
+
+# Week 3 Lab: Practical Example
+
+To work on this week's exercise, please open the notebook in Google Colab by clicking the badge below.
+
+<a
+    href="https://colab.research.google.com/github/rakeshwbs/wbs-courses/blob/main/static/notebooks/hello_world.ipynb"
+    target="_blank"
+>
+    <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
+</a>
