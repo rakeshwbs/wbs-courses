@@ -1981,3 +1981,32 @@ iframe.rpsive {
 #t-imp-imputation:checked ~ .panels #p-imp-imputation {
   display: block;
 }
+/*########################### Expected Output#######################################*/
+/* Expected Output Styling */
+.expected-output {
+  background-color: #1e1e1e;   /* Dark terminal-like background */
+  color: #d4d4d4;             /* Soft grey text */
+  font-family: 'Fira Code', 'Courier New', monospace;
+  font-size: 0.9rem;
+  padding: 1rem 1.2rem;
+  border-radius: 8px;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+  white-space: pre-wrap;       /* Preserve spacing & line breaks */
+  box-shadow: inset 0 0 6px rgba(0,0,0,0.8), 0 0 8px rgba(0,0,0,0.4);
+  border-left: 5px solid #4ec9b0; /* Accent color (teal like in VSCode) */
+}
+
+/* Optional: mimic typing effect (animated cursor) */
+.expected-output::after {
+  content: "█";
+  animation: blink 1s infinite;
+  color: #4ec9b0;
+  margin-left: 4px;
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+/************************************************************************************************/
